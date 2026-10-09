@@ -1,0 +1,59 @@
+name: Morning report
+
+on:
+  schedule:
+    # 04:00 UTC = 07:00 EEST (vasarą) / 06:00 EET (žiemą)
+    # Žiemą galima pakeisti į 05:00 UTC, kad ateitų 07:00
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Data (YYYY-MM-DD), tuščia = šiandien"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  energijos-brifingas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Priklausomybės
+        run: pip install -r requirements.txt
+
+      - name: Energijos brifingas
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: |
+          DATE_ARG="${{ github.event.inputs.date }}"
+          if [ -z "$DATE_ARG" ]; then
+            python "scripts/kainų brifingas.py" --json > data/energijos-brifingas.json
+          else
+            python "scripts/kainų brifingas.py" "$DATE_ARG" --json > data/energijos-brifingas.json
+          fi
+
+      - name: Tekstinis brifingas (logui)
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: |
+          DATE_ARG="${{ github.event.inputs.date }}"
+          if [ -z "$DATE_ARG" ]; then
+            python "scripts/kainų brifingas.py"
+          else
+            python "scripts/kainų brifingas.py" "$DATE_ARG"
+          fi
+
+      - name: Išsaugoti rezultatą
+        run: |
+          git config user.name "Morning Report Bot"
+          git config user.email "bot@enerconsult.lt"
+          git add data/energijos-brifingas.json
+          git diff --cached --quiet || git commit -m "Energijos brifingas $(date +%Y-%m-%d)"
+          git push
