@@ -99,15 +99,37 @@ def lt_utc_offset(dt_utc: datetime) -> int:
 
 # ─── ENTSOE API ──────────────────────────────────────────────────────────────
 
+def cet_boundary_hour(dt_utc: datetime) -> int:
+    """CET/CEST pristatymo dienos riba UTC: 22 (CEST vasarą) arba 23 (CET žiemą)."""
+    y = dt_utc.year
+    mar31 = datetime(y, 3, 31)
+    last_sun_mar = mar31 - timedelta(days=(mar31.weekday() + 1) % 7)
+    oct31 = datetime(y, 10, 31)
+    last_sun_oct = oct31 - timedelta(days=(oct31.weekday() + 1) % 7)
+    if last_sun_mar.replace(hour=1) <= dt_utc < last_sun_oct.replace(hour=1):
+        return 22  # CEST
+    return 23  # CET
+
+
 def get_period(target_date: datetime) -> tuple:
-    """Grąžina (periodStart, periodEnd) apimant visas 24 val. Lietuvos laiku."""
-    # Nustatome, koks UTC offset galioja target_date vidurnaktį
-    midnight_utc_guess = datetime(target_date.year, target_date.month, target_date.day)
-    offset = lt_utc_offset(midnight_utc_guess)
-    # 00:00 LT = (24 - offset):00 UTC prieš dieną
-    start_hour = 24 - offset  # 21 kai EEST, 22 kai EET
+    """Grąžina (periodStart, periodEnd) apimant visas 24 val. Lietuvos laiku.
+
+    ENTSO-E API grąžina duomenis pagal CET/CEST pristatymo dienas.
+    periodStart prasideda nuo LT vidurnakčio UTC (ankstesnis nei CET riba),
+    o periodEnd baigiasi CET/CEST pristatymo dienos riba, kad API tikrai
+    grąžintų pilnus tikslinės dienos duomenis.
+    """
+    midnight_utc = datetime(target_date.year, target_date.month, target_date.day)
+    lt_offset = lt_utc_offset(midnight_utc)
+    cet_bnd = cet_boundary_hour(midnight_utc)
+
+    # periodStart: LT vidurnaktis (21:00 EEST / 22:00 EET) arba CET riba — kas ankščiau
+    start_hour = min(24 - lt_offset, cet_bnd)
     period_start = (target_date - timedelta(days=1)).strftime("%Y%m%d") + f"{start_hour:02d}00"
-    period_end = target_date.strftime("%Y%m%d") + f"{start_hour:02d}00"
+
+    # periodEnd: CET/CEST pristatymo dienos pabaiga (22:00 CEST / 23:00 CET)
+    period_end = target_date.strftime("%Y%m%d") + f"{cet_bnd:02d}00"
+
     return period_start, period_end
 
 
