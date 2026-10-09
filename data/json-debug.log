@@ -1,0 +1,42 @@
+Renku duomenis: 2026-10-09 (penktadienis)...
+  → Kainos...
+    LT...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +1 val. → total 1 (ps=202610072200 pe=202610082200)
+1 val.
+    LV...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +1 val. → total 1 (ps=202610072200 pe=202610082200)
+1 val.
+    PL...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T22:00Z
+    D1 TS1: 2026-10-08T22:00Z→2026-10-09T22:00Z
+    D1 parsed: 23 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +1 val. → total 24 (ps=202610072200 pe=202610082200)
+24 val.
+    SE4...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T22:00Z
+    D1 parsed: 23 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +1 val. → total 24 (ps=202610072200 pe=202610082200)
+24 val.
+  → Tarpsisteminiai srautai...
+    LT→SE4...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +0 val. → total 0 (ps=202610072200 pe=202610082200)
+0 val.
+    SE4→LT...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +0 val. → total 0 (ps=202610072200 pe=202610082200)
+0 val.
+    LT→PL...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +0 val. → total 0 (ps=202610072200 pe=202610082200)
+0 val.
+    PL→LT...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +0 val. → total 0 (ps=202610072200 pe=202610082200)
+0 val.
+    LT→LV...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +0 val. → total 0 (ps=202610072200 pe=202610082200)
+0 val.
+    LV→LT...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +0 val. → total 0 (ps=202610072200 pe=202610082200)
+0 val.
+  → LT vartojimas/gamyba...
+    Vartojimas...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
+    D2 parsed: +0 val. → total 0 (ps=202610072200 pe=202610082200)
+0 val.
+    Gamyba pagal tipą... 0 val.
+  → Analizė...
