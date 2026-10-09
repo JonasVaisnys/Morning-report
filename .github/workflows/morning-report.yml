@@ -39,21 +39,23 @@ jobs:
             python "scripts/kainų brifingas.py" "$DATE_ARG" --json > data/energijos-brifingas.json
           fi
 
-      - name: Tekstinis brifingas (logui)
+      - name: Tekstinis brifingas + debug
         env:
           ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
         run: |
           DATE_ARG="${{ github.event.inputs.date }}"
           if [ -z "$DATE_ARG" ]; then
-            python "scripts/kainų brifingas.py"
+            python "scripts/kainų brifingas.py" 2> data/debug.log
           else
-            python "scripts/kainų brifingas.py" "$DATE_ARG"
+            python "scripts/kainų brifingas.py" "$DATE_ARG" 2> data/debug.log
           fi
+          echo "--- Debug log ---"
+          cat data/debug.log
 
       - name: Išsaugoti rezultatą
         run: |
           git config user.name "Morning Report Bot"
           git config user.email "bot@enerconsult.lt"
-          git add data/energijos-brifingas.json
+          git add data/energijos-brifingas.json data/debug.log
           git diff --cached --quiet || git commit -m "Energijos brifingas $(date +%Y-%m-%d)"
           git push

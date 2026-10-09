@@ -188,6 +188,41 @@ def fetch_prices(domain: str, target_date: datetime) -> dict:
     })
     if root is None:
         return {}
+
+    # Debug: XML struktūros analizė
+    ns = {"ns": "urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:3"}
+    ts_list = root.findall("ns:TimeSeries", ns)
+    zone_name = [k for k, v in ZONES.items() if v == domain]
+    zone_label = zone_name[0] if zone_name else domain[:12]
+    print(f"  DEBUG {zone_label}: root tag={root.tag}, {len(ts_list)} TimeSeries", file=sys.stderr)
+
+    # Jei namespace nesutampa, bandome be namespace
+    if not ts_list:
+        ts_list_noNS = root.findall("TimeSeries")
+        print(f"  DEBUG {zone_label}: be NS: {len(ts_list_noNS)} TimeSeries", file=sys.stderr)
+        # Parodome root namespace
+        print(f"  DEBUG {zone_label}: root.tag = '{root.tag}'", file=sys.stderr)
+
+    for i, ts in enumerate(ts_list):
+        periods = ts.findall("ns:Period", ns)
+        for j, period in enumerate(periods):
+            start_el = period.find("ns:timeInterval/ns:start", ns)
+            end_el = period.find("ns:timeInterval/ns:end", ns)
+            res_el = period.find("ns:resolution", ns)
+            pts = period.findall("ns:Point", ns)
+            start_t = start_el.text if start_el is not None else "MISSING"
+            end_t = end_el.text if end_el is not None else "MISSING"
+            res_t = res_el.text if res_el is not None else "MISSING"
+            print(f"    TS{i}.P{j}: start={start_t} end={end_t} res={res_t} points={len(pts)}", file=sys.stderr)
+
+            # Pirmųjų 3 taškų detalės
+            for pt in pts[:3]:
+                pos_el = pt.find("ns:position", ns)
+                price_el = pt.find("ns:price.amount", ns)
+                pos_v = pos_el.text if pos_el is not None else "?"
+                price_v = price_el.text if price_el is not None else "MISSING"
+                print(f"      pos={pos_v} price.amount={price_v}", file=sys.stderr)
+
     return parse_timeseries(root, target_date, "price.amount")
 
 
