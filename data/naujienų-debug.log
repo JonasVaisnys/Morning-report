@@ -1,0 +1,16 @@
+📡 Naujienų brifingas 2026-10-09
+  ⚠  Energetika.lt: HTTP Error 404: Not Found
+  ⚠  Litgrid: syntax error: line 1, column 0
+  ⚠  VERT: HTTP Error 403: Forbidden
+  ⚠  ESO: HTTP Error 403: Forbidden
+  ⚠  LRT verslas: HTTP Error 404: Not Found
+/home/runner/work/Morning-report/Morning-report/scripts/naujienų brifingas.py:61: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
+  el = item.find(tag) or item.find(f"atom:{tag}", ns)
+  ✓ Delfi verslas: 0
+  ✓ 15min verslas: 0
+  ✓ Verslo žinios: 0
+  ⚠  Vakarų ekspresas: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1010)>
+
+  Iš viso: 0, energetikos: 0
+
+✅ Išsaugota → /home/runner/work/Morning-report/Morning-report/scripts/../data/naujienų-brifingas.md
