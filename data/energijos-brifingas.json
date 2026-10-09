@@ -4,7 +4,7 @@
   "zonos": {
     "LT": {
       "valandinės": {
-        "00:00": null,
+        "00:00": 27.19,
         "01:00": null,
         "02:00": null,
         "03:00": null,
@@ -30,17 +30,17 @@
         "23:00": null
       },
       "statistika": {
-        "avg": null,
-        "min": null,
-        "max": null,
-        "min_hour": null,
-        "max_hour": null,
-        "spread": null
+        "avg": 27.19,
+        "min": 27.19,
+        "max": 27.19,
+        "min_hour": "00:00",
+        "max_hour": "00:00",
+        "spread": 0.0
       }
     },
     "LV": {
       "valandinės": {
-        "00:00": null,
+        "00:00": 27.19,
         "01:00": null,
         "02:00": null,
         "03:00": null,
@@ -66,17 +66,17 @@
         "23:00": null
       },
       "statistika": {
-        "avg": null,
-        "min": null,
-        "max": null,
-        "min_hour": null,
-        "max_hour": null,
-        "spread": null
+        "avg": 27.19,
+        "min": 27.19,
+        "max": 27.19,
+        "min_hour": "00:00",
+        "max_hour": "00:00",
+        "spread": 0.0
       }
     },
     "PL": {
       "valandinės": {
-        "00:00": null,
+        "00:00": 108.11,
         "01:00": 86.75,
         "02:00": 83.7,
         "03:00": 79.03,
@@ -102,7 +102,7 @@
         "23:00": 119.06
       },
       "statistika": {
-        "avg": 81.96,
+        "avg": 83.05,
         "min": -8.98,
         "max": 170.4,
         "min_hour": "15:00",
@@ -112,7 +112,7 @@
     },
     "SE4": {
       "valandinės": {
-        "00:00": null,
+        "00:00": 27.19,
         "01:00": 24.31,
         "02:00": 19.87,
         "03:00": 15.77,
@@ -138,7 +138,7 @@
         "23:00": 67.87
       },
       "statistika": {
-        "avg": 40.52,
+        "avg": 39.96,
         "min": 13.61,
         "max": 114.93,
         "min_hour": "05:00",
@@ -147,42 +147,97 @@
       }
     }
   },
-  "lt_klasifikacija": null,
+  "lt_klasifikacija": {
+    "tipas": "Summer Weekday",
+    "pasitikėjimas": "Žemas",
+    "kreivė": "M formos. Vidutinis ryto pikas. Gilus saulės nuosmukis. Dominuoja vakaro pikas.",
+    "anomalijos": [
+      {
+        "intervalas": "Naktis",
+        "valandos": "00–05",
+        "šiandien": 27.2,
+        "nuoroda": 51.2,
+        "nuokrypis": -46.9
+      },
+      {
+        "intervalas": "Ryto kilimas",
+        "valandos": "06",
+        "šiandien": 0,
+        "nuoroda": 61.5,
+        "nuokrypis": -100.0
+      },
+      {
+        "intervalas": "Ryto pikas",
+        "valandos": "07–09",
+        "šiandien": 0,
+        "nuoroda": 80.1,
+        "nuokrypis": -100.0
+      },
+      {
+        "intervalas": "Vidurdienio dub.",
+        "valandos": "10–15",
+        "šiandien": 0,
+        "nuoroda": 38.3,
+        "nuokrypis": -100.0
+      },
+      {
+        "intervalas": "Popietės kilimas",
+        "valandos": "16–17",
+        "šiandien": 0,
+        "nuoroda": 40.5,
+        "nuokrypis": -100.0
+      },
+      {
+        "intervalas": "Vakaro pikas",
+        "valandos": "18–21",
+        "šiandien": 0,
+        "nuoroda": 105.1,
+        "nuokrypis": -100.0
+      },
+      {
+        "intervalas": "Vėlus vakaras",
+        "valandos": "22–23",
+        "šiandien": 0,
+        "nuoroda": 94.8,
+        "nuokrypis": -100.0
+      }
+    ]
+  },
   "lt_intervalai": {
     "Naktis": {
       "valandos": "00–05",
-      "kaina": null,
-      "nuoroda": null
+      "kaina": 27.19,
+      "nuoroda": 51.2
     },
     "Ryto kilimas": {
       "valandos": "06",
       "kaina": null,
-      "nuoroda": null
+      "nuoroda": 61.5
     },
     "Ryto pikas": {
       "valandos": "07–09",
       "kaina": null,
-      "nuoroda": null
+      "nuoroda": 80.1
     },
     "Vidurdienio dub.": {
       "valandos": "10–15",
       "kaina": null,
-      "nuoroda": null
+      "nuoroda": 38.3
     },
     "Popietės kilimas": {
       "valandos": "16–17",
       "kaina": null,
-      "nuoroda": null
+      "nuoroda": 40.5
     },
     "Vakaro pikas": {
       "valandos": "18–21",
       "kaina": null,
-      "nuoroda": null
+      "nuoroda": 105.1
     },
     "Vėlus vakaras": {
       "valandos": "22–23",
       "kaina": null,
-      "nuoroda": null
+      "nuoroda": 94.8
     }
   },
   "tarpsisteminiai_srautai": {
