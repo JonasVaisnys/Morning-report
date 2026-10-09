@@ -99,16 +99,37 @@ def lt_utc_offset(dt_utc: datetime) -> int:
 
 # ─── ENTSOE API ──────────────────────────────────────────────────────────────
 
+def get_period(target_date: datetime) -> tuple:
+    """Grąžina (periodStart, periodEnd) apimant visas 24 val. Lietuvos laiku."""
+    # Nustatome, koks UTC offset galioja target_date vidurnaktį
+    midnight_utc_guess = datetime(target_date.year, target_date.month, target_date.day)
+    offset = lt_utc_offset(midnight_utc_guess)
+    # 00:00 LT = (24 - offset):00 UTC prieš dieną
+    start_hour = 24 - offset  # 21 kai EEST, 22 kai EET
+    period_start = (target_date - timedelta(days=1)).strftime("%Y%m%d") + f"{start_hour:02d}00"
+    period_end = target_date.strftime("%Y%m%d") + f"{start_hour:02d}00"
+    return period_start, period_end
+
+
 def fetch_entsoe(params: dict) -> Optional[ET.Element]:
     params["securityToken"] = TOKEN
     try:
         resp = requests.get(ENTSOE_URL, params=params, timeout=30)
+        doc_type = params.get("documentType", "?")
+        domain = params.get("in_Domain") or params.get("outBiddingZone_Domain") or "?"
         if resp.status_code == 400:
+            # API grąžino „No matching data" — tai normalu kai duomenų nėra
+            print(f"  ⚠ {doc_type} {domain[:12]}: 400 (nėra duomenų)", file=sys.stderr)
             return None
+        if resp.status_code != 200:
+            print(f"  ⚠ {doc_type} {domain[:12]}: HTTP {resp.status_code}", file=sys.stderr)
+            print(f"    Atsakymas: {resp.text[:300]}", file=sys.stderr)
         resp.raise_for_status()
         return ET.fromstring(resp.text)
+    except requests.exceptions.HTTPError:
+        return None
     except Exception as e:
-        print(f"  ⚠ Klaida: {e}", file=sys.stderr)
+        print(f"  ⚠ Klaida ({doc_type} {domain[:12]}): {e}", file=sys.stderr)
         return None
 
 
@@ -159,8 +180,7 @@ def parse_timeseries(root, target_date, value_tag="price.amount"):
 
 
 def fetch_prices(domain: str, target_date: datetime) -> dict:
-    period_start = (target_date - timedelta(days=1)).strftime("%Y%m%d") + "2200"
-    period_end = target_date.strftime("%Y%m%d") + "2200"
+    period_start, period_end = get_period(target_date)
     root = fetch_entsoe({
         "documentType": "A44",
         "in_Domain": domain, "out_Domain": domain,
@@ -172,8 +192,7 @@ def fetch_prices(domain: str, target_date: datetime) -> dict:
 
 
 def fetch_flow(from_domain: str, to_domain: str, target_date: datetime) -> dict:
-    period_start = (target_date - timedelta(days=1)).strftime("%Y%m%d") + "2200"
-    period_end = target_date.strftime("%Y%m%d") + "2200"
+    period_start, period_end = get_period(target_date)
     root = fetch_entsoe({
         "documentType": "A11", "processType": "A16",
         "in_Domain": from_domain, "out_Domain": to_domain,
@@ -186,8 +205,7 @@ def fetch_flow(from_domain: str, to_domain: str, target_date: datetime) -> dict:
 
 def fetch_load(domain: str, target_date: datetime) -> dict:
     """Faktinis vartojimas (Actual Total Load) — documentType A65."""
-    period_start = (target_date - timedelta(days=1)).strftime("%Y%m%d") + "2200"
-    period_end = target_date.strftime("%Y%m%d") + "2200"
+    period_start, period_end = get_period(target_date)
     root = fetch_entsoe({
         "documentType": "A65", "processType": "A16",
         "outBiddingZone_Domain": domain,
@@ -202,8 +220,7 @@ def fetch_generation_by_type(domain: str, target_date: datetime) -> dict:
     """Faktinė gamyba pagal tipą (Actual Generation per Type) — documentType A75.
     Grąžina dict: {"solar": {h: MW}, "wind": {h: MW}, "other": {h: MW}, "total": {h: MW}}
     """
-    period_start = (target_date - timedelta(days=1)).strftime("%Y%m%d") + "2200"
-    period_end = target_date.strftime("%Y%m%d") + "2200"
+    period_start, period_end = get_period(target_date)
     root = fetch_entsoe({
         "documentType": "A75", "processType": "A16",
         "in_Domain": domain,
