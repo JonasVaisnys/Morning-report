@@ -18,26 +18,98 @@ Renku duomenis: 2026-10-05 (pirmadienis)...
     D2 parsed: +1 val. → total 24 (ps=202610032200 pe=202610042200)
 24 val.
   → Tarpsisteminiai srautai...
-    LT→SE4...     D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    LT→SE4...     D1 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument len=400 raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>a2023b90188a4a9c8d26b69f984d7389</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
+    D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    D2 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>ffd49efccd8e44529031456802338305</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
     D2 parsed: +0 val. → total 0 (ps=202610032200 pe=202610042200)
 0 val.
-    SE4→LT...     D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    SE4→LT...     D1 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument len=400 raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>bf837735ec3f4e0db1820e84819ea92b</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
+    D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    D2 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>f7cbf437cb104726a39ba995974ca0fe</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
     D2 parsed: +0 val. → total 0 (ps=202610032200 pe=202610042200)
 0 val.
-    LT→PL...     D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    LT→PL...     D1 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument len=400 raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>350f27cde1f940cebaa3a92c1dce0a0e</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
+    D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    D2 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>cd93e0347b314e34b56ee985d755d78a</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
     D2 parsed: +0 val. → total 0 (ps=202610032200 pe=202610042200)
 0 val.
-    PL→LT...     D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    PL→LT...     D1 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument len=400 raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>8cb57659c41f4adf91aeff09129a4a24</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
+    D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    D2 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>0ae98aea26eb405c8a47d83b0ca79989</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
     D2 parsed: +0 val. → total 0 (ps=202610032200 pe=202610042200)
 0 val.
-    LT→LV...     D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    LT→LV...     D1 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument len=400 raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>4f91b2e944904d01bf8f76459a96d3fc</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
+    D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    D2 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>e3b3e04b04e243148ec8e4e02f9599c3</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
     D2 parsed: +0 val. → total 0 (ps=202610032200 pe=202610042200)
 0 val.
-    LV→LT...     D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    LV→LT...     D1 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument len=400 raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>e181068b9da04bb2995cd938b172903a</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
+    D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    D2 0 TS! root={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0}Publication_MarketDocument raw=<ns0:Publication_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:0">
+  <ns0:mRID>65896bc2359747cb9af6cb42c6f17251</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A11</ns0:type>
+  <ns0:sender_MarketParticipant.mRID codingScheme="A01">10X1001A1001A45
     D2 parsed: +0 val. → total 0 (ps=202610032200 pe=202610042200)
 0 val.
   → LT vartojimas/gamyba...
-    Vartojimas...     D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    Vartojimas...     D1 0 TS! root={urn:iec62325.351:tc57wg16:451-6:generationloaddocument:3:0}GL_MarketDocument len=400 raw=<ns0:GL_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-6:generationloaddocument:3:0">
+  <ns0:mRID>9b537b2eb0ec44b1aa044abbfd89f99b</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A65</ns0:type>
+  <ns0:process.processType>A16</ns0:process.processType>
+  <ns0:sender_Market
+    D1 parsed: 0 val. (ps=202610042200 pe=202610052200)
+    D2 0 TS! root={urn:iec62325.351:tc57wg16:451-6:generationloaddocument:3:0}GL_MarketDocument raw=<ns0:GL_MarketDocument xmlns:ns0="urn:iec62325.351:tc57wg16:451-6:generationloaddocument:3:0">
+  <ns0:mRID>965ab1e28dc142ab87bafff8bbcb466a</ns0:mRID>
+  <ns0:revisionNumber>1</ns0:revisionNumber>
+  <ns0:type>A65</ns0:type>
+  <ns0:process.processType>A16</ns0:process.processType>
+  <ns0:sender_Market
     D2 parsed: +0 val. → total 0 (ps=202610032200 pe=202610042200)
 0 val.
     Gamyba pagal tipą... 0 val.
