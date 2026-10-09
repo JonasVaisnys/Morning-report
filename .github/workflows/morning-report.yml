@@ -54,10 +54,19 @@ jobs:
           echo "--- Debug log ---"
           cat data/debug.log
 
+      - name: Naujienų brifingas
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python "scripts/naujienų brifingas.py" 2> data/naujienų-debug.log || true
+          echo "--- Naujienų debug ---"
+          cat data/naujienų-debug.log
+
       - name: Išsaugoti rezultatą
         run: |
           git config user.name "Morning Report Bot"
           git config user.email "bot@enerconsult.lt"
-          git add data/energijos-brifingas.json data/debug.log data/json-debug.log
-          git diff --cached --quiet || git commit -m "Energijos brifingas $(date +%Y-%m-%d)"
+          git add data/energijos-brifingas.json data/debug.log data/json-debug.log \
+                  data/naujienų-brifingas.md data/naujienų-debug.log
+          git diff --cached --quiet || git commit -m "Morning report $(date +%Y-%m-%d)"
           git push
