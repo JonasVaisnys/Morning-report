@@ -514,6 +514,28 @@ def generate_briefing(target_date: datetime, output_json: bool = False):
         n = len(zone_prices[zone])
         print(f"{n} val.", file=sys.stderr)
 
+    # DEBUG: jei LT neturi pilnų duomenų, bandome platesnę užklausą
+    if len(zone_prices.get("LT", {})) < 24:
+        ns_d = {"ns": "urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:3"}
+        ps_w = (target_date - timedelta(days=1)).strftime("%Y%m%d") + "0000"
+        pe_w = (target_date + timedelta(days=1)).strftime("%Y%m%d") + "0000"
+        print(f"    DEBUG LT plati užklausa: ps={ps_w} pe={pe_w}", file=sys.stderr)
+        root_w = fetch_entsoe({
+            "documentType": "A44",
+            "in_Domain": ZONES["LT"], "out_Domain": ZONES["LT"],
+            "periodStart": ps_w, "periodEnd": pe_w,
+        })
+        if root_w is not None:
+            ts_w = root_w.findall("ns:TimeSeries", ns_d)
+            print(f"    DEBUG LT plati: {len(ts_w)} TimeSeries", file=sys.stderr)
+            for i, ts in enumerate(ts_w):
+                for p in ts.findall("ns:Period", ns_d):
+                    s = p.find("ns:timeInterval/ns:start", ns_d)
+                    e = p.find("ns:timeInterval/ns:end", ns_d)
+                    print(f"      TS{i}: {s.text if s else '?'}→{e.text if e else '?'}", file=sys.stderr)
+        else:
+            print(f"    DEBUG LT plati: API grąžino None", file=sys.stderr)
+
     # 2. Srautai
     print("  → Tarpsisteminiai srautai...", file=sys.stderr)
     flow_pairs = {}
