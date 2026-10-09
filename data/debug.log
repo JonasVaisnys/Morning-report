@@ -1,0 +1,53 @@
+Renku duomenis: 2026-10-09 (penktadienis)...
+  → Kainos...
+    LT...   DEBUG LT: root tag={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:3}Publication_MarketDocument, 1 TimeSeries
+    TS0.P0: start=2026-10-07T22:00Z end=2026-10-08T22:00Z res=PT15M points=95
+      pos=1 price.amount=168.13
+      pos=2 price.amount=150.24
+      pos=3 price.amount=143.41
+1 val.
+    LV...   DEBUG LV: root tag={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:3}Publication_MarketDocument, 1 TimeSeries
+    TS0.P0: start=2026-10-07T22:00Z end=2026-10-08T22:00Z res=PT15M points=95
+      pos=1 price.amount=168.13
+      pos=2 price.amount=150.24
+      pos=3 price.amount=143.41
+1 val.
+    PL...   DEBUG PL: root tag={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:3}Publication_MarketDocument, 4 TimeSeries
+    TS0.P0: start=2026-10-07T22:00Z end=2026-10-08T22:00Z res=PT15M points=95
+      pos=1 price.amount=174.1
+      pos=2 price.amount=141.35
+      pos=3 price.amount=130.28
+    TS1.P0: start=2026-10-07T22:00Z end=2026-10-08T22:00Z res=PT15M points=95
+      pos=1 price.amount=174.1
+      pos=2 price.amount=141.35
+      pos=3 price.amount=130.28
+    TS2.P0: start=2026-10-08T22:00Z end=2026-10-09T22:00Z res=PT15M points=94
+      pos=1 price.amount=92.8
+      pos=2 price.amount=88.7
+      pos=3 price.amount=85.15
+    TS3.P0: start=2026-10-08T22:00Z end=2026-10-09T22:00Z res=PT15M points=94
+      pos=1 price.amount=92.8
+      pos=2 price.amount=88.7
+      pos=3 price.amount=85.15
+24 val.
+    SE4...   DEBUG SE4: root tag={urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:3}Publication_MarketDocument, 2 TimeSeries
+    TS0.P0: start=2026-10-07T22:00Z end=2026-10-08T22:00Z res=PT15M points=95
+      pos=1 price.amount=165.63
+      pos=2 price.amount=148.34
+      pos=3 price.amount=141.57
+    TS1.P0: start=2026-10-08T22:00Z end=2026-10-09T22:00Z res=PT15M points=96
+      pos=1 price.amount=27.99
+      pos=2 price.amount=27.22
+      pos=3 price.amount=22.34
+24 val.
+  → Tarpsisteminiai srautai...
+    LT→SE4... 0 val.
+    SE4→LT... 0 val.
+    LT→PL... 0 val.
+    PL→LT... 0 val.
+    LT→LV... 0 val.
+    LV→LT... 0 val.
+  → LT vartojimas/gamyba...
+    Vartojimas... 0 val.
+    Gamyba pagal tipą... 0 val.
+  → Analizė...
