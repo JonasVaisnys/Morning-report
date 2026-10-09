@@ -190,6 +190,7 @@ def fetch_two_days(params_template: dict, target_date: datetime, value_tag: str)
     """
     midnight = datetime(target_date.year, target_date.month, target_date.day)
     cet_bnd = cet_boundary_hour(midnight)
+    ns = {"ns": "urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:3"}
 
     hourly = {}
 
@@ -199,7 +200,17 @@ def fetch_two_days(params_template: dict, target_date: datetime, value_tag: str)
     params1 = dict(params_template, periodStart=ps1, periodEnd=pe1)
     root1 = fetch_entsoe(params1)
     if root1 is not None:
+        # Debug: kokias pristatymo dienas grąžino API?
+        ts_list = root1.findall("ns:TimeSeries", ns)
+        for i, ts in enumerate(ts_list):
+            for p in ts.findall("ns:Period", ns):
+                s = p.find("ns:timeInterval/ns:start", ns)
+                e = p.find("ns:timeInterval/ns:end", ns)
+                st = s.text if s is not None else "?"
+                et = e.text if e is not None else "?"
+                print(f"    D1 TS{i}: {st}→{et}", file=sys.stderr)
         hourly.update(parse_timeseries(root1, target_date, value_tag))
+        print(f"    D1 parsed: {len(hourly)} val. (ps={ps1} pe={pe1})", file=sys.stderr)
 
     # 2) Ankstesnė pristatymo diena (00:00 LT valanda)
     ps2 = (target_date - timedelta(days=2)).strftime("%Y%m%d") + f"{cet_bnd:02d}00"
@@ -211,6 +222,7 @@ def fetch_two_days(params_template: dict, target_date: datetime, value_tag: str)
         for h, v in prev.items():
             if h not in hourly:
                 hourly[h] = v
+        print(f"    D2 parsed: +{len(prev)} val. → total {len(hourly)} (ps={ps2} pe={pe2})", file=sys.stderr)
 
     return hourly
 
