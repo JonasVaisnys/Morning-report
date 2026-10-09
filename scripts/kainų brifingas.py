@@ -119,8 +119,7 @@ def fetch_entsoe(params: dict) -> Optional[ET.Element]:
     try:
         resp = requests.get(ENTSOE_URL, params=params, timeout=30)
         if resp.status_code == 400:
-            # API grąžino „No matching data" — tai normalu kai duomenų nėra
-            print(f"  ⚠ {doc_type} {domain[:12]}: 400 (nėra duomenų)", file=sys.stderr)
+            print(f"  ⚠ {doc_type} {domain[:12]}: 400 (nėra duomenų) body={resp.text[:200]}", file=sys.stderr)
             return None
         if resp.status_code != 200:
             print(f"  ⚠ {doc_type} {domain[:12]}: HTTP {resp.status_code}", file=sys.stderr)
@@ -202,6 +201,9 @@ def fetch_two_days(params_template: dict, target_date: datetime, value_tag: str)
     if root1 is not None:
         # Debug: kokias pristatymo dienas grąžino API?
         ts_list = root1.findall("ns:TimeSeries", ns)
+        if not ts_list:
+            raw = ET.tostring(root1, encoding="unicode")[:400]
+            print(f"    D1 0 TS! root={root1.tag} len={len(raw)} raw={raw[:300]}", file=sys.stderr)
         for i, ts in enumerate(ts_list):
             for p in ts.findall("ns:Period", ns):
                 s = p.find("ns:timeInterval/ns:start", ns)
@@ -218,6 +220,10 @@ def fetch_two_days(params_template: dict, target_date: datetime, value_tag: str)
     params2 = dict(params_template, periodStart=ps2, periodEnd=pe2)
     root2 = fetch_entsoe(params2)
     if root2 is not None:
+        ts_list2 = root2.findall("ns:TimeSeries", ns)
+        if not ts_list2:
+            raw = ET.tostring(root2, encoding="unicode")[:400]
+            print(f"    D2 0 TS! root={root2.tag} raw={raw[:300]}", file=sys.stderr)
         prev = parse_timeseries(root2, target_date, value_tag)
         for h, v in prev.items():
             if h not in hourly:
