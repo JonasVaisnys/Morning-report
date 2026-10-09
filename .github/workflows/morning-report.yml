@@ -34,10 +34,12 @@ jobs:
         run: |
           DATE_ARG="${{ github.event.inputs.date }}"
           if [ -z "$DATE_ARG" ]; then
-            python "scripts/kainų brifingas.py" --json > data/energijos-brifingas.json
+            python "scripts/kainų brifingas.py" --json > data/energijos-brifingas.json 2> data/json-debug.log
           else
-            python "scripts/kainų brifingas.py" "$DATE_ARG" --json > data/energijos-brifingas.json
+            python "scripts/kainų brifingas.py" "$DATE_ARG" --json > data/energijos-brifingas.json 2> data/json-debug.log
           fi
+          echo "--- JSON debug log ---"
+          cat data/json-debug.log
 
       - name: Tekstinis brifingas + debug
         env:
@@ -56,6 +58,6 @@ jobs:
         run: |
           git config user.name "Morning Report Bot"
           git config user.email "bot@enerconsult.lt"
-          git add data/energijos-brifingas.json data/debug.log
+          git add data/energijos-brifingas.json data/debug.log data/json-debug.log
           git diff --cached --quiet || git commit -m "Energijos brifingas $(date +%Y-%m-%d)"
           git push
