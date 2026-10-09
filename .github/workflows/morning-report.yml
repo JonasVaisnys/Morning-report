@@ -2,9 +2,9 @@ name: Morning report
 
 on:
   schedule:
-    # 04:00 UTC = 07:00 EEST (vasarą) / 06:00 EET (žiemą)
-    # Žiemą galima pakeisti į 05:00 UTC, kad ateitų 07:00
-    - cron: "0 4 * * *"
+    # 03:00 UTC = 06:00 EEST (vasarą)
+    # Žiemą pakeisti į "0 4 * * *" → 06:00 EET
+    - cron: "0 3 * * *"
   workflow_dispatch:
     inputs:
       date:
