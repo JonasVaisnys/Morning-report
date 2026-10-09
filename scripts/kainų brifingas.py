@@ -111,27 +111,6 @@ def cet_boundary_hour(dt_utc: datetime) -> int:
     return 23  # CET
 
 
-def get_period(target_date: datetime) -> tuple:
-    """Grąžina (periodStart, periodEnd) apimant visas 24 val. Lietuvos laiku.
-
-    ENTSO-E API grąžina duomenis pagal CET/CEST pristatymo dienas.
-    periodStart prasideda nuo LT vidurnakčio UTC (ankstesnis nei CET riba),
-    o periodEnd baigiasi CET/CEST pristatymo dienos riba, kad API tikrai
-    grąžintų pilnus tikslinės dienos duomenis.
-    """
-    midnight_utc = datetime(target_date.year, target_date.month, target_date.day)
-    lt_offset = lt_utc_offset(midnight_utc)
-    cet_bnd = cet_boundary_hour(midnight_utc)
-
-    # periodStart: LT vidurnaktis (21:00 EEST / 22:00 EET) arba CET riba — kas ankščiau
-    start_hour = min(24 - lt_offset, cet_bnd)
-    period_start = (target_date - timedelta(days=1)).strftime("%Y%m%d") + f"{start_hour:02d}00"
-
-    # periodEnd: CET/CEST pristatymo dienos pabaiga (22:00 CEST / 23:00 CET)
-    period_end = target_date.strftime("%Y%m%d") + f"{cet_bnd:02d}00"
-
-    return period_start, period_end
-
 
 def fetch_entsoe(params: dict) -> Optional[ET.Element]:
     params["securityToken"] = TOKEN
@@ -201,134 +180,126 @@ def parse_timeseries(root, target_date, value_tag="price.amount"):
     return hourly
 
 
+def fetch_two_days(params_template: dict, target_date: datetime, value_tag: str) -> dict:
+    """Daro dvi ENTSO-E API užklausas (dvi CET/CEST pristatymo dienas) ir sujungia.
+
+    ENTSO-E API kai kurioms zonoms (LT, LV) grąžina tik vieną pristatymo dieną
+    per užklausą. Kadangi LT vidurnaktis (EEST/EET) visada yra 1 val. anksčiau
+    nei CET/CEST pristatymo dienos riba, 00:00 LT valanda patenka į ankstesnę
+    pristatymo dieną. Todėl reikia dviejų užklausų.
+    """
+    midnight = datetime(target_date.year, target_date.month, target_date.day)
+    cet_bnd = cet_boundary_hour(midnight)
+
+    hourly = {}
+
+    # 1) Tikslinė CET/CEST pristatymo diena (01:00–23:00 LT)
+    ps1 = (target_date - timedelta(days=1)).strftime("%Y%m%d") + f"{cet_bnd:02d}00"
+    pe1 = target_date.strftime("%Y%m%d") + f"{cet_bnd:02d}00"
+    params1 = dict(params_template, periodStart=ps1, periodEnd=pe1)
+    root1 = fetch_entsoe(params1)
+    if root1 is not None:
+        hourly.update(parse_timeseries(root1, target_date, value_tag))
+
+    # 2) Ankstesnė pristatymo diena (00:00 LT valanda)
+    ps2 = (target_date - timedelta(days=2)).strftime("%Y%m%d") + f"{cet_bnd:02d}00"
+    pe2 = ps1
+    params2 = dict(params_template, periodStart=ps2, periodEnd=pe2)
+    root2 = fetch_entsoe(params2)
+    if root2 is not None:
+        prev = parse_timeseries(root2, target_date, value_tag)
+        for h, v in prev.items():
+            if h not in hourly:
+                hourly[h] = v
+
+    return hourly
+
+
 def fetch_prices(domain: str, target_date: datetime) -> dict:
-    period_start, period_end = get_period(target_date)
-    root = fetch_entsoe({
+    return fetch_two_days({
         "documentType": "A44",
         "in_Domain": domain, "out_Domain": domain,
-        "periodStart": period_start, "periodEnd": period_end,
-    })
-    if root is None:
-        return {}
-
-    # Debug: XML struktūros analizė
-    ns = {"ns": "urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:3"}
-    ts_list = root.findall("ns:TimeSeries", ns)
-    zone_name = [k for k, v in ZONES.items() if v == domain]
-    zone_label = zone_name[0] if zone_name else domain[:12]
-    print(f"  DEBUG {zone_label}: root tag={root.tag}, {len(ts_list)} TimeSeries", file=sys.stderr)
-
-    # Jei namespace nesutampa, bandome be namespace
-    if not ts_list:
-        ts_list_noNS = root.findall("TimeSeries")
-        print(f"  DEBUG {zone_label}: be NS: {len(ts_list_noNS)} TimeSeries", file=sys.stderr)
-        # Parodome root namespace
-        print(f"  DEBUG {zone_label}: root.tag = '{root.tag}'", file=sys.stderr)
-
-    for i, ts in enumerate(ts_list):
-        periods = ts.findall("ns:Period", ns)
-        for j, period in enumerate(periods):
-            start_el = period.find("ns:timeInterval/ns:start", ns)
-            end_el = period.find("ns:timeInterval/ns:end", ns)
-            res_el = period.find("ns:resolution", ns)
-            pts = period.findall("ns:Point", ns)
-            start_t = start_el.text if start_el is not None else "MISSING"
-            end_t = end_el.text if end_el is not None else "MISSING"
-            res_t = res_el.text if res_el is not None else "MISSING"
-            print(f"    TS{i}.P{j}: start={start_t} end={end_t} res={res_t} points={len(pts)}", file=sys.stderr)
-
-            # Pirmųjų 3 taškų detalės
-            for pt in pts[:3]:
-                pos_el = pt.find("ns:position", ns)
-                price_el = pt.find("ns:price.amount", ns)
-                pos_v = pos_el.text if pos_el is not None else "?"
-                price_v = price_el.text if price_el is not None else "MISSING"
-                print(f"      pos={pos_v} price.amount={price_v}", file=sys.stderr)
-
-    return parse_timeseries(root, target_date, "price.amount")
+    }, target_date, "price.amount")
 
 
 def fetch_flow(from_domain: str, to_domain: str, target_date: datetime) -> dict:
-    period_start, period_end = get_period(target_date)
-    root = fetch_entsoe({
+    return fetch_two_days({
         "documentType": "A11", "processType": "A16",
         "in_Domain": from_domain, "out_Domain": to_domain,
-        "periodStart": period_start, "periodEnd": period_end,
-    })
-    if root is None:
-        return {}
-    return parse_timeseries(root, target_date, "quantity")
+    }, target_date, "quantity")
 
 
 def fetch_load(domain: str, target_date: datetime) -> dict:
     """Faktinis vartojimas (Actual Total Load) — documentType A65."""
-    period_start, period_end = get_period(target_date)
-    root = fetch_entsoe({
+    return fetch_two_days({
         "documentType": "A65", "processType": "A16",
         "outBiddingZone_Domain": domain,
-        "periodStart": period_start, "periodEnd": period_end,
-    })
-    if root is None:
-        return {}
-    return parse_timeseries(root, target_date, "quantity")
+    }, target_date, "quantity")
 
 
 def fetch_generation_by_type(domain: str, target_date: datetime) -> dict:
     """Faktinė gamyba pagal tipą (Actual Generation per Type) — documentType A75.
     Grąžina dict: {"solar": {h: MW}, "wind": {h: MW}, "other": {h: MW}, "total": {h: MW}}
+    Daro dvi užklausas (dvi CET pristatymo dienas) kaip ir fetch_two_days.
     """
-    period_start, period_end = get_period(target_date)
-    root = fetch_entsoe({
-        "documentType": "A75", "processType": "A16",
-        "in_Domain": domain,
-        "periodStart": period_start, "periodEnd": period_end,
-    })
-    if root is None:
-        return {"solar": {}, "wind": {}, "other": {}, "total": {}}
-
+    midnight = datetime(target_date.year, target_date.month, target_date.day)
+    cet_bnd = cet_boundary_hour(midnight)
     ns = {"ns": "urn:iec62325.351:tc57wg16:451-3:publicationdocument:7:3"}
     target = target_date.date()
 
-    # PSR tipai
     SOLAR_TYPES = {"B16"}          # Solar
     WIND_TYPES = {"B18", "B19"}    # Wind Offshore, Wind Onshore
-    # Visa kita — biomass, fossil, hydro, nuclear, etc.
 
     by_type = defaultdict(lambda: defaultdict(float))  # {psr_type: {hour: MW}}
 
-    for ts in root.findall("ns:TimeSeries", ns):
-        psr_el = ts.find("ns:MktPSRType/ns:psrType", ns)
-        psr_type = psr_el.text if psr_el is not None else "UNKNOWN"
+    def _parse_gen_xml(root):
+        for ts in root.findall("ns:TimeSeries", ns):
+            psr_el = ts.find("ns:MktPSRType/ns:psrType", ns)
+            psr_type = psr_el.text if psr_el is not None else "UNKNOWN"
+            for period in ts.findall("ns:Period", ns):
+                start_str = period.find("ns:timeInterval/ns:start", ns).text
+                resolution = period.find("ns:resolution", ns).text
+                dt_utc = datetime.strptime(start_str, "%Y-%m-%dT%H:%MZ")
+                if resolution == "PT15M":
+                    quarter = defaultdict(list)
+                    for point in period.findall("ns:Point", ns):
+                        pos = int(point.find("ns:position", ns).text)
+                        val_el = point.find("ns:quantity", ns)
+                        if val_el is None:
+                            continue
+                        quarter[(pos - 1) // 4].append(float(val_el.text))
+                    for hi, vals in quarter.items():
+                        ts_utc = dt_utc + timedelta(hours=hi)
+                        ts_lt = ts_utc + timedelta(hours=lt_utc_offset(ts_utc))
+                        if ts_lt.date() == target:
+                            by_type[psr_type][ts_lt.hour] += round(sum(vals) / len(vals), 2)
+                elif resolution == "PT60M":
+                    for point in period.findall("ns:Point", ns):
+                        pos = int(point.find("ns:position", ns).text)
+                        val_el = point.find("ns:quantity", ns)
+                        if val_el is None:
+                            continue
+                        val = float(val_el.text)
+                        ts_utc = dt_utc + timedelta(hours=pos - 1)
+                        ts_lt = ts_utc + timedelta(hours=lt_utc_offset(ts_utc))
+                        if ts_lt.date() == target:
+                            by_type[psr_type][ts_lt.hour] += round(val, 2)
 
-        for period in ts.findall("ns:Period", ns):
-            start_str = period.find("ns:timeInterval/ns:start", ns).text
-            resolution = period.find("ns:resolution", ns).text
-            dt_utc = datetime.strptime(start_str, "%Y-%m-%dT%H:%MZ")
+    params_base = {"documentType": "A75", "processType": "A16", "in_Domain": domain}
 
-            if resolution == "PT15M":
-                quarter = defaultdict(list)
-                for point in period.findall("ns:Point", ns):
-                    pos = int(point.find("ns:position", ns).text)
-                    val_el = point.find("ns:quantity", ns)
-                    if val_el is None:
-                        continue
-                    quarter[(pos - 1) // 4].append(float(val_el.text))
-                for hi, vals in quarter.items():
-                    ts_utc = dt_utc + timedelta(hours=hi)
-                    ts_lt = ts_utc + timedelta(hours=lt_utc_offset(ts_utc))
-                    if ts_lt.date() == target:
-                        by_type[psr_type][ts_lt.hour] += round(sum(vals) / len(vals), 2)
-            elif resolution == "PT60M":
-                for point in period.findall("ns:Point", ns):
-                    pos = int(point.find("ns:position", ns).text)
-                    val_el = point.find("ns:quantity", ns)
-                    if val_el is None:
-                        continue
-                    val = float(val_el.text)
-                    ts_utc = dt_utc + timedelta(hours=pos - 1)
-                    ts_lt = ts_utc + timedelta(hours=lt_utc_offset(ts_utc))
-                    if ts_lt.date() == target:
-                        by_type[psr_type][ts_lt.hour] += round(val, 2)
+    # 1) Tikslinė CET pristatymo diena
+    ps1 = (target_date - timedelta(days=1)).strftime("%Y%m%d") + f"{cet_bnd:02d}00"
+    pe1 = target_date.strftime("%Y%m%d") + f"{cet_bnd:02d}00"
+    root1 = fetch_entsoe(dict(params_base, periodStart=ps1, periodEnd=pe1))
+    if root1 is not None:
+        _parse_gen_xml(root1)
+
+    # 2) Ankstesnė pristatymo diena
+    ps2 = (target_date - timedelta(days=2)).strftime("%Y%m%d") + f"{cet_bnd:02d}00"
+    pe2 = ps1
+    root2 = fetch_entsoe(dict(params_base, periodStart=ps2, periodEnd=pe2))
+    if root2 is not None:
+        _parse_gen_xml(root2)
 
     # Grupuojame į solar / wind / other
     solar = defaultdict(float)
