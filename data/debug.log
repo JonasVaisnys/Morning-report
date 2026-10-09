@@ -1,49 +1,17 @@
 Renku duomenis: 2026-10-09 (penktadienis)...
   → Kainos...
-    LT...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +1 val. → total 1 (ps=202610072200 pe=202610082200)
-1 val.
-    LV...     D1 parsed: 0 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +1 val. → total 1 (ps=202610072200 pe=202610082200)
-1 val.
-    PL...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T22:00Z
-    D1 TS1: 2026-10-08T22:00Z→2026-10-09T22:00Z
-    D1 parsed: 23 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +1 val. → total 24 (ps=202610072200 pe=202610082200)
-24 val.
-    SE4...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T22:00Z
-    D1 parsed: 23 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +1 val. → total 24 (ps=202610072200 pe=202610082200)
-24 val.
+    LT... 1 val.
+    LV... 1 val.
+    PL... 24 val.
+    SE4... 24 val.
   → Tarpsisteminiai srautai...
-    LT→SE4...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T13:30Z
-    D1 parsed: 7 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +1 val. → total 8 (ps=202610072200 pe=202610082200)
-8 val.
-    SE4→LT...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T13:30Z
-    D1 parsed: 14 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +0 val. → total 14 (ps=202610072200 pe=202610082200)
-14 val.
-    LT→PL...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T13:30Z
-    D1 parsed: 8 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +0 val. → total 8 (ps=202610072200 pe=202610082200)
-8 val.
-    PL→LT...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T13:30Z
-    D1 parsed: 15 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +1 val. → total 16 (ps=202610072200 pe=202610082200)
-16 val.
-    LT→LV...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T13:30Z
-    D1 parsed: 13 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +1 val. → total 14 (ps=202610072200 pe=202610082200)
-14 val.
-    LV→LT...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T13:00Z
-    D1 parsed: 8 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +1 val. → total 9 (ps=202610072200 pe=202610082200)
-9 val.
+    LT→SE4... 8 val.
+    SE4→LT... 14 val.
+    LT→PL... 8 val.
+    PL→LT... 16 val.
+    LT→LV... 14 val.
+    LV→LT... 9 val.
   → LT vartojimas/gamyba...
-    Vartojimas...     D1 TS0: 2026-10-08T22:00Z→2026-10-09T13:30Z
-    D1 parsed: 16 val. (ps=202610082200 pe=202610092200)
-    D2 parsed: +1 val. → total 17 (ps=202610072200 pe=202610082200)
-17 val.
+    Vartojimas... 17 val.
     Gamyba pagal tipą... 17 val.
   → Analizė...
