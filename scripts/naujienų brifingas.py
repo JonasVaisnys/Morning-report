@@ -20,23 +20,20 @@ LT_TZ = timezone(timedelta(hours=3))   # EEST vasarą; žiemą 2
 # Tvarka: specializuoti energetikos pirmiausia, tada bendri verslo/ekonomikos.
 # URL'ai patikrinti 2026-10-10; jei neveikia – grąžinamas tuščias sąrašas.
 RSS_FEEDS = [
-    # Specializuoti energetikos portalai
-    ("Energetika.lt",    "https://www.energetika.lt/feed/"),
-    # Lietuvos perdavimo sistemos operatorius
-    ("Litgrid",          "https://www.litgrid.eu/index.php/lt/naujienos?format=feed&type=rss"),
-    # Nacionalinis transliuotojas – ekonomika ir verslas
-    ("LRT naujienos",    "https://www.lrt.lt/rss/naujienos"),
-    ("LRT ekonomika",    "https://www.lrt.lt/rss/ekonomika"),
-    # Delfi – du kategorijų bandymai
+    # Delfi ekonomika ir verslas (dažnai skirtingi, kartais tie patys – deduplikuojama pagal URL)
     ("Delfi ekonomika",  "https://www.delfi.lt/rss/feeds/ekonomika.xml"),
     ("Delfi verslas",    "https://www.delfi.lt/rss/feeds/verslas.xml"),
-    # 15min ir Verslo žinios
+    # 15min – bendras srautas (ekonomika/verslas/politika)
     ("15min",            "https://www.15min.lt/rss"),
+    # Verslo žinios – geriausias energetikos padengimas
     ("Verslo žinios",    "https://www.vz.lt/rss/"),
-    # Baltpool (Baltijos energijos birža)
+    # Baltpool (Baltijos energijos birža) – kartais tuščias, bet vertingas
     ("Baltpool",         "https://www.baltpool.eu/lt/rss/"),
-    # Valdžios institucijų pranešimai
-    ("LR Vyriausybė",   "https://lrv.lt/lt/rss/naujienos"),
+    # Specializuotas energetikos portalas – WordPress /feed/ (testuojama)
+    ("Energetika.lt",    "https://energetika.lt/category/naujienos/feed/"),
+    # Atsarginiai URL'ai:
+    # ("LRT naujienos",  "https://www.lrt.lt/rss/naujienos"),  # Kol kas 404
+    # ("Litgrid",        "https://litgrid.eu/lt/rss.xml"),     # Reikia patikrinti
 ]
 
 KEYWORDS = [
@@ -112,11 +109,27 @@ def filter_energy(items: list[dict]) -> list[dict]:
 
 
 def collect() -> list[dict]:
-    all_items: list[dict] = []
+    raw_items: list[dict] = []
     for name, url in RSS_FEEDS:
-        all_items.extend(fetch_rss(name, url))
+        raw_items.extend(fetch_rss(name, url))
+
+    # Deduplikacija pagal nuorodą (tas pats straipsnis keliuose šaltiniuose)
+    seen: set[str] = set()
+    all_items: list[dict] = []
+    for it in raw_items:
+        key = it["link"] or it["title"]
+        if key and key not in seen:
+            seen.add(key)
+            all_items.append(it)
+
     energy = filter_energy(all_items)
-    print(f"\n  Iš viso straipsnių: {len(all_items)}, energetikos: {len(energy)}", file=sys.stderr)
+    total_dupes = len(raw_items) - len(all_items)
+    print(
+        f"\n  Iš viso straipsnių: {len(raw_items)} "
+        f"(dublikatai: {total_dupes}, unikalūs: {len(all_items)}), "
+        f"energetikos: {len(energy)}",
+        file=sys.stderr,
+    )
     return energy
 
 
