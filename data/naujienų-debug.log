@@ -1,16 +1,16 @@
-📡 Naujienų brifingas 2026-10-10
+📡 Naujienų brifingas 2026-10-10 (UTC+3)
   ⚠  Energetika.lt: HTTP Error 404: Not Found
-  ⚠  Litgrid: syntax error: line 1, column 0
-  ⚠  VERT: HTTP Error 403: Forbidden
-  ⚠  ESO: HTTP Error 403: Forbidden
-  ⚠  LRT verslas: HTTP Error 404: Not Found
-/home/runner/work/Morning-report/Morning-report/scripts/naujienų brifingas.py:61: DeprecationWarning: Testing an element's truth value will always return True in future versions.  Use specific 'len(elem)' or 'elem is not None' test instead.
-  el = item.find(tag) or item.find(f"atom:{tag}", ns)
-  ✓ Delfi verslas: 0
-  ✓ 15min verslas: 0
-  ✓ Verslo žinios: 0
-  ⚠  Vakarų ekspresas: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1010)>
+  ⚠  Litgrid: HTTP Error 404: Not Found
+  ⚠  LRT naujienos: HTTP Error 404: Not Found
+  ⚠  LRT ekonomika: HTTP Error 404: Not Found
+  ✓ Delfi ekonomika: 47
+  ✓ Delfi verslas: 47
+  ✓ 15min: 20
+  ✓ Verslo žinios: 50
+  ⚠  Baltpool: 0 elementų – pradžia: <?xml version="1.0" encoding="UTF-8"?><rss version="2.0" 	xmlns:content="http://purl.org/rss/1.0/modules/content/" 	xmlns:dc="http://purl.org/dc/elements/1.1/" 	xmlns:atom="http://www.w3.org/2005/Atom
+  ✓ Baltpool: 0
+  ⚠  LR Vyriausybė: HTTP Error 403: Forbidden
 
-  Iš viso: 0, energetikos: 0
+  Iš viso straipsnių: 164, energetikos: 6
 
 ✅ Išsaugota → /home/runner/work/Morning-report/Morning-report/scripts/../data/naujienų-brifingas.md

@@ -187,30 +187,30 @@
   },
   "tarpsisteminiai_srautai": {
     "NordBalt (LT↔SE4)": {
-      "vidutinis_mw": -45.2,
+      "vidutinis_mw": -44.7,
       "kryptis": "eksportas iš LT",
       "max_importas_mw": 562.4,
       "max_eksportas_mw": -298.5
     },
     "LitPol Link (LT↔PL)": {
-      "vidutinis_mw": 132.9,
+      "vidutinis_mw": 135.3,
       "kryptis": "importas į LT",
       "max_importas_mw": 245.7,
       "max_eksportas_mw": -233.2
     },
     "LT↔LV": {
-      "vidutinis_mw": -312.3,
+      "vidutinis_mw": -312.0,
       "kryptis": "eksportas iš LT",
       "max_importas_mw": 18.7,
       "max_eksportas_mw": -549.0
     }
   },
   "lt_gamyba_vartojimas": {
-    "vartojimas_avg_mw": 1318.0,
+    "vartojimas_avg_mw": 1318.7,
     "gamyba_avg_mw": 1620.6,
-    "saulė_avg_mw": 233.1,
-    "vėjas_avg_mw": 1143.2,
-    "kita_avg_mw": 351.9,
-    "apsirūpinimas_%": 123.0
+    "saulė_avg_mw": 233.6,
+    "vėjas_avg_mw": 1144.0,
+    "kita_avg_mw": 350.8,
+    "apsirūpinimas_%": 122.9
   }
 }
