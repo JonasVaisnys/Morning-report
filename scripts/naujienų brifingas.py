@@ -17,49 +17,80 @@ import anthropic
 LT_TZ = timezone(timedelta(hours=3))   # EEST vasarą; žiemą 2
 
 # ── RSS šaltiniai ────────────────────────────────────────────────────────────
+# Tvarka: specializuoti energetikos pirmiausia, tada bendri verslo/ekonomikos.
+# URL'ai patikrinti 2026-10-10; jei neveikia – grąžinamas tuščias sąrašas.
 RSS_FEEDS = [
-    ("Energetika.lt",    "https://www.energetika.lt/rss/"),
-    ("Litgrid",          "https://www.litgrid.eu/rss/"),
-    ("VERT",             "https://www.regula.lt/lt/rss/naujienos"),
-    ("ESO",              "https://www.eso.lt/lt/rss/naujienos"),
-    ("LRT verslas",      "https://www.lrt.lt/rss/verslas"),
+    # Specializuoti energetikos portalai
+    ("Energetika.lt",    "https://www.energetika.lt/feed/"),
+    # Lietuvos perdavimo sistemos operatorius
+    ("Litgrid",          "https://www.litgrid.eu/index.php/lt/naujienos?format=feed&type=rss"),
+    # Nacionalinis transliuotojas – ekonomika ir verslas
+    ("LRT naujienos",    "https://www.lrt.lt/rss/naujienos"),
+    ("LRT ekonomika",    "https://www.lrt.lt/rss/ekonomika"),
+    # Delfi – du kategorijų bandymai
+    ("Delfi ekonomika",  "https://www.delfi.lt/rss/feeds/ekonomika.xml"),
     ("Delfi verslas",    "https://www.delfi.lt/rss/feeds/verslas.xml"),
-    ("15min verslas",    "https://www.15min.lt/rss/verslas"),
+    # 15min ir Verslo žinios
+    ("15min",            "https://www.15min.lt/rss"),
     ("Verslo žinios",    "https://www.vz.lt/rss/"),
-    ("Vakarų ekspresas", "https://www.vakaru.lt/rss/"),
+    # Baltpool (Baltijos energijos birža)
+    ("Baltpool",         "https://www.baltpool.eu/lt/rss/"),
+    # Valdžios institucijų pranešimai
+    ("LR Vyriausybė",   "https://lrv.lt/lt/rss/naujienos"),
 ]
 
 KEYWORDS = [
     "energetika", "elektra", "elektros", "saulės energija", "saulės park",
     "vėjo elektrin", "vėjo park", "baterijų kaupikl", "bess", "litgrid",
-    "eso", "vert", "atsinaujinanti energija", "elektros kaina",
+    "eso ", "vert ", "atsinaujinanti energija", "elektros kaina",
     "nordpool", "nord pool", "energijos kainos", "gamyba", "tinklai",
-    "akumuliatoriai", "foto", "pv park", "jūrinė energetika",
+    "akumuliatoriai", "pv park", "jūrinė energetika", "šiluma",
+    "dujų", "naftos", "biokuras", "biodujos", "vėjas", "saulė",
+    "renovacija", "efektyvumas", "emisijos", "co2", "žalioji",
+    "investicij", "projektas", "parkas", "stotis", "tinkl",
+    "baltpool", "viešnagė", "aukcion", "leidimai", "prijungim",
 ]
 
 # ── RSS nuskaitymas ───────────────────────────────────────────────────────────
 
 def fetch_rss(name: str, url: str) -> list[dict]:
     headers = {
-        "User-Agent": "Mozilla/5.0 (compatible; EnerconsultBot/1.0)",
-        "Accept":     "application/rss+xml, application/xml, text/xml",
+        "User-Agent": "Mozilla/5.0 (compatible; EnerconsultBot/1.0; +https://enerconsult.lt)",
+        "Accept":     "application/rss+xml, application/xml, application/atom+xml, text/xml;q=0.9",
     }
     try:
         req  = Request(url, headers=headers)
-        resp = urlopen(req, timeout=12)
-        root = ET.fromstring(resp.read())
+        resp = urlopen(req, timeout=15)
+        raw  = resp.read()
     except Exception as exc:
         print(f"  ⚠  {name}: {exc}", file=sys.stderr)
         return []
 
+    try:
+        root = ET.fromstring(raw)
+    except ET.ParseError as exc:
+        preview = raw[:200].decode("utf-8", errors="replace").replace("\n", " ")
+        print(f"  ⚠  {name}: XML klaida ({exc}); pradžia: {preview}", file=sys.stderr)
+        return []
+
     ns    = {"atom": "http://www.w3.org/2005/Atom"}
-    items = root.findall(".//item") or root.findall(".//atom:entry", ns)
+    items = root.findall(".//item")
+    if not items:
+        items = root.findall(".//atom:entry", ns)
+
+    if not items:
+        preview = raw[:300].decode("utf-8", errors="replace").replace("\n", " ")
+        print(f"  ⚠  {name}: 0 elementų – pradžia: {preview[:200]}", file=sys.stderr)
 
     out = []
     for item in items:
-        def t(tag):
-            el = item.find(tag) or item.find(f"atom:{tag}", ns)
-            return (el.text or "").strip() if el is not None else ""
+        def t(tag: str) -> str:
+            el = item.find(tag)
+            if el is None:
+                el = item.find(f"atom:{tag}", ns)
+            if el is None:
+                return ""
+            return (el.text or "").strip()
 
         title = t("title")
         link  = t("link") or t("guid")
@@ -81,11 +112,11 @@ def filter_energy(items: list[dict]) -> list[dict]:
 
 
 def collect() -> list[dict]:
-    all_items = []
+    all_items: list[dict] = []
     for name, url in RSS_FEEDS:
         all_items.extend(fetch_rss(name, url))
     energy = filter_energy(all_items)
-    print(f"\n  Iš viso: {len(all_items)}, energetikos: {len(energy)}", file=sys.stderr)
+    print(f"\n  Iš viso straipsnių: {len(all_items)}, energetikos: {len(energy)}", file=sys.stderr)
     return energy
 
 
@@ -93,18 +124,25 @@ def collect() -> list[dict]:
 
 def generate(news: list[dict], date_lt: str) -> str:
     if not news:
-        return f"# Naujienų brifingas — {date_lt}\n\nŠiandien energetikos naujienų nerasta."
+        return (
+            f"# Naujienų brifingas — {date_lt}\n\n"
+            "Šiandien energetikos naujienų RSS srautuose nerasta.\n\n"
+            "_Generuota automatiškai · MB Enerconsult_"
+        )
 
     block = "\n".join(
-        f"[{i+1}] [{it['source']}] {it['title']}\n    {it['desc'][:250]}\n    {it['link']}"
+        f"[{i+1}] [{it['source']}] {it['title']}\n"
+        f"    {it['desc'][:250]}\n"
+        f"    {it['link']}"
         for i, it in enumerate(news[:60])
     )
 
-    prompt = f"""Tu esi Lietuvos atsinaujinančios energetikos rinkos analitikas.
+    prompt = f"""Tu esi Lietuvos atsinaujinančios energetikos rinkos analitikas dirbantis MB Enerconsult.
 Šiandien yra {date_lt}. Pateikiu naujienų sąrašą iš RSS srautų.
 
 Atrink TIKTAI aktualias energetikos naujienas (saulė, vėjas, BESS, elektros tinklas,
-reguliavimas, NordPool kainos, projektai LT/Baltijos regione). Ignoruok nesusijusias naujienas.
+reguliavimas, NordPool kainos, projektai LT/Baltijos regione, biokuras, šiluma, dujos).
+Ignoruok nesusijusias naujienas (sportas, pramogos, politika be energetikos ryšio).
 
 Suformatuok kaip rytinį briefingą MARKDOWN formatu:
 
@@ -117,21 +155,22 @@ Suformatuok kaip rytinį briefingą MARKDOWN formatu:
 (kainos, NordPool, balansavimas — jei yra)
 
 ## 🌬️ Vėjas ir saulė
-(projektai, leidimai, statyba)
+(projektai, leidimai, statyba — jei yra)
 
 ## 🔋 Kaupikliai ir inovacijos
-(BESS, naujovės — jei yra)
+(BESS, akumuliatoriai, naujovės — jei yra)
 
-## 🏛️ Reguliavimas
-(VERT, ESO, Litgrid, teisės aktai)
+## 🏛️ Reguliavimas ir politika
+(VERT, ESO, Litgrid, teisės aktai, leidimai — jei yra)
 
-## 📰 Kita
-(kita aktualu)
+## 📰 Kita aktualu
+(kita svarbu energetikui — jei yra)
 
 ---
 _Generuota automatiškai {date_lt} · MB Enerconsult_
 
-Rašyk glaustai. Jei kategorijoje nėra naujienų — praleisk ją.
+Rašyk glaustai lietuviškai. Jei kategorijoje nėra naujienų — praleisk ją visiškai.
+Kiekviena naujiena: pavadinimas kaip nuoroda, 1–2 sakiniai santrauka, šaltinis.
 
 NAUJIENOS:
 {block}"""
@@ -147,14 +186,14 @@ NAUJIENOS:
 
 # ── Pagrindinis srautas ───────────────────────────────────────────────────────
 
-def main():
+def main() -> None:
     dt_lt    = datetime.now(LT_TZ)
     date_str = dt_lt.strftime("%Y-%m-%d")
 
-    print(f"📡 Naujienų brifingas {date_str}", file=sys.stderr)
+    print(f"📡 Naujienų brifingas {date_str} (UTC+3)", file=sys.stderr)
 
-    news    = collect()
-    result  = generate(news, date_str)
+    news   = collect()
+    result = generate(news, date_str)
 
     # Išsaugome į data/
     out_dir = os.path.join(os.path.dirname(__file__), "..", "data")
