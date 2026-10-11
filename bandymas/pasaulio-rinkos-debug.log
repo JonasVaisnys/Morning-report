@@ -1,6 +1,8 @@
 🌍 Pasaulio rinkų brifingas 2026-10-11 (sekmadienis)
 → Naftos, dujų ir valiutų kainos (Yahoo Finance, ECB)...
    Brent 502 d., TTF 502 d., EUR/USD 400 d.
+→ Fizinė Brent (EIA)...
+   EIA spot 600 d.; paskutinė (datetime.date(2026, 10, 6), 125.44)
 → CO2 (EEX aukcionai)...
    EUA 173 aukcionų dienų
 → Dujų saugyklos (GIE AGSI+)...
@@ -24,10 +26,11 @@
   ✓ Delfi: 47 → atrinkta 0
   ✓ 15min: 20 → atrinkta 2
   ✓ Verslo žinios: 50 → atrinkta 3
-  ✓ Google News nafta: 100 → atrinkta 57
-  ✓ Google News dujos: 100 → atrinkta 41
-  ✓ Google News Bloomberg: 100 → atrinkta 12
+  ✓ Google News nafta: 100 → atrinkta 56
+  ✓ Google News dujos: 100 → atrinkta 43
+  ✓ Google News Bloomberg: 63 → atrinkta 13
   ✓ Google News Reuters: 44 → atrinkta 2
   ✓ Google News LT dujos: 32 → atrinkta 5
    Atrinkta naujienų: 51 · {'Bloomberg': 15, 'EnergyNow': 8, 'OilPrice.com': 5, 'WSJ': 4, '15min': 3, 'Verslo žinios': 3, 'Financial Times': 2, 'Reuters': 2, 'CNBC': 2, 'DW': 1, 'TV3': 1, 'Politico': 1, 'Rigzone': 1, 'Alfa': 1, 'Delfi': 1, 'Lrytas': 1}
+  ✓ Analizė: claude-opus-5-5, 7538→4171 žetonų
 ✅ Išsaugota → data/pasaulio-rinkos.json, data/pasaulio-rinkos.md

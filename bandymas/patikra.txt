@@ -11,3 +11,4 @@ Brent: EIA spot prieš Yahoo BZ=F (paskutinės 8 EIA dienos)
   2026-10-02  EIA  135.51  Yahoo 102.25  skirtumas -33.26
   2026-10-05  EIA  125.51  Yahoo 100.32  skirtumas -25.19
   2026-10-06  EIA  125.44  Yahoo 100.58  skirtumas -24.86
+TTF 2026-09-11 (OilPriceAPI tinklaraštis: 80,77): 79.5199966430664

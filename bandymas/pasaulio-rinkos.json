@@ -1,7 +1,7 @@
 {
   "data": "2026-10-11",
   "savaitės_diena": "sekmadienis",
-  "sugeneruota": "2026-10-11T09:58:44+03:00",
+  "sugeneruota": "2026-10-11T10:01:18+03:00",
   "rodikliai": {
     "brent": {
       "reikšmė": 104.72,
@@ -46,6 +46,17 @@
       "šaltinis": "ECB"
     },
     "brent_eur": 93.45,
+    "brent_fizinė": {
+      "reikšmė": 125.44,
+      "data": "2026-10-06",
+      "vienetai": "USD/bbl",
+      "pokytis_d_proc": -0.06,
+      "pokytis_7d_proc": 10.07,
+      "pokytis_30d_proc": 22.69,
+      "pokytis_metai_proc": 86.97,
+      "šaltinis": "EIA (Europe Brent Spot FOB)",
+      "premija_ateities_sandoriui": 24.86
+    },
     "eua": {
       "reikšmė": 86.11,
       "data": "2026-10-09",
@@ -331,6 +342,14 @@
       "kalba": "en"
     },
     {
+      "leidinys": "Bloomberg",
+      "pavadinimas": "Saudi Arabia Suspends Operations at Riyadh Airport After Attack",
+      "nuoroda": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQTDVmY3VxVEdBNjVITjd4b2VUSkxhN3lfR0dKWVdBaXJXUUQtY1RseDc2dlhDZ0RMV2xRdHRoOGtqWENmd0IxUmVRVWJ6Q2FYMl9EZmZrQnd5Tmc3M3VzZ2JQUzU0M3JHVmtwQ2thYlB1ckxVRGdnQUxMaTdYOFBPTTV2UGJORnJnRlphWmRxZTRlUzVieFM4MU5icHFrdDJ4TjZUMktGTDlNc202MkVZQ2wwSHIzVmk3eTZ3di1scUc3ZmpONm9zRzlXalppZGpJeDc4?oc=5",
+      "laikas": "2026-10-10T19:47+03:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
       "leidinys": "15min",
       "pavadinimas": "ES susiduria su dujų tiekimo trūkumo grėsme artėjant žiemai",
       "nuoroda": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPVk9zTy1aeGhha1NMWVBRLWt1THRUVzhFUVV1UGlZVEs5SndrRUdDdzZTa0Y3dW1fM3BYWlBWS3Fid2Z3TEVoenh0OTB3NmJ4WEFkeHI1R2dCdi1obEJmeWEzRHNVbU5OVXB2djh4UU9pOUwyNnZXSW1WVXEyM0lmZDFfUmJ1bklZN0VuWUNiTy1INXhNVGxaTGJJbnZNMmMtY0ppU1ZReVhvNk9NSVE5REd5cVl2Z3NUakxwOQ?oc=5",
@@ -443,14 +462,6 @@
       "kalba": "en"
     },
     {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "US-Russia Diesel Deal Ahead of Midterms, Claude Goes Rogue, More",
-      "nuoroda": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPTGhmTDUxNHppV0ZjRm1icHpOUjdtWXJ6S2Rackg3RjlCX3FnaWVpZ3MwZmNMRlVsRHVHa1haQU9VRHNuR1pPTmZjUHlCdDk0dWswZXhoQlgxeWxpamFGX3JxRUwyRWxtWnBuZzVMZ3plSHNxUzlOV2k5dzg1Sy1OV1lqLVA2WjhCNXJZZ3gtZTROUnlSQlpzTGZRNncwdURPWGFRR2dfbHh0Y3cxRFNz?oc=5",
-      "laikas": "2026-10-10T16:50+03:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
       "leidinys": "CNBC",
       "pavadinimas": "Putin relayed Iran war proposal to Trump, Kremlin says",
       "nuoroda": "https://www.cnbc.com/2026/10/10/putin-trump-iran-war-russia-diesel.html",
@@ -542,6 +553,6 @@
     "Delfi": 1,
     "Lrytas": 1
   },
-  "analizė_md": null,
-  "modelis": null
+  "analizė_md": "### Santrauka\nPenktadienį TTF pakilo 3,3 % iki 81,43 €/MWh, o Brent laikėsi virš 104 USD/bbl. Brangstančios dujos kelia dujinių elektrinių SRMC iki 182,7 €/MWh. Šiandienos LT vakaro pikas (201,31 €/MWh) šį lygį viršija, todėl vakare kainą formuoja dujos, o paros kainų skirtumas išlieka didelis.\n\n### 🛢️ Nafta\nBrent penktadienį (10-09) užsidarė ties 104,72 USD/bbl (+0,4 %; per savaitę +2,4 %). Naujienos prieštaringos. Vieni kainų kritimą sieja su atsigaunančiais Artimųjų Rytų srautais, G7 atsargų išleidimu (WSJ) ir atnaujintu krovimu Fudžeiros uoste (EnergyNow). Kiti kilimą aiškina abejonėmis, ar JAV ir Irano derybos atkurs laivybą per Hormuzo sąsiaurį (EnergyNow; WSJ). Tarptautinė energetikos agentūra skelbia išleisianti dar 100 mln. barelių naftos ir produktų (OilPrice.com), Rusija leido eksportuoti 500 tūkst. t dyzelino (Bloomberg), o Goldman Sachs fiksuoja smarkų paklausos smukimą (EnergyNow). Fizinės Brent premija ateities sandoriui antradienį (10-06) siekė +24,86 USD/bbl. Tai rodo, kad realių barelių trūksta labiau, nei atspindi biržos kaina; įtampą didina ir rekordiniai tanklaivių frachto tarifai (OilPrice.com).\n\n### 🔥 Dujos ir SGD\nTTF penktadienį pakilo 3,3 % iki 81,43 €/MWh (per savaitę +8,9 %, per metus +151,6 %). Naftos ir dujų kainų ryšys stiprus: 60 d. koreliacija siekia 0,60, o Brent pakilus 1 %, TTF vidutiniškai kyla 0,67 %. Artėjant žiemai ES gresia dujų tiekimo trūkumas (15min). Uraganas Isaias sutrikdė JAV naftos ir dujų gavybą (FT; Delfi), Henry Hub pakilo 1,6 % iki 3,22 USD/MMBtu. ES ir Inčukalnio saugyklų duomenų šiandien nėra, naujienų apie Klaipėdos SGD terminalą ar Baltijos dujų rinką taip pat nėra.\n\n### ⚡ Poveikis Lietuvai\nŠiandien LT vidutinė elektros kaina (105,22 €/MWh) gerokai viršija 7 d. vidurkį (70,24 €/MWh). Vakaro pikas yra 18,6 €/MWh aukščiau už CCGT SRMC (182,7 €/MWh, iš jų CO2 dalis – 31,6), todėl dujinė elektrinė vakare atsiperka. Per 31 d. dujos kainą lėmė 30,7 % viso laiko, o vakaro valandomis – 57,5 %. TTF pabrangus 10 €/MWh, LT vidutinė kaina kyla apie 5,58 €/MWh, o dujų zonos intervalais – apie 18,2 €/MWh, tad dujų brangimas pirmiausia kelia vakaro pikus. Vidurdienio kaina siekia 64,10 €/MWh, taigi skirtumas iki vakaro piko yra 137,21 €/MWh – tai palanku BESS arbitražui. Saulės elektrinių užfiksuota kaina tuo pačiu metu gerokai atsilieka nuo paros vidurkio.\n\n### 👀 Ką stebėti\n- JAV ir Irano derybų eigą, JAV vykdomą Irano blokadą (Reuters) bei laivybą per Hormuzo sąsiaurį.\n- Hutių konflikto su Saudo Arabija eskalaciją po mirtinos atakos Rijado oro uoste (Bloomberg).\n- Uragano Isaias padarinius JAV naftos ir dujų gavybai (FT).\n- JAV Kongrese rengiamą projektą blokuoti rusiškos naftos pirkimus (15min) ir Vokietijos sprendimą nekeisti sankcijų politikos (Verslo žinios).",
+  "modelis": "claude-opus-5-5"
 }
