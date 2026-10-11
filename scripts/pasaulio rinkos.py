@@ -133,6 +133,7 @@ TRUSTED = {
     "energetika.lt": "Energetika.lt", "kn.lt": "KN", "ambergrid.lt": "Amber Grid",
     "lrv.lt": "LR Vyriausybė", "getbaltic.com": "GET Baltic",
 }
+AGGREGATORS = {"EnergyNow", "OilPrice.com"}     # perpublikuoja kitus – mažesnė kvota
 BLOCKED = ("tass.", "rt.com", "sputnik", "ria.ru", "interfax", "kommersant", "vedomosti",
            "rbc.ru", "xinhua", "globaltimes", "cgtn", "chinadaily", "people.cn",
            "scmp.com", "caixin", "yicai", "ecns.cn")
@@ -650,7 +651,8 @@ def collect_news(now_utc: datetime, monday: bool) -> tuple[list[dict], dict]:
     per_outlet: dict[str, int] = defaultdict(int)
     for it in raw:
         key = re.sub(r"[^a-z0-9ąčęėįšųūž]", "", it["title"].lower())[:70]
-        if key in seen or per_outlet[it["outlet"]] >= 15:
+        cap = 8 if it["outlet"] in AGGREGATORS else 15
+        if key in seen or per_outlet[it["outlet"]] >= cap:
             continue
         seen.add(key)
         per_outlet[it["outlet"]] += 1
@@ -689,8 +691,9 @@ def data_block(ctx: dict) -> str:
             lines.append(f"- {label}: duomenų nėra")
             return
         lines.append(
-            f"- {label}: {num(x['reikšmė'], nd)}{' ' + unit if unit else ''} ({x['data']}; per dieną "
-            f"{pct_s(x['pokytis_d_proc'])}, per 7 d. {pct_s(x['pokytis_7d_proc'])}, "
+            f"- {label}: {num(x['reikšmė'], nd)}{' ' + unit if unit else ''} (paskutinė reikšmė "
+            f"{x['data']}, {DAY_NAMES_LT[date.fromisoformat(x['data']).weekday()]}; per paskutinę "
+            f"prekybos dieną {pct_s(x['pokytis_d_proc'])}, per 7 d. {pct_s(x['pokytis_7d_proc'])}, "
             f"per 30 d. {pct_s(x['pokytis_30d_proc'])}, per metus {pct_s(x['pokytis_metai_proc'])})")
 
     ind("Brent nafta", "brent", "USD/bbl")
@@ -771,7 +774,8 @@ Griežtos taisyklės:
 4. Jei naujienos prieštarauja viena kitai, pateik abi puses.
 5. Jei apie kurią sritį šiandien naujienų nėra, parašyk tai vienu sakiniu ir nieko neišgalvok.
 6. Lietuvos kontekstą (Klaipėdos SGD terminalas, GIPL, Inčukalnio saugykla, Elektrėnų kombinuoto ciklo blokas, NordBalt ir LitPol jungtys) minėk tik tada, kai tai pagrįsta duomenimis arba naujienomis.
-7. Stilius: lietuvių kalba, glaustai, dalykiškai; dešimtainis kablelis; nerašyk didžiosiomis raidėmis; nevartok žodžių „mielai" ir „padarysiu"; jei sakinyje jungtukas „ir" vienas, kableliu jo neskirk.
+7. Rinkos kainos gali būti ne šiandienos: savaitgalį ir pirmadienio rytą tai paskutinės prekybos dienos (dažniausiai penktadienio) uždarymas – rašyk tiksliai, kada kaina pasikeitė.
+8. Stilius: lietuvių kalba, glaustai, dalykiškai; visa analizė – iki 400 žodžių; dešimtainis kablelis; nerašyk didžiosiomis raidėmis; nevartok žodžių „mielai" ir „padarysiu"; jei sakinyje jungtukas „ir" vienas, kableliu jo neskirk. Terminai: Hormuzo sąsiauris, SGD, TTF, SRMC.
 
 Atsakyk Markdown formatu, tik šiomis antraštėmis:
 
@@ -855,6 +859,14 @@ def render_md(ctx: dict, analysis: str | None) -> str:
             yy = s.get("prieš_metus_proc")
             out.append(f"| {label} | {num(s['užpildymas_proc'], 1)} % | {pp_s(s.get('paros_pokytis_pp'))} | – | "
                        f"{pp_s(s['užpildymas_proc'] - yy) if yy is not None else '–'} |")
+    stamps = []
+    for keys, label in ((("brent", "ttf"), "Brent ir TTF"), (("eua",), "CO2 aukcionas")):
+        ds = sorted({r[k]["data"] for k in keys if r.get(k)})
+        if ds:
+            stamps.append(f"{label} – " + ", ".join(
+                f"{d} ({DAY_NAMES_LT[date.fromisoformat(d).weekday()]})" for d in ds))
+    if stamps:
+        out += ["", f"_Paskutinės rinkos reikšmės: {'; '.join(stamps)}._"]
     lt = r.get("lt_elektra")
     if lt and lt.get("šiandien"):
         t = lt["šiandien"]
