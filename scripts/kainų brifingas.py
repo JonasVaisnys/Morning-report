@@ -47,6 +47,8 @@ ZONES = {
     "SE4": "10Y1001A1001A47J",
 }
 
+ELERING_URL = "https://dashboard.elering.ee/api/nps/price"
+
 # ─── LT REFERENCINIAI PROFILIAI ──────────────────────────────────────────────
 
 REFERENCE_PROFILES = {
@@ -329,6 +331,81 @@ def fetch_generation_by_type(domain: str, target_date: datetime) -> dict:
             "other": dict(other), "total": dict(total)}
 
 
+# ─── ELERING API (atsarginis LT/LV kainų šaltinis) ──────────────────────────
+
+def fetch_elering_prices(target_date: datetime) -> dict:
+    """Pasiima LT ir LV day-ahead kainas iš Elering API.
+    Grąžina: {"LT": {h: price, ...}, "LV": {h: price, ...}}
+    """
+    offset = lt_utc_offset(datetime(target_date.year, target_date.month, target_date.day))
+    start_utc = datetime(target_date.year, target_date.month, target_date.day) - timedelta(hours=offset)
+    end_utc = start_utc + timedelta(hours=24)
+
+    params = {
+        "start": start_utc.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+        "end": end_utc.strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+    }
+
+    try:
+        resp = requests.get(ELERING_URL, params=params, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+    except Exception as e:
+        print(f"  ⚠ Elering API klaida: {e}", file=sys.stderr)
+        return {"LT": {}, "LV": {}}
+
+    result = {"LT": {}, "LV": {}}
+    if not isinstance(data, dict) or "data" not in data:
+        print(f"  ⚠ Elering API: netikėtas atsakymas", file=sys.stderr)
+        return result
+
+    target = target_date.date()
+    for zone_key, zone_name in [("lt", "LT"), ("lv", "LV")]:
+        entries = data["data"].get(zone_key, [])
+        if not isinstance(entries, list):
+            continue
+        # Renkame visas reikšmes pagal valandą (gali būti 15 min. rezoliucija)
+        hourly_vals = defaultdict(list)
+        for entry in entries:
+            ts = entry.get("timestamp")
+            price = entry.get("price")
+            if ts is not None and price is not None:
+                dt_utc = datetime(1970, 1, 1) + timedelta(seconds=ts)
+                dt_lt = dt_utc + timedelta(hours=lt_utc_offset(dt_utc))
+                if dt_lt.date() == target:
+                    hourly_vals[dt_lt.hour].append(float(price))
+        for h, vals in hourly_vals.items():
+            result[zone_name][h] = round(sum(vals) / len(vals), 2)
+
+    return result
+
+
+def merge_lt_lv(lt_prices: dict, lv_prices: dict) -> tuple:
+    """Patikrina ar LT ir LV kainos vienodos.
+    Grąžina: (merged: bool, combined_prices: dict)
+    """
+    if not lt_prices and not lv_prices:
+        return True, {}
+    if not lt_prices:
+        return True, dict(lv_prices)
+    if not lv_prices:
+        return True, dict(lt_prices)
+
+    # Tikriname ar bendros valandos sutampa
+    all_hours = set(lt_prices.keys()) | set(lv_prices.keys())
+    for h in all_hours:
+        lt_p = lt_prices.get(h)
+        lv_p = lv_prices.get(h)
+        if lt_p is not None and lv_p is not None and lt_p != lv_p:
+            return False, {}
+
+    combined = dict(lt_prices)
+    for h, p in lv_prices.items():
+        if h not in combined:
+            combined[h] = p
+    return True, combined
+
+
 # ─── ANALIZĖ ─────────────────────────────────────────────────────────────────
 
 def zone_stats(hourly: dict) -> dict:
@@ -501,14 +578,51 @@ def generate_briefing(target_date: datetime, output_json: bool = False):
 
     print(f"Renku duomenis: {date_str} ({dow})...", file=sys.stderr)
 
-    # 1. Kainos
+    # 1. Kainos (ENTSO-E + Elering fallback)
     print("  → Kainos...", file=sys.stderr)
     zone_prices = {}
+    price_sources = {}
     for zone, domain in ZONES.items():
-        print(f"    {zone}...", end=" ", file=sys.stderr, flush=True)
+        print(f"    {zone} (ENTSO-E)...", end=" ", file=sys.stderr, flush=True)
         zone_prices[zone] = fetch_prices(domain, target_date)
         n = len(zone_prices[zone])
         print(f"{n} val.", file=sys.stderr)
+        price_sources[zone] = "ENTSO-E" if n >= 20 else None
+
+    # Elering fallback LT/LV kainoms
+    lt_n = len(zone_prices.get("LT", {}))
+    lv_n = len(zone_prices.get("LV", {}))
+    if lt_n < 20 or lv_n < 20:
+        print("    Elering fallback...", end=" ", file=sys.stderr, flush=True)
+        elering = fetch_elering_prices(target_date)
+        for zone in ["LT", "LV"]:
+            el_n = len(elering.get(zone, {}))
+            cur_n = len(zone_prices.get(zone, {}))
+            if cur_n < 20 and el_n > cur_n:
+                zone_prices[zone] = elering[zone]
+                price_sources[zone] = "Elering"
+        el_lt = len(zone_prices.get("LT", {}))
+        el_lv = len(zone_prices.get("LV", {}))
+        print(f"LT→{el_lt} val., LV→{el_lv} val.", file=sys.stderr)
+
+    # LT/LV sujungimas (kai kainos vienodos — rodome kaip vieną zoną)
+    lt_lv_merged, lt_lv_combined = merge_lt_lv(
+        zone_prices.get("LT", {}), zone_prices.get("LV", {}))
+    if lt_lv_merged:
+        print("    LT/LV kainos vienodos → sujungta", file=sys.stderr)
+        display_zones = ["LT/LV", "PL", "SE4"]
+        display_prices = {
+            "LT/LV": lt_lv_combined,
+            "PL": zone_prices.get("PL", {}),
+            "SE4": zone_prices.get("SE4", {}),
+        }
+        lt_src = price_sources.get("LT") or price_sources.get("LV")
+        display_sources = {"LT/LV": lt_src, "PL": "ENTSO-E", "SE4": "ENTSO-E"}
+    else:
+        print("    LT ≠ LV → rodoma atskirai", file=sys.stderr)
+        display_zones = ["LT", "LV", "PL", "SE4"]
+        display_prices = {z: zone_prices.get(z, {}) for z in display_zones}
+        display_sources = {z: price_sources.get(z, "ENTSO-E") for z in display_zones}
 
     # 2. Srautai
     print("  → Tarpsisteminiai srautai...", file=sys.stderr)
@@ -540,11 +654,14 @@ def generate_briefing(target_date: datetime, output_json: bool = False):
     print("  → Analizė...", file=sys.stderr)
 
     zone_summaries = {}
-    for zone in ZONES:
-        zone_summaries[zone] = zone_stats(zone_prices[zone])
+    for zone in display_zones:
+        zone_summaries[zone] = zone_stats(display_prices[zone])
 
-    lt_intervals = compute_intervals(zone_prices.get("LT", {}))
-    lt_avg = zone_summaries["LT"]["avg"]
+    # LT analizei naudojame LT kainas (arba sujungtas, kai merged)
+    lt_prices_for_analysis = zone_prices.get("LT", {}) or lt_lv_combined
+    lt_intervals = compute_intervals(lt_prices_for_analysis)
+    lt_stats = zone_stats(lt_prices_for_analysis)
+    lt_avg = lt_stats["avg"]
     lt_class = classify_lt(target_date, lt_intervals, lt_avg) if lt_avg else None
 
     net_flows = compute_net_flows(flow_pairs)
@@ -554,6 +671,8 @@ def generate_briefing(target_date: datetime, output_json: bool = False):
     if output_json:
         report = {
             "data": date_str, "savaitės_diena": dow,
+            "lt_lv_sujungta": lt_lv_merged,
+            "kainų_šaltiniai": display_sources,
             "zonos": {}, "lt_klasifikacija": lt_class, "lt_intervalai": {},
             "tarpsisteminiai_srautai": {},
             "lt_gamyba_vartojimas": {
@@ -565,9 +684,9 @@ def generate_briefing(target_date: datetime, output_json: bool = False):
                 "apsirūpinimas_%": gen_load["apsirūpinimas_%"],
             },
         }
-        for zone in ZONES:
+        for zone in display_zones:
             report["zonos"][zone] = {
-                "valandinės": {f"{h:02d}:00": zone_prices[zone].get(h) for h in range(24)},
+                "valandinės": {f"{h:02d}:00": display_prices[zone].get(h) for h in range(24)},
                 "statistika": zone_summaries[zone],
             }
         ref = REFERENCE_PROFILES.get(lt_class["tipas"], {}) if lt_class else {}
@@ -597,17 +716,21 @@ def generate_briefing(target_date: datetime, output_json: bool = False):
     L.append("")
 
     # Zonų suvestinė
+    src_parts = [f"{z}: {s}" for z, s in display_sources.items() if s]
+    src_note = ""
+    if any(s == "Elering" for s in display_sources.values()):
+        src_note = " [" + ", ".join(src_parts) + "]"
     L.append("─" * 65)
-    L.append("  Kainų suvestinė (€/MWh)")
+    L.append(f"  Kainų suvestinė (€/MWh){src_note}")
     L.append("─" * 65)
-    L.append(f"  {'Zona':<6} {'Vidurkis':>10} {'Min':>10} {'(val.)':>7} {'Max':>10} {'(val.)':>7} {'Spread':>8}")
-    L.append(f"  {'─'*6} {'─'*10} {'─'*10} {'─'*7} {'─'*10} {'─'*7} {'─'*8}")
-    for zone in ZONES:
+    L.append(f"  {'Zona':<8} {'Vidurkis':>10} {'Min':>10} {'(val.)':>7} {'Max':>10} {'(val.)':>7} {'Spread':>8}")
+    L.append(f"  {'─'*8} {'─'*10} {'─'*10} {'─'*7} {'─'*10} {'─'*7} {'─'*8}")
+    for zone in display_zones:
         s = zone_summaries[zone]
         if s["avg"] is not None:
-            L.append(f"  {zone:<6} {s['avg']:>10.2f} {s['min']:>10.2f} {s['min_hour']:>7} {s['max']:>10.2f} {s['max_hour']:>7} {s['spread']:>8.2f}")
+            L.append(f"  {zone:<8} {s['avg']:>10.2f} {s['min']:>10.2f} {s['min_hour']:>7} {s['max']:>10.2f} {s['max_hour']:>7} {s['spread']:>8.2f}")
         else:
-            L.append(f"  {zone:<6} {'duomenų nėra':>40}")
+            L.append(f"  {zone:<8} {'duomenų nėra':>40}")
     L.append("")
 
     # LT 7 intervalai
@@ -686,18 +809,20 @@ def generate_briefing(target_date: datetime, output_json: bool = False):
     L.append("─" * 65)
     L.append("  Valandinės kainos (€/MWh, Lietuvos laikas)")
     L.append("─" * 65)
-    L.append(f"  {'Val.':>5}  {'LT':>8}  {'LV':>8}  {'PL':>8}  {'SE4':>8}")
-    L.append(f"  {'─'*5}  {'─'*8}  {'─'*8}  {'─'*8}  {'─'*8}")
+    header = "  " + f"{'Val.':>5}" + "".join(f"  {z:>8}" for z in display_zones)
+    L.append(header)
+    L.append("  " + f"{'─'*5}" + "".join(f"  {'─'*8}" for _ in display_zones))
     for h in range(24):
         vals = []
-        for zone in ZONES:
-            p = zone_prices[zone].get(h)
+        for zone in display_zones:
+            p = display_prices[zone].get(h)
             vals.append(f"{p:>8.2f}" if p is not None else f"{'—':>8}")
         L.append(f"  {h:02d}:00  {'  '.join(vals)}")
 
     L.append("")
     L.append("═" * 65)
-    L.append(f"  Šaltinis: ENTSO-E Transparency Platform")
+    sources_used = sorted(set(s for s in display_sources.values() if s))
+    L.append(f"  Šaltinis: {', '.join(sources_used)}")
     L.append(f"  Sugeneruota: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
     L.append("═" * 65)
 
