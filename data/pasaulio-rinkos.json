@@ -1,51 +1,49 @@
 {
-  "data": "2026-10-11",
-  "savaitės_diena": "sekmadienis",
-  "sugeneruota": "2026-10-11T10:09:45+03:00",
+  "data": "2026-10-09",
+  "savaitės_diena": "penktadienis",
+  "sugeneruota": "2026-10-11T13:40:08+03:00",
   "rodikliai": {
     "brent": {
-      "reikšmė": 104.72,
-      "data": "2026-10-09",
+      "reikšmė": 104.28,
+      "data": "2026-10-08",
       "vienetai": "USD/bbl",
-      "pokytis_d_proc": 0.42,
-      "pokytis_7d_proc": 2.42,
-      "pokytis_30d_proc": 3.47,
-      "pokytis_metai_proc": 60.56,
-      "šaltinis": "Yahoo Finance (BZ=F)",
-      "kotiruotės_laikas": "2026-10-09T23:59+03:00"
+      "pokytis_d_proc": 4.07,
+      "pokytis_7d_proc": 1.93,
+      "pokytis_30d_proc": 6.5,
+      "pokytis_metai_proc": 57.4,
+      "šaltinis": "Yahoo Finance (BZ=F)"
     },
     "ttf": {
-      "reikšmė": 81.434,
-      "data": "2026-10-09",
+      "reikšmė": 78.849,
+      "data": "2026-10-08",
       "vienetai": "€/MWh",
-      "pokytis_d_proc": 3.28,
-      "pokytis_7d_proc": 8.93,
-      "pokytis_30d_proc": 2.76,
-      "pokytis_metai_proc": 151.63,
-      "šaltinis": "Yahoo Finance (TTF=F)",
-      "kotiruotės_laikas": "2026-10-09T18:03+03:00"
+      "pokytis_d_proc": 0.98,
+      "pokytis_7d_proc": 6.64,
+      "pokytis_30d_proc": 3.97,
+      "pokytis_metai_proc": 141.13,
+      "šaltinis": "Yahoo Finance (TTF=F)"
     },
     "henry_hub": {
-      "reikšmė": 3.22,
-      "data": "2026-10-09",
+      "reikšmė": 3.168,
+      "data": "2026-10-08",
       "vienetai": "USD/MMBtu",
-      "pokytis_d_proc": 1.64,
-      "pokytis_7d_proc": 6.1,
-      "pokytis_30d_proc": 14.1,
-      "pokytis_metai_proc": -1.5,
+      "pokytis_d_proc": -1.09,
+      "pokytis_7d_proc": 6.77,
+      "pokytis_30d_proc": 8.64,
+      "pokytis_metai_proc": -4.95,
       "šaltinis": "Yahoo Finance (NG=F)"
     },
     "eurusd": {
-      "reikšmė": 1.1206,
-      "data": "2026-10-09",
+      "reikšmė": 1.1186,
+      "data": "2026-10-08",
       "vienetai": "USD už 1 €",
-      "pokytis_d_proc": 0.18,
-      "pokytis_7d_proc": -0.17,
-      "pokytis_30d_proc": -3.83,
-      "pokytis_metai_proc": -3.49,
+      "pokytis_d_proc": 0.08,
+      "pokytis_7d_proc": -0.99,
+      "pokytis_30d_proc": -3.69,
+      "pokytis_metai_proc": -3.79,
       "šaltinis": "ECB"
     },
-    "brent_eur": 93.45,
+    "brent_eur": 93.22,
     "brent_fizinė": {
       "reikšmė": 125.44,
       "data": "2026-10-06",
@@ -58,54 +56,54 @@
       "premija_ateities_sandoriui": 24.86
     },
     "eua": {
-      "reikšmė": 86.11,
-      "data": "2026-10-09",
+      "reikšmė": 85.07,
+      "data": "2026-10-08",
       "vienetai": "€/t",
-      "pokytis_d_proc": 1.22,
-      "pokytis_7d_proc": 0.94,
-      "pokytis_30d_proc": 2.03,
+      "pokytis_d_proc": 1.48,
+      "pokytis_7d_proc": 0.44,
+      "pokytis_30d_proc": 0.79,
       "pokytis_metai_proc": null,
       "šaltinis": "EEX pirminiai aukcionai"
     },
     "saugyklos_es": null,
     "saugyklos_lv": null,
     "lt_elektra": {
-      "data": "2026-10-11",
+      "data": "2026-10-09",
       "šiandien": {
-        "vidurkis": 105.22,
-        "vakaro_pikas_18_21": 201.31,
-        "vidurdienis_10_15": 64.1,
-        "vakaro_ir_vidurdienio_skirtumas": 137.2,
-        "min": 27.99,
-        "max": 252.8,
+        "vidurkis": 28.31,
+        "vakaro_pikas_18_21": 55.37,
+        "vidurdienis_10_15": 19.99,
+        "vakaro_ir_vidurdienio_skirtumas": 35.37,
+        "min": 10.25,
+        "max": 76.55,
         "intervalų": 96
       },
-      "vidurkis_7d": 70.24,
+      "vidurkis_7d": 77.24,
       "šaltinis": "Nord Pool per Elering"
     }
   },
   "grandinė": {
     "srmc": {
       "ccgt": {
-        "iš_viso": 182.7,
-        "kuras": 148.1,
-        "co2": 31.6,
+        "iš_viso": 177.6,
+        "kuras": 143.4,
+        "co2": 31.2,
         "vom": 3.0,
         "eta": 0.55
       },
       "senas": {
-        "iš_viso": 250.1,
-        "kuras": 203.6,
-        "co2": 43.5,
+        "iš_viso": 243.1,
+        "kuras": 197.1,
+        "co2": 43.0,
         "vom": 3.0,
         "eta": 0.4
       },
-      "ttf_data": "2026-10-09",
-      "eua_data": "2026-10-09"
+      "ttf_data": "2026-10-08",
+      "eua_data": "2026-10-08"
     },
     "nafta_dujos": {
       "koreliacija": 0.6,
-      "beta": 0.67,
+      "beta": 0.66,
       "dienų": 60,
       "bazė_250d": {
         "koreliacija": 0.56,
@@ -115,24 +113,56 @@
     },
     "dujos_elektra": {
       "dienų": 31,
-      "laiko_dalis_proc": 30.7,
+      "laiko_dalis_proc": 31.1,
       "vakaro_dalis_proc": 57.5,
-      "jautrumas_vid_eur_mwh_per_10": 5.58,
+      "jautrumas_vid_eur_mwh_per_10": 5.66,
       "jautrumas_dujų_zonoje_eur_mwh_per_10": 18.2
     },
     "šiandien": {
-      "vakaro_piko_skirtumas": 18.6,
-      "vertinimas": "dujinė elektrinė vakaro pikui atsiperka"
+      "vakaro_piko_skirtumas": -122.2,
+      "vertinimas": "dujos vakaro kainos nenustato"
     }
   },
   "naujienos": [
     {
+      "leidinys": "Reuters",
+      "pavadinimas": "Yemen's Houthis renew warning over Saudi airports after deadly Riyadh attack",
+      "nuoroda": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQSEo0VkFTZkY2VzMzeFV0OVRVbWN4aHFzaXFjV0FBN05uaEFONHhQVTN2a3JJM09NdFBzY1R3MnRrUFZOeFZfUDItOUd1NkxiT3dfOWduTHJKTlBzSGsyN3VCYTNkWG1ZTWlZMUpzbDdrc1dOZUs3VDRwa0lHN21tNnFNdFhQYUxoNmdfN1Zyb3FMRm04RzRVei0zY3FKN0FoY2JYTGFodjYtemdITVpKVXk3NlR2QXFIMU9YMnUtX004QW1GZ0UzZA?oc=5",
+      "laikas": "2026-10-11T13:26+03:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
       "leidinys": "15min",
-      "pavadinimas": "JAV Kongrese rengiamas įstatymo projektas rusiškos naftos pirkimams blokuoti",
-      "nuoroda": "https://www.15min.lt/naujiena/aktualu/pasaulis/jav-kongrese-rengiamas-istatymo-projektas-rusiskos-naftos-pirkimams-blokuoti-57-2782248?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed",
-      "laikas": "2026-10-11T09:38+03:00",
+      "pavadinimas": "Kyjivas: smūgiai naftos objektams baigsis, jei Rusija liausis atakavusi energetikos infrastruktūrą",
+      "nuoroda": "https://www.15min.lt/naujiena/aktualu/pasaulis/kyjivas-smugiai-naftos-objektams-baigsis-jei-rusija-liausis-atakavusi-energetikos-infrastruktura-57-2782352?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed",
+      "laikas": "2026-10-11T13:14+03:00",
       "tema": "nafta",
       "kalba": "lt"
+    },
+    {
+      "leidinys": "Reuters",
+      "pavadinimas": "Ukraine will halt strikes on refineries if Russia stops energy attacks, Zelenskiy says",
+      "nuoroda": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPTEo5WEZxUk5OcWNWU1Z1Z0g4SGlFQmxKckFxbS05WFd6UUxDNE0xa0NZRzZoR004Tms3azQ3aTVfUVIwNXlTU1ljcW9HLTREUGZBVVFiWlpVWXI3V1c3Zmt2UEJ2ME43azRMb0Vlei1iQUNPbzk4bV94bkRGTzBmREMydnBCRzVSclBoVkhrWkx4TFJ2YWdsRS1COGVOWU9pRDJqSUFNRk1pUnpQM2dlQ3o0eGpYSHYzbWdDX3dtQWtYT2Zz?oc=5",
+      "laikas": "2026-10-11T12:47+03:00",
+      "tema": "nafta",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Bloomberg",
+      "pavadinimas": "Saudis Face Heavy Toll From Yemen War as Airport Attack Kills 12",
+      "nuoroda": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOUkVlWTdudE1oQ2k0OF9RR0FIVzBueGJobHNpZk5TY3ZLN2lEWmVabGNjeEdEaHZweFhfeWMybl93R3V6eGhlNngzQS12WVdQZEdfTTFEUmpuQTVYNWd4bFAzaHl0eVc5SjRad19sNzdoVEtsRjVlN2tOUVRHT3d1LUVqSy1yaXZITXY1M3FiOWVOdW5ZVWtJZ1FrRzR0NEY5X09vSDM0emlJa1FYWmlZT0c3YmpMdw?oc=5",
+      "laikas": "2026-10-11T12:03+03:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Reuters",
+      "pavadinimas": "Saudi stocks slide after attack on Riyadh airport",
+      "nuoroda": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOOEliNzFKYlR3T0NNakk4TWxXWGJ0UlJfQ0JLdFVIRnlESENoRW4zdjNSWW02UjFJOFozRmlZdVZ2ZlFaOTFSdEc5RGd6QWVVaFFMNi1QRTdMSVg2dFQxaHROcjhjbnI4ekhnZUZVbXlmYVBQaDZ3TG1pcFQ5RnFaVXpfYUxWRG1acC1mYnR6d3ZtdXpxbTBBUFJkcU9ock1wbXc?oc=5",
+      "laikas": "2026-10-11T10:51+03:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
     },
     {
       "leidinys": "Bloomberg",
@@ -208,6 +238,14 @@
     },
     {
       "leidinys": "EnergyNow",
+      "pavadinimas": "Core Differences Between West Texas Intermediate (WTI) and Brent Crude and the Affect of the Iran War",
+      "nuoroda": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQN1ZOVFVuUnFFYUstVktuczhxdzBYN1lUbUlqbTIwZEVnX2lCclN2dDZyeVJxUnFPLXdLLWhHcTd1MUUyM0kxTFBUZWJZSVlfN2RCZkRlRXhqT3ZfdUJTQkFjSkR1dDFsQ2Rmc19VTERhc1hsV2Nka2RDVEFvZ0FUcFdJQ0dCR21lcm5mZU12UzJZZHlyOFh3WGEzVWpCVDlUeHc?oc=5",
+      "laikas": "2026-10-11T03:13+03:00",
+      "tema": "nafta",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "EnergyNow",
       "pavadinimas": "Oil Prices Rise 3% as Iran War Stand-off Persists - Energy News, Top Headlines, Commentaries, Features & Events",
       "nuoroda": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOT05ScjQwX2cxMmpKblVhR2g0enp2S2RWWVZ4aXUyMGZJNUR3bkNwX0tCN1hTcXYzSUdTMlA5djVsQ0F6eE4wOTBfbHlnSUc0b0x2bXZ5UXZEOGhrYWhyVnJPcGJVWHZzM2hPSDB4bW1rMFp1NktuTEdjdDNaZngzX2l0aGVsQQ?oc=5",
       "laikas": "2026-10-11T03:08+03:00",
@@ -232,18 +270,10 @@
     },
     {
       "leidinys": "EnergyNow",
-      "pavadinimas": "Goldman Sachs Says Global Oil Demand Takes Big Hit, Sees Risks to Price Forecast",
-      "nuoroda": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPN3Y1MVB3RUk0OFhpLWdlR1I2YlQwc21jQWRFdnNBakh3SGhVZ2ZPZU1rNVZwNWxBMHpOcHZIRjBNalZNXzMya2xraFN6cDNCYlBKUVp0TDFockxGbThyMmhEWWZJNTdkcUxIb2ttQnZCZk1pNnVrUWgwWWMyLXpxYWlodFdnVUpqZWdaUVFESy1RY1lDLVZ5a2JjS1pKZk5tWEZ5U1BqWl9ydVNPOFRv?oc=5",
-      "laikas": "2026-10-11T02:55+03:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "EnergyNow",
-      "pavadinimas": "Port of Fujairah Resumes Oil Loadings After Attack and Why it Matters Globally",
-      "nuoroda": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOVkp0Q2hNMmJIWS1RLTBFWUNVZnlydF9NemhEVEVhcWJzV29TX1huZGlNUUpFRFMxSkljQkY0RUxlVmxKUThDWlJHRFJXcXdVdVF5a2hINlV5NlEtSG1rR05zMGtUb2VUbEJoTUFZUERJRE1Oc1hIUmlzU3l5UEpSeG5Xc1BVNUI1TFFUekVfVGdqcDhvQ2VfOXZhbXR0OTExNGJJRF9oOHdqbUpKZGc?oc=5",
-      "laikas": "2026-10-11T02:52+03:00",
-      "tema": "nafta",
+      "pavadinimas": "India Sees Qatar LNG Supply Cut After Iran Strike - Energy News, Top Headlines, Commentaries, Features & Events",
+      "nuoroda": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOQWtlUEpScEI3aXZTVk9wdVBPUDFKQ24ybU55X0R3WlVYR01kUTY0LVhUMjh5ZF9PUlpxbGZ0QUE0ZG9ieGlNbHNqQmxEclMxTzAwQ0FQRXJZbmdFSXNBaTlmVEVIcUJ6U1FQUlBzTUExVGlYaThsUTctLVlwaGxvNm9la3EtXzA?oc=5",
+      "laikas": "2026-10-11T03:00+03:00",
+      "tema": "dujos",
       "kalba": "en"
     },
     {
@@ -263,14 +293,6 @@
       "kalba": "en"
     },
     {
-      "leidinys": "WSJ",
-      "pavadinimas": "Oil Falls on Signs of Recovering Middle Eastern Flows, G-7 Stock Release",
-      "nuoroda": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQTm81UUFpaklWcncxVExTVXZoNkJiampkeFhnT2gzZEhRbFUyRmVhdmo1NGYzY3NodU05OExNYWNtekMxVUhoV3E3Q2hqNkF3ZEFQYk55cGdCeUg3LVNCOVVBd21IazUxbVJTRzJEdXBXZmRVX0xVaTdzOEdtT29jaE12cUw4X3JBdjJCcUxWcGVZTVVKRmZlMWc1eHNoWmNWRi16dDVneDBpeWwtb2xVRmNKeF95MGJ3UW5XQld1THE0TjlrNTBPOUp3QlEyMGZ0S0E?oc=5",
-      "laikas": "2026-10-11T00:44+03:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
       "leidinys": "OilPrice.com",
       "pavadinimas": "Pemex Needs Nearly $110 Billion to Hit Mexico's Output Targets",
       "nuoroda": "https://oilprice.com/Energy/Crude-Oil/Pemex-Needs-Nearly-110-Billion-to-Hit-Mexicos-Output-Targets.html",
@@ -285,14 +307,6 @@
       "laikas": "2026-10-10T23:26+03:00",
       "tema": "dujos",
       "kalba": "en"
-    },
-    {
-      "leidinys": "15min",
-      "pavadinimas": "Per Rusijos smūgius žuvus 21 žmogui, JAV ir Ukrainos lyderiai susikirto dėl dyzelino sandorio",
-      "nuoroda": "https://www.15min.lt/naujiena/aktualu/pasaulis/per-rusijos-smugius-zuvus-21-zmogui-jav-ir-ukrainos-lyderiai-susikirto-del-dyzelino-sandorio-57-2782204?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed",
-      "laikas": "2026-10-10T23:02+03:00",
-      "tema": "nafta",
-      "kalba": "lt"
     },
     {
       "leidinys": "Bloomberg",
@@ -391,6 +405,14 @@
       "kalba": "en"
     },
     {
+      "leidinys": "Bloomberg",
+      "pavadinimas": "Russia Drops Deadly Bombs on Ukraine Homes After US Diesel Deal",
+      "nuoroda": "https://news.google.com/rss/articles/CBMitAFBVV95cUxONDdmYktGY0ZqRDJ2dGwwaEk4ZjJkUkxIUUhpb09RY3cxTTBQT0tsZHdweTc5dXdXUlhZS0djNk9tbUJGT2ZXQmNTaXVUZ0R4R0lURHlqdGxqbzBEc2ZwSFBndGFIcTlBXzJlNkg2dGI0d19DZnU5UlFkczIyUUhjRDRQY1pJOC1FQzBWaW9YQU5zaDZCU0ZRbzN4c01jQXpMUFdnejN6LUNYX3VuQWM4RVF2cUg?oc=5",
+      "laikas": "2026-10-10T18:35+03:00",
+      "tema": "nafta",
+      "kalba": "en"
+    },
+    {
       "leidinys": "DW",
       "pavadinimas": "Who will the diesel crisis hit first?",
       "nuoroda": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBxY0NaOW9Zem9DV09XSk9WZmpjeS1nRnR1RDYxZk5KUkxCRXJzQmk1bnlYaEZURUFyUXcwRF9IcV9JOTdXZmJ2ejFBRkVvX00tYUJyZV96X0t2NXI4aGFPYWJQS0ZRX3Q1cUFLdm9sRExNWWR5em5fcl9kRUppZw?oc=5",
@@ -447,22 +469,6 @@
       "kalba": "en"
     },
     {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "How Data Centers Are Driving Up US Electricity Prices",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-10-10/how-data-centers-are-driving-up-us-electricity-prices",
-      "laikas": "2026-10-10T17:00+03:00",
-      "tema": "elektra ir CO2",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "Trump Hypes Megaprojects to Voters Who Lament Gas, Food Costs",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-10-10/trump-hypes-megaprojects-to-voters-who-lament-gas-food-costs",
-      "laikas": "2026-10-10T17:00+03:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
       "leidinys": "CNBC",
       "pavadinimas": "Putin relayed Iran war proposal to Trump, Kremlin says",
       "nuoroda": "https://www.cnbc.com/2026/10/10/putin-trump-iran-war-russia-diesel.html",
@@ -475,6 +481,14 @@
       "pavadinimas": "Vokietija neatsisako sankcijų Rusijai, nepaisydama D. Trumpo susitarimo dėl dyzelino",
       "nuoroda": "https://www.vz.lt/verslo-aplinka/2026/10/10/vokietija-neatsisako-sankciju-rusijai-nepaisydama-d-trumpo-susitarimo-del-dyzelino-591206",
       "laikas": "2026-10-10T16:40+03:00",
+      "tema": "nafta",
+      "kalba": "lt"
+    },
+    {
+      "leidinys": "Alfa",
+      "pavadinimas": "„Sprendimą užfiksavome“: po D. Trumpo ir V. Putino susitarimo dėl dyzelino Vokietija savo pozicijos nekeis",
+      "nuoroda": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxOTGZleDd6Z0RIdFp6RFRaVXlXWVJSTDRQTXlab2tQb2tUSGR5bTZGelNQV1VpTV8waFFaTlhSMGtCQVRZQWl0REVvV2U0M0l2MDZWdFRJV0tWQTlxUjdkdFdFWVpyQV9sSzJIRkQtUFBSMnVfMFYzXzF4YjBtS0lrV05TOGtmTEo1MWozekJZZWNER2JTUnZPZTN1b2NkY0NGNFVUSUNkaVhmMXU2Y2VXVlRBYzRxMTVQbnNVbFFtU3Jfdy1rQ0pET29XZU1wd1JRXzFnTEp4dTB4b01ZdmhCZGtLRQ?oc=5",
+      "laikas": "2026-10-10T16:30+03:00",
       "tema": "nafta",
       "kalba": "lt"
     },
@@ -527,33 +541,33 @@
       "kalba": "lt"
     },
     {
-      "leidinys": "CNBC",
-      "pavadinimas": "Trump's diesel agreement with Putin accused of contradicting Russia sanctions law",
-      "nuoroda": "https://www.cnbc.com/2026/10/09/trump-putin-diesel-russia-sanctions-ukraine.html",
-      "laikas": "2026-10-10T05:09+03:00",
+      "leidinys": "Alfa",
+      "pavadinimas": "V. Zelenskis įniršo, kai D. Trumpas paskelbė apie susitarimą pirkti rusišką dyzeliną",
+      "nuoroda": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPSko1TGI1T2xsSDNWRU9CUXlrUEZOTzZESHhHb2hiN3Uza1hjemRtNHN5dGpDb29fQ1JaMHNZc3FsaUlUYUFWUHp1d3RBSXNWbS1vOXBUdG54OXQ2eEp1V29sWlBYVU5HQ2hWNjFUMm9jZ18yU1ZKY2h6VGZFYVZMemladEU4UzBteW1HUUVBWTNaMEpiMFdrSlRNSGN6RVM3UzZGMHFibjc4Ul9Rck1fM3Q2SmpPS1AzOXNzeTRqN0J4TzZpQzZxSA?oc=5",
+      "laikas": "2026-10-10T08:58+03:00",
       "tema": "nafta",
-      "kalba": "en"
+      "kalba": "lt"
     }
   ],
   "įspėjimai": [],
   "naujienų_statistika": {
     "Bloomberg": 15,
     "EnergyNow": 8,
+    "Reuters": 5,
     "OilPrice.com": 5,
-    "WSJ": 4,
-    "15min": 3,
     "Verslo žinios": 3,
+    "WSJ": 3,
+    "Alfa": 3,
+    "15min": 2,
     "Financial Times": 2,
-    "Reuters": 2,
-    "CNBC": 2,
     "DW": 1,
     "TV3": 1,
     "Politico": 1,
+    "CNBC": 1,
     "Rigzone": 1,
-    "Alfa": 1,
     "Delfi": 1,
     "Lrytas": 1
   },
-  "analizė_md": "### Santrauka\nPenktadienį (spalio 9 d.) TTF pakilo 3,3 % iki 81,43 €/MWh, o Brent pakilo 0,4 % iki 104,72 USD/bbl. Fizinė naftos rinka išlieka itin įtempta. Šiandien Lietuvos vakaro piko kaina (201,31 €/MWh) viršija dujinės elektrinės SRMC, todėl brangios dujos tiesiogiai kelia vakaro kainas ir didina BESS arbitražo skirtumą.\n\n### 🛢️ Nafta\nPer savaitę Brent pabrango 2,4 %, o per metus – 60,6 %. Naujienos dėl krypties prieštarauja viena kitai. Kainas mažina ženklai, kad Artimųjų Rytų srautai atsigauna, Fudžeiros uostas vėl krauna naftą, G7 atsargos išleidžiamos į rinką, o pasaulinė paklausa smarkiai susitraukė (WSJ; EnergyNow). Kainas kelia abejonės, ar JAV ir Irano derybos atvers Hormuzo sąsiaurį, išpuolis Rijado oro uoste ir uragano Isaias sutrikdyta gavyba JAV (EnergyNow; Bloomberg; FT). TEA skelbia išleisianti dar 100 mln. barelių iš 400 mln. barelių plano, o supertanklaivių nuoma rugsėjį viršijo 1 mln. USD per dieną (OilPrice.com). Fizinės Brent premija ateities sandoriui spalio 6 d. siekė +24,86 USD/bbl. Tai rodo, kad realiai pristatomų barelių trūksta labiau, nei atspindi ateities sandorių kaina.\n\n### 🔥 Dujos ir SGD\nPer savaitę TTF pakilo 8,9 %, o per metus – 151,6 %. Pagal β 0,67 penktadienio Brent pokytis paaiškintų tik nedidelę dalį TTF šuolio, taigi dujos judėjo ir dėl savų veiksnių. ES artėjant žiemai gresia dujų tiekimo trūkumas (15min), o uraganas Isaias sutrikdė ir JAV dujų gavybą (FT; Delfi). Henry Hub per savaitę pabrango 6,1 % iki 3,22 USD/MMBtu. Kinija JAV SGD neimportuoja, tačiau išlieka svarbi rinkos dalyvė (EnergyNow). ES ir Inčukalnio saugyklų duomenų šiandien nėra, o naujienų apie Baltijos dujų infrastruktūrą taip pat nėra.\n\n### ⚡ Poveikis Lietuvai\nŠiandienos vidutinė kaina yra 105,22 €/MWh, kai 7 dienų vidurkis – 70,24 €/MWh. Vakaro pikas viršija CCGT SRMC (182,7 €/MWh) 18,6 €/MWh. Per 31 dieną kaina dujų kaštų zonoje buvo 30,7 % laiko, o vakarais – 57,5 %, todėl dujos labiausiai veikia būtent vakaro valandas. Pagal jautrumą TTF pakilus 10 €/MWh vidutinė LT kaina kyla apie 5,58 €/MWh, o dujų zonos intervalais – apie 18,2 €/MWh. Netiesioginis poveikis per importą ir CO2 į šiuos skaičius neįtrauktas. BESS skirtumas tarp vakaro piko ir vidurdienio šiandien siekia 137,20 €/MWh. Vidurdienio kaina (64,10 €/MWh) yra gerokai žemesnė už vidurkį, todėl saulės elektrinių užfiksuota kaina lieka mažesnė nei bazinė.\n\n### 👀 Ką stebėti\n- JAV ir Irano derybas bei Hormuzo sąsiaurio srautus, taip pat JAV vykdomą Irano blokadą (EnergyNow; Reuters).\n- Uragano Isaias padarinius JAV naftos ir dujų gavybai (FT).\n- ES dujų tiekimo pakankamumą prieš žiemą (15min).\n- JAV ir Rusijos dyzelino sandorį: Rusija leidžia eksportuoti 500 000 t dyzelino, o JAV Kongrese rengiamas projektas rusiškos naftos pirkimams blokuoti (Bloomberg; 15min).",
+  "analizė_md": "### Santrauka\nBrent ketvirtadienį (10-08) pakilo 4,1 % iki 104,28 USD/bbl, o fizinės naftos premija ateities sandoriui siekia beveik 25 USD/bbl. Tai rodo, kad dėl Irano karo naftos rinka tebėra įtempta. TTF kilo nuosaikiau (+1,0 %), o penktadienio LT elektros kainos dujos nenustato: vakaro pikas yra 122,2 €/MWh žemiau dujinės elektrinės SRMC.\n\n### 🛢️ Nafta\nBrent artimiausio mėnesio sandoris 10-08 uždarytas ties 104,28 USD/bbl (93,22 €/bbl). Per mėnesį jis pakilo 6,5 %, per metus – 57,4 %. Fizinė Brent 10-06 kainavo 125,44 USD/bbl. Jos 24,86 USD/bbl premija rodo, kad greitai pristatomos naftos trūksta, o rekordiniai tanklaivių tarifai dėl ilgesnių maršrutų šią įtampą didina (OilPrice.com). Naujienos prieštaringos. Vieni šaltiniai kainų kilimą sieja su abejonėmis, ar JAV ir Irano derybos atvers Hormuzo sąsiaurį (EnergyNow; WSJ). Kiti praneša apie kainų kritimą, nes pasiūlos optimizmas nusveria konflikto ir audrų rizikas (WSJ; EnergyNow). Pasiūlą didina IEA sprendimas išleisti dar 100 mln. barelių atsargų (OilPrice.com) bei Rusijos leidimas eksportuoti 500 tūkst. t dyzelino (Bloomberg). Tačiau uraganas Isaias sutrikdė JAV gavybą (FT; Delfi), o husių ataka Rijado oro uoste didina regiono riziką (Bloomberg; Reuters).\n\n### 🔥 Dujos ir SGD\nTTF 10-08 užsidarė ties 78,85 €/MWh: per savaitę kaina pakilo 6,6 %, per metus – 141,1 %. Nafta ir dujos juda kartu (60 d. koreliacija 0,60, β 0,66), tačiau ketvirtadienį TTF reagavo silpniau, nei rodytų šis ryšys. SGD rinką spaudžia sumažintas Kataro tiekimas Indijai po Irano smūgio (EnergyNow), o ES artėjant žiemai gresia dujų trūkumas (15min). ES ir Inčukalnio saugyklų duomenų šiandien nėra, naujienų apie Baltijos regiono dujų rinką taip pat nėra.\n\n### ⚡ Poveikis Lietuvai\nPenktadienį (10-09) LT vidutinė elektros kaina siekia 28,31 €/MWh, gerokai mažiau nei 7 d. vidurkis (77,24 €/MWh). Vakaro pikas (55,37 €/MWh) yra 122,2 €/MWh žemiau CCGT SRMC (177,6 €/MWh). Vis dėlto per 31 d. kaina dujų zonoje buvo 31,1 % laiko, o vakaro valandomis – 57,5 % laiko. Todėl TTF pabrangus 10 €/MWh, LT vidutinė kaina pakiltų ≈ 5,66 €/MWh, o dujų zonos intervalais – ≈ 18,2 €/MWh. Kadangi dujų zona dažniausiai būna vakare, brangstantis TTF labiausiai plėstų BESS vakaro ir vidurdienio skirtumą, šiandien siekiantį 35,37 €/MWh. Saulės elektrinėms vidurdienio kaina (19,99 €/MWh, min. 10,25 €/MWh) gerokai mažesnė už dienos vidurkį, todėl jų užfiksuota kaina šiandien silpna.\n\n### 👀 Ką stebėti\n- JAV ir Irano derybos dėl Hormuzo sąsiaurio ir JAV blokados incidentai (EnergyNow; Reuters).\n- Husių grasinimai Saudo Arabijos oro uostams (Reuters; Bloomberg).\n- Uragano Isaias padariniai JAV gavybai (FT). Ukrainos pasiūlymas nutraukti smūgius Rusijos naftos perdirbimo gamykloms, jei Rusija nustos atakuoti Ukrainos energetiką (Reuters; 15min).\n- Pastaba: naujienos datuotos 10-10–10-11, t. y. vėliau nei ataskaitos data, todėl jas verta patikrinti.",
   "modelis": "claude-opus-5-5"
 }

@@ -1,6 +1,6 @@
 {
-  "data": "2026-10-11",
-  "savaitės_diena": "sekmadienis",
+  "data": "2026-10-09",
+  "savaitės_diena": "penktadienis",
   "lt_lv_sujungta": true,
   "kainų_šaltiniai": {
     "LT/LV": "Elering",
@@ -10,232 +10,232 @@
   "zonos": {
     "LT/LV": {
       "valandinės": {
-        "00:00": 29.83,
-        "01:00": 93.02,
-        "02:00": 51.77,
-        "03:00": 97.22,
-        "04:00": 96.52,
-        "05:00": 99.81,
-        "06:00": 98.23,
-        "07:00": 101.92,
-        "08:00": 122.2,
-        "09:00": 133.61,
-        "10:00": 108.39,
-        "11:00": 87.86,
-        "12:00": 55.22,
-        "13:00": 51.62,
-        "14:00": 40.57,
-        "15:00": 40.97,
-        "16:00": 67.78,
-        "17:00": 151.6,
-        "18:00": 193.12,
-        "19:00": 216.5,
-        "20:00": 191.92,
-        "21:00": 203.68,
-        "22:00": 137.24,
-        "23:00": 54.63
+        "00:00": 27.19,
+        "01:00": 24.31,
+        "02:00": 19.83,
+        "03:00": 15.66,
+        "04:00": 13.75,
+        "05:00": 13.45,
+        "06:00": 15.17,
+        "07:00": 17.82,
+        "08:00": 22.23,
+        "09:00": 25.1,
+        "10:00": 24.48,
+        "11:00": 21.73,
+        "12:00": 18.4,
+        "13:00": 18.23,
+        "14:00": 18.12,
+        "15:00": 18.99,
+        "16:00": 32.87,
+        "17:00": 48.31,
+        "18:00": 58.33,
+        "19:00": 61.42,
+        "20:00": 56.63,
+        "21:00": 45.08,
+        "22:00": 41.74,
+        "23:00": 20.66
       },
       "statistika": {
-        "avg": 105.22,
-        "min": 29.83,
-        "max": 216.5,
-        "min_hour": "00:00",
+        "avg": 28.31,
+        "min": 13.45,
+        "max": 61.42,
+        "min_hour": "05:00",
         "max_hour": "19:00",
-        "spread": 186.67
+        "spread": 47.97
       }
     },
     "PL": {
       "valandinės": {
-        "00:00": 119.09,
-        "01:00": 129.01,
-        "02:00": 114.35,
-        "03:00": 115.03,
-        "04:00": 112.7,
-        "05:00": 112.36,
-        "06:00": 109.49,
-        "07:00": 119.43,
-        "08:00": 123.91,
-        "09:00": 132.98,
-        "10:00": 110.22,
-        "11:00": 93.39,
-        "12:00": 60.14,
-        "13:00": 38.41,
-        "14:00": 23.18,
-        "15:00": 37.0,
-        "16:00": 72.5,
-        "17:00": 121.2,
-        "18:00": 151.25,
-        "19:00": 163.19,
-        "20:00": 172.18,
-        "21:00": 143.41,
-        "22:00": 130.98,
-        "23:00": 142.26
+        "00:00": 108.11,
+        "01:00": 86.75,
+        "02:00": 83.7,
+        "03:00": 79.03,
+        "04:00": 75.79,
+        "05:00": 68.49,
+        "06:00": 78.21,
+        "07:00": 112.24,
+        "08:00": 123.74,
+        "09:00": 120.81,
+        "10:00": 83.31,
+        "11:00": 0.0,
+        "12:00": 3.68,
+        "13:00": 0.02,
+        "14:00": 0.0,
+        "15:00": -8.98,
+        "16:00": 36.45,
+        "17:00": 89.21,
+        "18:00": 137.79,
+        "19:00": 167.07,
+        "20:00": 170.4,
+        "21:00": 135.58,
+        "22:00": 122.75,
+        "23:00": 119.06
       },
       "statistika": {
-        "avg": 110.32,
-        "min": 23.18,
-        "max": 172.18,
-        "min_hour": "14:00",
+        "avg": 83.05,
+        "min": -8.98,
+        "max": 170.4,
+        "min_hour": "15:00",
         "max_hour": "20:00",
-        "spread": 149.0
+        "spread": 179.38
       }
     },
     "SE4": {
       "valandinės": {
-        "00:00": 94.08,
-        "01:00": 89.87,
-        "02:00": 90.5,
-        "03:00": 96.54,
-        "04:00": 95.88,
-        "05:00": 99.11,
-        "06:00": 97.59,
-        "07:00": 101.24,
-        "08:00": 121.13,
-        "09:00": 132.49,
-        "10:00": 107.78,
-        "11:00": 87.6,
-        "12:00": 55.38,
-        "13:00": 51.86,
-        "14:00": 40.73,
-        "15:00": 41.12,
-        "16:00": 65.22,
-        "17:00": 114.68,
-        "18:00": 192.5,
-        "19:00": 225.12,
-        "20:00": 224.4,
-        "21:00": 218.26,
-        "22:00": 197.19,
-        "23:00": 162.13
+        "00:00": 27.19,
+        "01:00": 24.31,
+        "02:00": 19.87,
+        "03:00": 15.77,
+        "04:00": 13.91,
+        "05:00": 13.61,
+        "06:00": 15.28,
+        "07:00": 17.88,
+        "08:00": 22.23,
+        "09:00": 25.1,
+        "10:00": 24.48,
+        "11:00": 21.73,
+        "12:00": 18.59,
+        "13:00": 18.37,
+        "14:00": 18.17,
+        "15:00": 18.99,
+        "16:00": 33.16,
+        "17:00": 57.1,
+        "18:00": 85.27,
+        "19:00": 109.33,
+        "20:00": 114.93,
+        "21:00": 95.89,
+        "22:00": 80.01,
+        "23:00": 67.87
       },
       "statistika": {
-        "avg": 116.77,
-        "min": 40.73,
-        "max": 225.12,
-        "min_hour": "14:00",
-        "max_hour": "19:00",
-        "spread": 184.39
+        "avg": 39.96,
+        "min": 13.61,
+        "max": 114.93,
+        "min_hour": "05:00",
+        "max_hour": "20:00",
+        "spread": 101.32
       }
     }
   },
   "lt_klasifikacija": {
-    "tipas": "Autumn Weekend",
-    "pasitikėjimas": "Aukštas",
-    "kreivė": "Kylanti kreivė. Plokščias rytas, kylant iki vakaro piko.",
+    "tipas": "Autumn Weekday",
+    "pasitikėjimas": "Žemas",
+    "kreivė": "M formos. Beveik lygūs ryto ir vakaro pikai. Seklus vidurdienio nuosmukis.",
     "anomalijos": [
       {
         "intervalas": "Naktis",
         "valandos": "00–05",
-        "šiandien": 78.0,
-        "nuoroda": 46.0,
-        "nuokrypis": 69.6
+        "šiandien": 19.0,
+        "nuoroda": 59.9,
+        "nuokrypis": -68.2
       },
       {
         "intervalas": "Ryto kilimas",
         "valandos": "06",
-        "šiandien": 98.2,
-        "nuoroda": 45.9,
-        "nuokrypis": 114.0
+        "šiandien": 15.2,
+        "nuoroda": 106.0,
+        "nuokrypis": -85.7
       },
       {
         "intervalas": "Ryto pikas",
         "valandos": "07–09",
-        "šiandien": 119.2,
-        "nuoroda": 58.4,
-        "nuokrypis": 104.2
+        "šiandien": 21.7,
+        "nuoroda": 174.6,
+        "nuokrypis": -87.6
       },
       {
         "intervalas": "Vidurdienio dub.",
         "valandos": "10–15",
-        "šiandien": 64.1,
-        "nuoroda": 45.2,
-        "nuokrypis": 41.8
+        "šiandien": 20.0,
+        "nuoroda": 108.7,
+        "nuokrypis": -81.6
       },
       {
         "intervalas": "Popietės kilimas",
         "valandos": "16–17",
-        "šiandien": 109.7,
-        "nuoroda": 81.9,
-        "nuokrypis": 33.9
+        "šiandien": 40.6,
+        "nuoroda": 128.6,
+        "nuokrypis": -68.4
       },
       {
         "intervalas": "Vakaro pikas",
         "valandos": "18–21",
-        "šiandien": 201.3,
-        "nuoroda": 114.9,
-        "nuokrypis": 75.2
+        "šiandien": 55.4,
+        "nuoroda": 169.9,
+        "nuokrypis": -67.4
       },
       {
         "intervalas": "Vėlus vakaras",
         "valandos": "22–23",
-        "šiandien": 95.9,
-        "nuoroda": 65.7,
-        "nuokrypis": 46.0
+        "šiandien": 31.2,
+        "nuoroda": 90.7,
+        "nuokrypis": -65.6
       }
     ]
   },
   "lt_intervalai": {
     "Naktis": {
       "valandos": "00–05",
-      "kaina": 78.03,
-      "nuoroda": 46.0
+      "kaina": 19.03,
+      "nuoroda": 59.9
     },
     "Ryto kilimas": {
       "valandos": "06",
-      "kaina": 98.23,
-      "nuoroda": 45.9
+      "kaina": 15.17,
+      "nuoroda": 106.0
     },
     "Ryto pikas": {
       "valandos": "07–09",
-      "kaina": 119.24,
-      "nuoroda": 58.4
+      "kaina": 21.72,
+      "nuoroda": 174.6
     },
     "Vidurdienio dub.": {
       "valandos": "10–15",
-      "kaina": 64.11,
-      "nuoroda": 45.2
+      "kaina": 19.99,
+      "nuoroda": 108.7
     },
     "Popietės kilimas": {
       "valandos": "16–17",
-      "kaina": 109.69,
-      "nuoroda": 81.9
+      "kaina": 40.59,
+      "nuoroda": 128.6
     },
     "Vakaro pikas": {
       "valandos": "18–21",
-      "kaina": 201.31,
-      "nuoroda": 114.9
+      "kaina": 55.37,
+      "nuoroda": 169.9
     },
     "Vėlus vakaras": {
       "valandos": "22–23",
-      "kaina": 95.94,
-      "nuoroda": 65.7
+      "kaina": 31.2,
+      "nuoroda": 90.7
     }
   },
   "tarpsisteminiai_srautai": {
     "NordBalt (LT↔SE4)": {
-      "vidutinis_mw": -469.3,
-      "kryptis": "eksportas iš LT",
-      "max_importas_mw": -130.4,
-      "max_eksportas_mw": -582.5
+      "vidutinis_mw": 291.8,
+      "kryptis": "importas į LT",
+      "max_importas_mw": 697.9,
+      "max_eksportas_mw": -384.2
     },
     "LitPol Link (LT↔PL)": {
-      "vidutinis_mw": 162.9,
+      "vidutinis_mw": 151.0,
       "kryptis": "importas į LT",
-      "max_importas_mw": 225.7,
-      "max_eksportas_mw": -5.0
+      "max_importas_mw": 282.5,
+      "max_eksportas_mw": -150.7
     },
     "LT↔LV": {
-      "vidutinis_mw": -215.2,
+      "vidutinis_mw": -22.4,
       "kryptis": "eksportas iš LT",
-      "max_importas_mw": -110.2,
-      "max_eksportas_mw": -343.2
+      "max_importas_mw": 313.2,
+      "max_eksportas_mw": -364.9
     }
   },
   "lt_gamyba_vartojimas": {
-    "vartojimas_avg_mw": 1146.5,
-    "gamyba_avg_mw": 748.4,
-    "saulė_avg_mw": 31.0,
-    "vėjas_avg_mw": 440.5,
-    "kita_avg_mw": 295.5,
-    "apsirūpinimas_%": 65.3
+    "vartojimas_avg_mw": 1490.5,
+    "gamyba_avg_mw": 2531.7,
+    "saulė_avg_mw": 145.4,
+    "vėjas_avg_mw": 1972.6,
+    "kita_avg_mw": 480.3,
+    "apsirūpinimas_%": 169.9
   }
 }
