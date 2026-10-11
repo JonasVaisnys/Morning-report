@@ -62,11 +62,19 @@ jobs:
           echo "--- Naujienų debug ---"
           cat data/naujienų-debug.log
 
+      - name: Teisės aktų brifingas
+        run: |
+          python "scripts/teisės aktai.py" --json --days 1 > data/teisės-aktai.json 2> data/teisės-aktai-debug.log || true
+          python "scripts/teisės aktai.py" --days 1 > data/teisės-aktai.txt 2>> data/teisės-aktai-debug.log || true
+          echo "--- Teisės aktų debug ---"
+          cat data/teisės-aktai-debug.log
+
       - name: Išsaugoti rezultatą
         run: |
           git config user.name "Morning Report Bot"
           git config user.email "bot@enerconsult.lt"
           git add data/energijos-brifingas.json data/debug.log data/json-debug.log \
-                  data/naujienų-brifingas.md data/naujienų-debug.log
+                  data/naujienų-brifingas.md data/naujienų-debug.log \
+                  data/teisės-aktai.json data/teisės-aktai.txt data/teisės-aktai-debug.log
           git diff --cached --quiet || git commit -m "Morning report $(date +%Y-%m-%d)"
           git push
