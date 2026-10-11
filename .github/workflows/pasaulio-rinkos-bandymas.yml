@@ -21,12 +21,23 @@ jobs:
           python-version: "3.12"
 
       - name: Priklausomybės
-        run: pip install requests openpyxl anthropic
+        run: pip install -r requirements.txt
 
-      - name: Šaltinių patikra
+      - name: AGSI struktūros patikra
         run: |
           mkdir -p bandymas
-          python "scripts/šaltinių patikra.py" > bandymas/šaltinių-patikra.txt 2>&1 || true
+          for q in "type=eu" "country=LV" "type=eu&date=2025-10-09"; do
+            echo "### $q"
+            curl -s -m 20 "https://agsi.gie.eu/api?$q" | head -c 1200
+            echo
+          done > bandymas/agsi.txt 2>&1 || true
+
+      - name: Pasaulio rinkų brifingas
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python "scripts/pasaulio rinkos.py" > /dev/null 2> bandymas/pasaulio-rinkos-debug.log || true
+          cp data/pasaulio-rinkos.json data/pasaulio-rinkos.md bandymas/ || true
 
       - name: Išsaugoti rezultatą šakoje
         run: |
