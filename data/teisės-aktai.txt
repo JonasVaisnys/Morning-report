@@ -1,1 +1,1 @@
-❌ Nepavyko gauti teisės aktų: HTTPSConnectionPool(host='get.data.gov.lt', port=443): Max retries exceeded with url: /datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar%3E=%222026-10-10%22&sort(-paskelbta_tar)&limit(100) (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)')))
+❌ Nepavyko gauti teisės aktų: 500 Server Error: Internal Server Error for url: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar%3E=%222026-10-10%22&sort(-paskelbta_tar)&limit(100)
