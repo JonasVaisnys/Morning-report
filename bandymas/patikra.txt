@@ -1,6 +1,6 @@
 LT 2026-10-11
-  Elering : {'vidurkis': 105.22, 'vakaro_pikas_18_21': 201.31, 'vidurdienis_10_15': 64.1, 'min': 27.99, 'max': 252.8, 'intervalų': 96}
-  NordPool: {'vidurkis': 105.22, 'vakaro_pikas_18_21': 201.31, 'vidurdienis_10_15': 64.1, 'min': 27.99, 'max': 252.8, 'intervalų': 96}
+  Elering : {'vidurkis': 105.22, 'vakaro_pikas_18_21': 201.31, 'vidurdienis_10_15': 64.1, 'vakaro_ir_vidurdienio_skirtumas': 137.2, 'min': 27.99, 'max': 252.8, 'intervalų': 96}
+  NordPool: {'vidurkis': 105.22, 'vakaro_pikas_18_21': 201.31, 'vidurdienis_10_15': 64.1, 'vakaro_ir_vidurdienio_skirtumas': 137.2, 'min': 27.99, 'max': 252.8, 'intervalų': 96}
   sutampančių intervalų 96, didžiausias skirtumas 0.0
 Brent: EIA spot prieš Yahoo BZ=F (paskutinės 8 EIA dienos)
   2026-09-25  EIA  116.01  Yahoo 104.32  skirtumas -11.69
