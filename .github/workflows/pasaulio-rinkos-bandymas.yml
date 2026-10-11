@@ -1,9 +1,13 @@
 name: Pasaulio rinkų bandymas
 
 # Laikinas bandomasis workflow – veikia tik šakoje „pasaulio-rinkos".
+# Rezultatus įrašo į bandymas/ ir įkelia atgal į tą pačią šaką.
 on:
   push:
     branches: [pasaulio-rinkos]
+
+permissions:
+  contents: write
 
 jobs:
   bandymas:
@@ -20,4 +24,14 @@ jobs:
         run: pip install requests openpyxl anthropic
 
       - name: Šaltinių patikra
-        run: python "scripts/šaltinių patikra.py"
+        run: |
+          mkdir -p bandymas
+          python "scripts/šaltinių patikra.py" > bandymas/šaltinių-patikra.txt 2>&1 || true
+
+      - name: Išsaugoti rezultatą šakoje
+        run: |
+          git config user.name "Morning Report Bot"
+          git config user.email "bot@enerconsult.lt"
+          git add bandymas/
+          git diff --cached --quiet || git commit -m "Bandymo rezultatai $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push
