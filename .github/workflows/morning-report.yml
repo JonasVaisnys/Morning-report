@@ -75,7 +75,8 @@ jobs:
           AGSI_KEY: ${{ secrets.AGSI_KEY }}
         run: |
           DATE_ARG="${{ github.event.inputs.date }}"
-          python "scripts/pasaulio rinkos.py" $DATE_ARG > /dev/null 2> data/pasaulio-rinkos-debug.log || true
+          # Laiko riba, kad lėtas šaltinis nevėlintų viso ryto ataskaitos
+          timeout 480 python "scripts/pasaulio rinkos.py" $DATE_ARG > /dev/null 2> data/pasaulio-rinkos-debug.log || true
           [ -f data/pasaulio-rinkos.md ] || echo "Pasaulio rinkų skyriaus sugeneruoti nepavyko." > data/pasaulio-rinkos.md
           [ -f data/pasaulio-rinkos.json ] || echo '{"klaida": "nesugeneruota"}' > data/pasaulio-rinkos.json
           echo "--- Pasaulio rinkų debug ---"

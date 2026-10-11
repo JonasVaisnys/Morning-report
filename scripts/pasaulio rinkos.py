@@ -481,10 +481,14 @@ def lt_day_stats(points: list[tuple[datetime, float]]) -> dict | None:
     prices = [p for _, p in points]
     eve = [p for t, p in points if t.astimezone(LT_TZ).hour in EVENING]
     mid = [p for t, p in points if 10 <= t.astimezone(LT_TZ).hour <= 15]
+    eve_avg = statistics.mean(eve) if eve else None
+    mid_avg = statistics.mean(mid) if mid else None
     return {
         "vidurkis": round(statistics.mean(prices), 2),
-        "vakaro_pikas_18_21": round(statistics.mean(eve), 2) if eve else None,
-        "vidurdienis_10_15": round(statistics.mean(mid), 2) if mid else None,
+        "vakaro_pikas_18_21": round(eve_avg, 2) if eve_avg is not None else None,
+        "vidurdienis_10_15": round(mid_avg, 2) if mid_avg is not None else None,
+        "vakaro_ir_vidurdienio_skirtumas": (round(eve_avg - mid_avg, 2)
+                                            if eve_avg is not None and mid_avg is not None else None),
         "min": round(min(prices), 2), "max": round(max(prices), 2),
         "intervalų": len(points),
     }
@@ -749,6 +753,7 @@ def data_block(ctx: dict) -> str:
         lines.append(
             f"- LT elektros kaina {lt['data']}: vidurkis {num(t['vidurkis'])}, vakaro pikas 18–21 val. "
             f"{num(t['vakaro_pikas_18_21'])}, vidurdienis 10–15 val. {num(t['vidurdienis_10_15'])}, "
+            f"vakaro ir vidurdienio skirtumas (BESS arbitražui) {num(t.get('vakaro_ir_vidurdienio_skirtumas'))}, "
             f"min {num(t['min'])}, max {num(t['max'])} €/MWh; 7 d. vidurkis "
             f"{num(lt.get('vidurkis_7d'))} €/MWh")
     else:
@@ -771,9 +776,10 @@ def data_block(ctx: dict) -> str:
     dz = g.get("dujos_elektra")
     if dz:
         lines.append(
-            f"- Dujos→LT elektra: per {dz['dienų']} d. LT kaina ≥ 90 % CCGT SRMC buvo "
-            f"{num(dz['laiko_dalis_proc'], 1)} % laiko (vakaro 18–21 val. – "
-            f"{num(dz['vakaro_dalis_proc'], 1)} %); jautrumas: TTF +10 €/MWh → LT vidutinė kaina "
+            f"- Dujos→LT elektra: per {dz['dienų']} d. LT kaina buvo dujinių elektrinių kaštų zonoje "
+            f"(≥ 90 % CCGT SRMC) {num(dz['laiko_dalis_proc'], 1)} % laiko (vakaro 18–21 val. – "
+            f"{num(dz['vakaro_dalis_proc'], 1)} %). Tai rodo, kad dujinės elektrinės galėjo būti ribinės, "
+            f"bet nėra to įrodymas; jautrumas: TTF +10 €/MWh → LT vidutinė kaina "
             f"≈ +{num(dz['jautrumas_vid_eur_mwh_per_10'])} €/MWh, dujų zonos intervalais ≈ "
             f"+{num(dz['jautrumas_dujų_zonoje_eur_mwh_per_10'], 1)} €/MWh. Rodiklis apima tik "
             f"tiesioginį poveikį; netiesioginis eina per importo kainas (PL, SE4) ir CO2")
@@ -909,6 +915,7 @@ def render_md(ctx: dict, analysis: str | None) -> str:
         out += ["", f"**LT elektra {lt['data']}:** vidurkis {num(t['vidurkis'])} €/MWh "
                     f"(7 d. vidurkis {num(lt.get('vidurkis_7d'))}) · vakaro pikas 18–21 val. "
                     f"{num(t['vakaro_pikas_18_21'])} · vidurdienis 10–15 val. {num(t['vidurdienis_10_15'])} · "
+                    f"vakaro ir vidurdienio skirtumas {num(t.get('vakaro_ir_vidurdienio_skirtumas'))} · "
                     f"min–max {num(t['min'])}–{num(t['max'])} €/MWh"]
 
     out += ["", "## Grandinė nafta → dujos → elektra LT", "",
@@ -926,7 +933,7 @@ def render_md(ctx: dict, analysis: str | None) -> str:
                    f"{num(s['ccgt']['iš_viso'], 0)} / {num(s['senas']['iš_viso'], 0)} €/MWh | |")
     dz = g.get("dujos_elektra")
     if dz:
-        out.append(f"| Dujos → LT kaina | Laiko dalis, kai LT kaina ≥ 90 % SRMC ({dz['dienų']} d.; vakare) | "
+        out.append(f"| Dujos → LT kaina | Laiko dalis, kai LT kaina dujinių elektrinių kaštų zonoje (≥ 90 % SRMC; {dz['dienų']} d.; vakare) | "
                    f"{num(dz['laiko_dalis_proc'], 1)} % ({num(dz['vakaro_dalis_proc'], 1)} %) | "
                    f"{strength_share(dz['laiko_dalis_proc'])} |")
         out.append(f"| Dujos → LT kaina | TTF +10 €/MWh → LT vidurkis (dujų zonoje) | "
