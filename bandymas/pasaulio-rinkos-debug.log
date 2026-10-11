@@ -24,11 +24,11 @@
   ✓ Delfi: 47 → atrinkta 0
   ✓ 15min: 20 → atrinkta 2
   ✓ Verslo žinios: 50 → atrinkta 3
-  ✓ Google News nafta: 100 → atrinkta 56
+  ✓ Google News nafta: 100 → atrinkta 57
   ✓ Google News dujos: 100 → atrinkta 41
   ✓ Google News Bloomberg: 100 → atrinkta 12
-  ✓ Google News Reuters: 44 → atrinkta 2
+  ✓ Google News Reuters: 45 → atrinkta 2
   ✓ Google News LT dujos: 32 → atrinkta 5
-   Atrinkta naujienų: 59 · {'Bloomberg': 15, 'EnergyNow': 15, 'WSJ': 5, 'OilPrice.com': 5, '15min': 3, 'Verslo žinios': 3, 'Financial Times': 2, 'Reuters': 2, 'CNBC': 2, 'DW': 1, 'TV3': 1, 'Politico': 1, 'Rigzone': 1, 'Alfa': 1, 'Delfi': 1, 'Lrytas': 1}
-  ✓ Analizė: claude-opus-5-5, 7493→6726 žetonų
+   Atrinkta naujienų: 52 · {'Bloomberg': 15, 'EnergyNow': 8, 'WSJ': 5, 'OilPrice.com': 5, '15min': 3, 'Verslo žinios': 3, 'Financial Times': 2, 'Reuters': 2, 'CNBC': 2, 'DW': 1, 'TV3': 1, 'Politico': 1, 'Rigzone': 1, 'Alfa': 1, 'Delfi': 1, 'Lrytas': 1}
+  ✓ Analizė: claude-opus-5-5, 7341→5491 žetonų
 ✅ Išsaugota → data/pasaulio-rinkos.json, data/pasaulio-rinkos.md
