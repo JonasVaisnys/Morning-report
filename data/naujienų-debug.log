@@ -1,16 +1,12 @@
-📡 Naujienų brifingas 2026-10-10 (UTC+3)
-  ⚠  Energetika.lt: HTTP Error 404: Not Found
-  ⚠  Litgrid: HTTP Error 404: Not Found
-  ⚠  LRT naujienos: HTTP Error 404: Not Found
-  ⚠  LRT ekonomika: HTTP Error 404: Not Found
+📡 Naujienų brifingas 2026-10-11 (UTC+3)
   ✓ Delfi ekonomika: 47
   ✓ Delfi verslas: 47
   ✓ 15min: 20
   ✓ Verslo žinios: 50
   ⚠  Baltpool: 0 elementų – pradžia: <?xml version="1.0" encoding="UTF-8"?><rss version="2.0" 	xmlns:content="http://purl.org/rss/1.0/modules/content/" 	xmlns:dc="http://purl.org/dc/elements/1.1/" 	xmlns:atom="http://www.w3.org/2005/Atom
   ✓ Baltpool: 0
-  ⚠  LR Vyriausybė: HTTP Error 403: Forbidden
+  ⚠  Energetika.lt: HTTP Error 404: Not Found
 
-  Iš viso straipsnių: 164, energetikos: 6
+  Iš viso straipsnių: 164 (dublikatai: 47, unikalūs: 117), energetikos: 6
 
 ✅ Išsaugota → /home/runner/work/Morning-report/Morning-report/scripts/../data/naujienų-brifingas.md
