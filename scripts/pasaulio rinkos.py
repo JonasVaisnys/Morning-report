@@ -292,7 +292,9 @@ def ecb_eurusd() -> Series:
 def eex_eua(year: int) -> Series:
     """EUA pirminių aukcionų kainos (EEX viešas metų failas)."""
     try:
+        import warnings
         import openpyxl
+        warnings.filterwarnings("ignore", category=UserWarning, module="openpyxl")
     except ImportError:
         log("  ⚠ Nėra openpyxl – EUA praleidžiama")
         return []
@@ -386,8 +388,9 @@ def agsi(params: dict) -> dict | None:
             data = [data]
         recs = [x for x in data if isinstance(x, dict) and to_float(x.get("full")) is not None]
         if not recs:
-            log(f"  ⚠ AGSI {params}: nėra užpildymo duomenų; raktai "
-                f"{list(j.keys()) if isinstance(j, dict) else type(j).__name__}")
+            why = j.get("message") if isinstance(j, dict) else None
+            hint = " – reikia nemokamo AGSI_KEY (agsi.gie.eu)" if why and "key" in why.lower() else ""
+            log(f"  ⚠ AGSI {params}: nėra užpildymo duomenų ({why or 'tuščia'}){hint}")
             return None
         rec = max(recs, key=lambda x: str(x.get("gasDayStart", "")))
         inj, wd = to_float(rec.get("injection")), to_float(rec.get("withdrawal"))
@@ -808,14 +811,18 @@ def analyze(ctx: dict, news: list[dict]) -> tuple[str | None, str | None]:
         return None, None
     client = anthropic.Anthropic()
     prompt = build_prompt(ctx, news)
+    # Naujesni modeliai prieš atsakymą „galvoja"; tie žetonai įskaičiuojami į max_tokens,
+    # todėl paliekame pakankamai vietos (iki 21 333 – be srautinio režimo).
     for model in dict.fromkeys([CLAUDE_MODEL, CLAUDE_FALLBACK]):
         try:
-            msg = client.messages.create(model=model, max_tokens=2500,
+            msg = client.messages.create(model=model, max_tokens=16000,
                                          messages=[{"role": "user", "content": prompt}])
-            text = "".join(getattr(b, "text", "") for b in msg.content).strip()
+            text = "".join(b.text for b in msg.content if getattr(b, "type", "") == "text").strip()
             if text:
                 log(f"  ✓ Analizė: {model}, {msg.usage.input_tokens}→{msg.usage.output_tokens} žetonų")
                 return text, model
+            log(f"  ⚠ Claude API ({model}): tuščias atsakymas, stop_reason={msg.stop_reason}, "
+                f"blokai={[getattr(b, 'type', '?') for b in msg.content]}")
         except Exception as exc:
             log(f"  ⚠ Claude API ({model}): {exc}")
     return None, None
@@ -844,12 +851,10 @@ def render_md(ctx: dict, analysis: str | None) -> str:
     row("EUR/USD", "eurusd", "", nd=4)
     for key, label in (("saugyklos_es", "ES dujų saugyklos"), ("saugyklos_lv", "Inčukalnio saugykla (LV)")):
         s = r.get(key)
-        if s:
+        if s:                       # be AGSI_KEY eilutė praleidžiama
             yy = s.get("prieš_metus_proc")
             out.append(f"| {label} | {num(s['užpildymas_proc'], 1)} % | {pp_s(s.get('paros_pokytis_pp'))} | – | "
                        f"{pp_s(s['užpildymas_proc'] - yy) if yy is not None else '–'} |")
-        else:
-            out.append(f"| {label} | – | – | – | – |")
     lt = r.get("lt_elektra")
     if lt and lt.get("šiandien"):
         t = lt["šiandien"]
@@ -895,10 +900,13 @@ def render_md(ctx: dict, analysis: str | None) -> str:
         out.append("")
 
     srcs = ", ".join(f"{k} ({v})" for k, v in ctx.get("naujienų_statistika", {}).items()) or "–"
+    data_src = [name for key, name in (
+        ("brent", "Yahoo Finance (Brent, TTF)"), ("eua", "EEX (CO2 aukcionai)"),
+        ("eurusd", "ECB (EUR/USD)"), ("saugyklos_es", "GIE AGSI+ (saugyklos)"),
+        ("lt_elektra", "Nord Pool per Elering (LT kaina)")) if r.get(key)]
     out += ["---",
-            "**Duomenys:** Yahoo Finance (Brent, TTF, Henry Hub), EEX (CO2 aukcionai), ECB (EUR/USD), "
-            "GIE AGSI+ (saugyklos), Nord Pool per Elering (LT kaina). TTF – artimiausio mėnesio "
-            "ateities sandoris; SRMC – apytikris, be dujų transportavimo į Lietuvą.",
+            f"**Duomenys:** {', '.join(data_src) or '–'}. TTF – artimiausio mėnesio ateities sandoris; "
+            "SRMC – apytikris, be dujų transportavimo į Lietuvą.",
             f"**Naujienos:** {srcs}.", "",
             f"_Generuota automatiškai {ctx['data']} · MB Enerconsult_"]
     return "\n".join(out)

@@ -72,6 +72,7 @@ jobs:
       - name: Pasaulio rinkų brifingas
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AGSI_KEY: ${{ secrets.AGSI_KEY }}
         run: |
           DATE_ARG="${{ github.event.inputs.date }}"
           python "scripts/pasaulio rinkos.py" $DATE_ARG > /dev/null 2> data/pasaulio-rinkos-debug.log || true
