@@ -2,12 +2,10 @@
 → Naftos, dujų ir valiutų kainos (Yahoo Finance, ECB)...
    Brent 502 d., TTF 502 d., EUR/USD 400 d.
 → CO2 (EEX aukcionai)...
-/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
-  warn("Workbook contains no default style, apply openpyxl's default")
    EUA 173 aukcionų dienų
 → Dujų saugyklos (GIE AGSI+)...
-  ⚠ AGSI {'type': 'eu'}: nėra užpildymo duomenų; raktai ['last_page', 'total', 'dataset', 'error', 'message', 'data']
-  ⚠ AGSI {'country': 'LV'}: nėra užpildymo duomenų; raktai ['last_page', 'total', 'dataset', 'error', 'message', 'data']
+  ⚠ AGSI {'type': 'eu'}: nėra užpildymo duomenų (Invalid or missing API key) – reikia nemokamo AGSI_KEY (agsi.gie.eu)
+  ⚠ AGSI {'country': 'LV'}: nėra užpildymo duomenų (Invalid or missing API key) – reikia nemokamo AGSI_KEY (agsi.gie.eu)
    ES: None %, LV: None %
 → LT elektros kainos (Elering / Nord Pool)...
    LT intervalų: istorija 2976, šiandien 96
@@ -26,10 +24,11 @@
   ✓ Delfi: 47 → atrinkta 0
   ✓ 15min: 20 → atrinkta 2
   ✓ Verslo žinios: 50 → atrinkta 3
-  ✓ Google News nafta: 100 → atrinkta 57
-  ✓ Google News dujos: 100 → atrinkta 42
-  ✓ Google News Bloomberg: 100 → atrinkta 11
-  ✓ Google News Reuters: 48 → atrinkta 2
+  ✓ Google News nafta: 100 → atrinkta 56
+  ✓ Google News dujos: 100 → atrinkta 41
+  ✓ Google News Bloomberg: 100 → atrinkta 12
+  ✓ Google News Reuters: 44 → atrinkta 2
   ✓ Google News LT dujos: 32 → atrinkta 5
    Atrinkta naujienų: 59 · {'Bloomberg': 15, 'EnergyNow': 15, 'WSJ': 5, 'OilPrice.com': 5, '15min': 3, 'Verslo žinios': 3, 'Financial Times': 2, 'Reuters': 2, 'CNBC': 2, 'DW': 1, 'TV3': 1, 'Politico': 1, 'Rigzone': 1, 'Alfa': 1, 'Delfi': 1, 'Lrytas': 1}
+  ✓ Analizė: claude-opus-5-5, 7493→6726 žetonų
 ✅ Išsaugota → data/pasaulio-rinkos.json, data/pasaulio-rinkos.md
