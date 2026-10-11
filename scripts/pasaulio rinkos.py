@@ -4,8 +4,8 @@ Pasaulio energetikos rinkų brifingas — MB Enerconsult
 ======================================================
 Vertina grandinę nafta → dujos → elektros kaina Lietuvoje.
 
-  1. Rodikliai: Brent, TTF, CO2 (EUA), EUR/USD, ES ir Latvijos dujų saugyklos,
-     LT elektros kaina (Nord Pool duomenys per Elering).
+  1. Rodikliai: Brent (ateities sandoris ir fizinė EIA), TTF, CO2 (EUA), EUR/USD,
+     ES ir Latvijos dujų saugyklos, LT elektros kaina (Nord Pool duomenys per Elering).
   2. Skaičiavimai:
        • dujinės elektrinės ribiniai kaštai (SRMC) = TTF/η + CO2·0,202/η + VOM;
        • nafta → dujos: Brent ir TTF dienos pokyčių koreliacija ir jautrumas (β);
@@ -274,6 +274,31 @@ def yahoo_series(symbol: str, rng: str = "2y") -> dict | None:
     except Exception as exc:
         log(f"  ⚠ Yahoo {symbol}: {exc}")
         return None
+
+
+def eia_brent_spot() -> Series:
+    """Fizinė Brent (Europe Brent Spot FOB) – EIA, viešasis domenas, su keleto dienų vėlavimu."""
+    try:
+        import xlrd
+    except ImportError:
+        log("  ⚠ Nėra xlrd – fizinė Brent praleidžiama")
+        return []
+    r = http_get("https://www.eia.gov/dnav/pet/hist_xls/RBRTEd.xls", ua=UA_BOT, timeout=40, retries=1)
+    if r is None:
+        return []
+    try:
+        wb = xlrd.open_workbook(file_contents=r.content)
+        names = wb.sheet_names()
+        sh = wb.sheet_by_name("Data 1") if "Data 1" in names else wb.sheet_by_index(min(1, len(names) - 1))
+        out = []
+        for i in range(sh.nrows):
+            v = sh.row_values(i)
+            if len(v) >= 2 and isinstance(v[0], float) and isinstance(v[1], float):
+                out.append((xlrd.xldate_as_datetime(v[0], wb.datemode).date(), v[1]))
+        return sorted(out)[-600:]
+    except Exception as exc:
+        log(f"  ⚠ EIA Brent: {exc}")
+        return []
 
 
 def ecb_eurusd() -> Series:
@@ -696,9 +721,14 @@ def data_block(ctx: dict) -> str:
             f"prekybos dieną {pct_s(x['pokytis_d_proc'])}, per 7 d. {pct_s(x['pokytis_7d_proc'])}, "
             f"per 30 d. {pct_s(x['pokytis_30d_proc'])}, per metus {pct_s(x['pokytis_metai_proc'])})")
 
-    ind("Brent nafta", "brent", "USD/bbl")
+    ind("Brent nafta (artimiausio mėnesio ateities sandoris)", "brent", "USD/bbl")
     if r.get("brent_eur"):
         lines.append(f"- Brent eurais: {num(r['brent_eur'], 2)} €/bbl")
+    ind("Brent fizinė (Dated FOB, EIA; skelbiama su keleto dienų vėlavimu)", "brent_fizinė", "USD/bbl")
+    bf = r.get("brent_fizinė") or {}
+    if bf.get("premija_ateities_sandoriui") is not None:
+        lines.append(f"- Fizinės Brent premija ateities sandoriui ({bf['data']}): "
+                     f"{num(bf['premija_ateities_sandoriui'], 2, True)} USD/bbl – rodo fizinės naftos rinkos įtampą")
     ind("TTF dujos (artimiausio mėnesio ateities sandoris)", "ttf", "€/MWh")
     ind("CO2 (EUA pirminis aukcionas)", "eua", "€/t")
     ind("EUR/USD (ECB)", "eurusd", "", 4)
@@ -783,7 +813,8 @@ Atsakyk Markdown formatu, tik šiomis antraštėmis:
 2–3 sakiniai: kas šiandien svarbiausia grandinėje nafta → dujos → LT elektra.
 
 ### 🛢️ Nafta
-3–5 sakiniai: kainos judėjimas ir jo priežastys.
+3–5 sakiniai: kainos judėjimas ir jo priežastys. Jei fizinės Brent premija ateities sandoriui
+didelė, trumpai paaiškink, ką ji rodo.
 
 ### 🔥 Dujos ir SGD
 3–5 sakiniai: TTF, saugyklos, SGD tiekimas; Lietuvos ir Baltijos kontekstas, jei yra.
@@ -850,6 +881,10 @@ def render_md(ctx: dict, analysis: str | None) -> str:
 
     row("Brent nafta, USD/bbl", "brent", "",
         extra=f" ({num(r['brent_eur'])} €/bbl)" if r.get("brent_eur") else "")
+    bf = r.get("brent_fizinė") or {}
+    row("Brent fizinė (EIA), USD/bbl", "brent_fizinė", "",
+        extra=(f" ({num(bf['premija_ateities_sandoriui'], 2, True)} vs ateities)"
+               if bf.get("premija_ateities_sandoriui") is not None else ""))
     row("TTF dujos, €/MWh", "ttf", "")
     row("CO2 (EUA aukcionas), €/t", "eua", "")
     row("EUR/USD", "eurusd", "", nd=4)
@@ -860,7 +895,8 @@ def render_md(ctx: dict, analysis: str | None) -> str:
             out.append(f"| {label} | {num(s['užpildymas_proc'], 1)} % | {pp_s(s.get('paros_pokytis_pp'))} | – | "
                        f"{pp_s(s['užpildymas_proc'] - yy) if yy is not None else '–'} |")
     stamps = []
-    for keys, label in ((("brent", "ttf"), "Brent ir TTF"), (("eua",), "CO2 aukcionas")):
+    for keys, label in ((("brent", "ttf"), "Brent ir TTF"), (("brent_fizinė",), "fizinė Brent"),
+                        (("eua",), "CO2 aukcionas")):
         ds = sorted({r[k]["data"] for k in keys if r.get(k)})
         if ds:
             stamps.append(f"{label} – " + ", ".join(
@@ -913,7 +949,8 @@ def render_md(ctx: dict, analysis: str | None) -> str:
 
     srcs = ", ".join(f"{k} ({v})" for k, v in ctx.get("naujienų_statistika", {}).items()) or "–"
     data_src = [name for key, name in (
-        ("brent", "Yahoo Finance (Brent, TTF)"), ("eua", "EEX (CO2 aukcionai)"),
+        ("brent", "Yahoo Finance (Brent, TTF)"), ("brent_fizinė", "EIA (fizinė Brent)"),
+        ("eua", "EEX (CO2 aukcionai)"),
         ("eurusd", "ECB (EUR/USD)"), ("saugyklos_es", "GIE AGSI+ (saugyklos)"),
         ("lt_elektra", "Nord Pool per Elering (LT kaina)")) if r.get(key)]
     out += ["---",
@@ -958,6 +995,15 @@ def build(report_day: date, live: bool, with_ai: bool) -> tuple[dict, str]:
         if not r.get(key):
             warnings.append(f"Nepavyko gauti: {key}")
     log(f"   Brent {len(brent)} d., TTF {len(ttf)} d., EUR/USD {len(fx)} d.")
+
+    log("→ Fizinė Brent (EIA)...")
+    spot = truncate(eia_brent_spot(), report_day, live)
+    r["brent_fizinė"] = indicator(spot, "USD/bbl", "EIA (Europe Brent Spot FOB)")
+    if r["brent_fizinė"]:
+        fut = dict(brent).get(date.fromisoformat(r["brent_fizinė"]["data"]))
+        if fut:
+            r["brent_fizinė"]["premija_ateities_sandoriui"] = round(r["brent_fizinė"]["reikšmė"] - fut, 2)
+    log(f"   EIA spot {len(spot)} d.; paskutinė {spot[-1] if spot else None}")
 
     log("→ CO2 (EEX aukcionai)...")
     eua = truncate(eex_eua(report_day.year), report_day, live)

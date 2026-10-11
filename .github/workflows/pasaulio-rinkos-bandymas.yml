@@ -37,7 +37,7 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           AGSI_KEY: ${{ secrets.AGSI_KEY }}
         run: |
-          python "scripts/pasaulio rinkos.py" --be-analizes > /dev/null 2> bandymas/pasaulio-rinkos-debug.log || true
+          python "scripts/pasaulio rinkos.py" > /dev/null 2> bandymas/pasaulio-rinkos-debug.log || true
           cp data/pasaulio-rinkos.json data/pasaulio-rinkos.md bandymas/ || true
 
       - name: Kryžminė patikra

@@ -36,3 +36,6 @@ for dd, spot in rows[-8:]:
     fut = yb.get(dd)
     print(f"  {dd}  EIA {spot:7.2f}  Yahoo {fut if fut is None else round(fut, 2)}"
           + (f"  skirtumas {fut - spot:+.2f}" if fut else ""))
+
+yt = dict(pr.yahoo_series("TTF=F", "3mo")["series"])
+print("TTF 2026-09-11 (OilPriceAPI tinklaraštis: 80,77):", yt.get(date(2026, 9, 11)))
