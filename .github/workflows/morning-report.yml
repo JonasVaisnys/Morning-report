@@ -69,12 +69,26 @@ jobs:
           echo "--- Teisės aktų debug ---"
           cat data/teisės-aktai-debug.log
 
+      - name: Pasaulio rinkų brifingas
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AGSI_KEY: ${{ secrets.AGSI_KEY }}
+        run: |
+          DATE_ARG="${{ github.event.inputs.date }}"
+          # Laiko riba, kad lėtas šaltinis nevėlintų viso ryto ataskaitos
+          timeout 480 python "scripts/pasaulio rinkos.py" $DATE_ARG > /dev/null 2> data/pasaulio-rinkos-debug.log || true
+          [ -f data/pasaulio-rinkos.md ] || echo "Pasaulio rinkų skyriaus sugeneruoti nepavyko." > data/pasaulio-rinkos.md
+          [ -f data/pasaulio-rinkos.json ] || echo '{"klaida": "nesugeneruota"}' > data/pasaulio-rinkos.json
+          echo "--- Pasaulio rinkų debug ---"
+          cat data/pasaulio-rinkos-debug.log
+
       - name: Išsaugoti rezultatą
         run: |
           git config user.name "Morning Report Bot"
           git config user.email "bot@enerconsult.lt"
           git add data/energijos-brifingas.json data/debug.log data/json-debug.log \
                   data/naujienų-brifingas.md data/naujienų-debug.log \
-                  data/teisės-aktai.json data/teisės-aktai.txt data/teisės-aktai-debug.log
+                  data/teisės-aktai.json data/teisės-aktai.txt data/teisės-aktai-debug.log \
+                  data/pasaulio-rinkos.json data/pasaulio-rinkos.md data/pasaulio-rinkos-debug.log
           git diff --cached --quiet || git commit -m "Morning report $(date +%Y-%m-%d)"
           git push
