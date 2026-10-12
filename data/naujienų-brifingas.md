@@ -1,10 +1,13 @@
-# Naujienų brifingas — 2026-10-11
-
-## 🔴 Svarbiausia
-
-[T. Varneckas traukiasi iš „Epso-G"](https://www.vz.lt/energetika/2026/10/09/t-varneckas-traukiasi-is-epso-g-591190)  
-Elektros perdavimo sistemos operatorės „Litgrid" valdybos pirmininkas Tomas Varneckas pasitraukia iš pareigų nuo spalio 30 d. **Šaltinis:** Verslo žinios
+# Naujienų brifingas — 2026-10-12
 
 ---
 
-_Generuota automatiškai 2026-10-11 · MB Enerconsult_
+**⚠️ Nėra aktualių energetikos naujienų šiandien.**
+
+Peržiūrėtas RSS srautas (15min.lt, Verslo žinios) neturėjo naujienų, susijusių su atsinaujinančia energetika, elektros rinka, NordPool, vėjo/saulės projektais, BESS, regulavimu ar energetikos infrastruktūra Lietuvoje ir Baltijos regione.
+
+Saugotina: JAV naftos perdirbimo gamyklų smūgiai gali netiesiogiai turėti įtakos energetikos rinkoms, tačiau tiesioginio ryšio su LT energetika nėra.
+
+---
+
+_Generuota automatiškai 2026-10-12 · MB Enerconsult_
