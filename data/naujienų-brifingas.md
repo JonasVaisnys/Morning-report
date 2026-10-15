@@ -1,34 +1,15 @@
-# Naujienų brifingas — 2026-10-14
+# Naujienų brifingas — 2026-10-15
 
 ## 🔴 Svarbiausia
 
-[„Litgrid" paskaičiavo 9 mln. Eur netesybų „Siemens Energy" dėl vėlavimo](https://www.vz.lt/energetika/2026/10/13/litgrid-uz-velavima-strateginiame-projekte-koncernui-siemens-paskaiciavo-9-mln-eur-netesybu-591276)
-Valstybės elektros perdavimo operatorė skirė didelę baudą koncernui, kuris vėluoja su sinchroninių kompensatorių gamyba trijoms šalies pastotėms, kuriam buvo paskirtas daugiau nei 100 mln. Eur biudžetas. Šis projektas svarbus tinklo stabilumui.
-**Verslo žinios**
+[Rekordinė dujų kaina Europoje](https://www.vz.lt/verslo-aplinka/2026/10/14/dienos-akcentai-rekordine-duju-kaina-europoje-ir-saldo-bank-pirkeja-is-jav-591341) – Europos dujų rinka pasiekė rekordinius kainos lygius. Šaltinis: Verslo žinios.
 
-[Dujų kaina Europoje pasiekė 86 Eur/MWh – šių metų rekordą](https://www.vz.lt/rinkos/2026/10/14/duju-kaina-europoje-pasieke-86-eurmwh-nauja-siu-metu-rekorda-591301)
-TTF prekybos taške užregistruota nauja šių metų rekordo kaina, kurią pakylėjo kelios ūmios priežastys. Nors žiema prognozuojama šiltesnė, žemės ūkio sektorius nesitiki lengvos žiemos.
-**Verslo žinios**
+[„Skeleton Technologies" pritraukė „Siemens" investiciją](https://www.vz.lt/energetika/2026/10/14/estai-turi-naujos-rusies-vienaragi-devynzenkles-siemens-investicijos-sulaukusi-skeleton-plesis-jav-591384) – Estijos superkondensatorių gamintoja „Skeleton" pritraukė ne mažiau kaip 100 mln. EUR iš Vokietijos energetikos milžinės „Siemens" ir plėsis į JAV. Šaltinis: Verslo žinios.
 
-[„Inter RAO Lietuva" apskundė FNTT sprendimą neleisti įmonės pertvarkos](https://www.vz.lt/energetika/2026/10/13/inter-rao-lietuva-teismui-apskunde-fntt-sprendima-neleisti-imones-pertvarkos-591275)
-Rusijos energetikos bendrovės kontroliuojama sankcionuota „Inter RAO Lietuva" griebiasi teisminės kelio, bandydama apskųsti FNTT sprendimą dėl įmonės pertvarkymo draudimo. Tai žengtas žingsnis dezintegracijai nuo Rusijos energetikos.
-**Verslo žinios**
+## 🔋 Kaupikliai ir inovacijos
 
-## ⚡ Elektros rinka
-
-[Dujų kaina Europoje pasiekė 86 Eur/MWh – šių metų rekordą](https://www.vz.lt/rinkos/2026/10/14/duju-kaina-europoje-pasieke-86-eurmwh-nauja-siu-metu-rekorda-591301)
-TTF prekybos taške užregistruota nauja šių metų rekordo kaina, kurią pakylėjo kelios ūmios priežastys.
-**Verslo žinios**
-
-## 🏛️ Reguliavimas ir politika
-
-[„Litgrid" paskaičiavo 9 mln. Eur netesybų „Siemens Energy" dėl vėlavimo](https://www.vz.lt/energetika/2026/10/13/litgrid-uz-velavima-strateginiame-projekte-koncernui-siemens-paskaiciavo-9-mln-eur-netesybu-591276)
-Elektros perdavimo operatorė skirė baudą dėl sinchroninių kompensatorių gamybos vėlavimo – svarbus infrastruktūros projektas tinklo stabilumui.
-**Verslo žinios**
-
-[„Inter RAO Lietuva" apskundė FNTT sprendimą neleisti įmonės pertvarkos](https://www.vz.lt/energetika/2026/10/13/inter-rao-lietuva-teismui-apskunde-fntt-sprendima-neleisti-imones-pertvarkos-591275)
-Sankcionuota Rusijos energetikos bendrovės „Inter RAO" kontroliuojama lituvų filialė griebiasi teisminės kelio dėl FNTT draudimo.
-**Verslo žinios**
+[„Skeleton Technologies" plėtimasis su „Siemens" parama](https://www.vz.lt/energetika/2026/10/14/estai-turi-naujos-rusies-vienaragi-devynzenkles-siemens-investicijos-sulaukusi-skeleton-plesis-jav-591384) – Estų bendrovė kuria superkondensatorius ir maitinimo sistemas dirbtinio intelekto duomenų centrams, o dabar plėsis į JAV rinkos su didele europine investicija. Šaltinis: Verslo žinios.
 
 ---
-_Generuota automatiškai 2026-10-14 · MB Enerconsult_
+
+_Generuota automatiškai 2026-10-15 · MB Enerconsult_
