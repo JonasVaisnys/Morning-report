@@ -1,15 +1,16 @@
-# Naujienų brifingas — 2026-10-15
+# Naujienų brifingas — 2026-10-16
 
 ## 🔴 Svarbiausia
 
-[Rekordinė dujų kaina Europoje](https://www.vz.lt/verslo-aplinka/2026/10/14/dienos-akcentai-rekordine-duju-kaina-europoje-ir-saldo-bank-pirkeja-is-jav-591341) – Europos dujų rinka pasiekė rekordinius kainos lygius. Šaltinis: Verslo žinios.
+[Bankrutuoja „Energetikos tinklų institutas"](https://www.vz.lt/energetika/2026/10/12/bankrutuoja-2021-m-neatitinkanciu-nacionalinio-saugumo-interesu-pripazintas-energetikos-tinklu-institutas-591239)  
+Kinijos akcininkų valdoma bendrovė, 2021 m. nustalinusi neatitinkančio nacionalinio saugumo interesų statusą dėl ryšio su Astravo atominės elektrinės projektais, pasiduoda bankroto procedūrai. **Šaltinis:** Verslo žinios
 
-[„Skeleton Technologies" pritraukė „Siemens" investiciją](https://www.vz.lt/energetika/2026/10/14/estai-turi-naujos-rusies-vienaragi-devynzenkles-siemens-investicijos-sulaukusi-skeleton-plesis-jav-591384) – Estijos superkondensatorių gamintoja „Skeleton" pritraukė ne mažiau kaip 100 mln. EUR iš Vokietijos energetikos milžinės „Siemens" ir plėsis į JAV. Šaltinis: Verslo žinios.
+[Naftos perdirbimas: grėsmė santykiams su Lenkija](https://www.vz.lt/verslo-aplinka/2026/10/15/t-valys-orlen-lietuvos-virspelnio-apmokestinimas-butu-rizikingas-santykiams-su-lenkija-591429)  
+Lietuvos finansų ministras T. Valys abejoja galimybe apmokestinti „Orlen Lietuvos" viršpelnį naftos kainų šuolio sąlygomis, dėl galimo poveikio santykiams su Lenkija. **Šaltinis:** Verslo žinios
 
-## 🔋 Kaupikliai ir inovacijos
-
-[„Skeleton Technologies" plėtimasis su „Siemens" parama](https://www.vz.lt/energetika/2026/10/14/estai-turi-naujos-rusies-vienaragi-devynzenkles-siemens-investicijos-sulaukusi-skeleton-plesis-jav-591384) – Estų bendrovė kuria superkondensatorius ir maitinimo sistemas dirbtinio intelekto duomenų centrams, o dabar plėsis į JAV rinkos su didele europine investicija. Šaltinis: Verslo žinios.
+[Ukraina atnaujins smūgius Rusijos naftos perdirbimo gamykloms](https://www.vz.lt/verslo-aplinka/2026/10/15/v-zelenskis-sako-kad-ukraina-atnaujins-smugius-rusijos-naftos-perdirbimo-gamykloms-591413)  
+V. Zelenskis pareiškė atnaujinsiančios karinių operacijų prieš Rusijos energetikos infrastruktūrą. **Šaltinis:** Verslo žinios
 
 ---
 
-_Generuota automatiškai 2026-10-15 · MB Enerconsult_
+_Generuota automatiškai 2026-10-16 · MB Enerconsult_
