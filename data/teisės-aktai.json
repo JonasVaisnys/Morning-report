@@ -1,6 +1,6 @@
 {
   "section": "teises_aktai",
-  "error": "500 Server Error: Internal Server Error for url: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar%3E=%222026-10-16%22&sort(-paskelbta_tar)&limit(100)",
+  "error": "500 Server Error: Internal Server Error for url: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar%3E=%222026-10-17%22&sort(-paskelbta_tar)&limit(100)",
   "total_count": 0,
   "energy_relevant": [],
   "all_acts": []
