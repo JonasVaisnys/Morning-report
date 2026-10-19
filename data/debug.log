@@ -1,18 +1,18 @@
-Renku duomenis: 2026-10-18 (sekmadienis)...
+Renku duomenis: 2026-10-19 (pirmadienis)...
   → Kainos...
     LT (ENTSO-E)... 24 val.
     LV (ENTSO-E)... 24 val.
-    PL (ENTSO-E)... 23 val.
+    PL (ENTSO-E)... 24 val.
     SE4 (ENTSO-E)... 24 val.
     LT ≠ LV → rodoma atskirai
   → Tarpsisteminiai srautai...
-    LT→SE4... 6 val.
-    SE4→LT... 1 val.
+    LT→SE4... 1 val.
+    SE4→LT... 6 val.
     LT→PL... 2 val.
     PL→LT... 6 val.
-    LT→LV... 5 val.
-    LV→LT... 5 val.
+    LT→LV... 6 val.
+    LV→LT... 2 val.
   → LT vartojimas/gamyba...
-    Vartojimas... 7 val.
-    Gamyba pagal tipą... 7 val.
+    Vartojimas... 6 val.
+    Gamyba pagal tipą... 6 val.
   → Analizė...

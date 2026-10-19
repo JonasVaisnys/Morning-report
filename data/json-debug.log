@@ -1,29 +1,17 @@
-Renku duomenis: 2026-10-18 (sekmadienis)...
+Renku duomenis: 2026-10-19 (pirmadienis)...
   → Kainos...
     LT (ENTSO-E)... 24 val.
     LV (ENTSO-E)... 24 val.
-    PL (ENTSO-E)...   ⚠ Klaida (A44 10YPL-AREA--): HTTPSConnectionPool(host='web-api.tp.entsoe.eu', port=443): Read timed out. (read timeout=30)
-22 val.
-    SE4 (ENTSO-E)...   ⚠ A44 10Y1001A1001: HTTP 599
-    Atsakymas: {"uuAppErrorMap":{"uu-gateway-router/connectTimeout":{"id":"faa2573523b9ada68ef1c33eec86c1b8","timestamp":"2026-10-18T03:22:49.307Z","type":"error","message":"Unable to access service within time limit."}}}
-1 val.
+    PL (ENTSO-E)... 24 val.
+    SE4 (ENTSO-E)... 24 val.
     LT ≠ LV → rodoma atskirai
   → Tarpsisteminiai srautai...
-    LT→SE4...   ⚠ Klaida (A11 10YLT-1001A0): HTTPSConnectionPool(host='web-api.tp.entsoe.eu', port=443): Read timed out. (read timeout=30)
-  ⚠ Klaida (A11 10YLT-1001A0): HTTPSConnectionPool(host='web-api.tp.entsoe.eu', port=443): Read timed out. (read timeout=30)
-0 val.
-    SE4→LT...   ⚠ A11 10Y1001A1001: HTTP 599
-    Atsakymas: {"uuAppErrorMap":{"uu-gateway-router/connectTimeout":{"id":"b9aec9f5ee40c22fbdadf1551a192fba","timestamp":"2026-10-18T03:24:25.942Z","type":"error","message":"Unable to access service within time limit."}}}
-1 val.
-    LT→PL...   ⚠ Klaida (A11 10YLT-1001A0): HTTPSConnectionPool(host='web-api.tp.entsoe.eu', port=443): Read timed out. (read timeout=30)
-0 val.
-    PL→LT...   ⚠ Klaida (A11 10YPL-AREA--): HTTPSConnectionPool(host='web-api.tp.entsoe.eu', port=443): Read timed out. (read timeout=30)
-1 val.
-    LT→LV...   ⚠ A11 10YLT-1001A0: HTTP 599
-    Atsakymas: {"uuAppErrorMap":{"uu-gateway-router/connectTimeout":{"id":"a4e54e444cc368e5dc744d909e2d6bbe","timestamp":"2026-10-18T03:25:33.393Z","type":"error","message":"Unable to access service within time limit."}}}
-1 val.
-    LV→LT...   ⚠ Klaida (A11 10YLV-1001A0): HTTPSConnectionPool(host='web-api.tp.entsoe.eu', port=443): Read timed out. (read timeout=30)
-0 val.
+    LT→SE4... 1 val.
+    SE4→LT... 6 val.
+    LT→PL... 2 val.
+    PL→LT... 6 val.
+    LT→LV... 6 val.
+    LV→LT... 2 val.
   → LT vartojimas/gamyba...
     Vartojimas... 6 val.
     Gamyba pagal tipą... 6 val.

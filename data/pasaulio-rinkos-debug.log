@@ -1,6 +1,6 @@
-🌍 Pasaulio rinkų brifingas 2026-10-18 (sekmadienis)
+🌍 Pasaulio rinkų brifingas 2026-10-19 (pirmadienis)
 → Naftos, dujų ir valiutų kainos (Yahoo Finance, ECB)...
-   Brent 503 d., TTF 503 d., EUR/USD 400 d.
+   Brent 503 d., TTF 502 d., EUR/USD 400 d.
 → Fizinė Brent (EIA)...
    EIA spot 600 d.; paskutinė (datetime.date(2026, 10, 14), 126.55)
 → CO2 (EEX aukcionai)...
@@ -12,25 +12,25 @@
 → LT elektros kainos (Elering / Nord Pool)...
    LT intervalų: istorija 2976, šiandien 96
 → Naujienos...
-  ✓ Bloomberg: 20 → atrinkta 6
-  ✓ Bloomberg: 9 → atrinkta 2
-  ✓ Bloomberg: 8 → atrinkta 0
-  ✓ Bloomberg: 17 → atrinkta 6
-  ✓ Financial Times: 25 → atrinkta 3
-  ✓ CNBC: 30 → atrinkta 1
-  ✓ OilPrice.com: 15 → atrinkta 6
-  ✓ LNG Prime: 10 → atrinkta 0
-  ✓ Rigzone: 20 → atrinkta 2
+  ✓ Bloomberg: 20 → atrinkta 4
+  ✓ Bloomberg: 6 → atrinkta 1
+  ✓ Bloomberg: 6 → atrinkta 0
+  ✓ Bloomberg: 20 → atrinkta 4
+  ✓ Financial Times: 25 → atrinkta 7
+  ✓ CNBC: 30 → atrinkta 6
+  ✓ OilPrice.com: 15 → atrinkta 13
+  ✓ LNG Prime: 10 → atrinkta 8
+  ✓ Rigzone: 20 → atrinkta 10
   ✓ EIA: 18 → atrinkta 0
   ✓ Delfi: 47 → atrinkta 0
   ✓ Delfi: 47 → atrinkta 0
-  ✓ 15min: 20 → atrinkta 1
-  ✓ Verslo žinios: 50 → atrinkta 2
-  ✓ Google News nafta: 100 → atrinkta 4
-  ✓ Google News dujos: 100 → atrinkta 33
-  ✓ Google News Bloomberg: 100 → atrinkta 14
-  ✓ Google News Reuters: 100 → atrinkta 7
-  ✓ Google News LT dujos: 43 → atrinkta 1
-   Atrinkta naujienų: 47 · {'Bloomberg': 15, 'EnergyNow': 8, 'Reuters': 7, 'OilPrice.com': 6, 'Financial Times': 3, 'Rigzone': 2, 'Verslo žinios': 2, 'WSJ': 1, '15min': 1, 'Delfi': 1, 'CNBC': 1}
-  ✓ Analizė: claude-opus-5-5, 7059→4989 žetonų
+  ✓ 15min: 20 → atrinkta 3
+  ✓ Verslo žinios: 50 → atrinkta 5
+  ✓ Google News nafta: 100 → atrinkta 14
+  ✓ Google News dujos: 100 → atrinkta 6
+  ✓ Google News Bloomberg: 100 → atrinkta 32
+  ✓ Google News Reuters: 100 → atrinkta 40
+  ✓ Google News LT dujos: 71 → atrinkta 20
+   Atrinkta naujienų: 80 · {'Bloomberg': 15, 'Reuters': 15, 'Rigzone': 10, 'OilPrice.com': 8, 'LNG Prime': 8, 'Financial Times': 7, 'CNBC': 6, '15min': 6, 'Verslo žinios': 6, 'TV3': 4, 'Delfi': 4, 'Lrytas': 3, 'WSJ': 2, 'TradeWinds': 1, 'World Oil': 1, 'EnergyNow': 1, 'S&P Global': 1, 'LRT': 1, 'Kauno diena': 1, 'Alfa': 1}
+  ✓ Analizė: claude-opus-5-5, 10009→2903 žetonų
 ✅ Išsaugota → data/pasaulio-rinkos.json, data/pasaulio-rinkos.md
