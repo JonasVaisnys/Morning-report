@@ -1,13 +1,14 @@
-# Naujienų brifingas — 2026-10-19
+# Naujienų brifingas — 2026-10-20
 
 ## 🔴 Svarbiausia
 
-[Naujas tyrimas: investuotojai mano, kad klimato kaita mažina jų turto vertę](https://www.vz.lt/mano-pinigai/2026/10/16/naujas-tyrimas-investuotojai-mano-kad-klimato-kaita-mazina-ju-turto-verte-591483) — Pasaulio investuotojai prognozuoja, jog klimato kaita per 10–20 metų reikšmingai paveiks turto vertinimą ir jau dabar skatina investicijas į atsinaujinančius energijos išteklius. *Verslo žinios*
+[Elektros paklausa nuolat auga, o esama tinklo infrastruktūra turi prisitaikyti prie besikeičiančių sąlygų](https://www.vz.lt/energetika/2026/10/19/elektros-paklausa-nuolat-auga-o-esama-tinklo-infrastruktura-turi-prisitaikyti-prie-besikeicianciu-salygu-591536) — Tradicinis elektros tinklo modelis keičiasi: vartotojai tampa ir gamintojais, reikalingas infrastruktūros modernizavimas. *Verslo žinios*
 
-[Per Ukrainos dronų ataką Sankt Peterburge kilo gaisras naftos terminale](https://www.vz.lt/verslo-aplinka/2026/10/18/rusija-skelbia-netoli-sankt-peterburgo-numususi-desimtis-ukrainos-dronu-591520) — Sekmadienį ataka sudarė gaisrus naftos terminale ir bazėje, žuvo vienas žmogus ir buvo sužeisti penki, taip pat sutriko oro susisiekimas. *Verslo žinios*
+[Italija įveda dujų kainų lubas – elektros kaina turėtų sumažėti 10%](https://www.vz.lt/energetika/2026/10/20/italija-iveda-duju-kainu-lubas-elektros-kaina-turetu-sumazeti-10-591578) — Italijos vyriausybė susitarė su EK dėl dujų kainų ribojimo, siekiant sumažinti namų ūkių ir įmonių elektros sąskaitas apie 10%. *Verslo žinios*
+
+## ⚡ Elektros rinka
+
+[Italija įveda dujų kainų lubas – elektros kaina turėtų sumažėti 10%](https://www.vz.lt/energetika/2026/10/20/italija-iveda-duju-kainu-lubas-elektros-kaina-turetu-sumazeti-10-591578) — Giorgios Meloni vyriausybė tikisi, kad dujų kainų lubos sumažins elektros kainas buitinių ir komercinių vartotojų sąskaitose. *Verslo žinios*
 
 ---
-
-_Generuota automatiškai 2026-10-19 · MB Enerconsult_
-
-**Pastaba:** Likusiose RSS naujienose energetikos aktualų naujienų neidentifikuota. Pateiktos naujienos daugiausia susijusios su konfliktu Ukrainoje, logistika, nekilnojamu turtu ir LED ekranais — šioms sritims energetika nėra esminė tema.
+_Generuota automatiškai 2026-10-20 · MB Enerconsult_
