@@ -1,14 +1,20 @@
-# Naujienų brifingas — 2026-10-20
+# Naujienų brifingas — 2026-10-21
 
 ## 🔴 Svarbiausia
 
-[Elektros paklausa nuolat auga, o esama tinklo infrastruktūra turi prisitaikyti prie besikeičiančių sąlygų](https://www.vz.lt/energetika/2026/10/19/elektros-paklausa-nuolat-auga-o-esama-tinklo-infrastruktura-turi-prisitaikyti-prie-besikeicianciu-salygu-591536) — Tradicinis elektros tinklo modelis keičiasi: vartotojai tampa ir gamintojais, reikalingas infrastruktūros modernizavimas. *Verslo žinios*
+**[Hibridinio parko Marijampolėje projektą įsigijo izraeliečiai](https://www.vz.lt/energetika/2026/10/20/hibridinio-parko-netoli-marijampoles-projekta-uz-254-mln-eur-is-estu-nusipirko-izraelio-energix-591644)**
+Izraelio bendrovė „Energix Renewable Energies" perėmė unikų hibridinį projektą už 25,4 mln. EUR — apima 220 MW vėjo ir 60 MW saulės jėgaines. Šis didelis investicijų įvykis rodo sparčią atsinaujinančiosios energijos sektoriaus konsolidaciją Baltijos regione.
+*Verslo žinios*
 
-[Italija įveda dujų kainų lubas – elektros kaina turėtų sumažėti 10%](https://www.vz.lt/energetika/2026/10/20/italija-iveda-duju-kainu-lubas-elektros-kaina-turetu-sumazeti-10-591578) — Italijos vyriausybė susitarė su EK dėl dujų kainų ribojimo, siekiant sumažinti namų ūkių ir įmonių elektros sąskaitas apie 10%. *Verslo žinios*
+**Dujų kainos Europoje pirmąkart nuo 2022 m. viršijo 90 EUR**
+Europoje registruota reikšminga dujų kainos šuolis virš 90 EUR/MWh ribos, grąžinant sektoriaus dalyvius į 2022 m. energetikos krizės atmosferą. *Verslo žinios*
 
-## ⚡ Elektros rinka
+## 🌬️ Vėjas ir saulė
 
-[Italija įveda dujų kainų lubas – elektros kaina turėtų sumažėti 10%](https://www.vz.lt/energetika/2026/10/20/italija-iveda-duju-kainu-lubas-elektros-kaina-turetu-sumazeti-10-591578) — Giorgios Meloni vyriausybė tikisi, kad dujų kainų lubos sumažins elektros kainas buitinių ir komercinių vartotojų sąskaitose. *Verslo žinios*
+**[Hibridinio parko netoli Marijampolės projektą už 25,4 mln. Eur iš estų nusipirko Izraelio „Energix"](https://www.vz.lt/energetika/2026/10/20/hibridinio-parko-netoli-marijampoles-projekta-uz-254-mln-eur-is-estu-nusipirko-izraelio-energix-591644)**
+Projektą sudaro maždaug 220 MW galingas vėjo jėgainių parkas ir 60 MW saulės jėgainės, jau pasiekusios iki statybų paruošimo etapą. Tai svarbiausia šių metų atsinaujinančiosios energijos transakcija Lietuvoje.
+*Verslo žinios*
 
 ---
-_Generuota automatiškai 2026-10-20 · MB Enerconsult_
+
+_Generuota automatiškai 2026-10-21 · MB Enerconsult_
