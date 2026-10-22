@@ -1,1 +1,1 @@
-❌ Nepavyko gauti teisės aktų: 500 Server Error: Internal Server Error for url: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar%3E=%222026-10-20%22&sort(-paskelbta_tar)&limit(100)
+❌ Nepavyko gauti teisės aktų: 500 Server Error: Internal Server Error for url: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar%3E=%222026-10-21%22&sort(-paskelbta_tar)&limit(100)
