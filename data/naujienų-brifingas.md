@@ -1,21 +1,15 @@
-# Naujienų brifingas — 2026-10-24
+# Naujienų brifingas — 2026-10-25
+
+Atsiprašome, tačiau pateiktame RSS naujienų sąraše **nėra aktualių energetikos naujienos** pagal nurodytus kriterijus (atsinaujinančios energetikos, elektros rinka, NordPool, BESS, tinklas, reguliavimas, projektai LT/Baltijos regione).
+
+Naujienos apima:
+- Orų prognozes (ne energetikos sektoriaus analizę)
+- Politiką ir konfliktus
+- Technologijų startupus (OpenAI, Anthropic, Amazon)
+- Avia ir mažmeninę prekybą
+- Bendras biržų naujienas
+
+**Rekomendacija:** Patikrinkite RSS šaltinių atnaujinimą arba suteikite naujienų iš energetikos specializuotų portalų (pvz., VERT, Litgrid, energetikos žiniasklaida).
 
 ---
-
-Šiandien gautas naujienas analizavus, **aktualiausių energetikos naujienas neaptikta**.
-
-Iš pateikto RSS srauto tik viena žinia sietina su energetikos infrastruktūra – elektros stulpo nelaime Šilutėje [15min], tačiau tai yra nelaidos kronika, o ne energetikos rinkos/reguliavimo naujiena.
-
-Likę straipsniai nagrinėja naftos pasaulio biržas, technologijas, prekyba ir kitas sritis, kurios nėra Lietuvos atsinaujinančios energetikos sektoriaus prioritetas.
-
----
-
-**Rekomendacija:** Patikrinti papildomus RSS šaltinius, kurie specialiai seka:
-- NordPool elektros kainas
-- Litgrid ir VERT pranešimus
-- AEK-ES energetikos projektų leidimus
-- Baltijos regiono vėjo/saulės iniciatyvas
-
----
-
-_Generuota automatiškai 2026-10-24 · MB Enerconsult_
+_Generuota automatiškai 2026-10-25 · MB Enerconsult_
