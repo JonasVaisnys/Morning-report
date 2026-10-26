@@ -1,15 +1,12 @@
-# Naujienų brifingas — 2026-10-25
+# Naujienų brifingas — 2026-10-26
 
-Atsiprašome, tačiau pateiktame RSS naujienų sąraše **nėra aktualių energetikos naujienos** pagal nurodytus kriterijus (atsinaujinančios energetikos, elektros rinka, NordPool, BESS, tinklas, reguliavimas, projektai LT/Baltijos regione).
+## 🏛️ Reguliavimas ir politika
 
-Naujienos apima:
-- Orų prognozes (ne energetikos sektoriaus analizę)
-- Politiką ir konfliktus
-- Technologijų startupus (OpenAI, Anthropic, Amazon)
-- Avia ir mažmeninę prekybą
-- Bendras biržų naujienas
-
-**Rekomendacija:** Patikrinkite RSS šaltinių atnaujinimą arba suteikite naujienų iš energetikos specializuotų portalų (pvz., VERT, Litgrid, energetikos žiniasklaida).
+[FT: JAV suskystintų gamtinių dujų projektą Aliaskoje finansavo Rusijos „Novatek"](https://www.vz.lt/verslo-aplinka/2026/10/24/ft-jav-suskystintu-gamtiniu-duju-projekta-aliaskoje-finansavo-rusijos-novatek-591827)
+Rusijos energetikos bendrovė „Novatek" (veikianti po JAV sankcijomis) finansavo SGD terminalo projektą Aliaskoje. Naujiena aktuali dėl JAV-Rusijos energetinių ryšių ir sankcijų politikos įtakos globaliniams dujų projektams. *Verslo žinios*
 
 ---
-_Generuota automatiškai 2026-10-25 · MB Enerconsult_
+
+**Pastaba:** Kitos pateiktos naujienos nėra susijusios su atsinaujinančia energetika, elektros rinkomis ar energetikos sektoriumi Lietuvoje/Baltijos regione (Ukrainos konfliktą, akcijų rinkas, DI bendrovės IPO).
+
+_Generuota automatiškai 2026-10-26 · MB Enerconsult_
