@@ -5,10 +5,13 @@ Nuskaito RSS srautus ir klasifikuoja su Claude API.
 Rezultatą išsaugo į data/naujienų-brifingas.md
 """
 
+import html
 import os
+import re
 import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
+from urllib.parse import quote
 from urllib.request import urlopen, Request
 
 import anthropic
@@ -35,6 +38,13 @@ RSS_FEEDS = [
     # ("LRT naujienos",  "https://www.lrt.lt/rss/naujienos"),  # Kol kas 404
     # ("Litgrid",        "https://litgrid.eu/lt/rss.xml"),     # Reikia patikrinti
 ]
+
+# ── Montel News ──────────────────────────────────────────────────────────────
+# Montel neturi RSS, bet paieškos puslapis generuojamas serveryje (HTML),
+# todėl straipsnių sąrašą galima nuskaityti tiesiai. Tekstas už nemokamos
+# registracijos sienos – imame pavadinimą, datą ir įžangą.
+MONTEL_QUERIES = ["Lithuania", "Lithuanian", "Litgrid", "Ignitis", "Baltics", "Baltic"]
+MONTEL_DAYS    = 3   # pirmadienį apima ir savaitgalį
 
 KEYWORDS = [
     "energetika", "elektra", "elektros", "saulės energija", "saulės park",
@@ -102,6 +112,69 @@ def fetch_rss(name: str, url: str) -> list[dict]:
     return out
 
 
+MONTEL_ITEM_RE = re.compile(
+    r'<li class="search-results__item">.*?'
+    r'href="(?P<href>/news/[^"]+)".*?'
+    r'search-results__title">(?P<title>.*?)</div>.*?'
+    r'datetime="(?P<dt>[^"]+)".*?'
+    r'search-results__excerpt">(?P<excerpt>.*?)</span>',
+    re.S,
+)
+
+
+def fetch_montel() -> list[dict]:
+    """Montel News straipsniai apie Lietuvą/Baltijos šalis per paskutines MONTEL_DAYS d."""
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml",
+        "Accept-Language": "en-GB,en;q=0.9",
+    }
+    cutoff = datetime.now(timezone.utc) - timedelta(days=MONTEL_DAYS)
+    found: dict[str, dict] = {}
+
+    for q in MONTEL_QUERIES:
+        url = f"https://montelnews.com/search?q={quote(q)}"
+        try:
+            html_text = urlopen(Request(url, headers=headers), timeout=20).read().decode("utf-8", "replace")
+        except Exception as exc:
+            print(f"  ⚠  Montel ({q}): {exc}", file=sys.stderr)
+            continue
+
+        matches = list(MONTEL_ITEM_RE.finditer(html_text))
+        if not matches:
+            print(f"  ⚠  Montel ({q}): paieškos rezultatų struktūra neatpažinta", file=sys.stderr)
+            continue
+
+        fresh = 0
+        for m in matches:
+            try:
+                published = datetime.fromisoformat(m["dt"].replace("Z", "+00:00"))
+            except ValueError:
+                continue
+            if published < cutoff:
+                continue
+            link = "https://montelnews.com" + m["href"]
+            if link in found:
+                continue
+            clean = lambda s: html.unescape(re.sub(r"<[^>]+>", "", s)).strip()
+            found[link] = {
+                "source": "Montel News",
+                "title":  clean(m["title"]),
+                "link":   link,
+                "desc":   clean(m["excerpt"])[:400],
+                "date":   published.astimezone(LT_TZ).strftime("%Y-%m-%d %H:%M"),
+                "montel": True,
+            }
+            fresh += 1
+        print(f"  ✓ Montel ({q}): {len(matches)} rezultatų, naujų per {MONTEL_DAYS} d.: {fresh}",
+              file=sys.stderr)
+
+    items = sorted(found.values(), key=lambda it: it["date"], reverse=True)
+    print(f"  ✓ Montel iš viso: {len(items)}", file=sys.stderr)
+    return items
+
+
 def filter_energy(items: list[dict]) -> list[dict]:
     kw = [k.lower() for k in KEYWORDS]
     return [it for it in items
@@ -130,7 +203,11 @@ def collect() -> list[dict]:
         f"energetikos: {len(energy)}",
         file=sys.stderr,
     )
-    return energy
+
+    # Montel – jau atrinkta pagal paiešką (angliškai), todėl lietuviškų
+    # raktažodžių filtras netaikomas; dedama pirmiau, kad nebūtų nukirpta.
+    montel = fetch_montel()
+    return montel + energy
 
 
 # ── Claude API ────────────────────────────────────────────────────────────────
@@ -144,22 +221,31 @@ def generate(news: list[dict], date_lt: str) -> str:
         )
 
     block = "\n".join(
-        f"[{i+1}] [{it['source']}] {it['title']}\n"
+        f"[{i+1}] [{it['source']}{' · ' + it['date'] if it.get('montel') else ''}] {it['title']}\n"
         f"    {it['desc'][:250]}\n"
         f"    {it['link']}"
-        for i, it in enumerate(news[:60])
+        for i, it in enumerate(news[:70])
     )
+    n_montel = sum(1 for it in news if it.get("montel"))
 
     prompt = f"""Tu esi Lietuvos atsinaujinančios energetikos rinkos analitikas dirbantis MB Enerconsult.
-Šiandien yra {date_lt}. Pateikiu naujienų sąrašą iš RSS srautų.
+Šiandien yra {date_lt}. Pateikiu naujienų sąrašą iš RSS srautų ir Montel News
+(tarptautinė energetikos naujienų agentūra, straipsniai angliškai; jų įrašų: {n_montel}).
 
 Atrink TIKTAI aktualias energetikos naujienas (saulė, vėjas, BESS, elektros tinklas,
 reguliavimas, NordPool kainos, projektai LT/Baltijos regione, biokuras, šiluma, dujos).
 Ignoruok nesusijusias naujienas (sportas, pramogos, politika be energetikos ryšio).
+Montel straipsniuose „Baltic" kartais reiškia tik Baltijos jūrą (pvz. Švedijos ar Suomijos
+naujienos) – tokius praleisk, jei nėra ryšio su Lietuva ar Baltijos šalimis.
 
 Suformatuok kaip rytinį briefingą MARKDOWN formatu:
 
 # Naujienų brifingas — {date_lt}
+
+## 🌍 Montel News apie Lietuvą ir Baltijos šalis
+(kiekvienas aktualus Montel straipsnis: pavadinimas lietuviškai kaip nuoroda, data,
+1–2 sakiniai santraukos lietuviškai. Jei aktualių Montel straipsnių nėra – parašyk vieną
+eilutę „Per pastarąsias {MONTEL_DAYS} d. Montel News apie Lietuvą nerašė.")
 
 ## 🔴 Svarbiausia
 (1–3 svarbiausios naujienos, 1–2 sakiniai kiekvienai, šaltinis ir nuoroda)
@@ -182,7 +268,8 @@ Suformatuok kaip rytinį briefingą MARKDOWN formatu:
 ---
 _Generuota automatiškai {date_lt} · MB Enerconsult_
 
-Rašyk glaustai lietuviškai. Jei kategorijoje nėra naujienų — praleisk ją visiškai.
+Rašyk glaustai lietuviškai. Montel skyrių rodyk visada; kitas kategorijas be naujienų praleisk visiškai.
+Ta pati naujiena neturi kartotis keliuose skyriuose.
 Kiekviena naujiena: pavadinimas kaip nuoroda, 1–2 sakiniai santrauka, šaltinis.
 
 NAUJIENOS:
