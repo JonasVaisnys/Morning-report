@@ -1,13 +1,17 @@
-# Naujienų brifingas — 2026-10-28
+# Naujienų brifingas — 2026-10-29
 
 ## 🌍 Montel News apie Lietuvą ir Baltijos šalis
 Per pastarąsias 3 d. Montel News apie Lietuvą nerašė.
 
-## 🏛️ Reguliavimas ir politika
-[„Rail Baltica" – duomenų rinkimas ir analizė paklaidų prevencijai](https://www.vz.lt/statyba-ir-nt/2026/10/27/pamatyti-defektus-rail-balticoje-is-anksto-duomenis-reiketu-ne-tik-rinkti-bet-ir-analizuoti-591891) (2026-10-27) – Greitojo geležinkelio projektas reikalauja kokybinių priemonių ir duomenų analizės, kad būtų išvengta brangių klaidų. Prancūzijos ekspertai rekomenduoja nuolat stebėti ir analizuoti infrastruktūros statybos duomenis.
+## 🔴 Svarbiausia
+
+[Dujų kainos Europoje pirmą kartą nuo 2022 metų pasiekė 100 eurų kartelę](https://www.15min.lt/naujiena/aktualu/pasaulis/duju-kainos-europoje-pirma-karta-nuo-2022-metu-pasieke-100-euru-kartele-57-2794748) — Europoje dujų kainos sugrįžo į rekordiškai aukštus lygius, o tai gali turėti įtakos elektros kainoms ir verslo išlaidoms Lietuvoje. Šaltinis: 15min, 2026-10-28.
+
+[Kad elektros kainos nevirstų elektros šoku verslui: kaip suvaldyti energijos išlaidas?](https://www.vz.lt/tvarus-verslas/2026/10/28/kad-elektros-kainos-nevirstu-elektros-soku-verslui-kaip-suvaldyti-energijos-islaidas-591985) — Verslas susiduria su augančiomis elektros sąmatais, o pasyvi energijos valdymo laikysena gali padidinti išlaidas; reikalinga aktyvesnė energijos efektivumo strategija. Šaltinis: Verslo žinios, 2026-10-28.
+
+## ⚡ Elektros rinka
+
+[Orai.lt: saulėtų akimirkų vėl bus nedaug](https://www.15min.lt/naujiena/aktualu/orai/orai-lt-sauletu-akimirku-vel-bus-nedaug-60-2794814) — Artėjančiais dienomis saulės spinduliavimas bus ribojamas, kas turės neigiamą poveikį saulės elektros gamybai. Šaltinis: 15min, 2026-10-27.
 
 ---
-
-_Generuota automatiškai 2026-10-28 · MB Enerconsult_
-
-**Pastaba:** Iš pateiktų 13 naujienų nei viena nėra tiesiogiai susijusi su atsinaujinančia energetika, elektros rinka, vėlu, saulės energija, BESS, biokuru ar šiluma. Vienintelė energetikos kontekste aktuali žinia – „Rail Baltica" infrastruktūra – priklauso reguliavimo sferai dėl jos transporto, o ne energetikos, atgal.
+_Generuota automatiškai 2026-10-29 · MB Enerconsult_
