@@ -1,15 +1,14 @@
-Renku duomenis: 2026-10-30 (penktadienis)...
+Renku duomenis: 2026-10-31 (šeštadienis)...
   → Kainos...
-    LT (ENTSO-E)... 1 val.
+    LT (ENTSO-E)... 24 val.
     LV (ENTSO-E)... 24 val.
     PL (ENTSO-E)... 24 val.
     SE4 (ENTSO-E)... 24 val.
-    Elering fallback... LT→24 val., LV→24 val.
-    LT ≠ LV → rodoma atskirai
+    LT/LV kainos vienodos → sujungta
   → Tarpsisteminiai srautai...
     LT→SE4... 6 val.
     SE4→LT... 1 val.
-    LT→PL... 2 val.
+    LT→PL... 5 val.
     PL→LT... 6 val.
     LT→LV... 6 val.
     LV→LT... 1 val.

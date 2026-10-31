@@ -1,19 +1,14 @@
-# Naujienų brifingas — 2026-10-30
+# Naujienų brifingas — 2026-10-31
 
 ## 🌍 Montel News apie Lietuvą ir Baltijos šalis
-Per pastarąsias 3 d. Montel News apie Lietuvą nerašė.
+[Italy warns of EUR 150 gas price in January on low German stocks](https://montelnews.com/news/3e0ceeeb-253e-4457-9ac8-897911b94e5d/) (2026-10-29) — Italija įspėja, kad dujų kainos sausį gali pasiekti 150 EUR/MWh, jei Vokietija neplėš savo atsargas. Problemos šaltinis — ES energinio tūrio direktyvos išimtis Vokietijai, kuri iškraipo rinkos kainodarą Europoje.
 
 ## 🔴 Svarbiausia
+1. **NordBalt jungtis Lietuvai — Švedijai buvo atsijungta dėl gedimo** — Penktadienį 14:30 val. elektros jungtis nutrūko, 15:44 val. atgauta. ([Verslo žinios](https://www.vz.lt/energetika/2026/10/30/neveikia-lietuva-su-svedija-jungianti-elektros-jungtis-nordbalt-592151))
 
-[Brangesnės nei 2021 m.: dujų kaina pasiekė 100 Eur/MWh, tačiau rinka atrodo iškreipta](https://www.vz.lt/rinkos/2026/10/29/brangesnes-nei-2021-m-duju-kaina-pasieke-100-eurmwh-taciau-rinka-atrodo-iskreipta-592052) — Gamtinių dujų kainos Europoje pasiekė 100 Eur/MWh po „QatarEnergy" pranešimo apie negaią patiekti dujų iki metų pabaigos. Dujų saugyklos pildymas Europoje baigiasi, sukaupta mažiau nei normaliai. *(Verslo žinios, 2026-10-29)*
+2. **Baigta Vilniaus–Klaipėdos geležinkelio elektrifikacija** — 363 km ruože įrengtas 900 km kontaktinio tinklo, Lietuvos elektrifikacijos procentas pakilo nuo 8% iki 30%. ([Verslo žinios](https://www.vz.lt/logistika-ir-transportas/2026/10/30/baigta-visos-vilniaus-klaipedos-gelezinkelio-magistrales-elektrifikacija-592125))
 
-[„Litgrid" valdybos pirmininku išrinktas M. Keizeris](https://www.vz.lt/energetika/2026/10/29/litgrid-valdybos-pirmininku-isrinktas-m-keizeris-592046) — Elektros perdavimo sistemos operatorės „Litgrid" valdybos pirmininku tapo Mindaugas Keizeris, „Epso-G" vadovas. Šis paskyrymas svarbus Lietuvos elektros tinklo valdymui. *(Verslo žinios, 2026-10-29)*
-
-[Italy warns of EUR 150 gas price in January on low German stocks](https://montelnews.com/news/3e0ceeeb-253e-4457-9ac8-897911b94e5d/italy-warns-of-eur-150-gas-price-in-january-on-low-german-stocks) — Italija įspėja apie galimą dujų kainą iki 150 Eur/MWh sausio mėnesį dėl žemų Vokietijos atsargų. Vokietija buvo atleista nuo ES pareigos užpildyti saugyklas iki 80% prieš žiemą. *(Montel News, 2026-10-29)*
-
-## 🏛️ Reguliavimas ir politika
-
-[„Litgrid" valdybos pirmininku išrinktas M. Keizeris](https://www.vz.lt/energetika/2026/10/29/litgrid-valdybos-pirmininku-isrinktas-m-keizeris-592046) — Mindaugas Keizeris paskirtas elektros perdavimo sistemos operatorės „Litgrid" valdybos pirmininku. *(Verslo žinios, 2026-10-29)*
+3. **Grėsmė Europos dujų rinkoje** — Žemos Vokietijos atsargos kelia riziką sausio kainoms visoje ES. ([Montel News](https://montelnews.com/news/3e0ceeeb-253e-4457-9ac8-897911b94e5d/))
 
 ---
-_Generuota automatiškai 2026-10-30 · MB Enerconsult_
+_Generuota automatiškai 2026-10-31 · MB Enerconsult_
