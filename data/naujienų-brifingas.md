@@ -1,20 +1,13 @@
-# Naujienų brifingas — 2026-11-02
+# Naujienų brifingas — 2026-11-03
 
 ## 🌍 Montel News apie Lietuvą ir Baltijos šalis
 Per pastarąsias 3 d. Montel News apie Lietuvą nerašė.
 
 ## 🔴 Svarbiausia
 
-[**Dėl gedimo Švedijoje buvo sutrikusi elektros jungties „NordBalt" veikla**](https://www.vz.lt/energetika/2026/10/30/neveikia-lietuva-su-svedija-jungianti-elektros-jungtis-nordbalt-592151)  
-Penktadienį 14:30 val. Lietuvos laiku dėl gedimo atsijungė Lietuvos ir Švedijos elektros jungtis „NordBalt", tačiau po sutaisymo 15:44 val. ji buvo vėl įjungta. *Verslo žinios*
+[Kaliningrade sutriko elektros tiekimas](https://www.vz.lt/energetika/2026/10/31/kaliningrade-sutriko-elektros-tiekimas-592169) — Rusijos Kaliningrado srityje praėjusią naktį smarkiai sutriko elektros tiekimas, o Baškirijos Ufos rajone pasigirdo sprogimų po įspėjimų apie galimas Ukrainos dronų atakas. **Šaltinis:** Verslo žinios (2026-10-31)
 
-[**Kaliningrade sutriko elektros tiekimas**](https://www.vz.lt/energetika/2026/10/31/kaliningrade-sutriko-elektros-tiekimas-592169)  
-Rusijos Kaliningrado srityje praėjusią naktį smarkiai sutriko elektros tiekimas, o Baškirijoje po įspėjimų apie Ukrainos drono atakas pasigirdo sprogimų. *Verslo žinios*
-
-## ⚡ Elektros rinka
-
-[**Dėl gedimo Švedijoje buvo sutrikusi elektros jungties „NordBalt" veikla**](https://www.vz.lt/energetika/2026/10/30/neveikia-lietuva-su-svedija-jungianti-elektros-jungtis-nordbalt-592151)  
-Penktadienį 14:30 val. Lietuvos laiku atsijungė Lietuvos ir Švedijos jungtis „NordBalt" dėl gedimo; sutaisyta ir vėl įjungta 15:44 val. *Verslo žinios*
+[Neįgyvendinusi saugyklų pildymo tikslo, Vokietija teigia, kad dujų tiekimas yra užtikrintas](https://www.15min.lt/naujiena/aktualu/pasaulis/neigyvendinusi-saugyklu-pildymo-tikslo-vokietija-teigia-kad-duju-tiekimas-yra-uztikrintas-57-2797308) — Nepaisant to, kad Vokietija nesugebėjo pasiekti saugyklų pildymo tikslo, šalis teigia turinti pakankamai dujų atsargų žiemos sezonui. **Šaltinis:** 15min (2026-11-02)
 
 ---
-_Generuota automatiškai 2026-11-02 · MB Enerconsult_
+_Generuota automatiškai 2026-11-03 · MB Enerconsult_

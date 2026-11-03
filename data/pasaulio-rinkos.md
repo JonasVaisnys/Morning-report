@@ -1,68 +1,50 @@
-# 🌍 Pasaulio energetikos rinkos — 2026-11-02
+# 🌍 Pasaulio energetikos rinkos — 2026-11-03
 
 ## Rodikliai
 
 | Rodiklis | Reikšmė | Per dieną | Per 7 d. | Per metus |
 |---|---|---|---|---|
-| Brent nafta, USD/bbl | 110,17 (98,61 €/bbl) | −6,3 % | −5,6 % | +69,3 % |
+| Brent nafta, USD/bbl | 104,76 (93,40 €/bbl) | −10,9 % | −9,5 % | +61,0 % |
 | Brent fizinė (EIA), USD/bbl | 123,10 (+9,22 vs ateities) | −3,9 % | +6,8 % | +87,9 % |
-| TTF dujos, €/MWh | 103,94 | – | – | – |
-| CO2 (EUA aukcionas), €/t | 89,55 | +1,7 % | +4,3 % | – |
-| EUR/USD | 1,1172 | +0,4 % | −0,2 % | −3,3 % |
+| TTF dujos, €/MWh | 93,45 | −10,1 % | −3,3 % | +200,3 % |
+| CO2 (EUA aukcionas), €/t | 89,43 | −0,1 % | +2,0 % | – |
+| EUR/USD | 1,1216 | +0,4 % | +0,2 % | −2,9 % |
 
-_Paskutinės rinkos reikšmės: Brent ir TTF – 2026-10-30 (penktadienis), 2026-11-01 (sekmadienis); fizinė Brent – 2026-10-27 (antradienis); CO2 aukcionas – 2026-10-30 (penktadienis)._
+_Paskutinės rinkos reikšmės: Brent ir TTF – 2026-11-02 (pirmadienis); fizinė Brent – 2026-10-27 (antradienis); CO2 aukcionas – 2026-11-02 (pirmadienis)._
 
-**LT elektra 2026-11-02:** vidurkis 344,92 €/MWh (7 d. vidurkis 176,05) · vakaro pikas 18–21 val. 405,69 · vidurdienis 10–15 val. 402,11 · vakaro ir vidurdienio skirtumas 3,58 · min–max 188,32–483,00 €/MWh
+**LT elektra 2026-11-03:** vidurkis 311,39 €/MWh (7 d. vidurkis 224,28) · vakaro pikas 18–21 val. 337,57 · vidurdienis 10–15 val. 327,56 · vakaro ir vidurdienio skirtumas 10,01 · min–max 160,42–400,08 €/MWh
 
 ## Grandinė nafta → dujos → elektra LT
 
 | Grandis | Rodiklis | Reikšmė | Ryšys |
 |---|---|---|---|
-| Dujos → gamybos kaštai | Dujinės elektrinės SRMC, η 55 % / 40 % | 225 / 308 €/MWh | |
-| Dujos → LT kaina | Laiko dalis, kai LT kaina dujinių elektrinių kaštų zonoje (≥ 90 % SRMC; 3 d.; vakare) | 81,6 % (100,0 %) | stiprus |
-| Dujos → LT kaina | TTF +10 €/MWh → LT vidurkis (dujų zonoje) | +14,84 (+18,2) €/MWh | |
-| Šiandien | Vakaro pikas minus SRMC (η 55 %) | +180,8 €/MWh | dujinė elektrinė vakaro pikui atsiperka |
+| Nafta → dujos | Brent ir TTF dienos pokyčių koreliacija (60 d.) | 0,66 (ilgalaikė 0,58) | stiprus |
+| Nafta → dujos | TTF pokytis, kai Brent kinta 1 % (β) | 0,86 % | |
+| Dujos → gamybos kaštai | Dujinės elektrinės SRMC, η 55 % / 40 % | 206 / 282 €/MWh | |
+| Dujos → LT kaina | Laiko dalis, kai LT kaina dujinių elektrinių kaštų zonoje (≥ 90 % SRMC; 31 d.; vakare) | 39,1 % (57,1 %) | stiprus |
+| Dujos → LT kaina | TTF +10 €/MWh → LT vidurkis (dujų zonoje) | +7,11 (+18,2) €/MWh | |
+| Šiandien | Vakaro pikas minus SRMC (η 55 %) | +131,8 €/MWh | dujinė elektrinė vakaro pikui atsiperka |
 
 ### Santrauka
-Naftos kainą žemyn stumia lūkesčiai, kad JAV prieš galimus naujus smūgius Iranui suteiks daugiau laiko diplomatijai. Fizinė naftos rinka vis dėlto lieka įtempta. Dujų rinkoje rizikas palaiko Vokietijos saugyklų stygius ir atakos prieš SGD tanklaivius. LT elektros vidurkis šiandien siekia 344,92 €/MWh ir gerokai viršija 7 d. vidurkį (176,05 €/MWh).
+Pirmadienį (2026-11-02) Brent ir TTF smuko daugiau nei 10 %, nes JAV ir Iranas parodė norą derėtis. Vis dėlto fizinė naftos rinka dar prieš kritimą buvo įtempta, o Hormuzo regione puolimai tęsiasi. LT elektros kaina 2026-11-03 (311,39 €/MWh) gerokai viršija 7 d. vidurkį (224,28 €/MWh) ir dujinių elektrinių SRMC.
 
 ### 🛢️ Nafta
-Paskutinė Brent ateities sandorio reikšmė užfiksuota sekmadienį, 2026-11-01: 110,17 USD/bbl (98,61 €/bbl). Lyginant su ankstesne prekybos diena, kaina krito 6,3 %, nors per 30 d. pakilo 7,8 %. Pirmadienio rytą Azijoje nafta pigo dar daugiau nei 1 % (CNBC). Priežastys: D. Trumpas esą nori daugiau laiko diplomatijai po antradienio rinkimų (Bloomberg), o Kataro tarpininkai trečią dieną derasi su Iranu (Reuters).
-
-Kainą palaikantys veiksniai:
-- Irano IRGC praneša apie du tanklaivius, susprogusius ant minų Hormuzo sąsiauryje (Reuters).
-- Goldman Sachs padidino kainų prognozes (Bloomberg).
-- OPEC+ gruodžio gavybos tikslų nekeitė (Reuters; WSJ).
-
-Fizinė Brent 2026-10-27 kainavo 123,10 USD/bbl, o jos premija ateities sandoriui siekė +9,22 USD/bbl. Tai rodo, kad realiai pristatomos naftos trūksta labiau, nei atspindi biržos kaina.
+Brent pirmadienį užsidarė ties 104,76 USD/bbl (93,40 €/bbl), mūsų duomenimis, −10,9 % per dieną. Naujienose minimas maždaug 7–8 % kritimas, didžiausias nuo liepos (Bloomberg; CNBC; Rigzone). Kainą smukdė JAV ir Irano signalai apie taikos derybas, Trumpas teigė, kad susitarimas įmanomas (Bloomberg; WSJ). Kita vertus, derybos baigėsi be proveržio (Reuters), o pranešimas apie JAV smūgį Irano Kešmo salai antradienio rytą kainą kilstelėjo (Reuters; CNBC). Fizinės Brent premija ateities sandoriui 2026-10-27 siekė +9,22 USD/bbl. Tai rodo, kad realių krovinių paklausa viršijo pasiūlą, tačiau šie duomenys yra iki pirmadienio kritimo.
 
 ### 🔥 Dujos ir SGD
-TTF paskutinį kartą užsidarė penktadienį, 2026-10-30, ties 103,94 €/MWh. Pokyčių duomenų nėra, ES ir Inčukalnio saugyklų duomenų šiandien taip pat nėra.
-
-- **Saugyklos:** Vokietija neįvykdė žiemos saugyklų tikslo, jos atsargos rekordiškai žemos (Reuters). Dėl to šaliai teks daugiau pirkti neatidėliotinų sandorių rinkoje, o tai gali kelti kainas kitoms ES šalims (FT).
-- **SGD rizikos:** Persijos įlankoje atakuotas Kataro SGD tanklaivis (TradeWinds; LNG Prime), SGD frachtas brangsta (LNG Prime).
-- **SGD pasiūla:** „Plaquemines“ pradėjo komercinę veiklą (Upstream; Reuters).
-- **Rusijos dujos:** JAV esą skatina atnaujinti Rusijos dujų tiekimą Europai per Ukrainą (Bloomberg, remiantis WSJ).
-
-Apie Klaipėdos SGD terminalą ar GIPL šiandien naujienų nėra.
+TTF pirmadienį nukrito 10,1 % iki 93,45 €/MWh, nors per 30 d. vis dar +25,0 %. Šis judėjimas atitinka stiprų naftos ir dujų ryšį: 60 d. koreliacija siekia 0,66, β – 0,86. Vokietija nepasiekė saugyklų pildymo tikslo, tačiau tvirtina, kad dujų žiemai pakaks (OilPrice.com; 15min). TotalEnergies vadovas Europos saugyklų politiką vadina trumparegiška (Reuters). JAV SGD eksportas pasiekė antrą didžiausią mėnesio lygį istorijoje, nes auga Europos paklausa (Reuters). ES ir Inčukalnio saugyklų duomenų šiandien nėra, naujienų apie Baltijos dujų infrastruktūrą taip pat nėra.
 
 ### ⚡ Poveikis Lietuvai
-Dujinės elektrinės SRMC esant η 55 % siekia 224,9 €/MWh: kuras 189,0, CO2 32,9 (EUA penktadienį 89,55 €/t, +1,7 %). Esant η 40 %, SRMC siekia 308,1 €/MWh.
-
-Šiandienos vakaro pikas (405,69 €/MWh) viršija CCGT SRMC 180,8 €/MWh, todėl dujinė elektrinė vakare atsiperka. Per 3 d. kaina 81,6 % laiko buvo dujų kaštų zonoje, vakaro valandomis – visą laiką. Tai rodo, kad dujinės elektrinės galėjo būti ribinės, bet to neįrodo.
-
-Jautrumas: TTF +10 €/MWh didina vidutinę LT kainą maždaug 14,84 €/MWh, o dujų zonos intervalais – 18,2 €/MWh.
-
-BESS vakaro ir vidurdienio skirtumas šiandien tik 3,58 €/MWh, nes vidurdienio kaina (402,11 €/MWh) beveik prilygsta vakaro pikui. Arbitražo vertė slypi atskirose valandose tarp min 188,32 ir max 483,00 €/MWh. Aukšta vidurdienio kaina šiandien palanki saulės elektrinių užfiksuotai kainai.
+Šios dienos vakaro pikas (337,57 €/MWh) viršija ir efektyvios (205,8 €/MWh), ir mažo efektyvumo (281,8 €/MWh) dujinės elektrinės SRMC. Skirtumas su CCGT SRMC siekia +131,8 €/MWh. Per 31 d. kaina dujų zonoje buvo 39,1 % laiko, vakare – 57,1 %. TTF pokytis +10 €/MWh vidutiniškai keičia LT kainą ≈ 7,11 €/MWh, o dujų zonos intervalais ≈ 18,2 €/MWh. Pigesnės dujos labiausiai paveiktų vakaro valandas. Vakaro ir vidurdienio skirtumas šiandien tik 10,01 €/MWh, todėl BESS arbitražas tarp šių blokų menkas. Didesnės galimybės slypi paros intervale tarp minimumo 160,42 ir maksimumo 400,08 €/MWh. Aukšta vidurdienio kaina (327,56 €/MWh) palanki saulės elektrinių užfiksuotai kainai.
 
 ### 👀 Ką stebėti
-- JAV vidurio kadencijos rinkimai antradienį ir galimi smūgiai Iranui po jų. Įlankos šalys baiminasi stipresnio Irano atsako (Bloomberg; CNBC).
-- Kataro tarpininkaujamų JAV ir Irano derybų eiga (Reuters; CNBC).
-- Laivyba Hormuzo sąsiauryje: minos ir atakos prieš tanklaivius bei SGD laivus (Reuters; Bloomberg).
-- Vokietijos dujų pirkimai neatidėliotinų sandorių rinkoje ir jų poveikis TTF (FT).
+- JAV ir Irano derybų eiga bei kariniai veiksmai, įskaitant laivų puolimus Persijos įlankoje (Reuters; OilPrice.com; Bloomberg).
+- Antradienio JAV vidurio kadencijos rinkimai, kuriuose degalų kainos tapo svarbia tema (FT; Politico).
+- Prognozių išsiskyrimas: Goldman Sachs mano, kad Brent kitąmet vidutiniškai gali siekti 130 USD/bbl (MarketWatch), o OPEC+ gruodžio kvotų nekeičia (Rigzone).
+- JAV raginimas atnaujinti rusiškų dujų tranzitą per Ukrainą (Delfi) ir Vokietijos saugyklų būklė žiemą.
 
 ---
 **Duomenys:** Yahoo Finance (Brent, TTF), EIA (fizinė Brent), EEX (CO2 aukcionai), ECB (EUR/USD), Nord Pool per Elering (LT kaina). TTF – artimiausio mėnesio ateities sandoris; SRMC – apytikris, be dujų transportavimo į Lietuvą.
-**Naujienos:** Bloomberg (15), Reuters (15), CNBC (11), Rigzone (10), Financial Times (9), OilPrice.com (8), LNG Prime (8), Delfi (3), Verslo žinios (2), WSJ (2), EnergyNow (2), Upstream (1), 15min (1), TV3 (1), TradeWinds (1), Lrytas (1), Alfa (1).
+**Naujienos:** Bloomberg (15), Reuters (15), LNG Prime (10), OilPrice.com (8), Rigzone (8), WSJ (6), CNBC (5), EnergyNow (5), Verslo žinios (3), Financial Times (3), 15min (3), Barron's (2), MarketWatch (2), Delfi (2), Energy Intelligence (1), Politico (1), The Guardian (1), Alfa (1), Lrytas (1).
 
-_Generuota automatiškai 2026-11-02 · MB Enerconsult_
+_Generuota automatiškai 2026-11-03 · MB Enerconsult_
