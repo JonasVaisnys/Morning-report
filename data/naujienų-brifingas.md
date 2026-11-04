@@ -1,13 +1,20 @@
-# Naujienų brifingas — 2026-11-03
+# Naujienų brifingas — 2026-11-04
 
 ## 🌍 Montel News apie Lietuvą ir Baltijos šalis
 Per pastarąsias 3 d. Montel News apie Lietuvą nerašė.
 
 ## 🔴 Svarbiausia
 
-[Kaliningrade sutriko elektros tiekimas](https://www.vz.lt/energetika/2026/10/31/kaliningrade-sutriko-elektros-tiekimas-592169) — Rusijos Kaliningrado srityje praėjusią naktį smarkiai sutriko elektros tiekimas, o Baškirijos Ufos rajone pasigirdo sprogimų po įspėjimų apie galimas Ukrainos dronų atakas. **Šaltinis:** Verslo žinios (2026-10-31)
+[**Europa žiemą pasitinka su mažiausiomis dujų atsargomis nuo 2013-ųjų**](https://www.vz.lt/rinkos/2026/11/03/tea-europa-ziema-pasitinka-su-maziausiomis-duju-atsargomis-nuo-2013-uju-592205)  
+Tarptautinė energetikos agentūra (TEA) perspėja, kad Europa žiemą pasitinka su žemiausiomis gamtinių dujų atsargomis nuo 2013 m., o tai gali pratęsti spaudimą tarptautinei rinkai ir 2027 m. *Verslo žinios*
 
-[Neįgyvendinusi saugyklų pildymo tikslo, Vokietija teigia, kad dujų tiekimas yra užtikrintas](https://www.15min.lt/naujiena/aktualu/pasaulis/neigyvendinusi-saugyklu-pildymo-tikslo-vokietija-teigia-kad-duju-tiekimas-yra-uztikrintas-57-2797308) — Nepaisant to, kad Vokietija nesugebėjo pasiekti saugyklų pildymo tikslo, šalis teigia turinti pakankamai dujų atsargų žiemos sezonui. **Šaltinis:** 15min (2026-11-02)
+[**„Orlen" vadovas: neužbaigus Mažeikių gamyklos modernizavimo, kiltų jos uždarymo rizika**](https://www.vz.lt/energetika/2026/11/03/orlen-vadovas-mazeikiu-gamykla-iki-siol-neatsipirko-svarstoma-ir-alternatyva-ja-uzdaryti-592254)  
+Lenkijos energetikos koncerno „Orlen" generalinis direktorius I. Fafara teigia, kad be tęstos Mažeikių naftos perdirbimo gamyklos modernizavimo gali kilti jos uždarymo rizika. *Verslo žinios*
+
+## 📰 Kita aktualu
+
+[**Pasaulio biržos: JAV rinkimai stebimi teigiamomis nuotaikomis, naftos kainos toliau mažėja**](https://www.vz.lt/rinkos/2026/11/03/pasaulio-birzos-jav-rinkimai-stebimi-teigiamomis-nuotaikomis-istorija-signalizuoja-prieaugi-592246)  
+JAV vidurio kadencijos rinkimuose naftos kainos linkusios mažėti, o tarptautinės rinkos dalyviams tikintis, kad JAV ir Iranas susitars be karo atnaujiimo. *Verslo žinios*
 
 ---
-_Generuota automatiškai 2026-11-03 · MB Enerconsult_
+_Generuota automatiškai 2026-11-04 · MB Enerconsult_
