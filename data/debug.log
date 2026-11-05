@@ -1,4 +1,4 @@
-Renku duomenis: 2026-11-04 (trečiadienis)...
+Renku duomenis: 2026-11-05 (ketvirtadienis)...
   → Kainos...
     LT (ENTSO-E)... 24 val.
     LV (ENTSO-E)... 24 val.
@@ -6,13 +6,14 @@ Renku duomenis: 2026-11-04 (trečiadienis)...
     SE4 (ENTSO-E)... 24 val.
     LT ≠ LV → rodoma atskirai
   → Tarpsisteminiai srautai...
-    LT→SE4... 1 val.
-    SE4→LT... 6 val.
+    LT→SE4... 5 val.
+    SE4→LT... 2 val.
     LT→PL... 2 val.
     PL→LT... 6 val.
     LT→LV... 6 val.
     LV→LT... 1 val.
   → LT vartojimas/gamyba...
     Vartojimas... 6 val.
-    Gamyba pagal tipą... 6 val.
+    Gamyba pagal tipą...   ⚠ Klaida (A75 10YLT-1001A0): HTTPSConnectionPool(host='web-api.tp.entsoe.eu', port=443): Read timed out. (read timeout=30)
+1 val.
   → Analizė...

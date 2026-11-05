@@ -1,20 +1,21 @@
-# Naujienų brifingas — 2026-11-04
+# Naujienų brifingas — 2026-11-05
 
 ## 🌍 Montel News apie Lietuvą ir Baltijos šalis
+
 Per pastarąsias 3 d. Montel News apie Lietuvą nerašė.
 
 ## 🔴 Svarbiausia
 
-[**Europa žiemą pasitinka su mažiausiomis dujų atsargomis nuo 2013-ųjų**](https://www.vz.lt/rinkos/2026/11/03/tea-europa-ziema-pasitinka-su-maziausiomis-duju-atsargomis-nuo-2013-uju-592205)  
-Tarptautinė energetikos agentūra (TEA) perspėja, kad Europa žiemą pasitinka su žemiausiomis gamtinių dujų atsargomis nuo 2013 m., o tai gali pratęsti spaudimą tarptautinei rinkai ir 2027 m. *Verslo žinios*
+[95% fewer extreme balancing prices as more join Picasso – Acer](https://montelnews.com/news/9e22b52a-6c50-42b1-a3ea-89cf9d8d7240/95-fewer-extreme-balancing-prices-as-more-join-picasso-acer) _(Montel News, 2026-11-04)_ — Iki 2025 m. pabaigos į Picasso platformą prisijungė 17 valstybių TSO, o tai padidino prieigą prie tarpsienos balansavimo išteklių ir žymiai sumažino ekstremių kainų dažnį. Šis rezultatas svarbus Baltijos regiono energetikos stabilumui.
 
-[**„Orlen" vadovas: neužbaigus Mažeikių gamyklos modernizavimo, kiltų jos uždarymo rizika**](https://www.vz.lt/energetika/2026/11/03/orlen-vadovas-mazeikiu-gamykla-iki-siol-neatsipirko-svarstoma-ir-alternatyva-ja-uzdaryti-592254)  
-Lenkijos energetikos koncerno „Orlen" generalinis direktorius I. Fafara teigia, kad be tęstos Mažeikių naftos perdirbimo gamyklos modernizavimo gali kilti jos uždarymo rizika. *Verslo žinios*
+[Iškelta bankroto byla paskutinei saulės energetikos tinklo „Omnispower" įmonei Lietuvoje](https://www.vz.lt/mano-verslas/2026/11/05/iskelta-bankroto-byla-paskutinei-saules-energetikos-tinklo-omnispower-imonei-lietuvoje-592301) _(Verslo žinios, 2026-11-05)_ — Vilniaus apygardos teismo sprendimu iškelta bankroto byla UAB „Omnispower LT", paskutinei iš trijų „Omnispower" prekės ženklo veikusių įmonių Lietuvoje. Tai atspindi iššūkius saulės energetikos sektoriuje.
 
-## 📰 Kita aktualu
+[Finansų ir energetikos ministrai „Orlen" pareiškimą dėl Mažeikių gamyklos sieja su diskusijomis dėl viršpelnio mokesčio](https://www.vz.lt/energetika/2026/11/04/finansu-ir-energetikos-ministrai-orlen-pareiskima-del-mazeikiu-gamyklos-sieja-su-diskusijomis-del-virspelnio-mokescio-592300) _(Verslo žinios, 2026-11-04)_ — Lenkijos energetikos koncernas „Orlen" svarstytumo atsisakyti „Orlen Lietuva" modernizavimo projekto ir galimą gamyklos uždarymą siejamai su viršpelnio mokesčio reguliavimo klausimais.
 
-[**Pasaulio biržos: JAV rinkimai stebimi teigiamomis nuotaikomis, naftos kainos toliau mažėja**](https://www.vz.lt/rinkos/2026/11/03/pasaulio-birzos-jav-rinkimai-stebimi-teigiamomis-nuotaikomis-istorija-signalizuoja-prieaugi-592246)  
-JAV vidurio kadencijos rinkimuose naftos kainos linkusios mažėti, o tarptautinės rinkos dalyviams tikintis, kad JAV ir Iranas susitars be karo atnaujiimo. *Verslo žinios*
+## ⚡ Elektros rinka
+
+[Analitikai apie JAV rinkimų poveikį akcijoms: gynyba pinga, žalioji energetika brangsta](https://www.vz.lt/mano-pinigai/2026/11/04/analitikai-apie-jav-rinkimu-poveiki-akcijoms-gynyba-pinga-zalioji-energetika-brangsta-592287) _(Verslo žinios, 2026-11-04)_ — Analitikai dėl JAV rinkimų rezultatų tikisi žaliosios energetikos sektoriaus akcinės vertės augimo, o tai gali turėti įtakos tarptautinėms energetikos investicijoms.
 
 ---
-_Generuota automatiškai 2026-11-04 · MB Enerconsult_
+
+_Generuota automatiškai 2026-11-05 · MB Enerconsult_
