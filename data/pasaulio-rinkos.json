@@ -1,38 +1,38 @@
 {
-  "data": "2026-11-07",
-  "savaitės_diena": "šeštadienis",
-  "sugeneruota": "2026-11-07T05:45:24+02:00",
+  "data": "2026-11-08",
+  "savaitės_diena": "sekmadienis",
+  "sugeneruota": "2026-11-08T11:55:55+02:00",
   "rodikliai": {
     "brent": {
-      "reikšmė": 97.76,
+      "reikšmė": 98.32,
       "data": "2026-11-06",
       "vienetai": "USD/bbl",
-      "pokytis_d_proc": -0.54,
-      "pokytis_7d_proc": -16.9,
-      "pokytis_30d_proc": -2.44,
-      "pokytis_metai_proc": 54.24,
+      "pokytis_d_proc": 0.03,
+      "pokytis_7d_proc": -16.42,
+      "pokytis_30d_proc": -1.88,
+      "pokytis_metai_proc": 55.13,
       "šaltinis": "Yahoo Finance (BZ=F)",
       "kotiruotės_laikas": "2026-11-06T23:59+02:00"
     },
     "ttf": {
-      "reikšmė": 85.98,
+      "reikšmė": 85.588,
       "data": "2026-11-06",
       "vienetai": "€/MWh",
-      "pokytis_d_proc": -5.18,
-      "pokytis_7d_proc": -17.28,
-      "pokytis_30d_proc": 10.12,
-      "pokytis_metai_proc": 172.54,
+      "pokytis_d_proc": -5.61,
+      "pokytis_7d_proc": -17.66,
+      "pokytis_30d_proc": 9.62,
+      "pokytis_metai_proc": 171.29,
       "šaltinis": "Yahoo Finance (TTF=F)",
       "kotiruotės_laikas": "2026-11-06T18:50+02:00"
     },
     "henry_hub": {
-      "reikšmė": 3.003,
+      "reikšmė": 2.998,
       "data": "2026-11-06",
       "vienetai": "USD/MMBtu",
-      "pokytis_d_proc": 1.9,
-      "pokytis_7d_proc": 3.62,
-      "pokytis_30d_proc": -6.24,
-      "pokytis_metai_proc": -31.08,
+      "pokytis_d_proc": 1.73,
+      "pokytis_7d_proc": 3.45,
+      "pokytis_30d_proc": -6.4,
+      "pokytis_metai_proc": -31.19,
       "šaltinis": "Yahoo Finance (NG=F)"
     },
     "eurusd": {
@@ -45,7 +45,7 @@
       "pokytis_metai_proc": -3.19,
       "šaltinis": "ECB"
     },
-    "brent_eur": 87.56,
+    "brent_eur": 88.06,
     "brent_fizinė": {
       "reikšmė": 107.03,
       "data": "2026-11-03",
@@ -70,32 +70,32 @@
     "saugyklos_es": null,
     "saugyklos_lv": null,
     "lt_elektra": {
-      "data": "2026-11-07",
+      "data": "2026-11-08",
       "šiandien": {
-        "vidurkis": 314.75,
-        "vakaro_pikas_18_21": 373.3,
-        "vidurdienis_10_15": 258.08,
-        "vakaro_ir_vidurdienio_skirtumas": 115.23,
-        "min": 235.15,
-        "max": 412.4,
+        "vidurkis": 295.16,
+        "vakaro_pikas_18_21": 395.4,
+        "vidurdienis_10_15": 283.51,
+        "vakaro_ir_vidurdienio_skirtumas": 111.89,
+        "min": 225.29,
+        "max": 415.7,
         "intervalų": 96
       },
-      "vidurkis_7d": 257.23,
+      "vidurkis_7d": 269.13,
       "šaltinis": "Nord Pool per Elering"
     }
   },
   "grandinė": {
     "srmc": {
       "ccgt": {
-        "iš_viso": 191.5,
-        "kuras": 156.3,
+        "iš_viso": 190.8,
+        "kuras": 155.6,
         "co2": 32.1,
         "vom": 3.0,
         "eta": 0.55
       },
       "senas": {
-        "iš_viso": 262.1,
-        "kuras": 214.9,
+        "iš_viso": 261.2,
+        "kuras": 214.0,
         "co2": 44.2,
         "vom": 3.0,
         "eta": 0.4
@@ -104,7 +104,7 @@
       "eua_data": "2026-11-06"
     },
     "nafta_dujos": {
-      "koreliacija": 0.65,
+      "koreliacija": 0.64,
       "beta": 0.74,
       "dienų": 60,
       "bazė_250d": {
@@ -115,683 +115,359 @@
     },
     "dujos_elektra": {
       "dienų": 31,
-      "laiko_dalis_proc": 44.9,
-      "vakaro_dalis_proc": 60.5,
-      "jautrumas_vid_eur_mwh_per_10": 8.17,
+      "laiko_dalis_proc": 47.5,
+      "vakaro_dalis_proc": 62.5,
+      "jautrumas_vid_eur_mwh_per_10": 8.63,
       "jautrumas_dujų_zonoje_eur_mwh_per_10": 18.2
     },
     "šiandien": {
-      "vakaro_piko_skirtumas": 181.8,
+      "vakaro_piko_skirtumas": 204.6,
       "vertinimas": "dujinė elektrinė vakaro pikui atsiperka"
     }
   },
   "naujienos": [
     {
       "leidinys": "Bloomberg",
-      "pavadinimas": "Beijing Vows to Hit Back Against US Sanctions on China Companies",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-07/beijing-vows-to-hit-back-against-us-sanctions-on-china-companies",
-      "laikas": "2026-11-07T03:54+02:00",
-      "tema": "geopolitika ir makro",
+      "pavadinimas": "EU Close to Deal to Link UK Carbon Market After Brexit Split",
+      "nuoroda": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPbUU2andIZ3NUM1pYOHdmWXVzaUw2QlpJOVhyTDdNcDFNRFN6OEFPcXZCZnRtcTVZMWZsWTZEMTBRUGpVY0FVWDExNmRoMnhoQmk0YmZBZUlSOHpsZkhsNFlzM1BNUHNZc1NlMjB3bFZZOU11UXYxQzR4ZjNfSUdKY3UzUVQ1R0daRm1XU3o3MWFmV20zNGNDcEtBbTVWMm1JZWJaQ094dkx0TFhybk14dg?oc=5",
+      "laikas": "2026-11-08T11:14+02:00",
+      "tema": "elektra ir CO2",
       "kalba": "en"
     },
     {
       "leidinys": "Bloomberg",
-      "pavadinimas": "Australia’s Albanese Urges Iran De-Escalation After US Midterms",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-07/australia-s-albanese-urges-iran-de-escalation-after-us-midterms",
-      "laikas": "2026-11-07T02:32+02:00",
+      "pavadinimas": "Aramco Riyadh Office Targeted in Attack, Causing Limited Damage",
+      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-08/aramco-tower-in-riyadh-s-financial-hub-damaged-after-attack",
+      "laikas": "2026-11-08T10:54+02:00",
       "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "Wall Street Week | Blue Wave Economic Impacts, European Welfare Woes",
-      "nuoroda": "https://www.bloomberg.com/news/videos/2026-11-07/wall-street-week-blue-wave-economics-richmond-fed-video",
-      "laikas": "2026-11-07T02:13+02:00",
-      "tema": "nafta",
       "kalba": "en"
     },
     {
       "leidinys": "WSJ",
-      "pavadinimas": "Oil Futures Turn Lower as Market Holds Out Hope for Middle East Diplomacy",
-      "nuoroda": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPanI0VE5sUnZXNzJ1Tm9vWmVYYTZWbWRuMGRoOUtSZnJTVVJrT3dub0FKa1VFdlpvLUg3SHJvd3RBN25LNWdZLTlCS2FScUg2UUdLdEhPZXlyeFg5a2Z0TURCVWw5Wkp1VWhVNTQ2UktXX2RJMzdRc0c4emVzbkMyYkRhd2xfZFNSZ05aSWI0amNlUUc0NThHQVdSMHlCdDRfNmh6LS1SeTdmQWNGZlpn?oc=5",
-      "laikas": "2026-11-07T01:46+02:00",
+      "pavadinimas": "OPEC, Allies Keep Output Steady While Gulf Shipping Remains Under Threat",
+      "nuoroda": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNbnNqUHNCa3N5QzZ4RUZEVVd5RUsxNDM1QU5wZ3dYQ3FYdzdEWnpnczk0NG1JTndRV19CQnpWd0J4eUE4SndBWFpfUkZNeS1QQUtIaWVQRFBYVk1fMXlHNVJjWW1zb3JsV2pvVnc5UU5zby1DNzF1d3dyNFdYWTlTUlJFRk11YW5RU19idkdxZXNSZkJ4azFtQVBjZkVpT2p6cVFlbkpsX2o2NWYtVUJfd1VtblJhQ21COUJYTA?oc=5",
+      "laikas": "2026-11-08T10:39+02:00",
       "tema": "nafta",
       "kalba": "en"
     },
     {
-      "leidinys": "EnergyNow",
-      "pavadinimas": "Why LNG Offtake Agreement with Germany is a Big Deal- Resource Works",
-      "nuoroda": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBmOHVsWkt0WFBReWxYbkt2SFpjVnhTNjVPVjc0SnVySnp4QXhpQkwtVkhjT3pVa0ZVT2N5QzRvMThxNWVialFQT3pCTUJwVzJwZmtHbExKZGYyUVB5YWdmM0tYLUdMTzF3NFFWU18xTl9EYmJtOEVySQ?oc=5",
-      "laikas": "2026-11-07T01:03+02:00",
+      "leidinys": "Reuters",
+      "pavadinimas": "Gulf markets retreat as traders await Trump's next move on Iran",
+      "nuoroda": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPNEhqejQxdWF5MFpVWjduZHVuY1l1VmxKYm9CN3F4aC1qWkFIWFJqZDJEZ1VoWmthUW1NaWdWQUY4UUprUGsyWFA2a0trUE5HUjEtUHpPNFV1UnBpMHRrR2RlQWo1c2xvY1J2QnprNnNkbHNpY3ZtUWxMQkRzTVpKcktuZjhJdW5zSHdsZUhxYmxBVy00UWVnbndnOEc2WWplMEEwREVib0VyZ3BzZWlR?oc=5",
+      "laikas": "2026-11-08T10:21+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "15min",
+      "pavadinimas": "Iranas: užplaukę ant minų Hormuzo sąsiauryje užsidegė du tanklaiviai",
+      "nuoroda": "https://www.15min.lt/naujiena/aktualu/pasaulis/iranas-uzplauke-ant-minu-hormuzo-sasiauryje-uzsidege-du-tanklaiviai-57-2801250?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed",
+      "laikas": "2026-11-08T09:56+02:00",
+      "tema": "nafta",
+      "kalba": "lt"
+    },
+    {
+      "leidinys": "Reuters",
+      "pavadinimas": "Saudi-led coalition intercepts two Houthi missiles fired towards Riyadh",
+      "nuoroda": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOMEd1Mi1tMEV0cUFGYkd2V01lQ1NkczNNYzZXTlpTOXByR3BaSk82N21DOEpTeEtNMlJ1bFJ3S2pLTVZBOUp5cDFwOUpGakNxMTR1a2RyaHJBcDNOZUJqR1dDZllfejBPWGZ3UVYyT2s3Uk9XaFE3LW1qQkxtNHhlcmFRcGk0bDlWeHZyQmNNOEJyT1lWeVZlTEJlZ0xpRHF6UUs0RnRTWExlbEJ4eDc4YTY4d0VfM2x3dllKUGhZa1Z4QQ?oc=5",
+      "laikas": "2026-11-08T07:24+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Financial Times",
+      "pavadinimas": "Argentina’s Milei dreams of data centres on the Patagonian steppe",
+      "nuoroda": "https://www.ft.com/content/d432ae29-6454-4916-98c7-afb6993cfb67?syn-25a6b1a6=1",
+      "laikas": "2026-11-08T07:00+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Reuters",
+      "pavadinimas": "Iran executes three men over armed unrest during January protests",
+      "nuoroda": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNQ3AtenozM05Va3RPQ1JUYWZ2T2ZYSHVLeDVpN0pKd2lObzVlTjFmSTAyazZoUzNFbHNEc3F5NVBsclI5Rkt3MlpQaVpISy1HdEtOTmNWQVFPQ0IyOGVMOUp0aURUQWJNWENqTklhSUlNQkRqTnFSWm9QR2o3R201b0FVRk00WjV2dG5XaEwzRjIwWVoxQUtkRExIVWdUV1FqdFdPNUQxRjBIdXdfUVJ5RWJ3RkFEX0p5dUZtSzFVLVpsQlI2OTdRQ0pJeDl5djg?oc=5",
+      "laikas": "2026-11-08T06:41+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Bloomberg",
+      "pavadinimas": "China Set to Lead World in Energy Investment in 2026, CCTV Says",
+      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-08/china-set-to-lead-world-in-energy-investment-in-2026-cctv-says",
+      "laikas": "2026-11-08T06:02+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Nikkei",
+      "pavadinimas": "Pakistan's Hormuz agreement with Iran faces test after LNG tanker attack",
+      "nuoroda": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNcGhZaHRiZXIzX2RzeTBMRTNVS2FsQnk1VUpwdThDbzhBb0FiaU9HX0ZkQTBwVW5rUkFlUHB6NEU1U3A1V3VCOWdLOVRoNDhXc18tMl9Pcl9pOXdFVlZLSndDMHJTaWMtYWdKNHJFeVhHV2FkSno0cjVxSFh0V1Z4WHJUZlR4MmZLZ042X2J6OFFRbklYSDZnelp0d0NBaWppbE1PY0RrU2hNcnRzWVc3QUNuY0hzS3RURU1RTnpXdlZNVF8wMDFrTw?oc=5",
+      "laikas": "2026-11-08T05:45+02:00",
       "tema": "dujos",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Reuters",
+      "pavadinimas": "Quest Oil Corp (QOIL.PK) | Stock Price & Latest News",
+      "nuoroda": "https://news.google.com/rss/articles/CBMibEFVX3lxTFA0VUNHSjZBQW1GZS04MUU0NVFmRURkUmdaQmJ1NW1JYnpMX3YzLW5FVkZpaXZINHd4SVlKcmZCaERKdzd3bTM1cGpZbFJoOTVFTnFOYndUcE9NOExHMEs2SXVBUUoxR0hUajZPLQ?oc=5",
+      "laikas": "2026-11-08T05:17+02:00",
+      "tema": "nafta",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Reuters",
+      "pavadinimas": "Saudi civil defence gives all-clear after alerts in Eastern Province",
+      "nuoroda": "https://news.google.com/rss/articles/CBMixwFBVV95cUxORXJobW1xZDQ2cU5VYVhMc3FTMjd4aS0xSW5KM1hVMzF4YVpGbTRmUXRnMG5nSWwzSFhWQjgzTXJKWEtBa1N4M3p3cUlqZXJUYXdISi1XRjIwclRqTnREaGZKVGlzc3ppam5aQkxSWEFzcENmS1NHQjFaLTFHRk9sMVVXVFVLUGE3NHRKRElPckY3VERpZldxOGdhNFh6bl9CQnhEd2xnUlpKdzR5LWlndlpOREk0VDc4bk8wckYxSVpISUFrNllr?oc=5",
+      "laikas": "2026-11-08T05:11+02:00",
+      "tema": "geopolitika ir makro",
       "kalba": "en"
     },
     {
       "leidinys": "OilPrice.com",
-      "pavadinimas": "Wall Street’s “Energy Transition” Funds Are Packed With Natural Gas",
-      "nuoroda": "https://oilprice.com/Energy/Natural-Gas/Wall-Streets-Energy-Transition-Funds-Are-Packed-With-Natural-Gas.html",
-      "laikas": "2026-11-07T01:00+02:00",
+      "pavadinimas": "Wars May Spur Faster Electrification",
+      "nuoroda": "https://oilprice.com/Energy/Energy-General/Wars-May-Spur-Faster-Electrification.html",
+      "laikas": "2026-11-08T02:00+02:00",
+      "tema": "dujos",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "CNBC",
+      "pavadinimas": "Risk of Iran war escalation remains high despite Democratic sweep in U.S. midterm elections",
+      "nuoroda": "https://www.cnbc.com/2026/11/07/iran-war-midterm-election-oil-price-trump.html",
+      "laikas": "2026-11-08T00:17+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "OilPrice.com",
+      "pavadinimas": "The U.S. Has $50 Billion for Nuclear Waste and Nowhere to Put It",
+      "nuoroda": "https://oilprice.com/Alternative-Energy/Nuclear-Power/The-US-Has-50-Billion-for-Nuclear-Waste-and-Nowhere-to-Put-It.html",
+      "laikas": "2026-11-08T00:00+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Reuters",
+      "pavadinimas": "Explosions heard in areas in southern Iran, Iranian media report",
+      "nuoroda": "https://news.google.com/rss/articles/CBMisAFBVV95cUxObzVlZDVLRWxGVlQ1a2V1cTY5NXBjcjlJVzVqbjBKRGpRLUpnWndzNlM5bFpUYjJaUU5UeG1OS2E3c205RVVNMDJaUWxoWFN2ODc1bVhnc096VFlpOFo1N1YwR2JGS2JQYURyQ3NHZEVZaFhvQU5IaWZ1VFZHRjZNTkstbVhiOTUyTDJKTjAySmE0N3FiUzZLUGJKdDdrcGllOTNmMEdHUC1DanlqZ3V5MA?oc=5",
+      "laikas": "2026-11-07T23:57+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "OilPrice.com",
+      "pavadinimas": "Egypt Eyes Billions in New Investment to Revive Oil and Gas Production",
+      "nuoroda": "https://oilprice.com/Energy/Energy-General/Egypt-Eyes-Billions-in-New-Investment-to-Revive-Oil-and-Gas-Production.html",
+      "laikas": "2026-11-07T22:00+02:00",
+      "tema": "dujos",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Reuters",
+      "pavadinimas": "Oil-Dri Corporation of America (ODC.P) | Stock Price & Latest News",
+      "nuoroda": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBodVJ2d2dNb1VPeUs3Y1lINm5lRDBmWGJBUHYzZ0RnQTh1c1ppdHh4WlFuc1RjUFUxa2JLMkZObGtJNi1OSXB6ZGw3U1JiTkdfOTlRMHRHZXgxMml6bnZkdWoxTFVPMzVkUVR4NQ?oc=5",
+      "laikas": "2026-11-07T21:39+02:00",
+      "tema": "nafta",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Bloomberg",
+      "pavadinimas": "Albania Protests Turn Violent as Pressure on PM Continues",
+      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-07/albania-protests-turn-violent-as-pressure-on-pm-continues",
+      "laikas": "2026-11-07T19:26+02:00",
+      "tema": "dujos",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Bloomberg",
+      "pavadinimas": "Senate Plan to Fast-Track Energy Projects Headed for a Showdown",
+      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-07/senate-plan-to-fast-track-energy-projects-headed-for-a-showdown",
+      "laikas": "2026-11-07T18:00+02:00",
+      "tema": "elektra ir CO2",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "OilPrice.com",
+      "pavadinimas": "America’s Hydrogen Revolution Stalls Amid Funding Cuts and Weak Demand",
+      "nuoroda": "https://oilprice.com/Energy/Energy-General/Americas-Hydrogen-Revolution-Stalls-Amid-Funding-Cuts-and-Weak-Demand.html",
+      "laikas": "2026-11-07T18:00+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Bloomberg",
+      "pavadinimas": "Watch How the Iran War Is Making Alaskans Both Richer and Poorer",
+      "nuoroda": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNcU0tVXVXZjhGeVdld2psM2xYb2xlTkljRzVjZUtDX0s1anRtRzBkSXJ1Z0psaHZON3Z6UG1RaWdJSXVMUlZPRUhTTFFaSVA4R3A4bFU0NkhGSjl1dll3cVZtVzlvdE4tTk4xUXR0dW1OTzBwNzJtT2hmLU9UMEFmeE9TZlljRHU4QlE?oc=5",
+      "laikas": "2026-11-07T17:08+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Bloomberg",
+      "pavadinimas": "How the Iran War Is Making Alaskans Both Richer and Poorer",
+      "nuoroda": "https://www.bloomberg.com/news/videos/2026-11-07/inside-alaska-s-oil-paradox-video",
+      "laikas": "2026-11-07T17:04+02:00",
+      "tema": "nafta",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Bloomberg",
+      "pavadinimas": "Protein Craze Fuels an Investment Boom in Livestock Health",
+      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-07/protein-craze-fuels-an-investment-boom-in-livestock-health",
+      "laikas": "2026-11-07T17:00+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "CNBC",
+      "pavadinimas": "What midterm election blue wave rebuke of Trump means for renewable energy",
+      "nuoroda": "https://www.cnbc.com/2026/11/07/midterm-election-blue-wave-trump-renewable-energy.html",
+      "laikas": "2026-11-07T16:33+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "Bloomberg",
+      "pavadinimas": "US Launches Effort to Disrupt Land Routes Iran Uses to Ship Arms",
+      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-07/us-launches-effort-to-disrupt-land-routes-iran-uses-to-ship-arms",
+      "laikas": "2026-11-07T16:05+02:00",
+      "tema": "geopolitika ir makro",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "EnergyNow",
+      "pavadinimas": "Hormuz Disruption to Stall 2026 LNG Trade, Demand to Rise by 2050, says Shell",
+      "nuoroda": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNemdhekE4OW5mTERlOUN0UDgyMWxDYS14Z2lkNy13OE5qWnBnSzBaVVI0X0RpckVnWDU3NmZxQnFuRGVFY2FsVDNaRXc0dFQ0RnAzc0F0eFQzLTFCVWVJdkotN1l3Zkc1NkFCWU05eVRQeExlZDRhTjl1akx0dXRIQXljM3ZsNG1tT0h5NUE3c0Y3ZVZENXB2eDJIVm1FTXozQnkyTU1kcTdyZw?oc=5",
+      "laikas": "2026-11-07T15:56+02:00",
       "tema": "dujos",
       "kalba": "en"
     },
     {
       "leidinys": "EnergyNow",
-      "pavadinimas": "OPEC Sees No Peak Oil Demand as Energy Security Beats Climate",
-      "nuoroda": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZ1FFeG5nSXJ1cXN6N3drQ3RPZFRsUFd6VzlJNXltT204bW9obVlQWEFvOHQ4WDBhSC02NXUtS29CNlZzS2lNRWh6WGM1TFBpUS1MS3hjYVRuMFVaRkZxclFEbmtiaHdYZV9MUHNfVmFpNUtYX3N3R3ZqR3c2Vlc4ZFE5TENWQjBGcnFaLUZjU29VeVNYcU1v?oc=5",
-      "laikas": "2026-11-07T00:54+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "EnergyNow",
-      "pavadinimas": "Global LNG Prices Could Spike This Winter on Low European Gas Stocks",
-      "nuoroda": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOVTlkWkNWU0pEODdKVktoU1ZHazdQeXVSUnp1Z3FTb1pFODZoUVl3aEUyYVNyeTY0d2dYTFpDeGRtTEpZQWJxanRQaHlzMWhxTGlJbl9YbVZiLUE2VGJ5SGpObUZuT0xMTkpUWFJ6dEJrX1VwN3dMODlfRGFrdEtOUjhSVjhhNEpMUHhicGJwRGlpSFRnSjdVN0FIXzNZTkoy?oc=5",
-      "laikas": "2026-11-07T00:39+02:00",
+      "pavadinimas": "LIQUEFACTION MODULE ARRIVES! Woodfibre LNG Brings Facility’s “Heart” Onshore as New Module Arrives",
+      "nuoroda": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPcG4wUUlLUHhZUjRjMWdiLS1vXzlLdENWMVV1UVRBaDM3d2ptc0o5TkNXbUpzcmdkd2V0TlBYSm8wdFI1X2FfTVRudng2aGxHQXIwdGlIMS1HWU5pRzBwbXRMd25uNlpDeDk3ZDROdXVnVjlxRGxlcHRDMGMwYmRHQWppQVFUbUZ3ZllWSXN0SmJYTWZ2NUhjVHh5c0g?oc=5",
+      "laikas": "2026-11-07T15:55+02:00",
       "tema": "dujos",
       "kalba": "en"
     },
     {
       "leidinys": "EnergyNow",
-      "pavadinimas": "Morgan Stanley Lowers Oil Price Forecasts After US-Iran Peace Deal",
-      "nuoroda": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPSVctRUFVM1l4Z3VNRnhLZVN0dV9KMENjZW1wWWo4eXJycklOLTdJSkJNSm9qbTB4WDB5OUFsaktnUDc0V2JheDl0eUZoZk43bVpCMjhSTEFJeXNpeWhlc1FhZnhvOXN3Q3B4R0ppbkM3ZmJreFpEbUd3Y3A3WmxTY2Jla1RzSXUwekdNV1l4bnlZOEw3bG85TUt2S08wRm9FNkNlajRR?oc=5",
-      "laikas": "2026-11-07T00:35+02:00",
+      "pavadinimas": "Oil Prices Rise 5% on Fears of US-Iran Ceasefire Collapse",
+      "nuoroda": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNcmVZVUhHeTR3THhfaG5SYkUxS2ZyWWRIOTd6ZWZJUzlfZ2FZOW9QbEh5X3FUdmV4NTJ1d0VPZWxTRFlGeWp1SDd6WGJJNU5IMkpWaDVFRHgxNWFDSE16LVVkaldDZzdmWjBUMVpvX0hLTnEtVnJCRXQ1MFoyc1NjWEFQM3FxQUZmcnlZWGkzNA?oc=5",
+      "laikas": "2026-11-07T15:55+02:00",
       "tema": "nafta",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "EnergyNow",
+      "pavadinimas": "Australia Is Struggling to Meet Asia’s Rising LNG Needs, Chevron Says",
+      "nuoroda": "https://news.google.com/rss/articles/CBMingFBVV95cUxOc3Y0RUVicGViOHlEUjlwb1c2UzFHMURqRXdrc1JGNExuYnY1Q3c0b3hvblBXaHNZcW05ei1YMG42M1hwbUpQdmpZNk5kSGU5WS1rLUsxUkNnSEE1M1lzQnBFblBEb243Rzdpb0hlSGtnZVBXOEpTLUhZaEFyS295dFUwdVZueHJLNVdKeHIzTkttM2d5RlUtRXJWeXVCQQ?oc=5",
+      "laikas": "2026-11-07T15:54+02:00",
+      "tema": "dujos",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "EnergyNow",
+      "pavadinimas": "Oil Prices Settle More Than 1% Higher, Log Strongest Month Since March",
+      "nuoroda": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPa1hxYUNYOVNkdlVySWM0cDd2VnBIOFY5MU56eWRhTzZvSjNBNDFjYzhzSnB2TS03V01tTUtRMU9pZURsaVdUR3BGa0VIS3VwMTA3QVR6ZWdEOGtyT1BNRUxqUXNyRnBsU2J1Mk10bjZtazlFelZCek8zSy1obXN5VzBGQlU3bnhzWHU2QU1xdGM?oc=5",
+      "laikas": "2026-11-07T15:51+02:00",
+      "tema": "nafta",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "EnergyNow",
+      "pavadinimas": "Oil Prices Fall as Market Awaits Possible US-Iran Ceasefire Deal",
+      "nuoroda": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNOEVnaUlYUGlwMGMtcWxhRTBKbldraTNsbWVQelRyWm9NcWNEcERZSnpkcHh3ZHJldjlPR25aLUkyejZSQVBPbkZIcW1kTlRnOUVqbTBwSE5WYVRvUHpicjMwdXp6VGt0N3BLOUJNSXU5MGZFR3M5bnNtdDh6U1JZUHdZNjRmVUc0WWZjdzlJYlZsZmdCd0FSUkxjcw?oc=5",
+      "laikas": "2026-11-07T15:48+02:00",
+      "tema": "nafta",
+      "kalba": "en"
+    },
+    {
+      "leidinys": "EnergyNow",
+      "pavadinimas": "LNG CANADA: Looking at the Investment Landscape",
+      "nuoroda": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOWTQ1ajBWUXFhZUI3X0Noby1fdlZqdkRKWXNqVXFQbVFqaXlGaVpCMnFkTXJ1ZmEwbUwtWFNOMXhUVTRYNnVWaEdZSGx2TnozRUFFVlF2bVIyUkpMcktfUWc5QUtTbk0wWlF2VzdUUnBKQ2FOSmZoaUJQWHc5OGdHOHJn?oc=5",
+      "laikas": "2026-11-07T15:48+02:00",
+      "tema": "dujos",
       "kalba": "en"
     },
     {
       "leidinys": "EnergyNow",
       "pavadinimas": "US Natural Gas Prices Fall 4% to 11-Week Low on Record Output",
       "nuoroda": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPcHg4UEwxeHVCc3JFZjU2YWVRZHNDTHZjdDQwaHUwckJEcUNWdlFHeElCb1BNVjFfYlhyZ1pCMEFaaGxmSTJ2UHZkQzdLSlA1Q2pKbkFxVlA2T0NSdVM0aTEtUzJiRFdXRzI5bGNhMHJkZk5nUmxDeWI1ZlVlY1NjSDd4Y3ZKdU5HbDBwenVkdGJmTFVBWFE?oc=5",
-      "laikas": "2026-11-07T00:33+02:00",
+      "laikas": "2026-11-07T15:46+02:00",
       "tema": "dujos",
       "kalba": "en"
     },
     {
-      "leidinys": "EnergyNow",
-      "pavadinimas": "Oil Prices Plunge 13% in One Week as U.S. Election Results Raise Hopes of Iran Peace Deal — WTI Closes Below $91, Brent Below $99",
-      "nuoroda": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxQZFdLYldUV3dnVGQ3dHA5aFVzeDdTeDZKMF9WQ0Fyc2Y1UHNRUjVNWVZmXzNSdElCaUdtaGRmRG5ITHNlUG9UNllVTWtzOF9ORnlxal9TUHE0V2J2YnI3UEFjMUg2TjM0WjM0V1Q4U0Q3SllxS0NHUXpRSTVMbGVKSmRObGZ2cmlKWFVXeHMtM1F2cUk4ZDdlODVmT19ucmVSWlBnWFFrR1BLSFRkb0Ntbk1TRFhMdEVETU5lbklZZmY3ajlWWTBheVRCTlQyTnJVWk5pTGtjSXl0NEtjYUFROXUzVjNzbU4t?oc=5",
-      "laikas": "2026-11-07T00:03+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "US Sanctions Eight Canadian Companies Over Iran Transactions",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-06/us-sanctions-eight-canadian-companies-over-iran-transactions",
-      "laikas": "2026-11-06T23:58+02:00",
+      "leidinys": "Reuters",
+      "pavadinimas": "EXCLUSIVE: Expanding on naval blockade, US military looks to restrict Iranian land commerce",
+      "nuoroda": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQTGRyZ1FFOWdNalpDbFdEeHZqc1JMNVVkekpWT3NULUU4N0hXTkN3MTQ5dlNSWjdhaUVCWlVUQVdhbkZrOEdDZ2FlNS1qOENqVnhOWGNYcmgtSU8xN3pHUjIzdDZ5akJZNzhnR3g4U0w5NjR1NUNka204MWRxak1WN056VUQ1MEhpNnpnaWVGSF90RlBMaTBWY1R5NFJDa3Q0SE1rMDhUUHRJZ01EMDJHdkhqMTY5aFU5TGd6WTNsekRoQkcyUkE?oc=5",
+      "laikas": "2026-11-07T15:36+02:00",
       "tema": "geopolitika ir makro",
       "kalba": "en"
     },
     {
-      "leidinys": "WSJ",
-      "pavadinimas": "Canada’s Trade Surplus Widens as Oil, Gold Drive Record Exports",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQRldRbWU0X0ZoSjl6aTVHYnRncGtQUlFQbmZISDZkVHpGUEduYXUzYmZkVml4NzRIVWx0UExXaXZYakRtak9JaU1JWGZsVG9uX3ZWVmFSMDY5MWpvUXlGSUZ1bUxLWHlhR1pseFVQMlg2UnVPQTRCTDM4d3RVVzc1T2R4VkNneVJUMjFxZGExQ3FpZlkxTDhwdTVOQkhxVGtYSHc?oc=5",
-      "laikas": "2026-11-06T23:45+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
       "leidinys": "Reuters",
-      "pavadinimas": "Soaring freight rates give US refiners edge as crude discounts widen",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPSW1NSjFpQTdNeUIyY2JFVE5yTm1MS3F2NmZSOGk4ZGR1ZzA0dFJROTVHMVc4QzJOYXlBUHBYOEZuMlZlOFBlVkZkLXE1OEplanMtYTIwVkFmXy1pSlhTcHZfQ3Zha3V0R1FqcUNTV2xIT2l6Tk10d1BVNDhPc1JvOVZHMEx6Sk9rcC1ORktnZzNVTW1FM21wc2pPVlFMaVdoVlhlT3pjd0E1cXg1R0VvU2ZfMjMxd2ZY?oc=5",
-      "laikas": "2026-11-06T23:40+02:00",
+      "pavadinimas": "India's oil ministry rejects Karnataka findings of excess ethanol in petrol",
+      "nuoroda": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQajczSFdwSkFRbkFremNHWUhOQjc3YU42dXNMazNlLU1kOVY4U1ZlUXhpYkpBbzFHODg2Y2NkNFV3akRoaWdkSjZBZVphbUxvZFVFejRfRUU1QnlRTFlVRmdyTjVNS3FnZnl4R3o2MFBBRlBkSkh6b0dacDkzeml1WTFDZkNFYmdmbTl5ZEVqQVVIVmVtVklDYkZ1dnJZdUp0YlpxQmt4UXBpSm5kUWpKczlBY3lXZlF2YUs5Tw?oc=5",
+      "laikas": "2026-11-07T15:13+02:00",
       "tema": "nafta",
       "kalba": "en"
     },
     {
       "leidinys": "Bloomberg",
-      "pavadinimas": "Hedge Funds Fled Bullish Oil Bets Ahead of Election Day Drop",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-06/hedge-funds-fled-bullish-oil-bets-ahead-of-election-day-drop",
-      "laikas": "2026-11-06T23:29+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "QatarEnergy eyes NextDecade Train 6 supply in latest US LNG push, sources say",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPNFpEbmhReUE3aHpIV3JLTG1mN2lqd2kyVmVEREtkNG0xU3dvaDhFb0U4Wmx3V19hSW9ETE84VHgtcFllSTFUTEJKU0g2OWloQ1pSdmhva2lzZGphRVI2SDlRU3VNc2ZTcEpBdVczdmFHd1ZXeGFnRUY3RHN0RkZYVkN6aVVEOUZMLUNDS2ZyOXF5VWhwUUhEazc1c3RnbF9LYlRkYkEzcjdYVWYyV0pUbURJLVFxZGk1WjhHMkdFamdkYjg?oc=5",
-      "laikas": "2026-11-06T23:20+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "JetBlue’s Defiant CFO to Employees: ‘Not Considering Bankruptcy’",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-06/jetblue-s-defiant-cfo-to-employees-not-considering-bankruptcy",
-      "laikas": "2026-11-06T23:15+02:00",
+      "pavadinimas": "Democrats Could Reshape Trump's Foreign Policy",
+      "nuoroda": "https://www.bloomberg.com/news/videos/2026-11-07/democrats-could-reshape-trump-s-foreign-policy-video",
+      "laikas": "2026-11-07T15:07+02:00",
       "tema": "geopolitika ir makro",
       "kalba": "en"
     },
     {
       "leidinys": "Rigzone",
-      "pavadinimas": "Oil Posts Biggest Weekly Drop Since 2022",
-      "nuoroda": "https://www.rigzone.com/news/wire/oil_posts_biggest_weekly_drop_since_2022-06-nov-2026-185035-article/?rss=true",
-      "laikas": "2026-11-06T23:05+02:00",
+      "pavadinimas": "Survey Shows OPEC Output Neared Pre-War Levels",
+      "nuoroda": "https://www.rigzone.com/news/wire/survey_shows_opec_output_neared_prewar_levels-07-nov-2026-185030-article/?rss=true",
+      "laikas": "2026-11-07T14:00+02:00",
       "tema": "nafta",
       "kalba": "en"
     },
     {
-      "leidinys": "OilPrice.com",
-      "pavadinimas": "America’s Nuclear Revival Is Running Into a Fuel Supply Wall",
-      "nuoroda": "https://oilprice.com/Alternative-Energy/Nuclear-Power/Americas-Nuclear-Revival-Is-Running-Into-a-Fuel-Supply-Wall.html",
-      "laikas": "2026-11-06T23:00+02:00",
-      "tema": "elektra ir CO2",
+      "leidinys": "Reuters",
+      "pavadinimas": "Indian Renewable Energy Development Agency Ltd (INAR.NS) | Stock Price & Latest News",
+      "nuoroda": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBqYmZOZXdRWkUyRm1QMEVCelduS2Nja1RIVFhxUmlWMm1yRkJmclNod0hUMC1fd1F6VDI5S2duazhuZlZJUzZQalNzcUx5X0t1ZnM5azNZTWJwdUhyLXBTUFdQVU1WRXJu?oc=5",
+      "laikas": "2026-11-07T12:48+02:00",
+      "tema": "geopolitika ir makro",
       "kalba": "en"
     },
     {
       "leidinys": "Bloomberg",
-      "pavadinimas": "Oil Declines on Signs of Moves Toward Gulf War De-Escalation",
-      "nuoroda": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOVXNmZnh6cENKbU1vdHBCWUxseFF6ZlpFenZlcFRxMjZjT0RveUdzRkdRZFpoMk5BWUN4SnNqRGJSbENOSGtlbHVDWFhOS1FmakR3WmJIRzhlNmVOYW5udGlCSGhVWW1rWU5zdVkxeFcwVEpfNG16SUIzQUswRDI3N2VSd3NKZnBtRmxaWmpBalZtXzFob2owdDZYUVJrbW5kMWhGd3loeERqdmpXVW00TA?oc=5",
-      "laikas": "2026-11-06T22:49+02:00",
+      "pavadinimas": "Kyiv Faces Russian Missile Barrage, Hits Saratov Oil Refinery",
+      "nuoroda": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQSW1FUEwxUUsxaUhrekxFZ1hJZjRhMlVJOUNlSm43ZXdPV0dFMnJINWJ6TmdkNGNvNmhLbUMzTV96QVVvR0VNdXd3ckY1eHg3cUp2eFY0UGx1M0lQMU04VWxvS0tMX3RWS2t4TDJHZ2pndDhpMWNPMnFQRUZPT3k1TkJNSEx6VktlOEJxUC1LUnNsRXdGeVoyOHEyQUZyLTJkXy05NnktYWJCamZhenhEMw?oc=5",
+      "laikas": "2026-11-07T12:42+02:00",
       "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "WSJ",
-      "pavadinimas": "Oil Futures Slide As Market Holds Out Hopes for Middle East Diplomacy",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNdXo3c0pXbll5VVJ6eUlRbTJQZ0xLSnFISGlnVGRReWlBTnJYT2d5RVd5cTZmTnFkS0VoZ3h1cVNGOEhOMHUtMUlRU0hPMDhhTmtINTNHdC1JeVRlTExaSklrRWNvaHpMSERXOF9VRlRZTGh4YmZ4aWg3a2ctdlI1bkVsdUY4X0RDMElsTHpaOFN4VVE4YzBwRzVHRk0yamVxM2dJMmdVYlNSdVZoaGR6akhlUGU5WTlx?oc=5",
-      "laikas": "2026-11-06T22:45+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "OilPrice.com",
-      "pavadinimas": "Oil Traders Want U.S. to Release Sanctioned Tankers as Freight Costs Soar",
-      "nuoroda": "https://oilprice.com/Latest-Energy-News/World-News/Oil-Traders-Want-US-to-Release-Sanctioned-Tankers-as-Freight-Costs-Soar.html",
-      "laikas": "2026-11-06T22:30+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "Delek CEO Downplays White House Refinery Expansion Announcement",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-06/delek-ceo-downplays-white-house-refinery-expansion-announcement",
-      "laikas": "2026-11-06T22:00+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Rigzone",
-      "pavadinimas": "UK Cabinet in Push to Approve Drilling at Rosebank",
-      "nuoroda": "https://www.rigzone.com/news/wire/uk_cabinet_in_push_to_approve_drilling_at_rosebank-06-nov-2026-185032-article/?rss=true",
-      "laikas": "2026-11-06T22:00+02:00",
-      "tema": "dujos",
       "kalba": "en"
     },
     {
       "leidinys": "CNBC",
-      "pavadinimas": "Oil prices tumble for the week as investors weigh Iran conflict risk after midterm elections",
-      "nuoroda": "https://www.cnbc.com/2026/11/06/oil-price-today-brent-wti.html",
-      "laikas": "2026-11-06T21:54+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "EnergyNow",
-      "pavadinimas": "Ksi Lisims Project One of Two Canadian LNG Projects That Marked Important Milestones This Week",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPNU9PaDdjVmwwZUlPY2RrT2xNQnZ2cWc5WkM1c1dBM2NjNTdEcjFGYlBBdVlFcTEwbmhtUlo4Y291NXc2UnRlQkdpNXRPcVRGQ2l5SzQ2bjY0THZGeHFKYlRVWXliQzlyVFlnSlJveE1fTzN3SEhJekJuWU96ZnNMTFRNa3MtajMzQ01xMXFRUWQ1ZEdNOGlJYjc4UFA1NWJtcDdCYUFJMDBuNzB3aXNiYVd5SUJDN3hpUFc1eTc4YW16dw?oc=5",
-      "laikas": "2026-11-06T21:43+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "Oil Traders in Talks With US to Get Sanctioned Ships Back to Sea",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-06/oil-traders-in-talks-with-us-to-get-sanctioned-ships-back-to-sea",
-      "laikas": "2026-11-06T21:41+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "EnergyNow",
-      "pavadinimas": "Oil Prices Rise After Ship Attacks, US-Iran Talks Deadlock",
-      "nuoroda": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPSXFwRjliNjJSakhhNDA1YlQ3S20zRG82UUhOMnhxanFONHdpT09sWlVGb3Q4RmRqbTBzSWg4RVVKb3piREVQUjI1cFphaVpiQi03Y1IyMFRWMmkwOEc2RVN0bF9jajNiYWdHWU84SGcycGwzY2N2czV0NHJhOHlrc3JfSXMtYTQzS3dBLTZhN3FHdw?oc=5",
-      "laikas": "2026-11-06T21:24+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "OilPrice.com",
-      "pavadinimas": "Energy Reliability Is Becoming More Important Than Energy Politics",
-      "nuoroda": "https://oilprice.com/Energy/Energy-General/Energy-Reliability-Is-Becoming-More-Important-Than-Energy-Politics.html",
-      "laikas": "2026-11-06T21:00+02:00",
-      "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "Zelenskiy says Ukraine is continuing attacks on Russia's oil refining sector",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOang4bWpWa1pIeDBMQlo0MzhWRVAzY0JURlFwX09PVjlBVmhEbDBLTndoWFU1NTA2MXNhT0xYdkstQ1dlMFU4Z1FBYkdhVXBRRHp0NlAxcmhyV19hQ1NkZzdoMU9NOVFCQWF5UURPUzVQWlBjYkt4T1RuRG9lRE0zbkZLX1k2RWJJQW1YM3dReEhMdUVWZ1RDeGdDY1d1NUtEbDZxMUwyenRrNE5UOVpRWkI2aVdMa1M4bEFEX2FiYnJ5dw?oc=5",
-      "laikas": "2026-11-06T20:59+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "OilPrice.com",
-      "pavadinimas": "U.S. Oil, Gas Drillers See Minor Uptick as Oil Prices Crash",
-      "nuoroda": "https://oilprice.com/Energy/Energy-General/US-Oil-Gas-Drillers-See-Minor-Uptick-as-Oil-Prices-Crash.html",
-      "laikas": "2026-11-06T20:21+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Energy Intelligence",
-      "pavadinimas": "Orlen Expands US LNG Supplies Amid Qatar Uncertainty",
-      "nuoroda": "https://news.google.com/rss/articles/CBMickFVX3lxTFBYTmNkbjl6NUxyQ3BYdDRiUF9pbU1PdkVLZVNJZmJfX0ljZWV1ekJHOHdFWUYwNk16ckt5d2t1Z0tQbjlMNW8wQk11OHJTenRHbFRHRmNVUjNEYUtSYzVBNURrYlR4alhoUmszR3hNN0dTUQ?oc=5",
-      "laikas": "2026-11-06T20:20+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Energy Intelligence",
-      "pavadinimas": "Adnoc to Tap XRG’s Global Portfolio for India LNG Deal",
-      "nuoroda": "https://news.google.com/rss/articles/CBMickFVX3lxTE1lczc2TzZPMnUxazBxSTUtYnpuaC1WQ0ZTYjhfZG5XTDktS2xxckw2NzN2dnJRZE5lV2t0ZEg3ZjJHVjFqS0ZPOUstNlNwX0RiUkdZa0JHREpoclpaenFubElaQXVXcmcxTUZCTDE0aEJqUQ?oc=5",
-      "laikas": "2026-11-06T19:40+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "World Oil",
-      "pavadinimas": "ADNOC signs 10-year LNG deal with India’s Gujarat Energy",
-      "nuoroda": "https://news.google.com/rss/articles/CBMingFBVV95cUxPaGhOVUJOZG1vVDN6QWxlN04yMEFHeDc2OE9xT2I5RkhZVnZCcTlvaHNwRjZHZGVQRTYteVgzaFpzd2pRTmlCeHM0QVRIVzcxTU9YNXhHTEUtVTcxOG1jckRjMXJ5VEhHWE9VU1BkU2RQcTllMnlQUEIyMGNtWGI4amhxTXJyV3pQMFdmQ1M4a0F1Zmt5ZElkUkpmd2swUQ?oc=5",
-      "laikas": "2026-11-06T19:36+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Delfi",
-      "pavadinimas": "Amber Grid pelnas augo daugiau nei 13 kartų",
-      "nuoroda": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPTkNNWkZMWVRRRnVpQXM1bGtoTGFHNUwwT3BzMkNDaHdtV1BDVHF3REdXQWdXeDFVckFSOEtBWV9oN2FtQ19RTVJTSk00NTRlRHJKRGhpOU9EZUl6YmhjVzhqbzlydzUzUWwzblZsc0R1Z0lXdXkza0pSX095ZFJ5d3dVWDFvdmYwNlpxdU1pS0RUZ2M1Rm1wVlQtUThRY0Vk?oc=5",
-      "laikas": "2026-11-06T19:34+02:00",
-      "tema": "dujos",
-      "kalba": "lt"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "US and Iran Edge Closer to Deal With Nuclear Issue Back in Play",
-      "nuoroda": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOcTdReHN4a0FQUGZtRlE0NzM5bFR5R0RoRENITFlBN2VGdlFOY2psYzUtTjhZTGtMLUd2TF9WOGZNaDMtVWgzcHdaVnJzZ21HQVBUYnNfanBIVVJzMnhzVkdUd3ZqLUduSTdwWlFZaXR5dGlUbUtPWnhhM1pmQ1lWWUM4V2hnTk9iTGpWdFh2QWdzVWJaZTNOeURPMUlQR2xSaXlIcTc2aUtPeldNbFU3Mm5PeGo?oc=5",
-      "laikas": "2026-11-06T19:30+02:00",
-      "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "OilPrice.com",
-      "pavadinimas": "ONGC Moves to Take Over Venezuelan Oilfields, Recover $500 Million",
-      "nuoroda": "https://oilprice.com/Latest-Energy-News/World-News/ONGC-Moves-to-Take-Over-Venezuelan-Oilfields-Recover-500-Million.html",
-      "laikas": "2026-11-06T19:30+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "OilPrice.com",
-      "pavadinimas": "Norway’s Oil and Gas Industry Faces a Major Decline Without New Discoveries",
-      "nuoroda": "https://oilprice.com/Energy/Energy-General/Norways-Oil-and-Gas-Industry-Faces-a-Major-Decline-Without-New-Discoveries.html",
-      "laikas": "2026-11-06T19:00+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "GeoPark Assesses Logistics, Liabilities at Venezuelan Oil Field",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-06/geopark-assesses-logistics-liabilities-at-venezuelan-oil-field",
-      "laikas": "2026-11-06T18:44+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "GeoPark Assesses Logistics, Liabilities at Venezuelan Oil Field Ahead of Takeover",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNejZvTXlpVTU4YTZsWlhMQW9OVmdRazBibXg3NUdKV3hIdHVlNlplYTJINFl0cGViOFVuZVVNS0pPOWVsZUkwTjZaMjRLdHJ0NDZuSTJXWWFCSWxFVEplVnVvYk4yTjl5TnEwcGNIMGFfX0hLNHg2X2Rtb0RIVHBFdkpyT2NTeU4tcVlQTEJLc29aeWNQREJvM1hvbElLdzhqRXNmdXNYU3RFMzU3TXMydW9Ucw?oc=5",
-      "laikas": "2026-11-06T18:44+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "Enbridge expresses interest in building pipeline for Canada's Pathways carbon capture network",
-      "nuoroda": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQV1E5dGNkek5vUzhyS3JLV2tYOTM1allxcWMtUHZqQjJUSGloQkdCTHd4V0ZBTWw3NFRMRTUxa2VUWFBQMlIwVFZid1g0RHlrNVF4bE5XYlB2M3FENzNyOUJmTVc3UTZWeDdtUHJOR0FwSW95c1NTdmxvaGxIMTByS3lLd2paQUdYQmQzNTVhUFdFemZDVGc?oc=5",
-      "laikas": "2026-11-06T18:43+02:00",
+      "pavadinimas": "The race is on to build the first fusion power plant — and Europe is looking to Japan for help",
+      "nuoroda": "https://www.cnbc.com/2026/11/07/proxima-fusion-power-japan-supply-chain.html",
+      "laikas": "2026-11-07T08:00+02:00",
       "tema": "elektra ir CO2",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "OilPrice.com",
-      "pavadinimas": "IEA Sees 4,800 GW of New Renewables by 2031",
-      "nuoroda": "https://oilprice.com/Latest-Energy-News/World-News/IEA-Sees-4800-GW-of-New-Renewables-by-2031.html",
-      "laikas": "2026-11-06T18:30+02:00",
-      "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "WSJ",
-      "pavadinimas": "Iran War Threatens Record Annual Drop in Global LNG Supply, IEA Says",
-      "nuoroda": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNcXlWSVExOEg2WWUxMi14SlEtNzRUWjVMMUJpWmdKb1ZqRUhfMWQ0ZmNmcXdPSlZuR2dWUVlxZWtINjNsdDRzbUJCdFdTTlppbHZudFRnZHh1SzFMQmNOd180ZmdNXzhGc0FGZF9IYkNTVnJqOVVwZmZsWWxpTVYzeUIzOGZzRVluaUtyR3ZYeE9oUVNMV1RrSmxYcXlYSUd5WkIyb0lROEl0T0J4bjJXNW9Md1VzSkk?oc=5",
-      "laikas": "2026-11-06T18:25+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "Syria aids Saudi Arabia with military advice and training amid Houthi attacks, sources say",
-      "nuoroda": "https://news.google.com/rss/articles/CBMixgFBVV95cUxObFFuV2xuOUtpNDJEVlB0Q0NMYV9BQkNZTzkzRkNVWHBrVGI2TC0xeUk0LTVzdWJrclByYzR3OS1PV2VJaExTT0hud2hzSENNUnlZb0J5cE5yclAtcmljYnlRcFFTOXRuOFVYbUlnbmh3cU5qQTNQSWJ3SEJ1UENMTWFUOXVBZ2xVckpNWjcwOG5meGVBWFBZRlRyZ1Q4ZkNweDlsREhMRWFwX0NrSDctbVoyZDhfdUdzOFAyVmFReUFDNkVBcmc?oc=5",
-      "laikas": "2026-11-06T18:19+02:00",
-      "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "Spain Orders Olive Oil Mills to Hold Back Output to Lift Prices",
-      "nuoroda": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQbjdWQ0g2S29WSWExNkIyZnZOUnBXcFJSVTkwcXJvNWZNYjlHVkZJLXdVeUpMR0dsTnBzNkxmN0IyWU1GTGhRcEtJVzkzTi1fam9CbldEb1A0X2U1eS1Ba0E3OTJqOGNEdE5fS25FbXNtOUtoLThQT3lRUDl5aU5aUTR0X0dFVnRqSEF5ZWN3ZmJnaWktVzZKMzg0WVh1QTFTcGNodUhnZDJpMDRDdEFCbTlDb04?oc=5",
-      "laikas": "2026-11-06T18:08+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "15min",
-      "pavadinimas": "Eidamas 90-uosius mirė su skurdu kovojęs JAV naftos magnatų įpėdinis Jay Rockefelleris",
-      "nuoroda": "https://www.15min.lt/naujiena/aktualu/pasaulis/eidamas-90-uosius-mire-su-skurdu-kovojes-jav-naftos-magnatu-ipedinis-jay-rockefelleris-57-2800812?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed",
-      "laikas": "2026-11-06T17:54+02:00",
-      "tema": "nafta",
-      "kalba": "lt"
-    },
-    {
-      "leidinys": "Financial Times",
-      "pavadinimas": "Renewable energy groups boosted by ‘clarity’ of US election results",
-      "nuoroda": "https://www.ft.com/content/3066017e-996c-4689-9bd8-021eb70b99ac?syn-25a6b1a6=1",
-      "laikas": "2026-11-06T17:53+02:00",
-      "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Kauno diena",
-      "pavadinimas": "„Amber Grid“ grynasis pelnas per devynis šių metų mėnesius siekė 20 mln. eurų",
-      "nuoroda": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPdGZhWXptZ0xtSDE4S3RjMnRJbE9RNE5FMDJmUEJZSmdXS2lrWW1ObmwwV01XQmZVNEN1dVFJZEZ5R2duQlBnTnJabVJpcmRmMFZXdnBtd1Y0ckpDaDU4eFlWT0xnT2N2UF9PeUZENTRuNmFRTFlYNU9vWFlEdHUyVkh4OXNQYWFId2t6eFNuOFZNUnh0ekRRRHNmY1Q4eVZpM0dTOXdXQl80RzhrUHkxR2VpRHNuMTVOQzE0bXRiaHZQYmdhdVY2VnF2U3NxSUFVMXc?oc=5",
-      "laikas": "2026-11-06T17:43+02:00",
-      "tema": "dujos",
-      "kalba": "lt"
-    },
-    {
-      "leidinys": "Rigzone",
-      "pavadinimas": "USA Oil Stocks Drop by Almost 1MM Bpd Week on Week",
-      "nuoroda": "https://www.rigzone.com/news/usa_oil_stocks_drop_by_almost_1mm_bpd_week_on_week-06-nov-2026-185033-article/?rss=true",
-      "laikas": "2026-11-06T17:35+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Rigzone",
-      "pavadinimas": "Kyiv Hits 6th Russian Oil Plant in Week",
-      "nuoroda": "https://www.rigzone.com/news/wire/kyiv_hits_6th_russian_oil_plant_in_week-06-nov-2026-185031-article/?rss=true",
-      "laikas": "2026-11-06T17:23+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "UK Plans Tougher Cost Test for Next Renewable Energy Auction",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-06/uk-plans-tougher-cost-test-for-next-renewable-energy-auction",
-      "laikas": "2026-11-06T17:09+02:00",
-      "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Bloomberg",
-      "pavadinimas": "US Consumer Sentiment Improves, Fueled by Independents",
-      "nuoroda": "https://www.bloomberg.com/news/articles/2026-11-06/us-consumer-sentiment-unexpectedly-rises-fueled-by-independents",
-      "laikas": "2026-11-06T17:00+02:00",
-      "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Lrytas",
-      "pavadinimas": "„Amber Grid“ grynasis pelnas per devynis mėnesius išaugo daugiau nei 13 kartų",
-      "nuoroda": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQdlpsSWlQQVBkdUlPQVRxUXRVWUZSZVZSRUxQbUxGUFRGWXVHUlFXeWlvWVpMTlZDX2UtOXdGNmJjUUdXeWVPWC04NV9faHpEN1A4LUVBYmR2NXhmd2puWm5ZVzU4cFhiQk1WXzFIWXFaQzRBOHEtQ3k5aFNub0kwZUh0Vk9YY2ZjUWg0Slo3SklNZkFxSERPcmFDSkdzOHB5elBCWUc5bGt5dWMtSWFkellLNUZMaGFWRlZwU29sajNkdlFRMnFhVjJmTUVUemI0OFRYV3AxcDhJdHlkclE?oc=5",
-      "laikas": "2026-11-06T16:59+02:00",
-      "tema": "dujos",
-      "kalba": "lt"
-    },
-    {
-      "leidinys": "LRT",
-      "pavadinimas": "Degalų kainos Baltijos šalių sostinėse šią savaitę daugiausia mažėjo",
-      "nuoroda": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOSlBqeHlOYXg3ZWpkb0RRa001M2ZtdXdjQXoxQlpnQlZ6WDdwbHE2Si15bXE3WlJSWjNpemhvXy1lUVktOElkUkNnLVViclFlT3U1WnEyZUZzNE9TYVBRMTZZNnJKTzllLWZfTGN2NWlEbGwzbzVsZDk3SnM0bXNMOWx1WVRObkpwN3h5TTI5a3VjbXZoNzVCRWJHQ0FTNUFPU24zUldHWHp3Szl3VVpFMUtWMDk?oc=5",
-      "laikas": "2026-11-06T16:53+02:00",
-      "tema": "nafta",
-      "kalba": "lt"
-    },
-    {
-      "leidinys": "LRT",
-      "pavadinimas": "„Amber Grid“ pelnas augo 13 kartų iki 20 mln. eurų, pajamos – 30 proc. iki 64,2 mln. eurų",
-      "nuoroda": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNXzJSaHN0YVhpaHdIZ0U1czJCbG01NkpZS3l4dWRTdmxtbFB1NzNNdHIzTTQtMzlrVktXVTQtUWpSRjAwX3FXRWRXVkFrTV9jcEt6ck9MSlBsSkdaSDVRZFBYV3lBZTlYWGx1R1V6WVlTaDIxU1JlZ1kzY3Fyc1p1UUxicXVrWlQ5MEdLZlBXUU1DMlg3MzB6UFk1NU96TTFaWjdYOGJ0aG9OT2NYLXhUR1ZxaEhVa2ZMOGVCTnVRRnFJTFpnY0M4?oc=5",
-      "laikas": "2026-11-06T16:40+02:00",
-      "tema": "dujos",
-      "kalba": "lt"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "Seafarer killed in suspected missile attack on tanker in Gulf",
-      "nuoroda": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOQlB2Sm9vTXA4Rlp1QWxROTNzaUJ5TG0teEFKRWs1cmY3VFZkZXd6RlVzQmxNTGcxcmwyMG9SOUZlRVdKS0o2V08xbzdaRW5sbGNBTDdpRUduU0xsQUV3czAybnlIU0FPQUs1ZFR1RE41U3BpZXhIeHFYeEI1b2RRamRWQnhpOUVESHM2TENjNS1XUQ?oc=5",
-      "laikas": "2026-11-06T16:17+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Delfi",
-      "pavadinimas": "„Amber Grid“ grynasis pelnas didėjo 13 kartų",
-      "nuoroda": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNdTIyLS0zc1o0R1lvb0lpTjRuci1pV0JGQUwxWW9YMF9DbmR3WFRYQlY0UGw0RFAxbGJIdkNBTkRQRDFKZGRKOHBxTy1SN2JsMVdTb0dKblotX2p2SmxnNVRmVFZ2N3o1ZTNta2Y2VmpfQ3FKejhFdUpnbUpLbEthRUpQUm03MnlITnNvTmdIOTZ3VUw1WWNF?oc=5",
-      "laikas": "2026-11-06T16:12+02:00",
-      "tema": "dujos",
-      "kalba": "lt"
-    },
-    {
-      "leidinys": "EIA",
-      "pavadinimas": "U.S. crude oil imports from Venezuela in July were highest since 2017",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5HZTBMb1Zza3BRN0tXYjJDSWNjckRHLURvQ2IwcnQ1WFJqdFF3TS1KclkzX1hNZEdiSnIwVUtxRGZDbXFobm5RNElFaldFaHhvUGttajdqaV9aV2NKQ180c3ljWQ?oc=5",
-      "laikas": "2026-11-06T16:06+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Rigzone",
-      "pavadinimas": "Oil Market Arrives at 'Remarkable Destination'",
-      "nuoroda": "https://www.rigzone.com/news/oil_market_arrives_at_remarkable_destination-06-nov-2026-185028-article/?rss=true",
-      "laikas": "2026-11-06T15:19+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "Brazil extends oil export tax through year end, advances US reciprocity process",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQbUhTTlgyaFZBWXZIQllzVEkxM3FGZzZBa1N6MTlZY0pDQ3Ryb1c0eUlFZjhXVFZQeEk3VVVaRGVSWmNhU3VFbkVpb1lkTHF5Z3prV3JvZDBxS3ZyeXFaZmREY1VNbXBYVjB4aE9jNmtPSUVyMDhuVExBYU5PanpCQ1JfYTJNNWh0UzBGV3FQQ25ZTEduVFdBSEJpVVVLOTZZcUdFTjAyM3k4RFpLUEU4WUVFem1wX181Y3RGazd0Rlo1SFQ4cGY2Y3lR?oc=5",
-      "laikas": "2026-11-06T15:17+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Financial Times",
-      "pavadinimas": "Swinging oil prices highlight majors’ high-quality problem",
-      "nuoroda": "https://www.ft.com/content/0f3065ce-239e-4afb-a865-a45ef3e48c42?syn-25a6b1a6=1",
-      "laikas": "2026-11-06T14:42+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "India's ONGC hopes to get rights to operate 2 Venezuelan oil projects in six months",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQNFZRNmVFbFo3djg0OFVtZDdBNG8zOU9jNWtrWWJrQll5WlJrMmlkck9saTQtczBOZEhZNjY2Y3BnNnU5eHBndS1VMVV4WDUwek02R05sUjV0bjgxdzBqc0FUOGdXQTF5WnlGZUJDamtTLWk5SU1mN21OVVVCZjFjM3ZtZWQtLW9vWTZDbUlQUWtWcmRyVTBlOXdKT2JyZXJxRWRjTURRWlNxa0tNQmJ1RnQ4Z0dEeUVINnJBeUNyVVB4QjA?oc=5",
-      "laikas": "2026-11-06T14:42+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "One dead, six injured in fire at Oil India's Assam facility",
-      "nuoroda": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQcTBxY2VxYVFkakRSSElRSVkwbVNydFpBcEVSd00yYTJuSTYwT295TGtndFZacm95WmIwR0hwbkFrTDBLWlZhNDlEMlM2NFE0RkJPN3pYZC1Lb1FpbGtSZkJfbFhac2p4MnExcVo2ODhMSnBJSlpnbW5ZOGJwOUhzYmhVNlpYbTVKZHhZVFdPRHBEYTQ4V1ZxaXFpdzlaOUFs?oc=5",
-      "laikas": "2026-11-06T14:29+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Rigzone",
-      "pavadinimas": "ONGC Posts Highest H1 Profit",
-      "nuoroda": "https://www.rigzone.com/news/ongc_posts_highest_h1_profit-06-nov-2026-185027-article/?rss=true",
-      "laikas": "2026-11-06T14:11+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Financial Times",
-      "pavadinimas": "Trump’s midterm setback won’t save the planet",
-      "nuoroda": "https://www.ft.com/content/db1c70c2-d17e-41ac-aff3-1d824e7dc9e8?syn-25a6b1a6=1",
-      "laikas": "2026-11-06T14:01+02:00",
-      "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "Taiwan shuts Papua New Guinea office and ends LNG buying, citing Chinese pressure",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQWjU1M2M1bnhLYmNFbXF1eGZWa0x5VUdIcXg0amVUM09CQlpQbWtHZXh5ODBYdl81MktPcmtQUUZJNWFEWmFPa1h2YlhiV1VId01BQlR4WnA5LVF4WW5wYXIxUVVJZEV3eUtvc2ItWUNSeXA4WWxsYzZPYnFOU3FaQkR0V093aHBpZmdCY1ptcTV2SHNkTVRiOU5Sdm01Y01wMTFvbUw2cFd6WjBwQi1vZ0VKenp6Qm9fUnF1NVI2bk1GWTZXNnBxUmswbw?oc=5",
-      "laikas": "2026-11-06T13:53+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "Indian shares log biggest gains in seven months on oil slide, foreign flows",
-      "nuoroda": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNVmJaMVVmaUE0cUtPUW9iRklDNUNCV2k4c1NXYzllRGYzeUdXOFJkeGVEOUNsdkhwc0pfc3pkSVdvb3Nwc3FMSE0xTVBnbEtiQ29Gd2NzbmFtMU9rVXNoNXF3MkRrMEtHczdSX0VGUExrTDkyNHAxYWI0SGFWbVRSZWhDaGlvNkhLdUtiZGdDaWVQaFJ0NkRkckJvQ0ZzSnM2dmFUd2tZXzdQaWZBaFN4Y3BNYXo0UkVZRGpQTkdTUQ?oc=5",
-      "laikas": "2026-11-06T13:50+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Offshore Energy",
-      "pavadinimas": "Worley on EPC duty at Venture Global's US LNG expansion project",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQZGF5aDJwNEtJQXp1V2pFOUQ0ZnU3eGdPWFNQZFBxcmxtTDVPZjdOczlBZnZlcmU5UTBTZ1JacktxU2liZjlCR3V2Tlc3WERqZ0hvdnczNFdNSmdnS01sVnF5MkZVUm9kazZRVHZ0YTN5OG9xVThHR3QxR05TNTlqczZaQnJSMXFjRjJLVnZoUDRyNEdCWV8tTjJCTmRINlBlY2JueGJ4dF8?oc=5",
-      "laikas": "2026-11-06T13:48+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "WSJ",
-      "pavadinimas": "Eurozone Retail Sales Slump as Energy Shock Hits Confidence",
-      "nuoroda": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPX3J4WmNvcDUzbEtzQjhpclI0ZXFMcG1CS1R1RTQ0eVQybk5hcTFmSXVBaEZ2Z3JZbUM5Z3dMTTRCdEFKMGdZNGxvUTRMYWg1UWx2RXdvTkdodFRjN1R1Wm02ZU1KV18zcDA3aVNTd1RaODhLNERGNzIzYWljSUd4YmJKSGx4UEdBOTlRSnF4OA?oc=5",
-      "laikas": "2026-11-06T13:17+02:00",
-      "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "LNG Prime",
-      "pavadinimas": "Atlantic and Pacific LNG rates rise for third week",
-      "nuoroda": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQV2lFUjlTWVFuZE1sT19yeEdPN2JfcEkwYnphcDB4VHRZc3BTVnJQQWVpWmVxQU4ybC1QMVNEMjdSTDJWT3Y2OGFuaDljQUk0U2tJZmVCMWR4bXI5Ri1iT2NxakRKUnoxSl95MmtLQWlVb2Utb0V2bGg0RFQ4VzhMbGxTMnVXcjRvQm1XdmRkRUNzZw?oc=5",
-      "laikas": "2026-11-06T12:28+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Offshore Energy",
-      "pavadinimas": "TotalEnergies locks in LNG supply from ADNOC and offtake deal with Chinese firm",
-      "nuoroda": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNcDRGVEUtOEs3M05SY1VHWWhSX3BTRnptNzdySHNDaEZIamxYa1NqQmNpT2REVDBjTFZ0b2hZQmg1UUdiRFhPMFBlOXZHTzBRbERpSTNfWnBFTjM4Y2xZMnF1bVd4NXlnWGFRTmE5WUp1STA4cWpUc0RoVTVHRy13RWJjazVWR1VYdGZCeEt1WWlDeHN2NEZQR0JmSzVySk9xcGxHVW9JX2hXcTRuN1otR0pqcEt4bXZ4MEtKRHVZSQ?oc=5",
-      "laikas": "2026-11-06T11:59+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Rigzone",
-      "pavadinimas": "UK Launches Energy Independence Bill",
-      "nuoroda": "https://www.rigzone.com/news/uk_launches_energy_independence_bill-06-nov-2026-185026-article/?rss=true",
-      "laikas": "2026-11-06T11:55+02:00",
-      "tema": "geopolitika ir makro",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Reuters",
-      "pavadinimas": "Equinor prepares to fix Visund gas, oil platform after fire",
-      "nuoroda": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOd21vZVZ4cmxxNFdmUFBPaFc3MUZhcjM0ZXowSkZ5NC1EejJ0V2FRd3NqQTBqSkpOY0Fjc1pBRTRTTW9Eek1lVFAxZmFfM0oxbENyRzBWYm9VOWdLTlNmdm1oSkdjZ3F0cm9ESUdnUC1OU0dYbnBKU1RoeGpKeElmdlVOMDg5MGpnTU5RSkE0VThWX3llMjBFRGVzVGtheDI2SUVxcXdvUGROdU0?oc=5",
-      "laikas": "2026-11-06T11:34+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Rigzone",
-      "pavadinimas": "ADNOC to Supply Gujarat Energy 4 MMtpa of LNG for 10 Years",
-      "nuoroda": "https://www.rigzone.com/news/adnoc_to_supply_gujarat_energy_4_mmtpa_of_lng_for_10_years-06-nov-2026-185025-article/?rss=true",
-      "laikas": "2026-11-06T11:24+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "LNG Prime",
-      "pavadinimas": "PV Gas seeks new spot LNG shipment",
-      "nuoroda": "https://lngprime.com/asia/pv-gas-seeks-new-spot-lng-shipment/199644/",
-      "laikas": "2026-11-06T10:27+02:00",
-      "tema": "dujos",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Rigzone",
-      "pavadinimas": "Russian Spending on Refinery Subsidies Hits Highest since 2022",
-      "nuoroda": "https://www.rigzone.com/news/wire/russian_spending_on_refinery_subsidies_hits_highest_since_2022-06-nov-2026-185024-article/?rss=true",
-      "laikas": "2026-11-06T10:11+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "S&P Global",
-      "pavadinimas": "Crude oil rout pressures South American soybean oil prices",
-      "nuoroda": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNeDlDaU56N184bWJyTUJTZlFVOXZTZkhOckxaeS02WnJadnZCTlBpbnp5RVdVeUltOXhEdTY3dS1ZelZ1bkJCREZqZjFVdG4wM2dzcjZQY0tuS2hRRHFkMzRsWDdoUkJiR1p4d1V4RWl3dTJTb09Dck1GMDV4MHlZOS1YWEJGZWpYb3B2QmJIeTNYcmFYb0tWMzRFRFIyNWExRl9OajQwXy1GLU14NVRzWFZLX0RUa21mSmo0NmtzdHBlcDVFZzlOaFlKTnVpVDR5amtsYQ?oc=5",
-      "laikas": "2026-11-06T10:09+02:00",
-      "tema": "nafta",
-      "kalba": "en"
-    },
-    {
-      "leidinys": "Lrytas",
-      "pavadinimas": "Vilniuje užpulti du nepilnamečiai: vienas buvo sumuštas, kitam – papurkšta dujų",
-      "nuoroda": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQazdhWVItZjczbjhnWm42VHFRREVqZHlxZURGbnZ6Yml0VlY4SVlBX0RNUk0wbGtfR25MVHJ6YkU1dHF5cUkyeWtVd2RtazlXc0E5Y0hzYnJBSENaZXlSS09VSS1QbTBXek84dkx2YUJqaEYtWG94VHRqbUxQSzlSZG1tbF8xcFNNNWcxOGJ5Nl9QS1IyUjlzYzdnS2FaYTI1dXBvUWFpa2xXcEt0MEoybTJfelY0aHA4Zy1jelRMcktqczBpYW4taW9IQkxTaFMxQ25kUjZoeWJjWjEtUHZLUA?oc=5",
-      "laikas": "2026-11-06T09:30+02:00",
-      "tema": "dujos",
-      "kalba": "lt"
-    },
-    {
-      "leidinys": "Delfi",
-      "pavadinimas": "Ar degalų kainoms mušant rekordus dar verta pirkti benzininį ar dyzelinį automobilį? Atsako „Auto KGV“ vadovas",
-      "nuoroda": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxOR1d6M3B5VEJqODF2a3F4MnByUG5PdFg5Z0xfakVoODFHZF9MWGlTdnBNbVhKMmhJLXFyTU5DUW1GYUxjRHFsb1EtblMyUWxWSWtmQzcxLVR0OWtiMnh1V2w3WFhLYTJENlZZdjVmSV9WMzRSWG9Jb3FrNElZN0ZxOExPX2dQU21Rclp0aDQzWmZkYjZHVG1lSUZvZ0xoU2xxNTBZUkh5NHZNd0lJMEFSYWNNWDBMMGRnaDBfanFZQldOWkpyU2tBOGgwWjNQb3lGNExncFhiMkViOTY5eEZyMk9uV1RaRDRvSXA0RGVB?oc=5",
-      "laikas": "2026-11-06T09:25+02:00",
-      "tema": "nafta",
-      "kalba": "lt"
-    },
-    {
-      "leidinys": "LNG Prime",
-      "pavadinimas": "Centrica, Tourmaline expand long-term gas deal",
-      "nuoroda": "https://lngprime.com/europe/centrica-tourmaline-expand-long-term-gas-deal/199619/",
-      "laikas": "2026-11-06T09:18+02:00",
-      "tema": "dujos",
       "kalba": "en"
     }
   ],
   "įspėjimai": [],
   "naujienų_statistika": {
-    "Bloomberg": 15,
-    "Reuters": 15,
-    "Rigzone": 10,
+    "Bloomberg": 11,
+    "Reuters": 10,
     "EnergyNow": 8,
-    "OilPrice.com": 8,
-    "LNG Prime": 7,
-    "WSJ": 5,
-    "Financial Times": 4,
-    "Delfi": 3,
-    "CNBC": 2,
-    "Energy Intelligence": 2,
-    "Lrytas": 2,
-    "LRT": 2,
-    "Offshore Energy": 2,
-    "World Oil": 1,
+    "OilPrice.com": 4,
+    "CNBC": 3,
+    "WSJ": 1,
     "15min": 1,
-    "Kauno diena": 1,
-    "EIA": 1,
-    "S&P Global": 1,
-    "Alfa": 1,
-    "Verslo žinios": 1,
-    "TV3": 1
+    "Financial Times": 1,
+    "Nikkei": 1,
+    "Rigzone": 1
   },
-  "analizė_md": "### Santrauka\nNafta ir dujos penktadienį baigė savaitę dideliu kritimu: rinka įkainojo JAV ir Irano deeskalacijos viltis po JAV vidurio kadencijos rinkimų (Bloomberg; WSJ). Vis dėlto šeštadienio LT elektros vidurkis (314,75 €/MWh) gerokai viršija 7 d. vidurkį (257,23 €/MWh) ir abiejų dujinių elektrinių SRMC. Vadinasi, šiandienos kainos pigesnės dujos nelemia.\n\n### 🛢️ Nafta\nBrent penktadienį užsidarė ties 97,76 USD/bbl (−0,5 % per dieną, −16,9 % per 7 d.). Tai didžiausias savaitinis kritimas nuo 2022 m. (Rigzone). Rizikos fondai dar prieš rinkimus sparčiai mažino ilgąsias pozicijas (Bloomberg), o Morgan Stanley sumažino kainų prognozes po JAV ir Irano susitarimo (EnergyNow). Kitos naujienos rodo priešingai: derybos esą įstrigo, tęsiasi išpuoliai prieš tanklaivius Persijos įlankoje, viename jų žuvo jūreivis (EnergyNow; Reuters). Fizinės Brent premija ateities sandoriui 2026-11-03 siekė +3,43 USD/bbl. Tai reiškia, kad realūs kroviniai brangesni už popierinius, nes trūksta tanklaivių, o frachtas rekordiškai brangus (Bloomberg; Reuters).\n\n### 🔥 Dujos ir SGD\nTTF penktadienį nukrito 5,2 % iki 85,98 €/MWh (−17,3 % per 7 d.), tačiau per metus vis dar yra +172,5 %. Naftos ir dujų ryšys stiprus (60 d. koreliacija 0,65, β 0,74), tad naftos atpigimas tempė žemyn ir dujas. ES ir Inčukalnio saugyklų duomenų šiandien nėra. Pranešama, kad dėl mažų Europos atsargų SGD kainos žiemą gali šoktelėti (EnergyNow), o IEA perspėja apie rekordinį metinį pasaulinės SGD pasiūlos kritimą dėl Irano karo (WSJ). Regione Orlen didina JAV SGD pirkimus dėl neapibrėžtumo su Kataru (Energy Intelligence). „Amber Grid“ grynasis pelnas per devynis mėnesius išaugo 13 kartų iki 20 mln. eurų (LRT).\n\n### ⚡ Poveikis Lietuvai\nŠiandienos vidurkis viršija tiek efektyvios (191,5 €/MWh), tiek neefektyvios (262,1 €/MWh) dujinės elektrinės SRMC. Vakaro pikas (373,30 €/MWh) yra 181,8 €/MWh aukščiau CCGT SRMC, todėl kainą lemia ne vien dujos, bet ir importas (PL, SE4) bei CO2. Per 31 d. kaina dujų zonoje buvo 44,9 % laiko, vakaro valandomis – 60,5 %. TTF pokytis 10 €/MWh vidutiniškai keičia LT kainą ≈ 8,17 €/MWh, o dujų zonos intervalais – ≈ 18,2 €/MWh. BESS savininkams vakaro ir vidurdienio skirtumas (115,23 €/MWh) šiandien palankus. Saulės elektrinių užfiksuota kaina atsilieka nuo dienos vidurkio, nes vidurdienio kaina siekia 258,08 €/MWh.\n\n### 👀 Ką stebėti\n- JAV ir Irano derybas, į kurias vėl grįžo branduolinis klausimas (Bloomberg), ir saugumą Persijos įlankoje (Reuters).\n- Ar JAV leis prekiautojams naudoti sankcionuotus tanklaivius. Tai mažintų frachtą ir fizinę premiją (Bloomberg; OilPrice.com).\n- Europos dujų atsargas ir SGD pasiūlą prieš žiemą (EnergyNow; WSJ).\n- Ukrainos smūgius Rusijos naftos perdirbimo gamykloms (Reuters; Rigzone).",
+  "analizė_md": "### Santrauka\nPenktadienį (11-06) Brent baigė dieną nepakitęs ties 98,32 USD/bbl, o TTF krito 5,6 % iki 85,59 €/MWh. Per savaitę jie nukrito atitinkamai 16,4 % ir 17,7 %. Savaitgalį įtampa Persijos įlankoje vėl išaugo: Hormuzo sąsiauryje užplaukę ant minų užsidegė du tanklaiviai (15min, remiantis IRNA), o Aramco biuras Rijade buvo atakuotas (Bloomberg). Penktadienio kainose šių įvykių dar nėra, todėl pirmadienį tikėtina reakcija. LT sekmadienio kaina (295,16 €/MWh) viršija dujinių elektrinių kaštus.\n\n### 🛢️ Nafta\nPaskutinę prekybos dieną (11-06) Brent nepakito, tačiau per savaitę nukrito 16,4 % (88,06 €/bbl). Naujienos apie penktadienį prieštaringos. Vienur rašoma, kad kainos krito, nes rinka laukė galimų JAV ir Irano paliaubų. Kitur teigiama, kad nafta pabrango 5 % dėl baimės, jog paliaubos žlugs (EnergyNow). Pasiūlą didina OPEC: spalį gavyba priartėjo prie prieškarinio lygio (Rigzone). OPEC+ gavybos nekeičia, nors laivyba įlankoje tebėra pavojinga (WSJ). Fizinė Brent 11-03 kainavo 107,03 USD/bbl, o jos premija ateities sandoriui siekė +3,43 USD/bbl. Tai rodo, kad už greitai pristatomą naftą mokama daugiau, todėl fizinė rinka išlieka įtempta.\n\n### 🔥 Dujos ir SGD\nTTF per 30 d. pakilo 9,6 %, per metus – 171,3 %. Shell vertinimu, sutrikimai Hormuzo sąsiauryje stabdys 2026 m. SGD prekybą (EnergyNow). Ataka prieš SGD tanklaivį išbando Pakistano susitarimą su Iranu dėl sąsiaurio (Nikkei). Chevron teigia, kad Australijai sunku patenkinti augančią Azijos SGD paklausą (EnergyNow). ES ir Inčukalnio saugyklų duomenų šiandien nėra, naujienų apie Klaipėdos SGD terminalą ar Baltijos dujų rinką taip pat nėra. Henry Hub penktadienį pakilo 1,7 % iki 3,00 USD/MMBtu, tačiau EnergyNow rašo apie 4 % kritimą iki 11 savaičių žemumos dėl rekordinės gavybos.\n\n### ⚡ Poveikis Lietuvai\nDujinės elektrinės SRMC siekia 190,8 €/MWh (η 55 %) ir 261,2 €/MWh (η 40 %). Šiandienos vidurkis (295,16 €/MWh) viršija abu lygius ir 7 d. vidurkį (269,13 €/MWh). Vakaro pikas (395,40 €/MWh) yra 204,6 €/MWh virš CCGT SRMC, vadinasi, kainą šiandien lemia ne vien dujų kaštai. Per 31 d. kaina dujų zonoje buvo 47,5 % laiko, vakare – 62,5 %. TTF pakilus 10 €/MWh, vidutinė kaina didėtų ≈ 8,63 €/MWh, o dujų zonos intervalais – ≈ 18,2 €/MWh. Savaitės TTF kritimas šį spaudimą mažina, bet įvykiai įlankoje gali jį grąžinti. BESS vakaro ir vidurdienio skirtumas siekia 111,89 €/MWh. Saulės elektrinių vidurdienio kaina (283,51 €/MWh) yra žemesnė už dienos vidurkį. CO2 penktadienį atpigo 2,8 % iki 87,51 €/t.\n\n### 👀 Ką stebėti\n- Pirmadienio naftos ir TTF reakcija į tanklaivių incidentą ir Aramco ataką. Rinkos laukia D. Trumpo sprendimų dėl Irano (Reuters), o eskalacijos rizika išlieka didelė (CNBC).\n- JAV planai jūrų blokadą papildyti Irano sausumos prekybos ribojimais (Reuters; Bloomberg).\n- ES ir JK anglies rinkų susiejimo susitarimas (Bloomberg) ir kitą savaitę prasidedanti COP31 (OilPrice.com) – galimas poveikis CO2 kainai.",
   "modelis": "claude-opus-5-5"
 }
