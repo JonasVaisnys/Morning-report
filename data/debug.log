@@ -1,7 +1,7 @@
-Renku duomenis: 2026-11-08 (sekmadienis)...
+Renku duomenis: 2026-11-09 (pirmadienis)...
   → Kainos...
     LT (ENTSO-E)... 24 val.
-    LV (ENTSO-E)... 23 val.
+    LV (ENTSO-E)... 24 val.
     PL (ENTSO-E)... 24 val.
     SE4 (ENTSO-E)... 24 val.
     LT ≠ LV → rodoma atskirai
@@ -9,10 +9,10 @@ Renku duomenis: 2026-11-08 (sekmadienis)...
     LT→SE4... 9 val.
     SE4→LT... 7 val.
     LT→PL... 12 val.
-    PL→LT... 2 val.
-    LT→LV... 12 val.
+    PL→LT... 5 val.
+    LT→LV... 13 val.
     LV→LT... 1 val.
   → LT vartojimas/gamyba...
-    Vartojimas... 12 val.
-    Gamyba pagal tipą... 12 val.
+    Vartojimas... 13 val.
+    Gamyba pagal tipą... 13 val.
   → Analizė...

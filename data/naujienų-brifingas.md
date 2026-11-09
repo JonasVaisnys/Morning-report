@@ -1,18 +1,20 @@
-# Naujienų brifingas — 2026-11-08
+# Naujienų brifingas — 2026-11-09
 
 ## 🌍 Montel News apie Lietuvą ir Baltijos šalis
 Per pastarąsias 3 d. Montel News apie Lietuvą nerašė.
 
 ## 🔴 Svarbiausia
 
-[Komercinę veiklą Latvijoje pradėjo 106 mln. Eur kainavęs „Ignitis renewables" saulės parkas](https://www.vz.lt/energetika/2026/11/06/komercine-veikla-latvijoje-pradejo-106-mln-eur-kainaves-ignitis-renewables-saules-parkas-592398)  
-Valstybės energetikos grupės „Ignitis grupė" dukterinė bendrovė „Ignitis renewables" pradėjo komercines operacijas Tumės saulės parke Latvijoje; parko galios – 173,6 MW, investicija – 106 mln. Eur. **Šaltinis:** Verslo žinios, 2026-11-06
+[Pirmieji Lietuvoje: mažas įmonių baterijas sujungė į vieną virtualią elektrinę](https://www.vz.lt/energetika/2026/11/09/pirmieji-lietuvoje-mazas-imoniu-baterijas-sujunge-i-viena-virtualia-elektrine-592374)  
+Lietuvos pramonės įmonės statosi energijos kaupiklius, tačiau dėl 1 MW galios ribos negali naudotis „Litgrid" balansavimo rinka. Pirmą kartą šalies mažos baterijos sujungtos į virtualią elektrinę, leisiančią joms dalyvauti pelningose rinkos operacijose. **Verslo žinios, 2026-11-09**
 
-## 🌬️ Vėjas ir saulė
+[„Orlen Lietuvos" gamyklos likimas: nusprendus nutraukti jos veiklą, Lietuva turėtų svarbų teisinį svertą](https://www.vz.lt/energetika/2026/11/05/orlen-lietuvos-gamyklos-likimas-nusprendus-nutraukti-jos-veikla-lietuva-turetu-svarbu-teisini-sverta-592286)  
+Mažeikių naftos produktų perdirbimo gamyklos ateitis lieka neaiški, tačiau Lietuva turi teisinių galimybių reguliuoti jos veiklą. **Verslo žinios, 2026-11-05**
 
-[Komercinę veiklą Latvijoje pradėjo 106 mln. Eur kainavęs „Ignitis renewables" saulės parkas](https://www.vz.lt/energetika/2026/11/06/komercine-veikla-latvijoje-pradejo-106-mln-eur-kainaves-ignitis-renewables-saules-parkas-592398)  
-„Ignitis renewables" 173,6 MW saulės parkas Tumėje Latvijoje pradėjo komercinę veiklą; projektui investuota 106 mln. Eur. **Šaltinis:** Verslo žinios, 2026-11-06
+## 🔋 Kaupikliai ir inovacijos
+
+[Pirmieji Lietuvoje: mažas įmonių baterijas sujungė į vieną virtualią elektrinę](https://www.vz.lt/energetika/2026/11/09/pirmieji-lietuvoje-mazas-imoniu-baterijas-sujunge-i-viena-virtualia-elektrine-592374)  
+Inovatyvus projektas sudaro mažas pramonės įmonių BESS į virtualią elektrinę, sulaužydamas 1 MW galios barjerą ir leisdamas dalyvauti Litgrid balansavimo rinkoje. **Verslo žinios, 2026-11-09**
 
 ---
-
-_Generuota automatiškai 2026-11-08 · MB Enerconsult_
+_Generuota automatiškai 2026-11-09 · MB Enerconsult_
