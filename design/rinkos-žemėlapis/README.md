@@ -1,0 +1,8 @@
+# Rinkos žemėlapio dizaino pavyzdžio šaltiniai
+
+Darbiniai failai, iš kurių sugeneruotas tamsusis (brėžinio fono) rinkos žemėlapio variantas Design drobėje. Tai dizaino pavyzdys su 2026-11-12 duomenimis, ne gamybinis valdiklis.
+
+- `variantas-tamsus.py` – artboard'o generatorius (skaičiai įrašyti ranka; keliai į failus – kaip darbo aplanke).
+- `žemėlapio-kontūrai.svg.txt` – šalių kontūrai (Natural Earth 1:50m, Mercator, kadras 760 × 570).
+- `trasos.mjs`, `trasos.json` – jungčių trasų taškai ir jų projekcija į kadrą: NordBalt (Klaipėda–Nybro), LitPol Link (Alytus–Ełk), keturios 330 kV linijos į Latviją. Trasos apytikslės – pagal viešus žemėlapius ir galinių pastočių vietas.
+- `nepaaiškintos-dalies-patikra.py` – patikra, ar papildomi Baltijos regiono veiksniai sumažina modelio nepaaiškintą dalį.
