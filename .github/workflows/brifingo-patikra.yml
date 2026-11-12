@@ -46,8 +46,11 @@ jobs:
           python - <<'PY' > data/patikra/a75-struktura.txt 2>&1 || true
           import os, requests, xml.etree.ElementTree as ET
           for ps, pe in (("202610082200", "202610092200"), ("202611102300", "202611112300")):
-              r = requests.get("https://web-api.tp.entsoe.eu/api", params={"documentType": "A75", "processType": "A16",
-                  "in_Domain": "10YLT-1001A0008Q", "periodStart": ps, "periodEnd": pe, "securityToken": os.environ["ENTSOE_TOKEN"]}, timeout=120)
+              try:
+                  r = requests.get("https://web-api.tp.entsoe.eu/api", params={"documentType": "A75", "processType": "A16",
+                      "in_Domain": "10YLT-1001A0008Q", "periodStart": ps, "periodEnd": pe, "securityToken": os.environ["ENTSOE_TOKEN"]}, timeout=120)
+              except Exception as exc:
+                  print("===", ps, pe, "klaida:", type(exc).__name__); continue
               print("===", ps, pe, "HTTP", r.status_code, len(r.text), "simb.")
               root = ET.fromstring(r.text); ns = {"n": root.tag[1:root.tag.index("}")]}
               for ts in root.findall("n:TimeSeries", ns):
@@ -61,6 +64,8 @@ jobs:
                       pos = [a for a, _ in pts]
                       print(f"{psr} {kind} {curve} {st}..{en} {res} taškų {len(pts)} poz. {pos[0]}..{pos[-1]} pirmi {pts[:3]} nuliai {sum(1 for _, v in pts if v == 0)}")
           PY
+          # žurnale negali likti saugos rakto (pvz. tinklo klaidos pranešime)
+          sed -i -E 's/securityToken=[^& )\x27"]+/securityToken=***/g' data/patikra/a75-struktura.txt
 
       - name: Išsaugoti
         run: |
