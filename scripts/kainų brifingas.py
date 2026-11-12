@@ -144,6 +144,47 @@ def _get_ns(root) -> dict:
     return {}
 
 
+def _period_hourly(ts, period, ns, value_tag):
+    """Vieno periodo reikšmės pagal valandą nuo periodo pradžios: (pradžia UTC, {valandos nr.: [reikšmės]}).
+
+    Kreivės tipas A03 („kintamo dydžio blokai"): praleista pozicija reiškia, kad
+    reikšmė nepasikeitė – ją užpildome ankstesne reikšme. Be to valandos vidurkis
+    būtų iškreiptas, o nulinės valandos (pvz. saulė naktį) dingtų iš paros vidurkio.
+    """
+    start_str = period.find("ns:timeInterval/ns:start", ns).text
+    end_el = period.find("ns:timeInterval/ns:end", ns)
+    step = {"PT15M": 15, "PT60M": 60}.get(period.find("ns:resolution", ns).text)
+    dt_utc = datetime.strptime(start_str, "%Y-%m-%dT%H:%MZ")
+    if step is None:
+        return dt_utc, {}
+
+    values = {}
+    for point in period.findall("ns:Point", ns):
+        pos = int(point.find("ns:position", ns).text)
+        val_el = point.find(f"ns:{value_tag}", ns)
+        if val_el is None:
+            val_el = point.find(value_tag)      # bandome be namespace
+        if val_el is None:
+            continue
+        values[pos] = float(val_el.text)
+
+    curve_el = ts.find("ns:curveType", ns)
+    if curve_el is not None and curve_el.text == "A03" and values and end_el is not None:
+        dt_end = datetime.strptime(end_el.text, "%Y-%m-%dT%H:%MZ")
+        n_pos = int((dt_end - dt_utc).total_seconds() // 60 // step)
+        prev = None
+        for pos in range(1, n_pos + 1):
+            if pos in values:
+                prev = values[pos]
+            elif prev is not None:
+                values[pos] = prev
+
+    per_hour = {}
+    for pos, val in values.items():
+        per_hour.setdefault((pos - 1) * step // 60, []).append(val)
+    return dt_utc, per_hour
+
+
 def parse_timeseries(root, target_date, value_tag="price.amount"):
     """Universalus XML parser — tinka ir kainoms, ir srautams."""
     ns = _get_ns(root)
@@ -152,40 +193,12 @@ def parse_timeseries(root, target_date, value_tag="price.amount"):
 
     for ts in root.findall("ns:TimeSeries", ns):
         for period in ts.findall("ns:Period", ns):
-            start_str = period.find("ns:timeInterval/ns:start", ns).text
-            resolution = period.find("ns:resolution", ns).text
-            dt_utc = datetime.strptime(start_str, "%Y-%m-%dT%H:%MZ")
-
-            if resolution == "PT15M":
-                quarter = {}
-                for point in period.findall("ns:Point", ns):
-                    pos = int(point.find("ns:position", ns).text)
-                    val_el = point.find(f"ns:{value_tag}", ns)
-                    if val_el is None:
-                        # Bandome be namespace
-                        val_el = point.find(value_tag)
-                    if val_el is None:
-                        continue
-                    val = float(val_el.text)
-                    quarter.setdefault((pos - 1) // 4, []).append(val)
-                for hi, vals in quarter.items():
-                    ts_utc = dt_utc + timedelta(hours=hi)
-                    ts_lt = ts_utc + timedelta(hours=lt_utc_offset(ts_utc))
-                    if ts_lt.date() == target:
-                        hourly[ts_lt.hour] = round(sum(vals) / len(vals), 2)
-            elif resolution == "PT60M":
-                for point in period.findall("ns:Point", ns):
-                    pos = int(point.find("ns:position", ns).text)
-                    val_el = point.find(f"ns:{value_tag}", ns)
-                    if val_el is None:
-                        val_el = point.find(value_tag)
-                    if val_el is None:
-                        continue
-                    val = float(val_el.text)
-                    ts_utc = dt_utc + timedelta(hours=pos - 1)
-                    ts_lt = ts_utc + timedelta(hours=lt_utc_offset(ts_utc))
-                    if ts_lt.date() == target:
-                        hourly[ts_lt.hour] = round(val, 2)
+            dt_utc, per_hour = _period_hourly(ts, period, ns, value_tag)
+            for hi, vals in per_hour.items():
+                ts_utc = dt_utc + timedelta(hours=hi)
+                ts_lt = ts_utc + timedelta(hours=lt_utc_offset(ts_utc))
+                if ts_lt.date() == target:
+                    hourly[ts_lt.hour] = round(sum(vals) / len(vals), 2)
 
     return hourly
 
@@ -233,9 +246,14 @@ def fetch_prices(domain: str, target_date: datetime) -> dict:
 
 
 def fetch_flow(from_domain: str, to_domain: str, target_date: datetime) -> dict:
+    """Fizinis srautas iš from_domain į to_domain.
+
+    ENTSO-E API: in_Domain – zona, į kurią energija įteka, out_Domain – iš kurios
+    išteka. (Iki 2026-11-12 čia buvo sukeista, todėl importas rodytas kaip eksportas.)
+    """
     return fetch_two_days({
         "documentType": "A11", "processType": "A16",
-        "in_Domain": from_domain, "out_Domain": to_domain,
+        "in_Domain": to_domain, "out_Domain": from_domain,
     }, target_date, "quantity")
 
 
@@ -264,36 +282,19 @@ def fetch_generation_by_type(domain: str, target_date: datetime) -> dict:
     def _parse_gen_xml(root):
         ns = _get_ns(root)
         for ts in root.findall("ns:TimeSeries", ns):
+            # Eilutės su outBiddingZone – tai suvartojimas (Kruonio HAE siurblių
+            # režimas, kaupiklių krovimas), ne gamyba; į gamybą jų neskaičiuojame.
+            if ts.find("ns:outBiddingZone_Domain.mRID", ns) is not None:
+                continue
             psr_el = ts.find("ns:MktPSRType/ns:psrType", ns)
             psr_type = psr_el.text if psr_el is not None else "UNKNOWN"
             for period in ts.findall("ns:Period", ns):
-                start_str = period.find("ns:timeInterval/ns:start", ns).text
-                resolution = period.find("ns:resolution", ns).text
-                dt_utc = datetime.strptime(start_str, "%Y-%m-%dT%H:%MZ")
-                if resolution == "PT15M":
-                    quarter = defaultdict(list)
-                    for point in period.findall("ns:Point", ns):
-                        pos = int(point.find("ns:position", ns).text)
-                        val_el = point.find("ns:quantity", ns)
-                        if val_el is None:
-                            continue
-                        quarter[(pos - 1) // 4].append(float(val_el.text))
-                    for hi, vals in quarter.items():
-                        ts_utc = dt_utc + timedelta(hours=hi)
-                        ts_lt = ts_utc + timedelta(hours=lt_utc_offset(ts_utc))
-                        if ts_lt.date() == target:
-                            by_type[psr_type][ts_lt.hour] += round(sum(vals) / len(vals), 2)
-                elif resolution == "PT60M":
-                    for point in period.findall("ns:Point", ns):
-                        pos = int(point.find("ns:position", ns).text)
-                        val_el = point.find("ns:quantity", ns)
-                        if val_el is None:
-                            continue
-                        val = float(val_el.text)
-                        ts_utc = dt_utc + timedelta(hours=pos - 1)
-                        ts_lt = ts_utc + timedelta(hours=lt_utc_offset(ts_utc))
-                        if ts_lt.date() == target:
-                            by_type[psr_type][ts_lt.hour] += round(val, 2)
+                dt_utc, per_hour = _period_hourly(ts, period, ns, "quantity")
+                for hi, vals in per_hour.items():
+                    ts_utc = dt_utc + timedelta(hours=hi)
+                    ts_lt = ts_utc + timedelta(hours=lt_utc_offset(ts_utc))
+                    if ts_lt.date() == target:
+                        by_type[psr_type][ts_lt.hour] += round(sum(vals) / len(vals), 2)
 
     params_base = {"documentType": "A75", "processType": "A16", "in_Domain": domain}
 
