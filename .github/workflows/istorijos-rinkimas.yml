@@ -1,0 +1,48 @@
+name: Istorinių duomenų rinkimas
+
+# Vienkartinis duomenų surinkimas kainos veiksnių analizei.
+# Veikia tik šakoje „kainos-veiksniai" ir rezultatą įrašo į tą pačią šaką –
+# pagrindinės šakos ir rytinės ataskaitos neliečia.
+
+on:
+  push:
+    branches: [kainos-veiksniai]
+    paths:
+      - "scripts/istorijos rinkimas.py"
+      - ".github/workflows/istorijos-rinkimas.yml"
+  workflow_dispatch:
+    inputs:
+      nuo:
+        description: "Pradžios data (YYYY-MM-DD), tuščia = 2025-01-01"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  rinkimas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Priklausomybės
+        run: pip install "requests>=2.31" "openpyxl>=3.1"
+
+      - name: Surinkti duomenis
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: python "scripts/istorijos rinkimas.py" ${{ github.event.inputs.nuo }}
+
+      - name: Išsaugoti
+        run: |
+          git config user.name "Morning Report Bot"
+          git config user.email "bot@enerconsult.lt"
+          git add data/istorija
+          git diff --cached --quiet || git commit -m "Istoriniai duomenys kainos veiksnių analizei"
+          git push origin HEAD:${{ github.ref_name }}
