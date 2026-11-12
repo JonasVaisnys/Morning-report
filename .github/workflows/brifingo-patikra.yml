@@ -38,6 +38,10 @@ jobs:
             # žurnale negali likti saugos rakto
             sed -i -E 's/securityToken=[^& )]+/securityToken=***/g' "data/patikra/brifingas-$D.log"
           done
+          # šiandienos (nepilnos paros) režimas – kaip rytinėje ataskaitoje
+          python "scripts/kainų brifingas.py" --json > "data/patikra/brifingas-šiandien.json" 2> "data/patikra/brifingas-šiandien.log" || true
+          sed -i -E 's/securityToken=[^& )]+/securityToken=***/g' "data/patikra/brifingas-šiandien.log"
+          date -u +"paleista %Y-%m-%d %H:%M UTC" >> "data/patikra/brifingas-šiandien.log"
 
       - name: A75 atsakymo struktūra (diagnostika)
         env:
