@@ -1,0 +1,49 @@
+name: Kainų brifingo patikra
+
+# Paleidžia tik kainų brifingą pasirinktoms datoms ir rezultatą įrašo į data/patikra/
+# toje pačioje šakoje. Pagrindinės šakos ir rytinės ataskaitos neliečia,
+# Claude API nenaudoja.
+
+on:
+  push:
+    branches: [kainos-veiksniai]
+    paths:
+      - "scripts/kainų brifingas.py"
+      - ".github/workflows/brifingo-patikra.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patikra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Priklausomybės
+        run: pip install "requests>=2.31"
+
+      - name: Brifingas pasirinktoms datoms
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: |
+          mkdir -p data/patikra
+          for D in 2026-10-09 2026-11-11; do
+            python "scripts/kainų brifingas.py" "$D" --json > "data/patikra/brifingas-$D.json" 2> "data/patikra/brifingas-$D.log" || true
+            # žurnale negali likti saugos rakto
+            sed -i -E 's/securityToken=[^& )]+/securityToken=***/g' "data/patikra/brifingas-$D.log"
+          done
+
+      - name: Išsaugoti
+        run: |
+          git config user.name "Morning Report Bot"
+          git config user.email "bot@enerconsult.lt"
+          git add data/patikra
+          git diff --cached --quiet || git commit -m "Kainų brifingo patikros rezultatai"
+          git pull --rebase origin ${{ github.ref_name }}
+          git push origin HEAD:${{ github.ref_name }}
