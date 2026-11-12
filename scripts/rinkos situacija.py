@@ -16,9 +16,17 @@ Normos („įprasta šiam laikotarpiui")
       pagal daugiametę sezono formą į šią datą (prognozės eilutės apibrėžimas
       per metus keitėsi, todėl lygis imamas iš naujausių duomenų);
     • dujos – TTF palyginti su pastarųjų 12 mėn. vidurkiu;
+    • kaimynų rinkos – SE4, PL ir FI kainos santykiu su dujinės elektrinės
+      kaštais, palyginti su to paties laikotarpio santykiais 2022 m.–pernai;
     • pralaidumai – palyginti su įprastu (365 d. mediana) lygiu;
-    • kaina – modelio kaina esant įprastam vėjui, saulei ir vartojimui,
-      neribotiems pralaidumams ir įprastoms dujoms („kainos veiksniai.py").
+    • kaina – modelio kaina esant įprastam vėjui, saulei, vartojimui ir
+      kaimynų kainoms, neribotiems pralaidumams ir įprastoms dujoms.
+
+Modelis
+    kaina = SRMC × m(likutinė apkrova, pralaidumų ribojimas, SE4/SRMC, PL/SRMC,
+    FI/SRMC, paros valanda, darbo d./savaitgalis); skaidymas – Shapley pagal
+    grupes: dujos, vartojimas, vėjas, saulė, pralaidumai, kaimynai; „kita" –
+    faktinės kainos ir modelio skirtumas.
 
 Naudojimas
     python "scripts/rinkos situacija.py" 2026-11-12 [--json]
@@ -63,16 +71,34 @@ def hourly_all():
         o["other_a"] = other(src_gen)
         return o
     old = part(L, L, L); new = part(a, g, k)
+    N = rd("ilgoji-kaimynai.csv.gz")
+    for z in ("SE4", "PL", "FI"):
+        old[f"p_{z}"] = N[f"kaina_{z}"].reindex(old.index); new[f"p_{z}"] = k[f"kaina_{z}"]
     df = pd.concat([old[old.index < new.index.min()], new]).sort_index()
     df = df[~df.index.duplicated(keep="last")]
     lt = df.index.tz_convert("Europe/Vilnius")
     df["date"] = lt.date; df["hour"] = lt.hour; df["wknd"] = (lt.dayofweek >= 5).astype(int)
+    # dujinės elektrinės ribiniai kaštai (išvakarių TTF ir EUA) – visam laikotarpiui
+    g5 = pd.read_csv(D + "dienos-ilga.csv", index_col=0, parse_dates=True)
+    full = g5.reindex(pd.date_range(g5.index.min(), g5.index.max() + pd.Timedelta(days=5))).ffill().bfill()
+    srmc = (full.ttf_eur_mwh / 0.55 + full.eua_eur_t * 0.202 / 0.55 + 3.0).shift(1)
+    df["srmc"] = srmc.reindex(pd.to_datetime(df["date"])).to_numpy()
+    for z in ("SE4", "PL", "FI"):
+        df[f"r_{z.lower()}"] = df[f"p_{z}"] / df["srmc"]
     return df
 
 
 WINDOW = 15            # ± dienų aplink tą pačią kalendorinę datą ankstesniais metais
-GROUPS = {"dujos": "srmc", "vartojimas": "load_f", "vėjas": "wind_f", "saulė": "sol_f", "pralaidumai": "cap_def"}
+GROUPS = {"dujos": ["srmc"], "vartojimas": ["load_f"], "vėjas": ["wind_f"], "saulė": ["sol_f"], "pralaidumai": ["cap_def"], "kaimynai": ["r_se4", "r_pl", "r_fi"]}
 NAMES = list(GROUPS)
+RAW = [c for cs in GROUPS.values() for c in cs]
+OWNER = {c: g for g, cs in GROUPS.items() for c in cs}
+FEATS_N = ["rl", "cap_def", "r_se4", "r_pl", "r_fi", "hour", "wknd"]
+MONO_N = [1, 1, 1, 1, 1, 0, 0]
+def fit_n(train):
+    from sklearn.ensemble import HistGradientBoostingRegressor
+    m = HistGradientBoostingRegressor(max_iter=300, learning_rate=0.06, max_leaf_nodes=15, min_samples_leaf=40, l2_regularization=1.0, monotonic_cst=MONO_N, random_state=0)
+    return m.fit(train[FEATS_N], train["p"] / train["srmc"], sample_weight=train["srmc"] ** 2)
 
 def capacity_series():
     cap = pd.read_csv(D + "galios.csv")
@@ -109,6 +135,10 @@ class Situation:
         self.H = hourly_all()                                   # 2022+
         self.df = kv.load_dataset()                             # 2025+ modelio rinkinys
         j = kv._read("jungtys.csv.gz"); k = kv._read("kainos.csv.gz")
+        self.df["p_FI"] = k["kaina_FI"].reindex(self.df.index)
+        for z in ("SE4", "PL", "FI"):
+            self.df[f"r_{z.lower()}"] = self.df[f"p_{z}"] / self.df["srmc"]
+        self.df = self.df.dropna(subset=["r_se4", "r_pl", "r_fi"]).copy(); self.df["pos"] = np.arange(len(self.df))
         self.j, self.k = j, k
         lt = j.index.tz_convert("Europe/Vilnius"); self.jdate = pd.Series(lt.date, index=j.index)
         self.kdate = pd.Series(k.index.tz_convert("Europe/Vilnius").date, index=k.index)
@@ -123,8 +153,8 @@ class Situation:
         ext = pd.concat([S.iloc[-20:], S, S.iloc[:20]]).rolling(21, center=True, min_periods=10).mean().iloc[20:-20]
         self.S = ext                                                       # sezono indeksas pagal metų dieną
         self._thr = None
-        d = pd.read_csv(D + "dienos.csv", index_col=0, parse_dates=True)
-        full = d.reindex(pd.date_range(d.index.min(), d.index.max() + pd.Timedelta(days=5))).ffill()
+        d = pd.read_csv(D + "dienos-ilga.csv", index_col=0, parse_dates=True)
+        full = d.reindex(pd.date_range(d.index.min(), d.index.max() + pd.Timedelta(days=5))).ffill().bfill()
         full["srmc"] = full.ttf_eur_mwh / kv.ETA + full.eua_eur_t * kv.GAS_EF / kv.ETA + kv.VOM
         self.gas = full
         try:
@@ -164,7 +194,7 @@ class Situation:
         rec["load_f"] = rec.load_f * rec.date.map({t.date(): fac[t] for t in fac.index})
         pool = {h: g.load_f.dropna().to_numpy() for h, g in rec.groupby("hour")}
         rng = np.random.default_rng(0)
-        R = R.dropna(subset=["wind_f", "sol_f"])
+        R = R.dropna(subset=["wind_f", "sol_f", "r_se4", "r_pl", "r_fi"])
         R["load_f"] = [pool[h][rng.integers(len(pool[h]))] if h in pool and len(pool[h]) else np.nan for h in R.hour]
         return R.dropna(subset=["load_f", "wind_f", "sol_f"])
 
@@ -200,27 +230,29 @@ class Situation:
         gs = "gerokai pigesnės nei įprasta" if r < 0.75 else "pigesnės nei įprasta" if r < 0.9 else "įprastos" if r <= 1.1 else "brangesnės nei įprasta" if r <= 1.33 else "gerokai brangesnės nei įprasta"
         out["dujos"] = {"ttf": round(ttf, 1), "norma_12mėn": round(ttf_n, 1), "santykis": round(r, 2), "būsena": gs, "prieš_metus": round(float(g.ttf_eur_mwh.asof(prev - pd.Timedelta(days=365))), 1)}
         # modelis (mato tik praeitį) ir Shapley prieš sezoninę normą
-        m = kv.fit(df[df.date < d])
+        m = fit_n(df[df.date < d])
         tt = T.reset_index(drop=True); B = R.reset_index(drop=True)
         ti, bi = [], []
         byh = {h: np.flatnonzero(B.hour.to_numpy() == h) for h in range(24)}
         for i, h in enumerate(tt.hour):
             for q in byh.get(h, []): ti.append(i); bi.append(q)
         ti, bi = np.array(ti), np.array(bi)
-        tv = {"srmc": tt.srmc.to_numpy(float), "load_f": tt.load_f.to_numpy(float), "wind_f": tt.wind_f.to_numpy(float), "sol_f": tt.sol_f.to_numpy(float), "cap_def": tt.cap_def.to_numpy(float)}
-        bv = {"srmc": np.full(len(B), srmc_n), "load_f": B.load_f.to_numpy(float), "wind_f": B.wind_f.to_numpy(float), "sol_f": B.sol_f.to_numpy(float), "cap_def": np.zeros(len(B))}
+        tv = {c: tt[c].to_numpy(float) for c in RAW}
+        bv = {c: B[c].to_numpy(float) for c in RAW if c not in ("srmc", "cap_def")}
+        bv["srmc"] = np.full(len(B), srmc_n); bv["cap_def"] = np.zeros(len(B))
         hour, wk = tt.hour.to_numpy(float)[ti], tt.wknd.to_numpy(float)[ti]
         def f(mask):
-            v = {gname: np.where(mask[i], tv[c][ti], bv[c][bi]) for i, (gname, c) in enumerate(GROUPS.items())}
-            X = np.column_stack([v["vartojimas"] - v["vėjas"] - v["saulė"], v["pralaidumai"], hour, wk])
-            return m.predict(X) * v["dujos"]
+            on = dict(zip(NAMES, mask))
+            v = {c: np.where(on[OWNER[c]], tv[c][ti], bv[c][bi]) for c in RAW}
+            X = np.column_stack([v["load_f"] - v["wind_f"] - v["sol_f"], v["cap_def"], v["r_se4"], v["r_pl"], v["r_fi"], hour, wk])
+            return m.predict(X) * v["srmc"]
         n = len(NAMES); masks = list(itertools.product([0, 1], repeat=n)); val = {mk: f(mk) for mk in masks}
         phi = np.zeros((len(ti), n))
         for kk in range(n):
             for mk in masks:
                 if mk[kk] == 0:
-                    on = tuple(1 if i == kk else b for i, b in enumerate(mk)); s = sum(mk)
-                    phi[:, kk] += math.factorial(s) * math.factorial(n - s - 1) / math.factorial(n) * (val[on] - val[mk])
+                    on = tuple(1 if i == kk else b_ for i, b_ in enumerate(mk)); s_ = sum(mk)
+                    phi[:, kk] += math.factorial(s_) * math.factorial(n - s_ - 1) / math.factorial(n) * (val[on] - val[mk])
         def per_target(a):                      # vidurkis per normos valandas kiekvienai tikslo valandai, tada per parą
             return float(pd.Series(a).groupby(ti).mean().mean())
         contrib = {NAMES[i]: per_target(phi[:, i]) for i in range(n)}
@@ -234,7 +266,7 @@ class Situation:
         base["rdate"] = B.date.to_numpy()[bi]
         sim = base.groupby("rdate").v.mean()
         tr = df[df.date < d]
-        e = ((tr.p - m.predict(tr[kv.FEATS]) * tr.srmc) / tr.srmc).groupby(tr.date).mean().to_numpy()
+        e = ((tr.p - m.predict(tr[FEATS_N]) * tr.srmc) / tr.srmc).groupby(tr.date).mean().to_numpy()
         e = e[np.random.default_rng(0).integers(len(e), size=min(300, len(e)))]
         sim = pd.Series((sim.to_numpy()[:, None] + e[None, :] * srmc_n).ravel())      # modelio kaina + įprasta likučių sklaida
         st, pct = status(price, sim, W_F)
@@ -246,6 +278,11 @@ class Situation:
         kk_ = self.k[self.kdate == d]
         out["kaimynai"] = {z: round(float(kk_[f"kaina_{z}"].mean()), 1) for z in ("LV", "SE4", "PL", "EE", "FI")}
         out["lt_lv_skiriasi_val"] = int(((kk_.kaina_LT - kk_.kaina_LV).abs() > 0.01).sum())
+        Rr = R.groupby("date")[["r_se4", "r_pl", "r_fi"]].mean()
+        out["kaimynų_būsena"] = {}
+        for z in ("SE4", "PL", "FI"):
+            c = f"r_{z.lower()}"; today = float(T[c].mean()); st_, pc_ = status(today, Rr[c], W_F)
+            out["kaimynų_būsena"][z] = {"kaina": round(float(T[f"p_{z}"].mean()), 1), "norma_su_šiandienos_dujomis": round(float(Rr[c].median()) * srmc, 1), "būsena": st_, "procentilis": pc_}
         # prekybos grafikai (kitos paros rinka): grynasis importas pagal sieną
         jj = self.j[self.jdate == d]; load = float(x["load_f"])
         imp = {"SE4": float((jj.prekyba_SE4_LT - jj.prekyba_LT_SE4).mean()), "PL": float((jj.prekyba_PL_LT - jj.prekyba_LT_PL).mean()), "LV": float((jj.prekyba_LV_LT - jj.prekyba_LT_LV).mean())}
@@ -274,7 +311,7 @@ DOW = ["pirmadienis", "antradienis", "trečiadienis", "ketvirtadienis", "penktad
 def lt(x, nd=0): return f"{x:,.{nd}f}".replace(",", " ").replace(".", ",")
 REASON = {("dujos", 1): "brangios dujos", ("dujos", -1): "pigesnės dujos", ("vartojimas", 1): "didesnis vartojimas", ("vartojimas", -1): "mažesnis vartojimas",
           ("vėjas", 1): "maža vėjo gamyba", ("vėjas", -1): "didelė vėjo gamyba", ("saulė", 1): "maža saulės gamyba", ("saulė", -1): "didelė saulės gamyba",
-          ("pralaidumai", 1): "apriboti tarpsisteminiai pralaidumai", ("pralaidumai", -1): "pralaidumai", ("kita", 1): "kiti veiksniai (kaimynų rinkos ir kt.)", ("kita", -1): "kiti veiksniai (kaimynų rinkos ir kt.)"}
+          ("pralaidumai", 1): "apriboti tarpsisteminiai pralaidumai", ("pralaidumai", -1): "pralaidumai", ("kita", 1): "kiti veiksniai", ("kita", -1): "kiti veiksniai", ("kaimynai", 1): "brangesnės nei įprasta kaimynų rinkos", ("kaimynai", -1): "pigesnės nei įprasta kaimynų rinkos"}
 def cap_status(mw, nominal):
     if mw is None: return "nėra duomenų"
     r = mw / nominal if nominal else 1
@@ -284,6 +321,7 @@ def render(S, r):
     L.append(f"{r['data']}, {DOW[d.weekday()]}")
     L.append(f"KAINA: LT vidutinė {lt(k['lt'],1)} €/MWh (min {lt(k['min'],1)} {k['min_val']} val., max {lt(k['max'],1)} {k['max_val']} val.) – {k['būsena']} šiam laikotarpiui; norma {lt(k['norma'])} €/MWh (įprastai {k['intervalas'][0]}–{k['intervalas'][1]}); su šiandienos dujomis norma būtų {lt(k['norma_su_šiandienos_dujomis'])}")
     n = r["kaimynai"]; L.append(f"KAIMYNAI: LV {lt(n['LV'],1)}, SE4 {lt(n['SE4'],1)}, PL {lt(n['PL'],1)}, EE {lt(n['EE'],1)}, FI {lt(n['FI'],1)}; LT≠LV {r['lt_lv_skiriasi_val']} val.")
+    kb = r.get("kaimynų_būsena", {}); L.append("   kaimynai pagal sezoną ir dujas: " + "; ".join(f"{z} {lt(v['kaina'],1)} – {v['būsena']} (norma {lt(v['norma_su_šiandienos_dujomis'])})" for z, v in kb.items()))
     for key, lab in (("vartojimas", "VARTOJIMAS"), ("vėjas", "VĖJAS"), ("saulė", "SAULĖ")):
         v = r[key]; extra = f"{v['procentilis']} procentilis" if v.get("procentilis") is not None else f"{v['nuokrypis_proc']:+.1f} % nuo normos"
         L.append(f"{lab}: {lt(v['mw'])} MW – {v['būsena']} (norma {lt(v['norma'])} MW, įprastai {v['intervalas'][0]}–{v['intervalas'][1]}; {extra})")
