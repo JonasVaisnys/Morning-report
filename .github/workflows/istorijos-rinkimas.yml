@@ -42,6 +42,7 @@ jobs:
           if [ ! -f data/istorija/ilgoji.csv.gz ]; then python "scripts/istorijos rinkimas.py" --ilga; fi
           if [ ! -f data/istorija/nordpool-pralaidumai.csv ]; then python "scripts/istorijos rinkimas.py" --nordpool; fi
           if [ ! -f data/istorija/ilgoji-kaimynai.csv.gz ]; then python "scripts/istorijos rinkimas.py" --kaimynai; fi
+          if [ ! -f data/istorija/atjungimai.csv ]; then python "scripts/istorijos rinkimas.py" --atjungimai; fi
           if [ -n "${{ github.event.inputs.nuo }}" ] || [ ! -f data/istorija/kainos.csv.gz ]; then python "scripts/istorijos rinkimas.py" ${{ github.event.inputs.nuo }}; fi
 
       - name: Išsaugoti

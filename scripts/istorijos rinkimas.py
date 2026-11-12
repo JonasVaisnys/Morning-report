@@ -568,6 +568,63 @@ def main_neighbours() -> None:
         f.write("\n".join(LOG) + "\n")
 
 
+def main_outages() -> None:
+    """Jungčių neprieinamumo pranešimai (ENTSO-E A78) LT sienoms: pastarosios 110 d. ir 14 d. į priekį."""
+    import zipfile
+    os.makedirs(OUT_DIR, exist_ok=True)
+    now = datetime.now(timezone.utc).replace(tzinfo=None, minute=0, second=0, microsecond=0)
+    a, b = now - timedelta(days=110), now + timedelta(days=14)
+    rows = []
+    for x, y in (("LT", "SE4"), ("LT", "PL"), ("LT", "LV")):
+        for frm, to in ((x, y), (y, x)):
+            prm = {"documentType": "A78", "in_Domain": EIC[to], "out_Domain": EIC[frm],
+                   "periodStart": a.strftime("%Y%m%d%H%M"), "periodEnd": b.strftime("%Y%m%d%H%M"),
+                   "securityToken": TOKEN}
+            try:
+                r = requests.get(ENTSOE_URL, params=prm, timeout=180)
+            except requests.RequestException as exc:
+                log(f"A78 {frm}→{to}: {type(exc).__name__}")
+                continue
+            if r.status_code != 200 or r.content[:2] != b"PK":
+                m = re.search(r"<text>(.*?)</text>", r.text, re.S)
+                log(f"A78 {frm}→{to}: HTTP {r.status_code} {clean((m.group(1) if m else r.text)[:160])}")
+                continue
+            z = zipfile.ZipFile(io.BytesIO(r.content))
+            n = 0
+            for name in z.namelist():
+                try:
+                    root = ET.fromstring(z.read(name))
+                except ET.ParseError:
+                    continue
+                vals: dict[str, list[str]] = defaultdict(list)
+                parent = {c: p_ for p_ in root.iter() for c in p_}
+                for el in root.iter():
+                    tag = el.tag.split("}")[-1]
+                    if el.text and el.text.strip():
+                        ptag = parent[el].tag.split("}")[-1] if el in parent else ""
+                        vals[f"{ptag}/{tag}"].append(el.text.strip())
+                def one(key: str) -> str:
+                    v = vals.get(key) or [""]
+                    return v[0]
+                qty = [float(q) for q in vals.get("Point/quantity", []) if re.fullmatch(r"-?[0-9.]+", q)]
+                rows.append([f"{frm}→{to}", one("timeInterval/start"), one("timeInterval/end"),
+                             one("TimeSeries/businessType"), one("docStatus/value"),
+                             "; ".join(sorted(set(vals.get("Asset_RegisteredResource/name", []))))[:120],
+                             min(qty) if qty else "", max(qty) if qty else "",
+                             one("Unavailability_MarketDocument/revisionNumber"),
+                             one("Unavailability_MarketDocument/createdDateTime"),
+                             " | ".join(vals.get("Reason/text", []))[:160], one("Unavailability_MarketDocument/mRID")])
+                n += 1
+            log(f"A78 {frm}→{to}: dokumentų {n}")
+    with open(os.path.join(OUT_DIR, "atjungimai.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["kryptis", "pradžia", "pabaiga", "tipas", "būsena", "įrenginys", "galia_min", "galia_max",
+                    "versija", "sukurta", "priežastis", "id"])
+        w.writerows(sorted(rows, key=lambda r_: (r_[1], r_[0])))
+    with open(os.path.join(OUT_DIR, "rinkimo-žurnalas-atjungimai.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(LOG) + "\n")
+
+
 def main() -> None:
     if not TOKEN:
         print("Klaida: nenustatytas ENTSOE_TOKEN.", file=sys.stderr)
@@ -580,6 +637,9 @@ def main() -> None:
         return
     if "--kaimynai" in sys.argv[1:]:
         main_neighbours()
+        return
+    if "--atjungimai" in sys.argv[1:]:
+        main_outages()
         return
     first = datetime(2025, 1, 1)
     for arg in sys.argv[1:]:
