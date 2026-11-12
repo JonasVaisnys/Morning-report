@@ -500,12 +500,49 @@ def main_long() -> None:
         f.write("\n".join(LOG) + "\n")
 
 
+def main_nordpool(days: int = 36) -> None:
+    """Day-ahead pralaidumai LT sienoms iš Nord Pool duomenų portalo (palyginimui su ENTSO-E A31)."""
+    os.makedirs(OUT_DIR, exist_ok=True)
+    today = datetime.now(timezone.utc).date()
+    rows, sample = [], ""
+    for i in range(days, -2, -1):
+        day = today - timedelta(days=i)
+        url = f"https://dataportal-api.nordpoolgroup.com/api/DayAheadCapacities?date={day}&market=DayAhead&deliveryArea=LT"
+        try:
+            r = requests.get(url, headers={"User-Agent": UA_BROWSER, "Accept": "application/json"}, timeout=40)
+            if r.status_code != 200 or not r.text.strip():
+                log(f"nordpool {day}: HTTP {r.status_code}")
+                continue
+            js = r.json()
+            caps = js.get("capacities") or []
+            if caps and not sample:
+                sample = re.sub(r"\s+", " ", str(caps[0]))[:900]
+            for c in caps:
+                start = c.get("deliveryStart")
+                for direction, key in (("importas", "importsByConnection"), ("eksportas", "exportsByConnection")):
+                    for conn, mw in (c.get(key) or {}).items():
+                        rows.append((start, direction, conn, mw))
+        except Exception as exc:
+            log(f"nordpool {day}: {type(exc).__name__}")
+        time.sleep(0.4)
+    with open(os.path.join(OUT_DIR, "nordpool-pralaidumai.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["utc_pradžia", "kryptis", "jungtis", "mw"])
+        w.writerows(rows)
+    log(f"nordpool pralaidumai: {len(rows)} eilučių; pavyzdys: {sample}")
+    with open(os.path.join(OUT_DIR, "rinkimo-žurnalas-nordpool.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(LOG) + "\n")
+
+
 def main() -> None:
     if not TOKEN:
         print("Klaida: nenustatytas ENTSOE_TOKEN.", file=sys.stderr)
         sys.exit(1)
     if "--ilga" in sys.argv[1:]:
         main_long()
+        return
+    if "--nordpool" in sys.argv[1:]:
+        main_nordpool()
         return
     first = datetime(2025, 1, 1)
     for arg in sys.argv[1:]:

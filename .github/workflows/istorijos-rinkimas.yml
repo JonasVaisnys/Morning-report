@@ -40,6 +40,7 @@ jobs:
         run: |
           # ilgoji istorija sezoninėms normoms – tik kartą; pagrindinis rinkinys – jei nurodyta pradžios data arba jo dar nėra
           if [ ! -f data/istorija/ilgoji.csv.gz ]; then python "scripts/istorijos rinkimas.py" --ilga; fi
+          if [ ! -f data/istorija/nordpool-pralaidumai.csv ]; then python "scripts/istorijos rinkimas.py" --nordpool; fi
           if [ -n "${{ github.event.inputs.nuo }}" ] || [ ! -f data/istorija/kainos.csv.gz ]; then python "scripts/istorijos rinkimas.py" ${{ github.event.inputs.nuo }}; fi
 
       - name: Išsaugoti
