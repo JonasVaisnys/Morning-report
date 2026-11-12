@@ -690,6 +690,77 @@ def main_litgrid() -> None:
     log(f"Litgrid žvalgyba: eilučių {len(out)}")
 
 
+def main_litgrid2() -> None:
+    """Žvalgyba 2: Litgrid sistemos duomenų REST sąsaja (wp-json/litgrid-sd/v1)."""
+    os.makedirs(OUT_DIR, exist_ok=True)
+    base = "https://www.litgrid.eu"
+    api = base + "/wp-json/litgrid-sd/v1"
+    hdr = {"User-Agent": UA_BROWSER, "Accept": "application/json, text/html, */*", "Referer": base + "/en/system-data"}
+    out: list[str] = []
+
+    def get(url: str, n: int = 1500) -> str:
+        try:
+            r = requests.get(url, headers=hdr, timeout=40)
+            body = re.sub(r"\s+", " ", r.text)
+            out.append(f"=== {url} → {r.status_code}, {len(r.text)} simb., {r.headers.get('content-type', '')}")
+            out.append("  " + body[:n])
+            return r.text
+        except Exception as e:      # noqa: BLE001
+            out.append(f"=== {url} → klaida {type(e).__name__}: {clean(e)[:200]}")
+            return ""
+
+    html = get(base + "/en/system-data", 0)
+    m = re.search(r"lsdConfig\s*=\s*(\{.*?\});", html, flags=re.S)
+    out.append("lsdConfig: " + (m.group(1)[:8000] if m else "nerasta"))
+    srcs = sorted(set(re.findall(r"<script[^>]+src=[\"']?([^\"'\s>]+)", html)))
+    for src in srcs:
+        out.append("  script: " + src)
+    for src in srcs:
+        if "system-data" not in src and "litgrid-sd" not in src:
+            continue
+        src = src.replace("&amp;", "&").replace("&#038;", "&")
+        try:
+            js = requests.get(src if src.startswith("http") else base + src, headers=hdr, timeout=40).text
+        except Exception as e:      # noqa: BLE001
+            out.append(f"=== JS {src} → klaida {type(e).__name__}")
+            continue
+        out.append(f"=== JS {src} → {len(js)} simb.")
+        last = -900
+        for mm in re.finditer(r"apiUrl|fastUrl|fetch\(|sd-btn-export|data-format|URLSearchParams|[?&](?:from|to|date|start|end|lines|id|category|resolution|format)=", js):
+            if mm.start() - last < 700:
+                continue
+            last = mm.start()
+            out.append("  js: " + re.sub(r"\s+", " ", js[max(0, mm.start() - 350): mm.start() + 650]))
+            if sum(1 for o in out if o.startswith("  js: ")) > 45:
+                break
+
+    idx = get(api + "/", 0)
+    try:
+        routes = json.loads(idx).get("routes", {})
+    except Exception:      # noqa: BLE001
+        routes = {}
+    for path, info in routes.items():
+        for ep in info.get("endpoints", []):
+            args = {k: {kk: vv for kk, vv in v.items() if kk in ("type", "required", "default", "enum", "description")}
+                    for k, v in (ep.get("args") or {}).items()}
+            out.append(f"maršrutas {path} {ep.get('methods')} args={json.dumps(args, ensure_ascii=False)[:900]}")
+    tried = 0
+    for path, info in routes.items():
+        if not any("GET" in ep.get("methods", []) for ep in info.get("endpoints", [])) or tried >= 30:
+            continue
+        if "(?P<" in path:
+            for val in ("641", "663", "665"):
+                get(base + "/wp-json" + re.sub(r"\(\?P<[^>]+>[^)]*\)", val, path))
+                tried += 1
+        else:
+            get(base + "/wp-json" + path)
+            tried += 1
+
+    with open(os.path.join(OUT_DIR, "litgrid-žvalgyba-2.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(out)[:240_000] + "\n")
+    log(f"Litgrid žvalgyba 2: eilučių {len(out)}, maršrutų {len(routes)}")
+
+
 def main() -> None:
     if not TOKEN:
         print("Klaida: nenustatytas ENTSOE_TOKEN.", file=sys.stderr)
@@ -708,6 +779,9 @@ def main() -> None:
         return
     if "--litgrid" in sys.argv[1:]:
         main_litgrid()
+        return
+    if "--litgrid2" in sys.argv[1:]:
+        main_litgrid2()
         return
     first = datetime(2025, 1, 1)
     for arg in sys.argv[1:]:
