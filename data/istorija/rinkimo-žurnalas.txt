@@ -1,0 +1,98 @@
+TTF 754 d. (2023-11-13 – 2026-11-11), EUA 407 d. (2025-01-07 – 2026-11-11)
+apkrova.csv.gz: 6 stulp., 2025-01-01 00:00 – 2026-11-13 22:00 UTC, 354 kB
+apkrova_EE                   16310 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+apkrova_LT                   16327 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+apkrova_LV                   16326 val.  PT60M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+apkrova_progn_EE             16342 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+apkrova_progn_LT             16367 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+apkrova_progn_LV             16367 val.  PT60M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+elering kainos: elering_EE 16343 val., elering_FI 16343 val., elering_LT 16343 val., elering_LV 16343 val.; nepavykusių užklausų 0
+gamyba.csv.gz: 58 stulp., 2025-01-01 00:00 – 2026-11-12 22:00 UTC, 2303 kB
+gamyba_DE                    16326 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_DE                    19894 val.  PT15M        eilučių  2  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_DE                    19894 val.  PT15M        eilučių  2  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_EE                   185144 val.  PT15M,PT60M  eilučių 12  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_FI                        0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+gamyba_FI                    16326 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_FI                    16326 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_LT                   165024 val.  PT15M        eilučių 11  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_LV                   108174 val.  PT60M        eilučių  7  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_PL                     3104 val.  PT15M        eilučių  1  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:ok]
+gamyba_PL                    16326 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_PL                    16326 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_SE4                       0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+gamyba_SE4                   16326 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+gamyba_SE4                   16326 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+jungtys.csv.gz: 30 stulp., 2024-12-31 23:00 – 2026-11-12 22:00 UTC, 672 kB
+kaina_DE                     16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+kaina_EE                     16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+kaina_FI                     16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+kaina_LT                     16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+kaina_LV                     16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+kaina_PL                     16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+kaina_SE4                    16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+kainos.csv.gz: 11 stulp., 2024-12-31 23:00 – 2026-11-12 22:00 UTC, 361 kB
+ntc_EE_FI                        0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+ntc_EE_LV                        0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+ntc_FI_EE                        0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+ntc_LT_LV                        0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+ntc_LT_PL                        0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+ntc_LT_SE4                       0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+ntc_LV_EE                        0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+ntc_LV_LT                        0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+ntc_PL_LT                        0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+ntc_SE4_LT                       0 val.  -            eilučių  0  [2025-01:tuščia 2025-07:tuščia 2026-01:tuščia 2026-07:tuščia]
+prekyba_EE_FI                16319 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+prekyba_EE_LV                16343 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+prekyba_FI_EE                16319 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+prekyba_LT_LV                16343 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+prekyba_LT_PL                16343 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+prekyba_LT_SE4               16343 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+prekyba_LV_EE                16343 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+prekyba_LV_LT                16343 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+prekyba_PL_LT                16343 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+prekyba_SE4_LT               16343 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+progn_DE                     49027 val.  PT15M        eilučių  3  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+progn_EE                     32584 val.  PT60M        eilučių  2  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+progn_FI                     32662 val.  PT15M        eilučių  2  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+progn_LT                     32686 val.  PT15M        eilučių  2  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+progn_LV                     32686 val.  PT15M        eilučių  2  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+progn_PL                     36239 val.  PT15M        eilučių  3  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+progn_SE4                    32398 val.  PT15M,PT60M  eilučių  2  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+siulomas_EE_FI               16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+siulomas_EE_LV               16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+siulomas_FI_EE               16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+siulomas_LT_LV               15599 val.  PT60M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+siulomas_LT_PL               15599 val.  PT60M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+siulomas_LT_SE4              15818 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+siulomas_LV_EE               16344 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+siulomas_LV_LT               15599 val.  PT60M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+siulomas_PL_LT               15599 val.  PT60M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+siulomas_SE4_LT              15818 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+srautas_EE_FI                16326 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+srautas_EE_LV                16322 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+srautas_FI_EE                16326 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+srautas_LT_LV                16324 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+srautas_LT_PL                16327 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+srautas_LT_SE4               16305 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+srautas_LV_EE                16323 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+srautas_LV_LT                16325 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+srautas_PL_LT                16327 val.  PT15M        eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+srautas_SE4_LT               16307 val.  PT15M,PT60M  eilučių  1  [2025-01:ok 2025-07:ok 2026-01:ok 2026-07:ok]
+
+Laikotarpis: 2025-01-01 – 2026-11-14 UTC, dalių 4; paleista 2026-11-12 06:00 UTC
+ZONDAS /api/transmission/cross-border-capacity → 200 (19350 simb.): {"success":true,"data":{"FI":[{"timestamp":1794204000,"in_atc":0.0000,"in_ntc":1016.0000,"out_atc":2032.0000,"out_ntc":1016.0000},{"timestamp":1794204900,"in_atc":0.0000,"in_ntc":1016.0000,"out_atc":2032.0000,"out_ntc":1016.0000},{"timestamp":1794205800,"in_atc":0.0000,"in_ntc":1016.0000,"out_atc":2032.0000,"out_ntc":1016.0000},{"timestamp":1794206700,"in_atc":0.0000,"in_ntc":1016.0000,"out_atc":2032.0000,"out_ntc":1016.0000},{"timestamp":1794207600,"in_atc":0.0000,"in_ntc":1016.0000,"out_atc":2032.0000,"out_ntc":1016.0000},{"timestamp":1794208500,"in_atc":0.0000,"in_ntc":1016.0000,"out_atc":2032.0000,"out_ntc":1016.0000},{"timestamp":1794209400,"in_atc":0.0000,"in_ntc":1016.0000,"out_atc":2
+ZONDAS /api/transmission/cross-border-capacity/day-ahead → 400 (293 simb.): {"status":"BAD_REQUEST","messages":["Method parameter 'group': Failed to convert value of type 'java.lang.String' to required type 'ee.elering.dashboard.electricity.transmission.CrossBorderCountry'; No enum constant ee.elering.dashboard.electricity.transmission.CrossBorderCountry.DAY-AHEAD"]}
+ZONDAS /api/transmission/cross-border-planned-trade → 200 (7203 simb.): {"success":true,"data":[{"timestamp":1794204000,"ee_fi":-1016.0000,"ee_lv":900.0000,"ee_ru":null},{"timestamp":1794204900,"ee_fi":-1016.0000,"ee_lv":900.0000,"ee_ru":null},{"timestamp":1794205800,"ee_fi":-1016.0000,"ee_lv":900.0000,"ee_ru":null},{"timestamp":1794206700,"ee_fi":-1016.0000,"ee_lv":852.0000,"ee_ru":null},{"timestamp":1794207600,"ee_fi":-1016.0000,"ee_lv":900.0000,"ee_ru":null},{"timestamp":1794208500,"ee_fi":-1016.0000,"ee_lv":900.0000,"ee_ru":null},{"timestamp":1794209400,"ee_fi":-1016.0000,"ee_lv":900.0000,"ee_ru":null},{"timestamp":1794210300,"ee_fi":-1016.0000,"ee_lv":763.0000,"ee_ru":null},{"timestamp":1794211200,"ee_fi":-1016.0000,"ee_lv":900.0000,"ee_ru":null},{"timestam
+ZONDAS /api/transmission/cross-border → 200 (42798 simb.): {"success":true,"data":[{"timestamp":1794204000,"finland":-998.9900,"latvia":907.7700,"estlink_1":-349.6900,"estlink_2":-649.3000,"russia_narva":null,"russia_pihkva":null},{"timestamp":1794204300,"finland":-999.2100,"latvia":890.8900,"estlink_1":-349.6100,"estlink_2":-649.6000,"russia_narva":null,"russia_pihkva":null},{"timestamp":1794204600,"finland":-998.9800,"latvia":901.5600,"estlink_1":-349.6800,"estlink_2":-649.3000,"russia_narva":null,"russia_pihkva":null},{"timestamp":1794204900,"finland":-999.6400,"latvia":906.4000,"estlink_1":-349.7000,"estlink_2":-649.9400,"russia_narva":null,"russia_pihkva":null},{"timestamp":1794205200,"finland":-999.2600,"latvia":900.8300,"estlink_1":-349.7200,
+ZONDAS /api/system/with-plan → 200 (49985 simb.): {"success":true,"data":{"real":[{"timestamp":1794204000,"production":868.1900,"consumption":968.4800,"losses":null,"frequency":50.0,"system_balance":-100.2900,"ac_balance":900.0800,"production_renewable":200.6900,"solar_energy_production":7.4780},{"timestamp":1794204900,"production":869.9600,"consumption":967.1300,"losses":null,"frequency":50.0,"system_balance":-97.1800,"ac_balance":903.2200,"production_renewable":197.1000,"solar_energy_production":35.4950},{"timestamp":1794205800,"production":884.2100,"consumption":981.5300,"losses":null,"frequency":50.0,"system_balance":-97.3200,"ac_balance":903.0700,"production_renewable":205.5600,"solar_energy_production":31.3290},{"timestamp":1794206700
+ZONDAS /api/gas-trade → 200 (178 simb.): {"success":true,"data":{"common":[{"timestamp":1794268800,"price":85.6030,"quantity":null}],"ee":[],"lv":[],"lt":[],"fi":[{"timestamp":1794268800,"price":null,"quantity":null}]}}
+ZONDAS /api/gas-balance/price → 200 (111 simb.): {"success":true,"data":[{"timestamp":1794286800,"imbalance_buy_price":94.1600,"imbalance_sell_price":81.3200}]}
+ZONDAS /api/balance → 200 (18552 simb.): {"success":true,"data":[{"timestamp":1794204000,"imbalance":null,"regulate_up":null,"regulate_system_up":null,"regulate_down":null,"regulate_system_down":null,"imbalance_buy_price":null,"imbalance_sell_price":null},{"timestamp":1794204900,"imbalance":null,"regulate_up":null,"regulate_system_up":null,"regulate_down":null,"regulate_system_down":null,"imbalance_buy_price":null,"imbalance_sell_price":null},{"timestamp":1794205800,"imbalance":null,"regulate_up":null,"regulate_system_up":null,"regulate_down":null,"regulate_system_down":null,"imbalance_buy_price":null,"imbalance_sell_price":null},{"timestamp":1794206700,"imbalance":null,"regulate_up":null,"regulate_system_up":null,"regulate_down":n
+ZONDAS /v3/api-docs → 200 (57955 simb.): {"openapi":"3.1.0","info":{"title":"Elering dashboard API documentation","description":"This document describes different data sets that Elering Dashboard is providing.","contact":{"name":"Elering AS","url":"https://elering.ee/","email":"klienditugi@elering.ee"},"version":"1.3.0"},"servers":[{"url":"https://dashboard.elering.ee"}],"paths":{"/umm/gas/rss":{"get":{"tags":["umm-rss-feed-controller"],"summary":"RSS feed","operationId":"rss","responses":{"200":{"description":"OK","content":{"application/xml":{"schema":{"$ref":"#/components/schemas/Rss"}}}}}}},"/umm/gas/rss/aris":{"get":{"tags":["umm-rss-feed-controller"],"summary":"ARIS RSS feed","operationId":"arisRss","responses":{"200":{"descr
+ZONDAS keliai: /api/balance /api/balance/commerce /api/balance/commerce/csv /api/balance/commerce/latest /api/balance/csv /api/balance/total /api/balance/total/csv /api/balance/total/latest /api/capacity/firm /api/capacity/firm/csv /api/capacity/interruptible /api/capacity/interruptible/csv /api/gas-balance/price /api/gas-balance/price/csv /api/gas-neutrality/price /api/gas-neutrality/price/csv /api/gas-system /api/gas-system/csv /api/gas-system/daily /api/gas-system/daily-average /api/gas-system/daily/csv /api/gas-system/latest /api/gas-system/m3 /api/gas-system/m3/csv /api/gas-trade /api/gas-trade/csv /api/gas-trade/{group}/latest /api/gas-transmission/cross-border /api/gas-transmission/cross-border/csv /api/gas-transmission/cross-border/latest /api/gas/border-trade/current /api/green/certificates /api/nominations /api/nominations/csv /api/nominations/renominations /api/nominations/renominations/csv /api/nps/price /api/nps/price/csv /api/nps/price/{group}/current /api/nps/price/{group}/latest /api/nps/turnover /api/nps/turnover/csv /api/nps/turnover/{group}/latest /api/system /api/system/csv /api/system/latest /api/system/with-plan /api/system/with-plan/csv /api/transmission/cross-border /api/transmission/cross-border-capacity /api/transmission/cross-border-capacity/{group} /api/transmission/cross-border-capacity/{group}/csv /api/transmission/cross-border-planned-trade /api/transmission/cross-border-planned-trade/csv /api/transmission/cross-border-planned-trade/latest /api/transmission/cross-border/csv /api/transmission/cross-border/hourly /api/transmission/cross-border/hourly/csv /api/transmission/cross-border/latest /api/umm/gas /api/umm/gas/messages /api/umm/single/{id}
+ZONDAS /v2/api-docs → 200 (4190 simb.): <!doctype html> <html lang="en"> <!--[if IE]> <div style="font-family: sans-serif;font-size: 18px;background: white; border: 3px solid red;padding: 10px;"> <div>Antud veebilehitsejat <a href="/">Elering Live Dashboard</a> ei toeta. Palume kasutada mÃµnda jÃ¤rgmistest veebilehitsejatest: <ul class="list" style=" margin-left: 3rem;list-style-type: disc;"> <li>Mozilla Firefox</li> <li>Google Chrome</li> <li>Microsoft EDGE (Chromium based)</li></ul> </div> <div style="margin-top: 2rem;"><b>Internet Explorer</b> is not one of the browsers supported by <a href="/">Elering Live Dashboard</a>. Please use one of the following web browsers: <ul style="margin-left: 3rem;list-style-type: disc;" > <li>Mo
+ZONDAS keliai: 
+ZONDAS /api-docs → 403 (0 simb.): 
+ZONDAS /assets/api-doc.html → 200 (1376 simb.): <!-- HTML for static distribution bundle build --> <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>Swagger UI</title> <link rel="stylesheet" type="text/css" href="./swagger-ui.css" /> <link rel="stylesheet" type="text/css" href="index.css" /> <link rel="icon" type="image/png" href="./favicon-32x32.png" sizes="32x32" /> <link rel="icon" type="image/png" href="./favicon-16x16.png" sizes="16x16" /> </head> <body> <div id="swagger-ui"></div> <script src="./swagger-ui-bundle.js" charset="UTF-8"> </script> <script src="./swagger-ui-standalone-preset.js" charset="UTF-8"> </script> <script src="./swagger-initializer.js" charset="UTF-8"> </script> <script>window.__CF$cv$params={
+ZONDAS keliai: 
