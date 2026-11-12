@@ -37,7 +37,10 @@ jobs:
       - name: Surinkti duomenis
         env:
           ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
-        run: python "scripts/istorijos rinkimas.py" ${{ github.event.inputs.nuo }}
+        run: |
+          # ilgoji istorija sezoninėms normoms – tik kartą; pagrindinis rinkinys – jei nurodyta pradžios data arba jo dar nėra
+          if [ ! -f data/istorija/ilgoji.csv.gz ]; then python "scripts/istorijos rinkimas.py" --ilga; fi
+          if [ -n "${{ github.event.inputs.nuo }}" ] || [ ! -f data/istorija/kainos.csv.gz ]; then python "scripts/istorijos rinkimas.py" ${{ github.event.inputs.nuo }}; fi
 
       - name: Išsaugoti
         run: |

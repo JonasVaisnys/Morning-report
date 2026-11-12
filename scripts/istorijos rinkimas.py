@@ -393,10 +393,120 @@ def write_wide(name: str, series: dict[str, dict[datetime, float]]) -> None:
         f"{os.path.getsize(path) // 1024} kB")
 
 
+# ─── ILGOJI ISTORIJA SEZONINĖMS NORMOMS ──────────────────────────────────────
+
+def build_tasks_long() -> list[tuple[str, dict, str]]:
+    """Tik LT eilutės, kurių reikia sezoninėms normoms (vartojimas, gamyba, prognozės, kaina)."""
+    lt = EIC["LT"]
+    return [
+        ("kaina_LT", {"documentType": "A44", "in_Domain": lt, "out_Domain": lt}, "none"),
+        ("apkrova_LT", {"documentType": "A65", "processType": "A16", "outBiddingZone_Domain": lt}, "none"),
+        ("apkrova_progn_LT", {"documentType": "A65", "processType": "A01", "outBiddingZone_Domain": lt}, "none"),
+        ("gamyba_LT", {"documentType": "A75", "processType": "A16", "in_Domain": lt}, "psr"),
+        ("progn_LT", {"documentType": "A69", "processType": "A01", "in_Domain": lt}, "psr"),
+    ]
+
+
+def installed_capacity(years: list[int]) -> list[tuple[int, str, float]]:
+    """Įrengtoji galia pagal tipą metų pradžioje (ENTSO-E A68)."""
+    out = []
+    for y in years:
+        text, state = entsoe_get({"documentType": "A68", "processType": "A33", "in_Domain": EIC["LT"]},
+                                 datetime(y - 1, 12, 31, 23), datetime(y, 12, 31, 23))
+        if text is None:
+            log(f"galia {y}: {state}")
+            continue
+        try:
+            root = ET.fromstring(text)
+            ns = root.tag[1:root.tag.index("}")]
+            for ts in root.findall(f"{{{ns}}}TimeSeries"):
+                psr = ts.find(f"{{{ns}}}MktPSRType/{{{ns}}}psrType")
+                qty = ts.find(f"{{{ns}}}Period/{{{ns}}}Point/{{{ns}}}quantity")
+                if psr is not None and qty is not None:
+                    out.append((y, psr.text, float(qty.text)))
+        except Exception as exc:
+            log(f"galia {y}: parse {type(exc).__name__}")
+    log(f"įrengtoji galia: {len(out)} įrašų")
+    return out
+
+
+def capacity_probe(now: datetime) -> None:
+    """Kur dar skelbiami LT–PL ir LT–LV pralaidumai (ENTSO-E A31 nutrūko 2026-10-14) – tik žurnalui."""
+    a, b = (now - timedelta(days=3)).replace(hour=0), (now - timedelta(days=1)).replace(hour=0)
+    dom = {"in_Domain": EIC["LT"], "out_Domain": EIC["PL"]}
+    combos = [
+        ("A31 impl. dienos", dict(dom, documentType="A31", **{"Auction.Type": "A01", "contract_MarketAgreement.Type": "A01"})),
+        ("A31 impl. dienos eigos", dict(dom, documentType="A31", **{"Auction.Type": "A01", "contract_MarketAgreement.Type": "A07"})),
+        ("A31 ekspl. dienos", dict(dom, documentType="A31", **{"Auction.Type": "A02", "contract_MarketAgreement.Type": "A01"})),
+        ("A61 dienos", dict(dom, documentType="A61", **{"contract_MarketAgreement.Type": "A01"})),
+        ("A61 dienos eigos", dict(dom, documentType="A61", **{"contract_MarketAgreement.Type": "A07"})),
+        ("A26 dienos", dict(dom, documentType="A26", businessType="A29", **{"contract_MarketAgreement.Type": "A01"})),
+    ]
+    for name, prm in combos:
+        text, state = entsoe_get(prm, a, b)
+        n = len(parse_doc(text)) if text else 0
+        log(f"ZONDAS ENTSO-E PL→LT {name}: {state}, eilučių {n}")
+    day = (now - timedelta(days=1)).strftime("%Y-%m-%d")
+    urls = [
+        f"https://dataportal-api.nordpoolgroup.com/api/DayAheadCapacities?date={day}&market=DayAhead&deliveryArea=LT",
+        f"https://dataportal-api.nordpoolgroup.com/api/DayAheadCapacities?date={day}&deliveryArea=LT",
+        f"https://dataportal-api.nordpoolgroup.com/api/DayAheadPrices?date={day}&market=DayAhead&deliveryArea=LT&currency=EUR",
+        f"https://api-baltic.transparency-dashboard.eu/api/v1/export?id=ntc_day_ahead&start_date={day}T00:00&end_date={day}T23:00&output_time_zone=UTC&output_format=json",
+        f"https://api-baltic.transparency-dashboard.eu/api/v1/export?id=cross_border_capacities&start_date={day}T00:00&end_date={day}T23:00&output_time_zone=UTC&output_format=json",
+        f"{ELERING}/api/transmission/cross-border-capacity?start={quote(iso_z(a))}&end={quote(iso_z(b))}",
+    ]
+    for url in urls:
+        try:
+            r = requests.get(url, headers={"User-Agent": UA_BROWSER, "Accept": "application/json"}, timeout=40)
+            body = re.sub(r"\s+", " ", r.text)[:500]
+            log(f"ZONDAS {url.split('?')[0]} → {r.status_code} ({len(r.text)} simb.): {body}")
+            if r.status_code == 200 and "elering" in url:
+                try:
+                    log("ZONDAS elering raktai: " + ", ".join(sorted((r.json().get("data") or {}).keys())))
+                except Exception:
+                    pass
+        except Exception as exc:
+            log(f"ZONDAS {url.split('?')[0]} → {type(exc).__name__}")
+
+
+def main_long() -> None:
+    """Ilgoji LT istorija 2022-01-01…2025-01-01 → ilgoji.csv.gz, galios.csv."""
+    first, last = datetime(2022, 1, 1), datetime(2025, 1, 1)
+    now = datetime.now(timezone.utc).replace(tzinfo=None, minute=0, second=0, microsecond=0)
+    os.makedirs(OUT_DIR, exist_ok=True)
+    chunks, cur = [], first
+    while cur < last:
+        nxt = datetime(cur.year + (cur.month > 6), 7 if cur.month <= 6 else 1, 1)
+        chunks.append((cur, min(nxt, last)))
+        cur = nxt
+    log(f"Laikotarpis (ilgoji): {first:%Y-%m-%d} – {last:%Y-%m-%d} UTC, dalių {len(chunks)}; paleista {now:%Y-%m-%d %H:%M} UTC")
+    results: dict[str, dict[datetime, float]] = {}
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        futs = {pool.submit(fetch_series, lbl, prm, chunks, split): lbl for lbl, prm, split in build_tasks_long()}
+        for fut in as_completed(futs):
+            try:
+                for k, v in fut.result().items():
+                    results.setdefault(k, {}).update(v)
+            except Exception as exc:
+                log(f"  ⚠ {futs[fut]}: {type(exc).__name__}: {clean(exc)[:200]}")
+    write_wide("ilgoji.csv.gz", results)
+    caps = installed_capacity(list(range(2022, now.year + 1)))
+    with open(os.path.join(OUT_DIR, "galios.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["metai", "psr", "mw"])
+        w.writerows(caps)
+    capacity_probe(now)
+    with open(os.path.join(OUT_DIR, "rinkimo-žurnalas-ilga.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(LOG) + "\n")
+
+
 def main() -> None:
     if not TOKEN:
         print("Klaida: nenustatytas ENTSOE_TOKEN.", file=sys.stderr)
         sys.exit(1)
+    if "--ilga" in sys.argv[1:]:
+        main_long()
+        return
     first = datetime(2025, 1, 1)
     for arg in sys.argv[1:]:
         first = datetime.strptime(arg, "%Y-%m-%d")
