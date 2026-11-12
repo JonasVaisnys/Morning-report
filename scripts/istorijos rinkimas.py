@@ -762,6 +762,63 @@ def main_litgrid2() -> None:
     log(f"Litgrid žvalgyba 2: eilučių {len(out)}, maršrutų {len(routes)}")
 
 
+def main_litgrid3() -> None:
+    """Žvalgyba 3: Litgrid sistemos duomenų įskiepio kodas ir greitoji sąsaja (api.php)."""
+    os.makedirs(OUT_DIR, exist_ok=True)
+    base = "https://www.litgrid.eu"
+    fast = base + "/wp-content/plugins/litgrid-system-data/api.php"
+    hdr = {"User-Agent": UA_BROWSER, "Accept": "application/json, text/html, */*", "Referer": base + "/en/system-data"}
+    out: list[str] = []
+
+    def get(url: str, n: int = 1500) -> str:
+        try:
+            r = requests.get(url, headers=hdr, timeout=40)
+            out.append(f"=== {url} → {r.status_code}, {len(r.text)} simb., {r.headers.get('content-type', '')}")
+            if n:
+                out.append("  " + re.sub(r"\s+", " ", r.text)[:n])
+            return r.text
+        except Exception as e:      # noqa: BLE001
+            out.append(f"=== {url} → klaida {type(e).__name__}: {clean(e)[:200]}")
+            return ""
+
+    html = get(base + "/en/system-data", 0)
+    # skydelio žymėjimas: kategorijų sąrašas, datos laukai
+    for mm in re.finditer(r"<(?:select|option|input|button|a|li|div)[^>]*(?:sd-|lsd|system-data)[^>]*>", html):
+        out.append("  žymė: " + re.sub(r"\s+", " ", mm.group(0))[:300])
+        if len(out) > 220:
+            break
+    srcs = sorted(set(re.findall(r"<script[^>]+src=[\"']?([^\"'\s>]+)", html)))
+    budget = 90_000
+    for src in srcs:
+        if "litgrid.eu" not in src or "jquery" in src:
+            continue
+        src = src.replace("&amp;", "&").replace("&#038;", "&")
+        try:
+            js = requests.get(src, headers=hdr, timeout=40).text
+        except Exception as e:      # noqa: BLE001
+            out.append(f"=== JS {src} → klaida {type(e).__name__}")
+            continue
+        hits = [mm.start() for mm in re.finditer(r"lsdConfig|fastUrl|litgrid-sd|sd-btn-export", js)]
+        out.append(f"=== JS {src} → {len(js)} simb., atitikmenų {len(hits)}")
+        last = -5000
+        for h in hits:
+            if h - last < 1800 or budget <= 0:
+                continue
+            last = h
+            sn = re.sub(r"\s+", " ", js[max(0, h - 900): h + 1500])
+            budget -= len(sn)
+            out.append("  js: " + sn)
+
+    get(fast)
+    for q in ("?action=categories", "?action=list", "?type=categories", "?id=641", "?id=665", "?category=641",
+              "?id=641&from=2026-11-12&to=2026-11-13", "?lines=665&from=2026-11-12&to=2026-11-13"):
+        get(fast + q, 600)
+
+    with open(os.path.join(OUT_DIR, "litgrid-sąsaja-2.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(out)[:260_000] + "\n")
+    log(f"Litgrid žvalgyba 3: eilučių {len(out)}")
+
+
 def main() -> None:
     if not TOKEN:
         print("Klaida: nenustatytas ENTSOE_TOKEN.", file=sys.stderr)
@@ -783,6 +840,9 @@ def main() -> None:
         return
     if "--litgrid2" in sys.argv[1:]:
         main_litgrid2()
+        return
+    if "--litgrid3" in sys.argv[1:]:
+        main_litgrid3()
         return
     first = datetime(2025, 1, 1)
     for arg in sys.argv[1:]:
