@@ -39,6 +39,29 @@ jobs:
             sed -i -E 's/securityToken=[^& )]+/securityToken=***/g' "data/patikra/brifingas-$D.log"
           done
 
+      - name: A75 atsakymo struktūra (diagnostika)
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: |
+          python - <<'PY' > data/patikra/a75-struktura.txt 2>&1 || true
+          import os, requests, xml.etree.ElementTree as ET
+          for ps, pe in (("202610082200", "202610092200"), ("202611102300", "202611112300")):
+              r = requests.get("https://web-api.tp.entsoe.eu/api", params={"documentType": "A75", "processType": "A16",
+                  "in_Domain": "10YLT-1001A0008Q", "periodStart": ps, "periodEnd": pe, "securityToken": os.environ["ENTSOE_TOKEN"]}, timeout=120)
+              print("===", ps, pe, "HTTP", r.status_code, len(r.text), "simb.")
+              root = ET.fromstring(r.text); ns = {"n": root.tag[1:root.tag.index("}")]}
+              for ts in root.findall("n:TimeSeries", ns):
+                  psr = ts.find("n:MktPSRType/n:psrType", ns).text
+                  kind = "vart" if ts.find("n:outBiddingZone_Domain.mRID", ns) is not None else "gam"
+                  curve = ts.find("n:curveType", ns).text
+                  for per in ts.findall("n:Period", ns):
+                      st = per.find("n:timeInterval/n:start", ns).text; en = per.find("n:timeInterval/n:end", ns).text
+                      res = per.find("n:resolution", ns).text
+                      pts = [(int(p.find("n:position", ns).text), float(p.find("n:quantity", ns).text)) for p in per.findall("n:Point", ns)]
+                      pos = [a for a, _ in pts]
+                      print(f"{psr} {kind} {curve} {st}..{en} {res} taškų {len(pts)} poz. {pos[0]}..{pos[-1]} pirmi {pts[:3]} nuliai {sum(1 for _, v in pts if v == 0)}")
+          PY
+
       - name: Išsaugoti
         run: |
           git config user.name "Morning Report Bot"
