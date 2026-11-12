@@ -1,10 +1,10 @@
-🌍 Pasaulio rinkų brifingas 2026-11-11 (trečiadienis)
+🌍 Pasaulio rinkų brifingas 2026-11-12 (ketvirtadienis)
 → Naftos, dujų ir valiutų kainos (Yahoo Finance, ECB)...
    Brent 504 d., TTF 504 d., EUR/USD 400 d.
 → Fizinė Brent (EIA)...
    EIA spot 600 d.; paskutinė (datetime.date(2026, 11, 3), 107.03)
 → CO2 (EEX aukcionai)...
-   EUA 194 aukcionų dienų
+   EUA 195 aukcionų dienų
 → Dujų saugyklos (GIE AGSI+)...
   ⚠ AGSI {'type': 'eu'}: nėra užpildymo duomenų (Invalid or missing API key) – reikia nemokamo AGSI_KEY (agsi.gie.eu)
   ⚠ AGSI {'country': 'LV'}: nėra užpildymo duomenų (Invalid or missing API key) – reikia nemokamo AGSI_KEY (agsi.gie.eu)
@@ -13,24 +13,24 @@
    LT intervalų: istorija 2980, šiandien 96
 → Naujienos...
   ✓ Bloomberg: 20 → atrinkta 3
-  ✓ Bloomberg: 20 → atrinkta 2
-  ✓ Bloomberg: 20 → atrinkta 6
   ✓ Bloomberg: 20 → atrinkta 5
-  ✓ Financial Times: 25 → atrinkta 2
-  ✓ CNBC: 30 → atrinkta 3
-  ✓ OilPrice.com: 15 → atrinkta 15
+  ✓ Bloomberg: 20 → atrinkta 8
+  ✓ Bloomberg: 20 → atrinkta 1
+  ✓ Financial Times: 25 → atrinkta 8
+  ✓ CNBC: 30 → atrinkta 1
+  ✓ OilPrice.com: 15 → atrinkta 14
   ✓ LNG Prime: 10 → atrinkta 10
-  ✓ Rigzone: 20 → atrinkta 5
+  ✓ Rigzone: 20 → atrinkta 7
   ✓ EIA: 25 → atrinkta 0
   ✓ Delfi: 47 → atrinkta 0
   ✓ Delfi: 47 → atrinkta 0
   ✓ 15min: 20 → atrinkta 2
-  ✓ Verslo žinios: 50 → atrinkta 0
-  ✓ Google News nafta: 100 → atrinkta 17
-  ✓ Google News dujos: 100 → atrinkta 10
-  ✓ Google News Bloomberg: 100 → atrinkta 36
-  ✓ Google News Reuters: 99 → atrinkta 32
-  ✓ Google News LT dujos: 39 → atrinkta 21
-   Atrinkta naujienų: 80 · {'Bloomberg': 15, 'Reuters': 15, 'LNG Prime': 10, 'OilPrice.com': 8, '15min': 7, 'Delfi': 6, 'EnergyNow': 5, 'Rigzone': 5, 'WSJ': 4, 'CNBC': 4, 'TV3': 3, 'LRT': 3, 'Lrytas': 2, 'Financial Times': 2, 'TradeWinds': 1, 'Montel': 1, "Barron's": 1}
-  ✓ Analizė: claude-opus-5-5, 9471→2769 žetonų
+  ✓ Verslo žinios: 50 → atrinkta 4
+  ✓ Google News nafta: 100 → atrinkta 16
+  ✓ Google News dujos: 100 → atrinkta 17
+  ✓ Google News Bloomberg: 100 → atrinkta 37
+  ✓ Google News Reuters: 100 → atrinkta 31
+  ✓ Google News LT dujos: 37 → atrinkta 20
+   Atrinkta naujienų: 80 · {'Bloomberg': 15, 'Reuters': 15, 'LNG Prime': 10, 'Rigzone': 8, 'OilPrice.com': 8, 'Financial Times': 8, 'EnergyNow': 8, '15min': 6, 'WSJ': 5, 'Verslo žinios': 4, 'Delfi': 3, 'Lrytas': 3, 'TradeWinds': 1, 'Euronews': 1, 'LRT': 1, 'S&P Global': 1, 'Montel': 1, 'Energy Intelligence': 1, 'MarketWatch': 1, 'Upstream': 1, 'Nikkei': 1, "Barron's": 1, 'BNS': 1, 'CNBC': 1, 'Kauno diena': 1, 'TV3': 1}
+  ✓ Analizė: claude-opus-5-5, 9784→4868 žetonų
 ✅ Išsaugota → data/pasaulio-rinkos.json, data/pasaulio-rinkos.md
