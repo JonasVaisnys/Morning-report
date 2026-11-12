@@ -46,6 +46,7 @@ jobs:
           if [ ! -f data/istorija/litgrid-žvalgyba.txt ]; then python "scripts/istorijos rinkimas.py" --litgrid; fi
           if [ ! -f data/istorija/litgrid-sąsaja.txt ]; then python "scripts/istorijos rinkimas.py" --litgrid2; fi
           if [ ! -f data/istorija/litgrid-sąsaja-2.txt ]; then python "scripts/istorijos rinkimas.py" --litgrid3; fi
+          if [ ! -f data/istorija/litgrid-pavyzdys.txt ]; then python "scripts/istorijos rinkimas.py" --litgrid-pralaidumai; fi
           if [ -n "${{ github.event.inputs.nuo }}" ] || [ ! -f data/istorija/kainos.csv.gz ]; then python "scripts/istorijos rinkimas.py" ${{ github.event.inputs.nuo }}; fi
 
       - name: Išsaugoti

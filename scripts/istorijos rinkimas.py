@@ -819,6 +819,67 @@ def main_litgrid3() -> None:
     log(f"Litgrid žvalgyba 3: eilučių {len(out)}")
 
 
+LITGRID_EXPORT = "https://www.litgrid.eu/wp-json/litgrid-sd/v1/export-excel"
+LITGRID_CAT = {"da_pralaidumai": 17564, "id_pralaidumai": 17573, "paskirstyti": 17584,
+               "fiziniai_srautai": 8714, "prekybos_srautai": 8715}
+
+
+def litgrid_export(category_id: int, d_from: date, d_to: date, fmt: str = "json") -> tuple[int, str]:
+    """Litgrid sistemos duomenų skydelio eksportas (tas pats adresas, kurį atveria mygtukai CSV / XLSX / JSON)."""
+    r = requests.get(LITGRID_EXPORT, params={"category_id": category_id, "from": d_from.isoformat(),
+                                             "to": d_to.isoformat(), "lines": "", "format": fmt,
+                                             "hour_from": 0, "hour_to": 23},
+                     headers={"User-Agent": UA_BROWSER, "Accept": "application/json, text/csv, */*",
+                              "Referer": "https://www.litgrid.eu/en/system-data"}, timeout=90)
+    return r.status_code, r.text
+
+
+def main_litgrid_capacity() -> None:
+    """Litgrid skelbiami kitos paros pralaidumai prekybai: pavyzdžiai ir istorija nuo 2025-01."""
+    os.makedirs(OUT_DIR, exist_ok=True)
+    today = datetime.now(timezone.utc).date()
+    out: list[str] = []
+    ok = False
+    for name, cat in LITGRID_CAT.items():
+        for fmt in ("json", "csv"):
+            try:
+                code, text = litgrid_export(cat, today, today + timedelta(days=1), fmt)
+                out.append(f"=== {name} ({cat}) {fmt} {today}…{today + timedelta(days=1)} → {code}, {len(text)} simb.")
+                out.append(text[:3500])
+                ok = ok or (name == "da_pralaidumai" and code == 200 and len(text) > 200)
+            except Exception as e:      # noqa: BLE001
+                out.append(f"=== {name} {fmt} → klaida {type(e).__name__}: {clean(e)[:200]}")
+            time.sleep(0.6)
+    try:
+        r = requests.get("https://www.litgrid.eu/wp-content/plugins/litgrid-system-data/api.php?action=dashboard&lang=en",
+                         headers={"User-Agent": UA_BROWSER, "Referer": "https://www.litgrid.eu/en/system-data"}, timeout=40)
+        out.append(f"=== api.php?action=dashboard → {r.status_code}, {len(r.text)} simb.")
+        out.append(r.text[:2500])
+    except Exception as e:      # noqa: BLE001
+        out.append(f"=== api.php?action=dashboard → klaida {type(e).__name__}")
+
+    raw: dict[str, str] = {}
+    if ok:
+        cur = date(2025, 1, 1)
+        while cur <= today:
+            nxt = date(cur.year + (cur.month == 12), cur.month % 12 + 1, 1)
+            last = min(nxt - timedelta(days=1), today + timedelta(days=1))
+            try:
+                code, text = litgrid_export(LITGRID_CAT["da_pralaidumai"], cur, last, "csv")
+                out.append(f"istorija {cur:%Y-%m}: {code}, {len(text)} simb.")
+                if code == 200:
+                    raw[f"{cur:%Y-%m}"] = text
+            except Exception as e:      # noqa: BLE001
+                out.append(f"istorija {cur:%Y-%m}: klaida {type(e).__name__}: {clean(e)[:160]}")
+            cur = nxt
+            time.sleep(1.0)
+        with gzip.open(os.path.join(OUT_DIR, "litgrid-pralaidumai-raw.json.gz"), "wt", encoding="utf-8") as f:
+            json.dump(raw, f, ensure_ascii=False)
+    with open(os.path.join(OUT_DIR, "litgrid-pavyzdys.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(out) + "\n")
+    log(f"Litgrid pralaidumai: pavyzdžiai {'yra' if ok else 'negauti'}, istorijos mėnesių {len(raw)}")
+
+
 def main() -> None:
     if not TOKEN:
         print("Klaida: nenustatytas ENTSOE_TOKEN.", file=sys.stderr)
@@ -843,6 +904,9 @@ def main() -> None:
         return
     if "--litgrid3" in sys.argv[1:]:
         main_litgrid3()
+        return
+    if "--litgrid-pralaidumai" in sys.argv[1:]:
+        main_litgrid_capacity()
         return
     first = datetime(2025, 1, 1)
     for arg in sys.argv[1:]:
