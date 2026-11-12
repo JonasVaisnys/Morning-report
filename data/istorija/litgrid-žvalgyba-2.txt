@@ -1,0 +1,21 @@
+=== https://www.litgrid.eu/en/system-data → 200, 95437 simb., text/html; charset=UTF-8
+  
+lsdConfig: {"apiUrl":"https://www.litgrid.eu/wp-json/litgrid-sd/v1/","fastUrl":"https://www.litgrid.eu/wp-content/plugins/litgrid-system-data/api.php","imgUrl":"https://www.litgrid.eu/wp-content/plugins/litgrid-system-data/assets/images/","fpLocale":"","lang":"en","i18n":{"noData":"No data","date":"Date","longWarning":"The selected period is too long for the chart, use the table"}}
+  script: https://consent.cookiebot.com/uc.js
+  script: https://www.google.com/recaptcha/api.js?render=6LeoxSUtAAAAAFGjeyVIaVO4n3aJLgWyCcCuM1g1&#038;ver=6.2.17
+  script: https://www.googletagmanager.com/gtag/js?id=G-Z7RPWTBZS9
+  script: https://www.litgrid.eu/wp-content/cache/minify/1e9c2.js?x18757
+  script: https://www.litgrid.eu/wp-content/cache/minify/61161.js?x18757
+  script: https://www.litgrid.eu/wp-content/cache/minify/65a29.js?x18757
+  script: https://www.litgrid.eu/wp-content/cache/minify/689a0.js?x18757
+  script: https://www.litgrid.eu/wp-content/cache/minify/ac4a8.js?x18757
+  script: https://www.litgrid.eu/wp-content/cache/minify/ca813.js?x18757
+  script: https://www.litgrid.eu/wp-content/cache/minify/cb30c.js?x18757
+  script: https://www.litgrid.eu/wp-content/cache/minify/d7e69.js?x18757
+  script: https://www.litgrid.eu/wp-content/cache/minify/e119b.js?x18757
+  script: https://www.litgrid.eu/wp-content/cache/minify/e7cc6.js?x18757
+  script: https://www.litgrid.eu/wp-content/plugins/w3-total-cache/pub/js/lazyload.min.js?x18757
+  script: https://www.litgrid.eu/wp-content/themes/litgrid/assets/js/main.js?x18757&amp;ver=1793812694
+  script: https://www.litgrid.eu/wp-includes/js/jquery/jquery.min.js?x18757&amp;ver=3.7.1
+=== https://www.litgrid.eu/wp-json/litgrid-sd/v1/ → 401, 107 simb., application/json; charset=UTF-8
+  
