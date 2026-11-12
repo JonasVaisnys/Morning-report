@@ -625,6 +625,71 @@ def main_outages() -> None:
         f.write("\n".join(LOG) + "\n")
 
 
+def main_litgrid() -> None:
+    """Žvalgyba: iš kur Litgrid sistemos duomenų skydelis ima tarpsisteminių pralaidumų duomenis."""
+    os.makedirs(OUT_DIR, exist_ok=True)
+    base = "https://www.litgrid.eu"
+    pages = [
+        base + "/index.php/dashboard/cross-border-transmission-capacity/641?lines=665",
+        base + "/index.php/dashboard/ntc-latvia--lithuania-/663?lines=665",
+        base + "/en/open-data-sets",
+        base + "/en/system-data",
+    ]
+    kw = re.compile(r"ajax|fetch\(|\.getJSON|\$\.get|\$\.post|XMLHttpRequest|export|download|\.csv|\.xlsx|\.json|api/|"
+                    r"dashboard/|series|lines=", re.I)
+    out: list[str] = []
+    scripts: dict[str, None] = {}
+
+    def snippets(text: str, limit: int) -> list[str]:
+        res, last = [], -400
+        for m in kw.finditer(text):
+            if m.start() - last < 240:
+                continue
+            last = m.start()
+            res.append(re.sub(r"\s+", " ", text[max(0, m.start() - 160): m.start() + 260]))
+            if len(res) >= limit:
+                break
+        return res
+
+    for url in pages:
+        try:
+            r = requests.get(url, headers={"User-Agent": UA_BROWSER, "Accept": "text/html,*/*"}, timeout=40)
+            html = r.text
+            out.append(f"=== {url} → {r.status_code}, {len(html)} simb., {r.headers.get('content-type', '')}")
+            for src in re.findall(r"<script[^>]+src=[\"']([^\"']+)", html):
+                full = src if src.startswith("http") else base + ("" if src.startswith("/") else "/") + src
+                scripts.setdefault(full)
+                out.append("  script: " + full)
+            for tag in re.findall(r"<(?:a|button|form|div|canvas|select|input)[^>]*(?:data-[a-z-]+=|action=)[^>]*>", html)[:80]:
+                if kw.search(tag) or "data-" in tag:
+                    out.append("  žymė: " + re.sub(r"\s+", " ", tag)[:400])
+            for href in sorted(set(re.findall(r"href=[\"']([^\"'#]+)", html))):
+                if re.search(r"csv|xlsx|json|export|download|open-data|dashboard|api", href, re.I):
+                    out.append("  nuoroda: " + href[:300])
+            inline = "\n".join(re.findall(r"<script(?![^>]+src=)[^>]*>(.*?)</script>", html, flags=re.S))
+            out.append(f"  įterpto JS {len(inline)} simb.")
+            for sn in snippets(inline, 40):
+                out.append("  js: " + sn)
+        except Exception as e:      # noqa: BLE001
+            out.append(f"=== {url} → klaida {type(e).__name__}: {clean(e)[:200]}")
+
+    for src in list(scripts)[:40]:
+        if "litgrid" not in src or re.search(r"jquery|bootstrap|highcharts|moment|popper|slick|swiper|gtag|analytics", src, re.I):
+            continue
+        try:
+            r = requests.get(src, headers={"User-Agent": UA_BROWSER}, timeout=40)
+            out.append(f"=== JS {src} → {r.status_code}, {len(r.text)} simb.")
+            for sn in snippets(r.text, 30):
+                out.append("  js: " + sn)
+        except Exception as e:      # noqa: BLE001
+            out.append(f"=== JS {src} → klaida {type(e).__name__}: {clean(e)[:200]}")
+
+    text = "\n".join(out)
+    with open(os.path.join(OUT_DIR, "litgrid-žvalgyba.txt"), "w", encoding="utf-8") as f:
+        f.write(text[:180_000] + "\n")
+    log(f"Litgrid žvalgyba: eilučių {len(out)}")
+
+
 def main() -> None:
     if not TOKEN:
         print("Klaida: nenustatytas ENTSOE_TOKEN.", file=sys.stderr)
@@ -640,6 +705,9 @@ def main() -> None:
         return
     if "--atjungimai" in sys.argv[1:]:
         main_outages()
+        return
+    if "--litgrid" in sys.argv[1:]:
+        main_litgrid()
         return
     first = datetime(2025, 1, 1)
     for arg in sys.argv[1:]:
