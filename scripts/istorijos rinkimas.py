@@ -626,258 +626,89 @@ def main_outages() -> None:
         f.write("\n".join(LOG) + "\n")
 
 
-def main_litgrid() -> None:
-    """Žvalgyba: iš kur Litgrid sistemos duomenų skydelis ima tarpsisteminių pralaidumų duomenis."""
-    os.makedirs(OUT_DIR, exist_ok=True)
-    base = "https://www.litgrid.eu"
-    pages = [
-        base + "/index.php/dashboard/cross-border-transmission-capacity/641?lines=665",
-        base + "/index.php/dashboard/ntc-latvia--lithuania-/663?lines=665",
-        base + "/en/open-data-sets",
-        base + "/en/system-data",
-    ]
-    kw = re.compile(r"ajax|fetch\(|\.getJSON|\$\.get|\$\.post|XMLHttpRequest|export|download|\.csv|\.xlsx|\.json|api/|"
-                    r"dashboard/|series|lines=", re.I)
-    out: list[str] = []
-    scripts: dict[str, None] = {}
-
-    def snippets(text: str, limit: int) -> list[str]:
-        res, last = [], -400
-        for m in kw.finditer(text):
-            if m.start() - last < 240:
-                continue
-            last = m.start()
-            res.append(re.sub(r"\s+", " ", text[max(0, m.start() - 160): m.start() + 260]))
-            if len(res) >= limit:
-                break
-        return res
-
-    for url in pages:
-        try:
-            r = requests.get(url, headers={"User-Agent": UA_BROWSER, "Accept": "text/html,*/*"}, timeout=40)
-            html = r.text
-            out.append(f"=== {url} → {r.status_code}, {len(html)} simb., {r.headers.get('content-type', '')}")
-            for src in re.findall(r"<script[^>]+src=[\"']([^\"']+)", html):
-                full = src if src.startswith("http") else base + ("" if src.startswith("/") else "/") + src
-                scripts.setdefault(full)
-                out.append("  script: " + full)
-            for tag in re.findall(r"<(?:a|button|form|div|canvas|select|input)[^>]*(?:data-[a-z-]+=|action=)[^>]*>", html)[:80]:
-                if kw.search(tag) or "data-" in tag:
-                    out.append("  žymė: " + re.sub(r"\s+", " ", tag)[:400])
-            for href in sorted(set(re.findall(r"href=[\"']([^\"'#]+)", html))):
-                if re.search(r"csv|xlsx|json|export|download|open-data|dashboard|api", href, re.I):
-                    out.append("  nuoroda: " + href[:300])
-            inline = "\n".join(re.findall(r"<script(?![^>]+src=)[^>]*>(.*?)</script>", html, flags=re.S))
-            out.append(f"  įterpto JS {len(inline)} simb.")
-            for sn in snippets(inline, 40):
-                out.append("  js: " + sn)
-        except Exception as e:      # noqa: BLE001
-            out.append(f"=== {url} → klaida {type(e).__name__}: {clean(e)[:200]}")
-
-    for src in list(scripts)[:40]:
-        if "litgrid" not in src or re.search(r"jquery|bootstrap|highcharts|moment|popper|slick|swiper|gtag|analytics", src, re.I):
-            continue
-        try:
-            r = requests.get(src, headers={"User-Agent": UA_BROWSER}, timeout=40)
-            out.append(f"=== JS {src} → {r.status_code}, {len(r.text)} simb.")
-            for sn in snippets(r.text, 30):
-                out.append("  js: " + sn)
-        except Exception as e:      # noqa: BLE001
-            out.append(f"=== JS {src} → klaida {type(e).__name__}: {clean(e)[:200]}")
-
-    text = "\n".join(out)
-    with open(os.path.join(OUT_DIR, "litgrid-žvalgyba.txt"), "w", encoding="utf-8") as f:
-        f.write(text[:180_000] + "\n")
-    log(f"Litgrid žvalgyba: eilučių {len(out)}")
-
-
-def main_litgrid2() -> None:
-    """Žvalgyba 2: Litgrid sistemos duomenų REST sąsaja (wp-json/litgrid-sd/v1)."""
-    os.makedirs(OUT_DIR, exist_ok=True)
-    base = "https://www.litgrid.eu"
-    api = base + "/wp-json/litgrid-sd/v1"
-    hdr = {"User-Agent": UA_BROWSER, "Accept": "application/json, text/html, */*", "Referer": base + "/en/system-data"}
-    out: list[str] = []
-
-    def get(url: str, n: int = 1500) -> str:
-        try:
-            r = requests.get(url, headers=hdr, timeout=40)
-            body = re.sub(r"\s+", " ", r.text)
-            out.append(f"=== {url} → {r.status_code}, {len(r.text)} simb., {r.headers.get('content-type', '')}")
-            out.append("  " + body[:n])
-            return r.text
-        except Exception as e:      # noqa: BLE001
-            out.append(f"=== {url} → klaida {type(e).__name__}: {clean(e)[:200]}")
-            return ""
-
-    html = get(base + "/en/system-data", 0)
-    m = re.search(r"lsdConfig\s*=\s*(\{.*?\});", html, flags=re.S)
-    out.append("lsdConfig: " + (m.group(1)[:8000] if m else "nerasta"))
-    srcs = sorted(set(re.findall(r"<script[^>]+src=[\"']?([^\"'\s>]+)", html)))
-    for src in srcs:
-        out.append("  script: " + src)
-    for src in srcs:
-        if "system-data" not in src and "litgrid-sd" not in src:
-            continue
-        src = src.replace("&amp;", "&").replace("&#038;", "&")
-        try:
-            js = requests.get(src if src.startswith("http") else base + src, headers=hdr, timeout=40).text
-        except Exception as e:      # noqa: BLE001
-            out.append(f"=== JS {src} → klaida {type(e).__name__}")
-            continue
-        out.append(f"=== JS {src} → {len(js)} simb.")
-        last = -900
-        for mm in re.finditer(r"apiUrl|fastUrl|fetch\(|sd-btn-export|data-format|URLSearchParams|[?&](?:from|to|date|start|end|lines|id|category|resolution|format)=", js):
-            if mm.start() - last < 700:
-                continue
-            last = mm.start()
-            out.append("  js: " + re.sub(r"\s+", " ", js[max(0, mm.start() - 350): mm.start() + 650]))
-            if sum(1 for o in out if o.startswith("  js: ")) > 45:
-                break
-
-    idx = get(api + "/", 0)
-    try:
-        routes = json.loads(idx).get("routes", {})
-    except Exception:      # noqa: BLE001
-        routes = {}
-    for path, info in routes.items():
-        for ep in info.get("endpoints", []):
-            args = {k: {kk: vv for kk, vv in v.items() if kk in ("type", "required", "default", "enum", "description")}
-                    for k, v in (ep.get("args") or {}).items()}
-            out.append(f"maršrutas {path} {ep.get('methods')} args={json.dumps(args, ensure_ascii=False)[:900]}")
-    tried = 0
-    for path, info in routes.items():
-        if not any("GET" in ep.get("methods", []) for ep in info.get("endpoints", [])) or tried >= 30:
-            continue
-        if "(?P<" in path:
-            for val in ("641", "663", "665"):
-                get(base + "/wp-json" + re.sub(r"\(\?P<[^>]+>[^)]*\)", val, path))
-                tried += 1
-        else:
-            get(base + "/wp-json" + path)
-            tried += 1
-
-    with open(os.path.join(OUT_DIR, "litgrid-sąsaja.txt"), "w", encoding="utf-8") as f:
-        f.write("\n".join(out)[:240_000] + "\n")
-    log(f"Litgrid žvalgyba 2: eilučių {len(out)}, maršrutų {len(routes)}")
-
-
-def main_litgrid3() -> None:
-    """Žvalgyba 3: Litgrid sistemos duomenų įskiepio kodas ir greitoji sąsaja (api.php)."""
-    os.makedirs(OUT_DIR, exist_ok=True)
-    base = "https://www.litgrid.eu"
-    fast = base + "/wp-content/plugins/litgrid-system-data/api.php"
-    hdr = {"User-Agent": UA_BROWSER, "Accept": "application/json, text/html, */*", "Referer": base + "/en/system-data"}
-    out: list[str] = []
-
-    def get(url: str, n: int = 1500) -> str:
-        try:
-            r = requests.get(url, headers=hdr, timeout=40)
-            out.append(f"=== {url} → {r.status_code}, {len(r.text)} simb., {r.headers.get('content-type', '')}")
-            if n:
-                out.append("  " + re.sub(r"\s+", " ", r.text)[:n])
-            return r.text
-        except Exception as e:      # noqa: BLE001
-            out.append(f"=== {url} → klaida {type(e).__name__}: {clean(e)[:200]}")
-            return ""
-
-    html = get(base + "/en/system-data", 0)
-    # skydelio žymėjimas: kategorijų sąrašas, datos laukai
-    for mm in re.finditer(r"<(?:select|option|input|button|a|li|div)[^>]*(?:sd-|lsd|system-data)[^>]*>", html):
-        out.append("  žymė: " + re.sub(r"\s+", " ", mm.group(0))[:300])
-        if len(out) > 220:
-            break
-    srcs = sorted(set(re.findall(r"<script[^>]+src=[\"']?([^\"'\s>]+)", html)))
-    budget = 90_000
-    for src in srcs:
-        if "litgrid.eu" not in src or "jquery" in src:
-            continue
-        src = src.replace("&amp;", "&").replace("&#038;", "&")
-        try:
-            js = requests.get(src, headers=hdr, timeout=40).text
-        except Exception as e:      # noqa: BLE001
-            out.append(f"=== JS {src} → klaida {type(e).__name__}")
-            continue
-        hits = [mm.start() for mm in re.finditer(r"lsdConfig|fastUrl|litgrid-sd|sd-btn-export", js)]
-        out.append(f"=== JS {src} → {len(js)} simb., atitikmenų {len(hits)}")
-        last = -5000
-        for h in hits:
-            if h - last < 1800 or budget <= 0:
-                continue
-            last = h
-            sn = re.sub(r"\s+", " ", js[max(0, h - 900): h + 1500])
-            budget -= len(sn)
-            out.append("  js: " + sn)
-
-    get(fast)
-    for q in ("?action=categories", "?action=list", "?type=categories", "?id=641", "?id=665", "?category=641",
-              "?id=641&from=2026-11-12&to=2026-11-13", "?lines=665&from=2026-11-12&to=2026-11-13"):
-        get(fast + q, 600)
-
-    with open(os.path.join(OUT_DIR, "litgrid-sąsaja-2.txt"), "w", encoding="utf-8") as f:
-        f.write("\n".join(out)[:260_000] + "\n")
-    log(f"Litgrid žvalgyba 3: eilučių {len(out)}")
-
-
 LITGRID_EXPORT = "https://www.litgrid.eu/wp-json/litgrid-sd/v1/export-excel"
+# Litgrid sistemos duomenų skydelio (litgrid.eu/en/system-data) kategorijos
 LITGRID_CAT = {"da_pralaidumai": 17564, "id_pralaidumai": 17573, "paskirstyti": 17584,
                "fiziniai_srautai": 8714, "prekybos_srautai": 8715}
+LITGRID_COLS = ["LT>LV", "LV>LT", "LT>PL", "PL>LT", "LT>SE4", "SE4>LT"]
+LITGRID_HEAD = [("Lithuania", "Latvia"), ("Latvia", "Lithuania"), ("Lithuania", "Poland"),
+                ("Poland", "Lithuania"), ("Lithuania", "Sweden"), ("Sweden", "Lithuania")]
 
 
-def litgrid_export(category_id: int, d_from: date, d_to: date, fmt: str = "json") -> tuple[int, str]:
-    """Litgrid sistemos duomenų skydelio eksportas (tas pats adresas, kurį atveria mygtukai CSV / XLSX / JSON)."""
+def litgrid_export(category_id: int, d_from: date, d_to: date, fmt: str = "csv") -> tuple[int, str]:
+    """Skydelio eksportas – tas pats adresas, kurį atveria mygtukai CSV / XLSX / JSON."""
     r = requests.get(LITGRID_EXPORT, params={"category_id": category_id, "from": d_from.isoformat(),
                                              "to": d_to.isoformat(), "lines": "", "format": fmt,
                                              "hour_from": 0, "hour_to": 23},
-                     headers={"User-Agent": UA_BROWSER, "Accept": "application/json, text/csv, */*",
+                     headers={"User-Agent": UA_BROWSER, "Accept": "text/csv, application/json, */*",
                               "Referer": "https://www.litgrid.eu/en/system-data"}, timeout=90)
     return r.status_code, r.text
 
 
-def main_litgrid_capacity() -> None:
-    """Litgrid skelbiami kitos paros pralaidumai prekybai: pavyzdžiai ir istorija nuo 2025-01."""
-    os.makedirs(OUT_DIR, exist_ok=True)
-    today = datetime.now(timezone.utc).date()
-    out: list[str] = []
-    ok = False
-    for name, cat in LITGRID_CAT.items():
-        for fmt in ("json", "csv"):
-            try:
-                code, text = litgrid_export(cat, today, today + timedelta(days=1), fmt)
-                out.append(f"=== {name} ({cat}) {fmt} {today}…{today + timedelta(days=1)} → {code}, {len(text)} simb.")
-                out.append(text[:3500])
-                ok = ok or (name == "da_pralaidumai" and code == 200 and len(text) > 200)
-            except Exception as e:      # noqa: BLE001
-                out.append(f"=== {name} {fmt} → klaida {type(e).__name__}: {clean(e)[:200]}")
-            time.sleep(0.6)
-    try:
-        r = requests.get("https://www.litgrid.eu/wp-content/plugins/litgrid-system-data/api.php?action=dashboard&lang=en",
-                         headers={"User-Agent": UA_BROWSER, "Referer": "https://www.litgrid.eu/en/system-data"}, timeout=40)
-        out.append(f"=== api.php?action=dashboard → {r.status_code}, {len(r.text)} simb.")
-        out.append(r.text[:2500])
-    except Exception as e:      # noqa: BLE001
-        out.append(f"=== api.php?action=dashboard → klaida {type(e).__name__}")
+def litgrid_parse(text: str) -> dict[str, list[str]]:
+    """CSV (; skirtukas, 15 min. žingsnis) → {laikas: [6 krypčių reikšmės MW]}; laikas – kaip paskelbta."""
+    rows = list(csv.reader(io.StringIO(text.lstrip("\ufeff")), delimiter=";"))
+    if not rows or len(rows[0]) < 7:
+        return {}
+    head = rows[0][1:7]
+    if not all(a_ in h and b_ in h and h.index(a_) < h.rindex(b_) for h, (a_, b_) in zip(head, LITGRID_HEAD)):
+        log(f"Litgrid: netikėta antraštė {head}")
+        return {}
+    res: dict[str, list[str]] = {}
+    for r_ in rows[1:]:
+        if len(r_) >= 7 and re.fullmatch(r"\d{4}-\d\d-\d\d \d\d:\d\d(:\d\d)?", r_[0]):
+            res[r_[0][:16]] = [("" if v == "" else f"{float(v):g}") for v in r_[1:7]]
+    return res
 
-    raw: dict[str, str] = {}
-    if ok:
-        cur = date(2025, 1, 1)
-        while cur <= today:
-            nxt = date(cur.year + (cur.month == 12), cur.month % 12 + 1, 1)
-            last = min(nxt - timedelta(days=1), today + timedelta(days=1))
+
+def main_litgrid_capacity() -> None:
+    """Litgrid skelbiami kitos paros pralaidumai prekybai (LT–LV, LT–PL, LT–SE4, abi kryptys).
+
+    Naudojimas: --litgrid-pralaidumai [nuo [iki]]; be datų – pastarosios 35 d. ir rytojus.
+    Skydelis riboja užklausų dažnį (HTTP 429), todėl imama savaitėmis su pertraukomis.
+    """
+    os.makedirs(OUT_DIR, exist_ok=True)
+    path = os.path.join(OUT_DIR, "litgrid-pralaidumai.csv")
+    today = datetime.now(timezone.utc).date()
+    dates = [date.fromisoformat(a_) for a_ in sys.argv[1:] if re.fullmatch(r"\d{4}-\d\d-\d\d", a_)]
+    d_from = dates[0] if dates else today - timedelta(days=35)
+    d_to = dates[1] if len(dates) > 1 else today + timedelta(days=1)
+
+    data: dict[str, list[str]] = {}
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            for r_ in list(csv.reader(f))[1:]:
+                data[r_[0]] = r_[1:7]
+
+    cur, blocked = d_from, False
+    while cur <= d_to and not blocked:
+        last = min(cur + timedelta(days=6), d_to)
+        for attempt in range(4):
             try:
-                code, text = litgrid_export(LITGRID_CAT["da_pralaidumai"], cur, last, "csv")
-                out.append(f"istorija {cur:%Y-%m}: {code}, {len(text)} simb.")
-                if code == 200:
-                    raw[f"{cur:%Y-%m}"] = text
+                code, text = litgrid_export(LITGRID_CAT["da_pralaidumai"], cur, last)
             except Exception as e:      # noqa: BLE001
-                out.append(f"istorija {cur:%Y-%m}: klaida {type(e).__name__}: {clean(e)[:160]}")
-            cur = nxt
-            time.sleep(1.0)
-        with gzip.open(os.path.join(OUT_DIR, "litgrid-pralaidumai-raw.json.gz"), "wt", encoding="utf-8") as f:
-            json.dump(raw, f, ensure_ascii=False)
-    with open(os.path.join(OUT_DIR, "litgrid-pavyzdys.txt"), "w", encoding="utf-8") as f:
-        f.write("\n".join(out) + "\n")
-    log(f"Litgrid pralaidumai: pavyzdžiai {'yra' if ok else 'negauti'}, istorijos mėnesių {len(raw)}")
+                code, text = 0, f"{type(e).__name__}: {clean(e)[:160]}"
+            if code == 200:
+                part = litgrid_parse(text)
+                data.update(part)
+                log(f"Litgrid {cur}…{last}: eilučių {len(part)}")
+                break
+            log(f"Litgrid {cur}…{last}: {code} {text[:100]!r}, bandymas {attempt + 1}")
+            if attempt == 3:
+                blocked = True
+            else:
+                time.sleep(90 if code == 429 else 20)
+        cur = last + timedelta(days=1)
+        if cur <= d_to and not blocked:
+            time.sleep(20)
+
+    if data:
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["laikas"] + LITGRID_COLS)
+            for k in sorted(data):
+                w.writerow([k] + data[k])
+    log(f"Litgrid pralaidumai: eilučių {len(data)}" + (" (dalis laikotarpio nepaimta – dažnio ribojimas)" if blocked else ""))
 
 
 def main() -> None:
@@ -895,15 +726,6 @@ def main() -> None:
         return
     if "--atjungimai" in sys.argv[1:]:
         main_outages()
-        return
-    if "--litgrid" in sys.argv[1:]:
-        main_litgrid()
-        return
-    if "--litgrid2" in sys.argv[1:]:
-        main_litgrid2()
-        return
-    if "--litgrid3" in sys.argv[1:]:
-        main_litgrid3()
         return
     if "--litgrid-pralaidumai" in sys.argv[1:]:
         main_litgrid_capacity()
