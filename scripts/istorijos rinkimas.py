@@ -665,6 +665,8 @@ def main_litgrid_capacity() -> None:
     """Litgrid skelbiami kitos paros pralaidumai prekybai (LT–LV, LT–PL, LT–SE4, abi kryptys).
 
     Naudojimas: --litgrid-pralaidumai [nuo [iki]]; be datų – pastarosios 35 d. ir rytojus.
+    Laikas faile – Lietuvos laiku, kaip paskelbta (15 min. žingsnis). Patikrinta 2026-10-08…11-13:
+    perskaičiavus į UTC visos šešios kryptys sutampa su Nord Pool kitos paros pralaidumais.
     Skydelis riboja užklausų dažnį (HTTP 429), todėl imama savaitėmis su pertraukomis.
     """
     os.makedirs(OUT_DIR, exist_ok=True)
