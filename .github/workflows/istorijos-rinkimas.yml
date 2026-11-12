@@ -44,7 +44,7 @@ jobs:
           if [ ! -f data/istorija/ilgoji-kaimynai.csv.gz ]; then python "scripts/istorijos rinkimas.py" --kaimynai; fi
           if [ ! -f data/istorija/atjungimai.csv ]; then python "scripts/istorijos rinkimas.py" --atjungimai; fi
           if [ ! -f data/istorija/litgrid-žvalgyba.txt ]; then python "scripts/istorijos rinkimas.py" --litgrid; fi
-          if [ ! -f data/istorija/litgrid-žvalgyba-2.txt ]; then python "scripts/istorijos rinkimas.py" --litgrid2; fi
+          if [ ! -f data/istorija/litgrid-sąsaja.txt ]; then python "scripts/istorijos rinkimas.py" --litgrid2; fi
           if [ -n "${{ github.event.inputs.nuo }}" ] || [ ! -f data/istorija/kainos.csv.gz ]; then python "scripts/istorijos rinkimas.py" ${{ github.event.inputs.nuo }}; fi
 
       - name: Išsaugoti
@@ -53,4 +53,5 @@ jobs:
           git config user.email "bot@enerconsult.lt"
           git add data/istorija
           git diff --cached --quiet || git commit -m "Istoriniai duomenys kainos veiksnių analizei"
+          git pull -q --rebase origin ${{ github.ref_name }} || true
           git push origin HEAD:${{ github.ref_name }}

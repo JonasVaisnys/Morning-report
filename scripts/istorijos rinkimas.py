@@ -23,6 +23,7 @@ Aplinkos kintamasis: ENTSOE_TOKEN
 import csv
 import gzip
 import io
+import json
 import os
 import re
 import statistics
@@ -756,7 +757,7 @@ def main_litgrid2() -> None:
             get(base + "/wp-json" + path)
             tried += 1
 
-    with open(os.path.join(OUT_DIR, "litgrid-žvalgyba-2.txt"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUT_DIR, "litgrid-sąsaja.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(out)[:240_000] + "\n")
     log(f"Litgrid žvalgyba 2: eilučių {len(out)}, maršrutų {len(routes)}")
 
