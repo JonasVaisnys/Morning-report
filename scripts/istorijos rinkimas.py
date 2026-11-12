@@ -534,6 +534,40 @@ def main_nordpool(days: int = 36) -> None:
         f.write("\n".join(LOG) + "\n")
 
 
+def main_neighbours() -> None:
+    """Kaimynų kainos 2022–2024 ir ilgesnė dujų bei CO2 istorija – kaimynų kainų sezoninėms normoms."""
+    first, last = datetime(2022, 1, 1), datetime(2025, 1, 1)
+    os.makedirs(OUT_DIR, exist_ok=True)
+    chunks, cur = [], first
+    while cur < last:
+        nxt = datetime(cur.year + (cur.month > 6), 7 if cur.month <= 6 else 1, 1)
+        chunks.append((cur, min(nxt, last)))
+        cur = nxt
+    tasks = [(f"kaina_{z}", {"documentType": "A44", "in_Domain": EIC[z], "out_Domain": EIC[z]}, "none")
+             for z in ("SE4", "PL", "FI", "LV", "EE")]
+    results: dict[str, dict[datetime, float]] = {}
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        futs = {pool.submit(fetch_series, lbl, prm, chunks, split): lbl for lbl, prm, split in tasks}
+        for fut in as_completed(futs):
+            try:
+                for k, v in fut.result().items():
+                    results.setdefault(k, {}).update(v)
+            except Exception as exc:
+                log(f"  ⚠ {futs[fut]}: {type(exc).__name__}: {clean(exc)[:200]}")
+    write_wide("ilgoji-kaimynai.csv.gz", results)
+    ttf = yahoo_daily("TTF=F", "5y")
+    eua = eex_eua([2022, 2023, 2024, 2025, 2026])
+    log(f"TTF {len(ttf)} d. ({min(ttf, default='-')} – {max(ttf, default='-')}), "
+        f"EUA {len(eua)} d. ({min(eua, default='-')} – {max(eua, default='-')})")
+    with open(os.path.join(OUT_DIR, "dienos-ilga.csv"), "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["data", "ttf_eur_mwh", "eua_eur_t"])
+        for d in sorted(set(ttf) | set(eua)):
+            w.writerow([d.isoformat(), ttf.get(d, ""), eua.get(d, "")])
+    with open(os.path.join(OUT_DIR, "rinkimo-žurnalas-kaimynai.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(LOG) + "\n")
+
+
 def main() -> None:
     if not TOKEN:
         print("Klaida: nenustatytas ENTSOE_TOKEN.", file=sys.stderr)
@@ -543,6 +577,9 @@ def main() -> None:
         return
     if "--nordpool" in sys.argv[1:]:
         main_nordpool()
+        return
+    if "--kaimynai" in sys.argv[1:]:
+        main_neighbours()
         return
     first = datetime(2025, 1, 1)
     for arg in sys.argv[1:]:
