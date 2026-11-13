@@ -1,13 +1,15 @@
-Renku duomenis: 2026-11-12 (ketvirtadienis)...
+Renku duomenis: 2026-11-13 (penktadienis)...
   → Kainos...
-    LT (ENTSO-E)... 24 val.
+    LT (ENTSO-E)...   ⚠ A44 10YLT-1001A0: HTTP 599
+    Atsakymas: {"uuAppErrorMap":{"uu-gateway-router/connectTimeout":{"id":"ebee1effd09176b787114891bc75252c","timestamp":"2026-11-13T10:36:15.848Z","type":"error","message":"Unable to access service within time limit."}}}
+23 val.
     LV (ENTSO-E)... 24 val.
     PL (ENTSO-E)... 24 val.
     SE4 (ENTSO-E)... 24 val.
-    LT ≠ LV → rodoma atskirai
+    LT/LV kainos vienodos → sujungta
   → Tarpsisteminiai srautai...
-    LT→SE4... 13 val.
-    SE4→LT... 13 val.
+    LT→SE4... 12 val.
+    SE4→LT... 12 val.
     LT→PL... 13 val.
     PL→LT... 13 val.
     LT→LV... 12 val.
