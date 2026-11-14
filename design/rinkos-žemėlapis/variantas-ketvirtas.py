@@ -159,6 +159,11 @@ a{{color:#EAF0F8}}a:hover{{color:#F2A93B}}
 </div>
 </div>
 
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-family: {HEAD}; font-size: 28px; line-height: 36px; font-weight: 600">Elektra šiandien 208,5 €/MWh – gerokai brangiau nei įprasta.</div>
+<div style="font-size: 16px; line-height: 26px; color: {SOFT}; text-wrap: pretty">Brangios dujos, didelis vartojimas, brangesnės kaimynų rinkos lemia padidėjusią kainą, tačiau stiprus vėjas kainą šiek tiek mažina.</div>
+</div>
+
 <div style="display: flex; gap: 40px; align-items: stretch">
 
 <div style="position: relative; width: 760px; height: 570px; flex: none; box-sizing: border-box; overflow: hidden; outline: 1px solid rgba(255, 255, 255, 0.18); outline-offset: -1px">
@@ -210,11 +215,6 @@ a{{color:#EAF0F8}}a:hover{{color:#F2A93B}}
 <div style="display: flex; flex-direction: column; gap: 8px">
 <div style="display: flex; align-items: baseline; gap: 10px"><h2 style="{H2}">Kaina per parą</h2><span style="{LBL}">€/MWh</span></div>
 {chart}
-</div>
-
-<div style="display: flex; flex-direction: column; gap: 6px; padding-top: 16px; border-top: 1px solid {LINE}">
-<h2 style="{H2}">Išvada</h2>
-<div style="font-size: 16px; line-height: 26px">Kaina gerokai didesnė nei įprastai, tai lemia brangios dujos, didelis vartojimas, brangesnės kaimyninės rinkos. Stiprus vėjas kainą mažina.</div>
 </div>
 
 <div style="display: flex; flex-direction: column; {LBL}"><div>Skaičiai žemėlapyje ir lentelėje – paros vidurkiai; importo dalis – nuo vartojimo; vėjas, saulė ir vartojimas – kitos paros prognozės.</div><div>Šaltiniai: ENTSO-E, Litgrid, EEX, TTF. Skaičiavimai – MB Enerconsult.</div></div>
