@@ -237,19 +237,60 @@ def collect() -> list[dict]:
 
 # ── Claude API ────────────────────────────────────────────────────────────────
 
-def ask_claude(prompt: str, max_tokens: int = 3000) -> str:
+# Atsakymas imamas per įrankį: API grąžina jau išnagrinėtą JSON, todėl kabutės tekste
+# jo nesugadina. Jei modelis įrankio nepanaudoja, bandomas JSON iš teksto.
+NEWS_TOOL = {
+    "name": "pateikti_naujienas",
+    "description": "Pateikti rytinei ataskaitai atrinktas energetikos naujienas.",
+    "input_schema": {
+        "type": "object",
+        "properties": {
+            "svarbiausia": {"type": "integer", "description": "Svarbiausios naujienos numeris iš sąrašo."},
+            "naujienos": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "nr": {"type": "integer", "description": "Numeris iš sąrašo."},
+                        "regionas": {"type": "string", "enum": list(REGIONS)},
+                        "pavadinimas": {"type": "string"},
+                        "santrauka": {"type": "string"},
+                        "svarba": {"type": "string", "enum": ["didelė", "vidutinė", "maža"]},
+                    },
+                    "required": ["nr", "regionas", "pavadinimas", "santrauka", "svarba"],
+                },
+            },
+        },
+        "required": ["svarbiausia", "naujienos"],
+    },
+}
+
+
+def ask_claude_json(prompt: str, max_tokens: int = 8000) -> dict:
+    """Pirmas modelis, kurio atsakymą pavyksta perskaityti; kitaip – atsarginis modelis.
+    Naujesni modeliai prieš atsakymą „galvoja“, tie žetonai įskaičiuojami į max_tokens."""
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     last = None
     for model in (MODEL, MODEL_FALLBACK):
         try:
-            msg = client.messages.create(model=model, max_tokens=max_tokens,
+            msg = client.messages.create(model=model, max_tokens=max_tokens, tools=[NEWS_TOOL],
                                          messages=[{"role": "user", "content": prompt}])
-            print(f"  ✓ Claude modelis: {model}", file=sys.stderr)
-            return msg.content[0].text
-        except Exception as exc:          # pvz. modelis nepasiekiamas – bandomas atsarginis
+            for b in msg.content:
+                if getattr(b, "type", "") == "tool_use" and b.name == NEWS_TOOL["name"] and isinstance(b.input, dict):
+                    print(f"  ✓ Claude modelis: {model} (įrankis)", file=sys.stderr)
+                    return b.input
+            text = "".join(b.text for b in msg.content if getattr(b, "type", "") == "text")
+            m = re.search(r"\{.*\}", text, re.S)
+            if m:
+                data = json.loads(m.group(0))
+                print(f"  ✓ Claude modelis: {model} (tekstas)", file=sys.stderr)
+                return data
+            print(f"  ⚠ Claude ({model}): atsakyme nėra JSON, stop_reason={msg.stop_reason}, "
+                  f"blokai={[getattr(b, 'type', '?') for b in msg.content]}", file=sys.stderr)
+        except Exception as exc:          # pvz. modelis nepasiekiamas ar JSON sugadintas – bandomas atsarginis
             last = exc
             print(f"  ⚠ Claude ({model}): {type(exc).__name__}: {str(exc)[:200]}", file=sys.stderr)
-    raise last
+    raise last or RuntimeError("Claude negrąžino naujienų sąrašo")
 
 
 def generate_json(news: list[dict], date_lt: str) -> dict:
@@ -285,16 +326,15 @@ Kiekvienai atrinktai naujienai:
 Vieną naujieną pažymėk kaip svarbiausią laukelyje "svarbiausia" (jos nr).
 
 Rašyba: lietuviški skaičiai (dešimtainis kablelis, tarpas prieš %), jokio teksto didžiosiomis
-raidėmis, prieš vienintelį jungtuką „ir“ kablelio nedėk.
+raidėmis, prieš vienintelį jungtuką „ir“ kablelio nedėk. Kabutėms tekste naudok tik „ ir “.
 
-Grąžink TIK JSON be paaiškinimų, pvz.:
+Rezultatą pateik vieną kartą iškviesdamas įrankį pateikti_naujienas. Jei įrankio panaudoti
+negali, grąžink tik JSON be paaiškinimų, pvz.:
 {{"svarbiausia": 4, "naujienos": [{{"nr": 4, "regionas": "Lietuva", "pavadinimas": "…", "santrauka": "…", "svarba": "didelė"}}]}}
 
 NAUJIENOS:
 {block}"""
-    text = ask_claude(prompt)
-    m = re.search(r"\{.*\}", text, re.S)
-    data = json.loads(m.group(0)) if m else {}
+    data = ask_claude_json(prompt)
     items, top = [], None
     for row in data.get("naujienos", []):
         try:
@@ -344,7 +384,12 @@ def main() -> None:
     print(f"📡 Naujienų brifingas {date_str}", file=sys.stderr)
 
     news = collect()
-    res = generate_json(news, date_str)
+    try:
+        res = generate_json(news, date_str)
+    except Exception as exc:              # ataskaita gaminama ir be naujienų bloko
+        print(f"  ⚠ Naujienų atrinkti nepavyko: {type(exc).__name__}: {str(exc)[:200]}", file=sys.stderr)
+        res = {"data": date_str, "sugeneruota": datetime.now(LT_TZ).isoformat(timespec="seconds"),
+               "svarbiausia": None, "naujienos": [], "kandidatų": len(news), "klaida": type(exc).__name__}
     print(f"  Atrinkta naujienų: {len(res['naujienos'])}", file=sys.stderr)
 
     out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
