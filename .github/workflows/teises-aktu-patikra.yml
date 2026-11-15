@@ -1,0 +1,43 @@
+name: Teisės aktų patikra
+
+# Diagnostika ir pavyzdžio duomenys teisės aktų skyriui.
+# Paleidžiama tik šakoje „teises-aktai", rezultatą įrašo į data/teisės-aktai-patikra/
+# toje pačioje šakoje. Pagrindinės šakos ir rytinės ataskaitos neliečia, Claude API nenaudoja.
+
+on:
+  push:
+    branches: [teises-aktai]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: teises-aktu-patikra
+  cancel-in-progress: false
+
+jobs:
+  patikra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Priklausomybės
+        run: pip install "requests>=2.31"
+
+      - name: Zondai
+        run: python "scripts/teisės aktų patikra.py" || true
+
+      - name: Išsaugoti
+        run: |
+          git config user.name "Morning Report Bot"
+          git config user.email "bot@enerconsult.lt"
+          git add data/teisės-aktai-patikra
+          git diff --cached --quiet && exit 0
+          git commit -m "Teisės aktų patikra $(date -u +%Y-%m-%dT%H:%MZ)"
+          git pull --rebase origin teises-aktai
+          git push origin HEAD:teises-aktai
