@@ -65,7 +65,14 @@ OUT_FACTORS = ["gamyba", "vartojimas", "dujos", "pralaidumai", "kita"]
 # ─── DUOMENYS ────────────────────────────────────────────────────────────────
 
 def _read(name: str) -> pd.DataFrame:
+    """Istorinis failas ir kasdieniai papildymai (data/istorija/papildymai/, žr. „istorijos papildymas.py“).
+    Papildymų reikšmės turi pirmenybę, nes jos naujesnės."""
     df = pd.read_csv(os.path.join(HIST_DIR, name), index_col=0, parse_dates=True)
+    pap = os.path.join(HIST_DIR, "papildymai", name.replace(".csv.gz", ".csv"))
+    if os.path.exists(pap):
+        extra = pd.read_csv(pap, index_col=0, parse_dates=True)
+        if len(extra):
+            df = extra.combine_first(df)
     df.index = df.index.tz_localize("UTC")
     return df
 

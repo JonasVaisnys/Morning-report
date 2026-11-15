@@ -1,10 +1,14 @@
 name: Morning report
 
+# Kas rytą surenka duomenis ir pagamina Morning Report failus aplanke public/
+# svetainei ir laiškui (žr. scripts/ataskaita.py).
+# Pagrindinį paleidimą 05:30 Vilniaus laiku daro Power Automate (workflow_dispatch),
+# tvarkaraštis – tik atsarginis: jis nieko nedaro, jei šios dienos ataskaita jau paruošta.
+
 on:
   schedule:
-    # 03:00 UTC = 06:00 EEST (vasarą)
-    # Žiemą pakeisti į "0 4 * * *" → 06:00 EET
-    - cron: "0 3 * * *"
+    # 02:17 UTC = 04:17 Vilniaus laiku žiemą, 05:17 vasarą (GitHub tvarkaraštį dažnai vėlina)
+    - cron: "17 2 * * *"
   workflow_dispatch:
     inputs:
       date:
@@ -15,80 +19,107 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: morning-report
+  cancel-in-progress: false
+
 jobs:
   energijos-brifingas:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
+      - name: Ataskaitos data
+        run: |
+          D="${{ github.event.inputs.date }}"
+          [ -n "$D" ] || D=$(TZ=Europe/Vilnius date +%F)
+          echo "DATE=$D" >> "$GITHUB_ENV"
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "$(cat public/data.txt 2>/dev/null)" = "$D" ]; then
+            echo "SKIP=true" >> "$GITHUB_ENV"
+            echo "Šios dienos ($D) ataskaita jau paruošta – atsarginis paleidimas praleidžiamas."
+          fi
+          echo "Ataskaitos data: $D"
+
       - uses: actions/setup-python@v5
+        if: env.SKIP != 'true'
         with:
           python-version: "3.12"
+          cache: pip
 
       - name: Priklausomybės
+        if: env.SKIP != 'true'
         run: pip install -r requirements.txt
 
-      - name: Energijos brifingas
+      - name: Elektros kainos
+        if: env.SKIP != 'true'
         env:
           ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
         run: |
-          DATE_ARG="${{ github.event.inputs.date }}"
-          if [ -z "$DATE_ARG" ]; then
-            python "scripts/kainų brifingas.py" --json > data/energijos-brifingas.json 2> data/json-debug.log
-          else
-            python "scripts/kainų brifingas.py" "$DATE_ARG" --json > data/energijos-brifingas.json 2> data/json-debug.log
-          fi
-          echo "--- JSON debug log ---"
-          cat data/json-debug.log
+          python "scripts/kainų brifingas.py" "$DATE" --json > data/energijos-brifingas.json 2> data/json-debug.log || true
+          echo "--- kainų brifingas ---"; tail -n 25 data/json-debug.log
 
-      - name: Tekstinis brifingas + debug
+      - name: Kainos veiksnių duomenys
+        if: env.SKIP != 'true'
         env:
           ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
         run: |
-          DATE_ARG="${{ github.event.inputs.date }}"
-          if [ -z "$DATE_ARG" ]; then
-            python "scripts/kainų brifingas.py" 2> data/debug.log
-          else
-            python "scripts/kainų brifingas.py" "$DATE_ARG" 2> data/debug.log
-          fi
-          echo "--- Debug log ---"
-          cat data/debug.log
+          timeout 600 python "scripts/istorijos papildymas.py" "$DATE" 2> data/istorijos-papildymas.log || true
+          echo "--- istorijos papildymas ---"; tail -n 40 data/istorijos-papildymas.log
 
-      - name: Naujienų brifingas
+      - name: Rinkos situacija ir kainos veiksniai
+        if: env.SKIP != 'true'
+        run: |
+          if ! python "scripts/rinkos situacija.py" "$DATE" --json > data/elektros-rinka.json 2> data/elektros-rinka-debug.log; then
+            echo "{}" > data/elektros-rinka.json
+          fi
+          [ -s data/elektros-rinka.json ] || echo "{}" > data/elektros-rinka.json
+          echo "--- rinkos situacija ---"; tail -n 20 data/elektros-rinka-debug.log; head -c 600 data/elektros-rinka.json; echo
+
+      - name: Naujienos
+        if: env.SKIP != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          python "scripts/naujienų brifingas.py" 2> data/naujienų-debug.log || true
-          echo "--- Naujienų debug ---"
-          cat data/naujienų-debug.log
+          timeout 300 python "scripts/naujienų brifingas.py" "$DATE" > /dev/null 2> data/naujienų-debug.log || true
+          echo "--- naujienos ---"; tail -n 30 data/naujienų-debug.log
 
-      - name: Teisės aktų brifingas
+      - name: Teisės aktai
+        if: env.SKIP != 'true'
         run: |
           python "scripts/teisės aktai.py" --json --days 1 > data/teisės-aktai.json 2> data/teisės-aktai-debug.log || true
           python "scripts/teisės aktai.py" --days 1 > data/teisės-aktai.txt 2>> data/teisės-aktai-debug.log || true
-          echo "--- Teisės aktų debug ---"
-          cat data/teisės-aktai-debug.log
+          echo "--- teisės aktai ---"; tail -n 10 data/teisės-aktai-debug.log
 
-      - name: Pasaulio rinkų brifingas
+      - name: Pasaulio rinkos
+        if: env.SKIP != 'true'
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           AGSI_KEY: ${{ secrets.AGSI_KEY }}
         run: |
-          DATE_ARG="${{ github.event.inputs.date }}"
-          # Laiko riba, kad lėtas šaltinis nevėlintų viso ryto ataskaitos
-          timeout 480 python "scripts/pasaulio rinkos.py" $DATE_ARG > /dev/null 2> data/pasaulio-rinkos-debug.log || true
+          # laiko riba, kad lėtas šaltinis nevėlintų viso ryto ataskaitos
+          timeout 480 python "scripts/pasaulio rinkos.py" "$DATE" > /dev/null 2> data/pasaulio-rinkos-debug.log || true
           [ -f data/pasaulio-rinkos.md ] || echo "Pasaulio rinkų skyriaus sugeneruoti nepavyko." > data/pasaulio-rinkos.md
           [ -f data/pasaulio-rinkos.json ] || echo '{"klaida": "nesugeneruota"}' > data/pasaulio-rinkos.json
-          echo "--- Pasaulio rinkų debug ---"
-          cat data/pasaulio-rinkos-debug.log
+          echo "--- pasaulio rinkos ---"; tail -n 20 data/pasaulio-rinkos-debug.log
+
+      - name: Ataskaita svetainei ir laiškui
+        if: env.SKIP != 'true'
+        run: |
+          python scripts/ataskaita.py "$DATE"
+          echo "--- public/ ---"; ls -la public public/archyvas; cat public/tema.txt; cat public/data.txt; echo
 
       - name: Išsaugoti rezultatą
+        if: env.SKIP != 'true'
         run: |
           git config user.name "Morning Report Bot"
           git config user.email "bot@enerconsult.lt"
-          git add data/energijos-brifingas.json data/debug.log data/json-debug.log \
-                  data/naujienų-brifingas.md data/naujienų-debug.log \
-                  data/teisės-aktai.json data/teisės-aktai.txt data/teisės-aktai-debug.log \
-                  data/pasaulio-rinkos.json data/pasaulio-rinkos.md data/pasaulio-rinkos-debug.log
-          git diff --cached --quiet || git commit -m "Morning report $(date +%Y-%m-%d)"
-          git push
+          git add data public
+          if git diff --cached --quiet; then echo "Pakeitimų nėra."; exit 0; fi
+          git commit -q -m "Morning report $DATE"
+          for i in 1 2 3; do
+            if git pull -q --rebase origin "$GITHUB_REF_NAME" && git push -q origin "HEAD:$GITHUB_REF_NAME"; then exit 0; fi
+            sleep 10
+          done
+          echo "Nepavyko įkelti rezultato." >&2
+          exit 1

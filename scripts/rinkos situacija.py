@@ -56,7 +56,7 @@ _spec.loader.exec_module(kv)
 
 
 def rd(name):
-    df = pd.read_csv(D + name, index_col=0, parse_dates=True); df.index = df.index.tz_localize("UTC"); return df
+    return kv._read(name)                                   # su kasdieniais papildymais
 def hourly_all():
     L = rd("ilgoji.csv.gz"); a, g, k = rd("apkrova.csv.gz"), rd("gamyba.csv.gz"), rd("kainos.csv.gz")
     def other(df):

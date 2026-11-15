@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 """
 Rytinis naujienų brifingas — MB Enerconsult
-Nuskaito RSS srautus ir klasifikuoja su Claude API.
-Rezultatą išsaugo į data/naujienų-brifingas.md
+Nuskaito RSS srautus ir Montel News, atrenka ir apibendrina su Claude API.
+Rezultatas: data/naujienos.json (Morning Report ataskaitai: regionas, pavadinimas,
+santrauka, šaltinis, nuoroda) ir data/naujienų-brifingas.md (skaityti žmogui).
 """
 
 import html
+import json
 import os
 import re
 import sys
+from email.utils import parsedate_to_datetime
+from zoneinfo import ZoneInfo
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 from urllib.parse import quote
@@ -17,7 +21,11 @@ from urllib.request import urlopen, Request
 import anthropic
 
 # ── Laiko zona ───────────────────────────────────────────────────────────────
-LT_TZ = timezone(timedelta(hours=3))   # EEST vasarą; žiemą 2
+LT_TZ = ZoneInfo("Europe/Vilnius")
+FRESH_HOURS = 36                         # RSS įrašai ne senesni nei tiek valandų iki paleidimo
+MODEL = "claude-sonnet-5-5"
+MODEL_FALLBACK = "claude-haiku-4-5"
+REGIONS = ("Lietuva", "Kaimynai", "Europa", "Pasaulis")
 
 # ── RSS šaltiniai ────────────────────────────────────────────────────────────
 # Tvarka: specializuoti energetikos pirmiausia, tada bendri verslo/ekonomikos.
@@ -195,6 +203,23 @@ def collect() -> list[dict]:
             seen.add(key)
             all_items.append(it)
 
+    # tik šviežios naujienos (jei data neatpažinta – paliekama)
+    cutoff = datetime.now(timezone.utc) - timedelta(hours=FRESH_HOURS)
+    fresh = []
+    for it in all_items:
+        try:
+            pub = parsedate_to_datetime(it["date"]) if it.get("date") else None
+            if pub is not None and pub.tzinfo is None:
+                pub = pub.replace(tzinfo=timezone.utc)
+        except (TypeError, ValueError):
+            pub = None
+        if pub is None or pub >= cutoff:
+            if pub is not None:
+                it["date"] = pub.astimezone(LT_TZ).strftime("%Y-%m-%d %H:%M")
+            fresh.append(it)
+    print(f"  Šviežių (≤ {FRESH_HOURS} val.): {len(fresh)} iš {len(all_items)}", file=sys.stderr)
+    all_items = fresh
+
     energy = filter_energy(all_items)
     total_dupes = len(raw_items) - len(all_items)
     print(
@@ -212,99 +237,125 @@ def collect() -> list[dict]:
 
 # ── Claude API ────────────────────────────────────────────────────────────────
 
-def generate(news: list[dict], date_lt: str) -> str:
+def ask_claude(prompt: str, max_tokens: int = 3000) -> str:
+    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+    last = None
+    for model in (MODEL, MODEL_FALLBACK):
+        try:
+            msg = client.messages.create(model=model, max_tokens=max_tokens,
+                                         messages=[{"role": "user", "content": prompt}])
+            print(f"  ✓ Claude modelis: {model}", file=sys.stderr)
+            return msg.content[0].text
+        except Exception as exc:          # pvz. modelis nepasiekiamas – bandomas atsarginis
+            last = exc
+            print(f"  ⚠ Claude ({model}): {type(exc).__name__}: {str(exc)[:200]}", file=sys.stderr)
+    raise last
+
+
+def generate_json(news: list[dict], date_lt: str) -> dict:
+    """Atrinktos naujienos su regionu ir santrauka. Nuorodos ir šaltiniai imami iš RSS, ne iš modelio."""
+    out = {"data": date_lt, "sugeneruota": datetime.now(LT_TZ).isoformat(timespec="seconds"),
+           "svarbiausia": None, "naujienos": [], "kandidatų": len(news)}
     if not news:
-        return (
-            f"# Naujienų brifingas — {date_lt}\n\n"
-            "Šiandien energetikos naujienų RSS srautuose nerasta.\n\n"
-            "_Generuota automatiškai · MB Enerconsult_"
-        )
-
+        return out
+    cand = news[:80]
     block = "\n".join(
-        f"[{i+1}] [{it['source']}{' · ' + it['date'] if it.get('montel') else ''}] {it['title']}\n"
-        f"    {it['desc'][:250]}\n"
-        f"    {it['link']}"
-        for i, it in enumerate(news[:70])
+        f"[{i+1}] [{it['source']} · {it.get('date', '')}] {it['title']}\n    {it['desc'][:300]}"
+        for i, it in enumerate(cand)
     )
-    n_montel = sum(1 for it in news if it.get("montel"))
+    prompt = f"""Tu esi MB Enerconsult energetikos rinkos analitikas. Šiandien {date_lt}.
+Pateikiu naujienų sąrašą iš Lietuvos portalų RSS srautų ir Montel News (angliškai).
 
-    prompt = f"""Tu esi Lietuvos atsinaujinančios energetikos rinkos analitikas dirbantis MB Enerconsult.
-Šiandien yra {date_lt}. Pateikiu naujienų sąrašą iš RSS srautų ir Montel News
-(tarptautinė energetikos naujienų agentūra, straipsniai angliškai; jų įrašų: {n_montel}).
+Atrink iki 8 svarbiausių energetikos naujienų rytinei ataskaitai Lietuvos energetikos verslui
+(elektra, saulė, vėjas, kaupikliai, tinklai, reguliavimas, kainos, dujos, nafta, šiluma).
+Nesusijusias naujienas praleisk. Montel straipsniuose „Baltic“ kartais reiškia tik Baltijos jūrą –
+tokius praleisk, jei nėra ryšio su Lietuva ar Baltijos šalimis.
+Pageidaujama apimtis: apie 70 % Lietuva, 15 % kaimynai, 10 % Europa, 5 % pasaulis;
+energetikoje apie 70 % elektra, 30 % iškastinis kuras. Jei tinkamų naujienų mažiau – pateik mažiau.
+Ta pati tema neturi kartotis.
 
-Atrink TIKTAI aktualias energetikos naujienas (saulė, vėjas, BESS, elektros tinklas,
-reguliavimas, NordPool kainos, projektai LT/Baltijos regione, biokuras, šiluma, dujos).
-Ignoruok nesusijusias naujienas (sportas, pramogos, politika be energetikos ryšio).
-Montel straipsniuose „Baltic" kartais reiškia tik Baltijos jūrą (pvz. Švedijos ar Suomijos
-naujienos) – tokius praleisk, jei nėra ryšio su Lietuva ar Baltijos šalimis.
+Kiekvienai atrinktai naujienai:
+- "nr": numeris iš sąrašo;
+- "regionas": "Lietuva", "Kaimynai" (Latvija, Estija, Lenkija, Švedija, Suomija, Baltijos regionas),
+  "Europa" (ES ir kitos Europos šalys) arba "Pasaulis";
+- "pavadinimas": trumpas pavadinimas lietuviškai;
+- "santrauka": vienas ar du sakiniai lietuviškai TIK iš pateikto pavadinimo ir aprašo – jokių
+  skaičių, faktų ar vertinimų, kurių tekste nėra;
+- "svarba": "didelė", "vidutinė" arba "maža" Lietuvos energetikos verslui.
+Vieną naujieną pažymėk kaip svarbiausią laukelyje "svarbiausia" (jos nr).
 
-Suformatuok kaip rytinį briefingą MARKDOWN formatu:
+Rašyba: lietuviški skaičiai (dešimtainis kablelis, tarpas prieš %), jokio teksto didžiosiomis
+raidėmis, prieš vienintelį jungtuką „ir“ kablelio nedėk.
 
-# Naujienų brifingas — {date_lt}
-
-## 🌍 Montel News apie Lietuvą ir Baltijos šalis
-(kiekvienas aktualus Montel straipsnis: pavadinimas lietuviškai kaip nuoroda, data,
-1–2 sakiniai santraukos lietuviškai. Jei aktualių Montel straipsnių nėra – parašyk vieną
-eilutę „Per pastarąsias {MONTEL_DAYS} d. Montel News apie Lietuvą nerašė.")
-
-## 🔴 Svarbiausia
-(1–3 svarbiausios naujienos, 1–2 sakiniai kiekvienai, šaltinis ir nuoroda)
-
-## ⚡ Elektros rinka
-(kainos, NordPool, balansavimas — jei yra)
-
-## 🌬️ Vėjas ir saulė
-(projektai, leidimai, statyba — jei yra)
-
-## 🔋 Kaupikliai ir inovacijos
-(BESS, akumuliatoriai, naujovės — jei yra)
-
-## 🏛️ Reguliavimas ir politika
-(VERT, ESO, Litgrid, teisės aktai, leidimai — jei yra)
-
-## 📰 Kita aktualu
-(kita svarbu energetikui — jei yra)
-
----
-_Generuota automatiškai {date_lt} · MB Enerconsult_
-
-Rašyk glaustai lietuviškai. Montel skyrių rodyk visada; kitas kategorijas be naujienų praleisk visiškai.
-Ta pati naujiena neturi kartotis keliuose skyriuose.
-Kiekviena naujiena: pavadinimas kaip nuoroda, 1–2 sakiniai santrauka, šaltinis.
+Grąžink TIK JSON be paaiškinimų, pvz.:
+{{"svarbiausia": 4, "naujienos": [{{"nr": 4, "regionas": "Lietuva", "pavadinimas": "…", "santrauka": "…", "svarba": "didelė"}}]}}
 
 NAUJIENOS:
 {block}"""
+    text = ask_claude(prompt)
+    m = re.search(r"\{.*\}", text, re.S)
+    data = json.loads(m.group(0)) if m else {}
+    items, top = [], None
+    for row in data.get("naujienos", []):
+        try:
+            src = cand[int(row["nr"]) - 1]
+        except (KeyError, ValueError, IndexError, TypeError):
+            continue
+        reg = row.get("regionas")
+        if reg not in REGIONS or not row.get("pavadinimas") or not row.get("santrauka"):
+            continue
+        if int(row["nr"]) == data.get("svarbiausia"):
+            top = len(items)
+        items.append({
+            "regionas": reg,
+            "pavadinimas": row["pavadinimas"].strip(),
+            "santrauka": row["santrauka"].strip(),
+            "svarba": row.get("svarba") if row.get("svarba") in ("didelė", "vidutinė", "maža") else None,
+            "šaltinis": src["source"],
+            "nuoroda": src.get("link") or None,
+            "paskelbta": src.get("date") or None,
+        })
+    out["naujienos"] = items
+    out["svarbiausia"] = top
+    return out
 
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-    msg = client.messages.create(
-        model      = "claude-haiku-4-5",
-        max_tokens = 2000,
-        messages   = [{"role": "user", "content": prompt}],
-    )
-    return msg.content[0].text
+
+def render_md(res: dict) -> str:
+    L = [f"# Naujienų brifingas — {res['data']}", ""]
+    if not res["naujienos"]:
+        L.append("Šiandien energetikos naujienų nerasta.")
+    for reg in REGIONS:
+        rows = [n for n in res["naujienos"] if n["regionas"] == reg]
+        if not rows:
+            continue
+        L += [f"## {reg}", ""]
+        for n in rows:
+            title = f"[**{n['pavadinimas']}**]({n['nuoroda']})" if n.get("nuoroda") else f"**{n['pavadinimas']}**"
+            L += [title, f"{n['santrauka']} _{n['šaltinis']}{', ' + n['paskelbta'] if n.get('paskelbta') else ''}_", ""]
+    L += ["---", f"_Generuota automatiškai {res['data']} · MB Enerconsult_"]
+    return "\n".join(L)
 
 
 # ── Pagrindinis srautas ───────────────────────────────────────────────────────
 
 def main() -> None:
-    dt_lt    = datetime.now(LT_TZ)
-    date_str = dt_lt.strftime("%Y-%m-%d")
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    date_str = args[0] if args else datetime.now(LT_TZ).strftime("%Y-%m-%d")
+    print(f"📡 Naujienų brifingas {date_str}", file=sys.stderr)
 
-    print(f"📡 Naujienų brifingas {date_str} (UTC+3)", file=sys.stderr)
+    news = collect()
+    res = generate_json(news, date_str)
+    print(f"  Atrinkta naujienų: {len(res['naujienos'])}", file=sys.stderr)
 
-    news   = collect()
-    result = generate(news, date_str)
-
-    # Išsaugome į data/
-    out_dir = os.path.join(os.path.dirname(__file__), "..", "data")
+    out_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
     os.makedirs(out_dir, exist_ok=True)
-    out_path = os.path.join(out_dir, "naujienų-brifingas.md")
-
-    with open(out_path, "w", encoding="utf-8") as f:
-        f.write(result)
-
-    print(result)
-    print(f"\n✅ Išsaugota → {out_path}", file=sys.stderr)
+    with open(os.path.join(out_dir, "naujienos.json"), "w", encoding="utf-8") as f:
+        json.dump(res, f, ensure_ascii=False, indent=1)
+    md = render_md(res)
+    with open(os.path.join(out_dir, "naujienų-brifingas.md"), "w", encoding="utf-8") as f:
+        f.write(md)
+    print(md)
+    print("\n✅ Išsaugota → data/naujienos.json, data/naujienų-brifingas.md", file=sys.stderr)
 
 
 if __name__ == "__main__":
