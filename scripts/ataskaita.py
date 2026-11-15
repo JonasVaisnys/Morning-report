@@ -770,7 +770,8 @@ def fragment(inp: Inputs, alerts: list[str]) -> str:
     if inp.world:
         src += ["Yahoo Finance", "ECB", "EIA"]
     now = datetime.now(VLN)
-    parts.append(f'<footer class="mr-foot">\n<p class="mr-note">Šaltiniai: {e(", ".join(dict.fromkeys(src)) or "–")}; naujienų šaltiniai nurodyti prie kiekvienos naujienos. '
+    news_src = "; naujienų šaltiniai nurodyti prie kiekvienos naujienos" if inp.news else ""
+    parts.append(f'<footer class="mr-foot">\n<p class="mr-note">Šaltiniai: {e(", ".join(dict.fromkeys(src)) or "–")}{news_src}. '
                  f'Skaičiavimai – MB Enerconsult. Parengta automatiškai {now:%Y-%m-%d %H:%M}.</p>\n</footer>')
     parts.append("</article>")
     return "\n\n".join(parts) + "\n"
@@ -945,7 +946,9 @@ def mail_world(inp: Inputs) -> str:
         return f'<span style="color:{RAISE_TXT if v > 0 else LOWER_TXT}; font-weight:bold;">{pct(v)}</span>'
     rows = m_th([("Rodiklis", "", "left"), ("Kaina", "28%", "right"), ("Per dieną", "17%", "right"), ("Per 7 d.", "16%", "right")])
     for label, val, unit, d1, d7, d30 in world_kpis(pr):
-        rows += ("<tr>" + m_td(label, bold=True, color=INK) + m_td(f'<b style="color:{INK};">{num(val, 2)}</b> <span style="font-size:11px;">{e(unit)}</span>', "right", extra=" white-space:nowrap;")
+        # siaurame ekrane vienetas nukeliamas po skaičiumi, kad lentelė tilptų telefone
+        rows += ("<tr>" + m_td(label, bold=True, color=INK) + m_td(f'<b style="color:{INK}; white-space:nowrap;">{num(val, 2)}</b> '
+                                                                   f'<span style="font-size:11px; white-space:nowrap;">{e(unit)}</span>', "right")
                  + m_td(ch(d1), "right") + m_td(ch(d7), "right") + "</tr>")
     sec = world_sections(pr)
     inner = m_table(rows)
