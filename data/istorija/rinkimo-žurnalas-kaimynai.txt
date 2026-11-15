@@ -1,0 +1,7 @@
+kaina_LV                     26328 val.  PT60M        eilučių  1  [2022-01:ok 2022-07:ok 2023-01:ok 2023-07:ok 2024-01:ok 2024-07:ok]
+kaina_FI                     26328 val.  PT60M        eilučių  1  [2022-01:ok 2022-07:ok 2023-01:ok 2023-07:ok 2024-01:ok 2024-07:ok]
+kaina_SE4                    26328 val.  PT60M        eilučių  1  [2022-01:ok 2022-07:ok 2023-01:ok 2023-07:ok 2024-01:ok 2024-07:ok]
+kaina_PL                     26328 val.  PT60M        eilučių  1  [2022-01:ok 2022-07:ok 2023-01:ok 2023-07:ok 2024-01:ok 2024-07:ok]
+kaina_EE                     26328 val.  PT60M        eilučių  1  [2022-01:ok 2022-07:ok 2023-01:ok 2023-07:ok 2024-01:ok 2024-07:ok]
+ilgoji-kaimynai.csv.gz: 5 stulp., 2021-12-31 23:00 – 2025-01-01 22:00 UTC, 344 kB
+TTF 1257 d. (2021-11-12 – 2026-11-12), EUA 1071 d. (2022-01-10 – 2026-11-11)

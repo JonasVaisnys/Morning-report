@@ -1,0 +1,1 @@
+nordpool pralaidumai: 21912 eilučių; pavyzdys: {'importsByConnection': {'PL_LP': 167.0, 'SE4_NB': 700.0, 'LV': 506.0}, 'exportsByConnection': {'PL_LP': 213.0, 'LV': 925.0, 'SE4_NB': 700.0}, 'importsByGroupRestriction': {}, 'exportsByGroupRestriction': {}, 'totalImport': 1373.0, 'totalExport': 1838.0, 'deliveryStart': '2026-10-06T22:00:00Z', 'deliveryEnd': '2026-10-06T22:15:00Z'}
