@@ -276,8 +276,8 @@ Ta pati tema neturi kartotis.
 
 Kiekvienai atrinktai naujienai:
 - "nr": numeris iš sąrašo;
-- "regionas": "Lietuva", "Kaimynai" (Latvija, Estija, Lenkija, Švedija, Suomija, Baltijos regionas),
-  "Europa" (ES ir kitos Europos šalys) arba "Pasaulis";
+- "regionas": "Lietuva"; "Kaimynai" – TIK Latvija, Estija, Lenkija, Švedija, Suomija ir visas Baltijos regionas;
+  "Europa" – ES ir kitos Europos šalys (pvz., Vokietija, Ukraina, Moldova); "Pasaulis" – visa kita;
 - "pavadinimas": trumpas pavadinimas lietuviškai;
 - "santrauka": vienas ar du sakiniai lietuviškai TIK iš pateikto pavadinimo ir aprašo – jokių
   skaičių, faktų ar vertinimų, kurių tekste nėra;

@@ -146,7 +146,8 @@ class Inputs:
         eb = load(os.path.join(data_dir, "energijos-brifingas.json"))
         self.hours = None
         if isinstance(eb, dict) and eb.get("data") == iso:
-            vh = (eb.get("zonos", {}).get("LT") or {}).get("valandinės") or {}
+            zones = eb.get("zonos") or {}
+            vh = (zones.get("LT") or zones.get("LT/LV") or {}).get("valandinės") or {}   # sutapus kainoms zona vadinasi „LT/LV“
             hrs = [vh.get(f"{h:02d}:00") for h in range(24)]
             if all(isinstance(v, (int, float)) for v in hrs):
                 self.hours = [float(v) for v in hrs]
