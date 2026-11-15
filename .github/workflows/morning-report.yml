@@ -6,6 +6,8 @@ name: Morning report
 # tvarkaraštis – tik atsarginis: jis nieko nedaro, jei šios dienos ataskaita jau paruošta.
 
 on:
+  push:
+    branches: [ataskaitos-bandymas]   # laikinas bandymas, į main nekeliama
   schedule:
     # 02:17 UTC = 04:17 Vilniaus laiku žiemą, 05:17 vasarą (GitHub tvarkaraštį dažnai vėlina)
     - cron: "17 2 * * *"
