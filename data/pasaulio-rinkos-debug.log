@@ -14,8 +14,8 @@
 → Naujienos...
   ✓ Bloomberg: 20 → atrinkta 3
   ✓ Bloomberg: 6 → atrinkta 1
-  ✓ Bloomberg: 8 → atrinkta 2
-  ✓ Bloomberg: 15 → atrinkta 4
+  ✓ Bloomberg: 9 → atrinkta 3
+  ✓ Bloomberg: 14 → atrinkta 3
   ✓ Financial Times: 25 → atrinkta 2
   ✓ CNBC: 30 → atrinkta 1
   ✓ OilPrice.com: 15 → atrinkta 4
@@ -26,11 +26,11 @@
   ✓ Delfi: 47 → atrinkta 0
   ✓ 15min: 20 → atrinkta 0
   ✓ Verslo žinios: 50 → atrinkta 1
-  ✓ Google News nafta: 69 → atrinkta 7
-  ✓ Google News dujos: 49 → atrinkta 7
-  ✓ Google News Bloomberg: 42 → atrinkta 9
-  ✓ Google News Reuters: 37 → atrinkta 10
+  ✓ Google News nafta: 68 → atrinkta 5
+  ✓ Google News dujos: 51 → atrinkta 8
+  ✓ Google News Bloomberg: 39 → atrinkta 7
+  ✓ Google News Reuters: 39 → atrinkta 10
   ✓ Google News LT dujos: 27 → atrinkta 0
    Atrinkta naujienų: 44 · {'Bloomberg': 15, 'Reuters': 10, 'EnergyNow': 8, 'OilPrice.com': 4, 'WSJ': 2, 'Financial Times': 2, 'CNBC': 1, 'Verslo žinios': 1, 'Rigzone': 1}
-  ✓ Analizė: claude-opus-5-5, 6339→4583 žetonų
+  ✓ Analizė: claude-opus-5-5, 6421→4437 žetonų
 ✅ Išsaugota → data/pasaulio-rinkos.json, data/pasaulio-rinkos.md
