@@ -1,0 +1,62 @@
+
+=== HTTP 500 · 1.2 s · https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?limit(1)
+    UA: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+    antraštės: {'Content-Type': 'text/html'}
+    The URL you requested has been blocked block Web Page Blocked! The page cannot be displayed. Please contact the administrator for additional information. URL: get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas Client IP: 52.165.59.9 Attack ID: 20000018 Message ID: 023992216284
+
+=== HTTP 500 · 1.0 s · https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?limit(1)
+    UA: 'curl/8.5.0'
+    antraštės: {'Content-Type': 'text/html'}
+    The URL you requested has been blocked block Web Page Blocked! The page cannot be displayed. Please contact the administrator for additional information. URL: get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas Client IP: 52.165.59.9 Attack ID: 20000018 Message ID: 023992217401
+
+=== HTTP 500 · 1.0 s · https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?limit(1)
+    UA: 'python-requests/2.32.3'
+    antraštės: {'Content-Type': 'text/html'}
+    The URL you requested has been blocked block Web Page Blocked! The page cannot be displayed. Please contact the administrator for additional information. URL: get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas Client IP: 52.165.59.9 Attack ID: 20000018 Message ID: 023992218381
+
+=== HTTP 500 · 1.0 s · https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?limit(1)
+    UA: None
+    antraštės: {'Content-Type': 'text/html'}
+    The URL you requested has been blocked block Web Page Blocked! The page cannot be displayed. Please contact the administrator for additional information. URL: get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas Client IP: 52.165.59.9 Attack ID: 20000018 Message ID: 023992219358
+
+=== HTTP 500 · 0.6 s · https://get.data.gov.lt/
+    UA: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+    antraštės: {'Content-Type': 'text/html'}
+    The URL you requested has been blocked block Web Page Blocked! The page cannot be displayed. Please contact the administrator for additional information. URL: get.data.gov.lt/ Client IP: 52.165.59.9 Attack ID: 20000018 Message ID: 023992220106
+
+=== HTTP 500 · 1.0 s · https://get.data.gov.lt/datasets/gov/lrsk/:ns
+    UA: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+    antraštės: {'Content-Type': 'text/html'}
+    The URL you requested has been blocked block Web Page Blocked! The page cannot be displayed. Please contact the administrator for additional information. URL: get.data.gov.lt/datasets/gov/lrsk/:ns Client IP: 52.165.59.9 Attack ID: 20000018 Message ID: 023992221246
+
+=== HTTP 500 · 1.2 s · https://get-test.data.gov.lt/datasets/gov/lrsk/:ns
+    UA: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+    antraštės: {'Content-Type': 'text/html'}
+    The URL you requested has been blocked block Web Page Blocked! The page cannot be displayed. Please contact the administrator for additional information. URL: get-test.data.gov.lt/datasets/gov/lrsk/:ns Client IP: 52.165.59.9 Attack ID: 20000018 Message ID: 023992222392
+
+=== HTTP 500 · 1.0 s · https://data.gov.lt/
+    UA: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+    antraštės: {'Content-Type': 'text/html'}
+    The URL you requested has been blocked block Web Page Blocked! The page cannot be displayed. Please contact the administrator for additional information. URL: data.gov.lt/ Client IP: 52.165.59.9 Attack ID: 20000018 Message ID: 023992223550
+
+=== HTTP 403 · 0.5 s · https://www.e-tar.lt/portal/lt/index
+    UA: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+    antraštės: {'Content-Type': 'text/html; charset=UTF-8', 'Server': 'cloudflare', 'CF-RAY': 'a5adcaaf5f4d6f0d-CDG'}
+    Just a moment... Enable JavaScript and cookies to continue
+
+=== HTTP 403 · 0.7 s · https://e-seimas.lrs.lt/portal/legalActSearch/lt
+    UA: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+    antraštės: {'Content-Type': 'text/html; charset=UTF-8', 'Server': 'cloudflare', 'CF-RAY': 'a5adcabd2de26f34-CDG'}
+    Just a moment... Enable JavaScript and cookies to continue
+
+=== HTTP 200 · 0.8 s · https://www.lrs.lt/
+    UA: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'
+    antraštės: {'Content-Type': 'text/html', 'Set-Cookie': 'Seimas=192.168.4.19.11201794740843346112671; path=/; secure; HttpOnly', 'Server': 'cloudflare', 'CF-RAY': 'a5adcac9af209ec4-CDG'}
+    Lietuvos Respublikos Seimas Privalomi slapukai Įjungta Privalomi (seanso) slapukai naudojami e-seimas.lrs.lt ir www.e-tar.lt svetainėse, jie reikalingi pagrindinių svetainės funkcijų veikimui užtikrinti ir Jūsų duotam sutikimui su slapuku išsaugoti, jei tokį davėte. Svetainės negalės tinkamai veikti be šių slapukų. Statistikos slapukai Įjungta Išjungta Analitiniai slapukai (Google Analytics) padeda tobulinti svetainę, renkant ir analizuojant informaciją apie jos lankomumą. Daugiau informacijos Patvirtinti pasirinktus Patvirtinti visus Slapukai LT I EN LT I EN Teisės aktų registras TAR Teisės aktų informacinė sistema TAIS Numatomos transliacijos A A A Sudėtis 2024–2028 m. Seimo sudėtis Seimo nariai Seimo Pirmininkas Seimo valdyba Seniūnų sueiga Komitetai ir komisijos Frakcijos Laikinosios grupės Apie 2024–2028 m. Seimą I Veikla 2024–2028 m. Seimo darbas Teisėkūra Seimo posėdžiai Parlamentinė kontrolė Peticijų nagrinėjimas Statistika I Ankstesnės kadencijos I Seimo kanceliarija Seimo kancleris Struktūra ir kontaktinė informacija Administracinė informacija Skelbimai I E. paslaugos (e.&nbsp;peticija) E. kreipimasis (peticija) E. teisėkūros iniciatyva E. laiškas Seimui Dokumentų užsakym
+
+=== HTTP 200 · 0.1 s · https://api.ipify.org?format=json
+    UA: 'curl/8.5.0'
+    antraštės: {'Content-Type': 'application/json', 'Server': 'cloudflare', 'CF-RAY': 'a5adcad54fa69bd0-MSP'}
+    {"ip":"52.165.59.9"}
+
+baigta 2026-11-15 11:07:28 UTC
