@@ -1,12 +1,9 @@
-# Naujienų brifingas — 2026-11-15
+# Naujienų brifingas — 2026-11-16
 
-## Europa
+## Lietuva
 
-[**Moldova nutraukė priklausomybę nuo Padniestrės elektrinės**](https://www.vz.lt/energetika/2026/11/14/rusijos-itakos-atsisakanti-moldova-maskvos-santazo-irankis-nutrauktas-o-padniestre-spaus-ekonomiskai-592623)
-Moldova atidarė naują elektros jungtį su Rumunija, todėl nutrūko jos energetinė priklausomybė nuo prorusiškų separatistų valdomoje Padniestrėje esančios Kučurgano dujinės elektrinės. Pavadinime teigiama, kad Maskvos šantažo įrankis nutrauktas, o Padniestrė bus spaudžiama ekonomiškai. _Verslo žinios, 2026-11-14 17:50_
-
-[**Zelenskis įspėja dėl „Starshield“ ribojimų poveikio energetikai**](https://www.15min.lt/naujiena/aktualu/pasaulis/pries-ziema-volodymyro-zelenskio-ispejimas-del-starshield-ribojimu-poveikio-energetikai-57-2806442?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed)
-Prieš žiemą Volodymyras Zelenskis įspėjo apie „Starshield“ ribojimų poveikį Ukrainos energetikai. _15min, 2026-11-15 18:15_
+[**Būtiniausių paslaugų išlaikymas dingus elektrai ir ryšiui**](https://www.15min.lt/naujiena/aktualu/lietuva/dingtu-elektra-ir-rysys-kaip-lietuva-islaikytu-butiniausias-paslaugas-56-2806780?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed)
+Straipsnyje svarstoma, kaip Lietuva išlaikytų būtiniausias paslaugas, jei dingtų elektra ir ryšys. Pateiktame tekste kitos informacijos nėra. _15min, 2026-11-16 12:50_
 
 ---
-_Generuota automatiškai 2026-11-15 · MB Enerconsult_
+_Generuota automatiškai 2026-11-16 · MB Enerconsult_
