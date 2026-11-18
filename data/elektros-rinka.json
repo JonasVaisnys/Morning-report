@@ -1,132 +1,132 @@
 {
- "data": "2026-11-17",
+ "data": "2026-11-18",
  "ref_dienų": 88,
  "galia": {
   "vėjas": 2507,
   "saulė": 3018
  },
  "vartojimas": {
-  "mw": 1722,
-  "norma": 1577,
+  "mw": 1738,
+  "norma": 1594,
   "intervalas": [
-   1544,
-   1620
+   1561,
+   1638
   ],
-  "būsena": "gerokai didesnis nei įprasta",
-  "nuokrypis_proc": 9.2,
+  "būsena": "didesnis nei įprasta",
+  "nuokrypis_proc": 9.0,
   "procentilis": null
  },
  "vėjas": {
-  "mw": 924,
+  "mw": 517,
   "norma": 566,
   "intervalas": [
-   337,
+   338,
    694
   ],
-  "būsena": "didesnė nei įprasta",
-  "procentilis": 80
+  "būsena": "įprasta",
+  "procentilis": 45
  },
  "saulė": {
-  "mw": 61,
-  "norma": 29,
+  "mw": 48,
+  "norma": 28,
   "intervalas": [
-   21,
-   45
+   20,
+   42
   ],
   "būsena": "didesnė nei įprasta",
-  "procentilis": 82
+  "procentilis": 69
  },
  "kita_gamyba": {
-  "mw": 366,
-  "norma": 296,
-  "būsena": "didesnė nei įprasta",
-  "valandos": "00–13",
-  "vėjas_faktas": 973,
-  "saulė_faktas": 32,
-  "vartojimas_faktas": 1597
+  "mw": 248,
+  "norma": 301,
+  "būsena": "mažesnė nei įprasta",
+  "valandos": "00–12",
+  "vėjas_faktas": 653,
+  "saulė_faktas": 17,
+  "vartojimas_faktas": 1611
  },
  "dujos": {
-  "ttf": 84.7,
-  "norma_12mėn": 52.0,
-  "santykis": 1.63,
+  "ttf": 85.4,
+  "norma_12mėn": 52.2,
+  "santykis": 1.64,
   "būsena": "gerokai brangesnės nei įprasta",
-  "prieš_metus": 31.2
+  "prieš_metus": 31.4
  },
  "kaina": {
-  "lt": 223.5,
-  "norma": 139.8,
+  "lt": 179.8,
+  "norma": 142.3,
   "intervalas": [
-   110,
-   171
+   116,
+   174
   ],
-  "norma_su_šiandienos_dujomis": 208.5,
-  "būsena": "gerokai didesnė nei įprasta",
-  "min": 106.6,
-  "max": 269.4,
-  "min_val": 0,
-  "max_val": 9,
-  "modelis": 241.3
+  "norma_su_šiandienos_dujomis": 212.9,
+  "būsena": "didesnė nei įprasta",
+  "min": 113.2,
+  "max": 225.3,
+  "min_val": 5,
+  "max_val": 19,
+  "modelis": 218.6
  },
  "indėliai": {
-  "dujos": 74.2,
-  "vartojimas": 11.1,
-  "vėjas": -30.7,
-  "saulė": -2.0,
+  "dujos": 72.2,
+  "vartojimas": 13.9,
+  "vėjas": -0.6,
+  "saulė": -0.7,
   "pralaidumai": 0.0,
-  "kaimynai": 48.9,
-  "kita": -17.8
+  "kaimynai": -8.4,
+  "kita": -38.8
  },
  "kaimynai": {
-  "LV": 218.2,
-  "SE4": 228.9,
-  "PL": 242.4,
-  "EE": 177.3,
-  "FI": 177.1
+  "LV": 179.7,
+  "SE4": 177.8,
+  "PL": 149.0,
+  "EE": 154.4,
+  "FI": 117.7
  },
- "lt_lv_skiriasi_val": 10,
+ "lt_lv_skiriasi_val": 2,
  "kaimynų_būsena": {
   "SE4": {
-   "kaina": 228.9,
-   "norma_su_šiandienos_dujomis": 147.1,
-   "būsena": "didesnė nei įprasta",
-   "procentilis": 84
+   "kaina": 177.8,
+   "norma_su_šiandienos_dujomis": 153.0,
+   "būsena": "įprasta",
+   "procentilis": 61
   },
   "PL": {
-   "kaina": 242.4,
-   "norma_su_šiandienos_dujomis": 200.2,
-   "būsena": "didesnė nei įprasta",
-   "procentilis": 72
+   "kaina": 149.0,
+   "norma_su_šiandienos_dujomis": 204.7,
+   "būsena": "mažesnė nei įprasta",
+   "procentilis": 20
   },
   "FI": {
-   "kaina": 177.1,
-   "norma_su_šiandienos_dujomis": 122.2,
+   "kaina": 117.7,
+   "norma_su_šiandienos_dujomis": 125.0,
    "būsena": "įprasta",
-   "procentilis": 66
+   "procentilis": 45
   }
  },
  "mainai": {
   "SE4": {
-   "mw": -194,
-   "proc_vartojimo": -11
+   "mw": 118,
+   "proc_vartojimo": 7
   },
   "PL": {
-   "mw": -158,
-   "proc_vartojimo": -9
+   "mw": 74,
+   "proc_vartojimo": 4
   },
   "LV": {
-   "mw": 802,
-   "proc_vartojimo": 47
+   "mw": 746,
+   "proc_vartojimo": 43
   },
   "iš_viso": {
-   "mw": 451,
-   "proc_vartojimo": 26
+   "mw": 938,
+   "proc_vartojimo": 54
   },
   "maks": {
-   "SE4_imp": 329,
-   "SE4_eksp": 700,
-   "PL_imp": 129,
-   "PL_eksp": 237,
-   "LV_imp": 1026,
+   "SE4_imp": 700,
+   "SE4_eksp": 425,
+   "PL_imp": 186,
+   "PL_eksp": 179,
+   "LV_imp": 1043,
    "LV_eksp": 0
   }
  },
@@ -170,14 +170,14 @@
    "eksportas": {
     "mw": null,
     "min": null,
-    "nominalas": 945,
+    "nominalas": 946,
     "pask_data": "2026-10-14"
    }
   }
  },
  "sąlygos": {
-  "srmc": 189.2,
-  "srmc_norma": 126.8,
+  "srmc": 190.3,
+  "srmc_norma": 127.1,
   "cap_def": 0
  }
 }

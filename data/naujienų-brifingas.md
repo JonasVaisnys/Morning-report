@@ -1,9 +1,9 @@
-# Naujienų brifingas — 2026-11-17
+# Naujienų brifingas — 2026-11-18
 
 ## Lietuva
 
-[**Viršpelnio mokestis degalų gamintojams ir „Orlen Lietuva“ ataskaitos**](https://www.vz.lt/verslo-aplinka/2026/11/17/viceministras-nustatyti-virspelnio-mokesti-butu-lengviau-orlen-pateikus-finansines-ataskaitas-592844)
-Valdantiesiems sutarus apmokestinti degalų gamybos įmonių viršpelnius finansų viceministras sako, kad įstatymo projektą parengti būtų gerokai lengviau, jei „Orlen Lietuva“ pateiktų finansines ataskaitas. Ši naftos perdirbimo bendrovė laikoma pagrindine potencialia tokio mokesčio mokėtoja. _Verslo žinios, 2026-11-17 12:32_
+[**Verslo lyderių apklausa: energijos kainos svarbios kitų metų augimui**](https://www.vz.lt/vadyba/2026/11/17/verslo-lyderiu-apklausa-pelnas-ir-pajamos-augs-darbuotoju-skaicius-nelabai-592862)
+Lietuvos verslo lyderių apklausos duomenimis, energijos kainos ir didėjančios darbo jėgos sąnaudos daugiausia lems kitų metų augimą. Dauguma vadovų mano, kad tarptautinė ir šalies ekonominė padėtis prastės arba nesikeis. _Verslo žinios, 2026-11-18 07:25_
 
 ---
-_Generuota automatiškai 2026-11-17 · MB Enerconsult_
+_Generuota automatiškai 2026-11-18 · MB Enerconsult_
