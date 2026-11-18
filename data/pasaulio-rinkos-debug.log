@@ -6,31 +6,29 @@
 → CO2 (EEX aukcionai)...
    EUA 198 aukcionų dienų
 → Dujų saugyklos (GIE AGSI+)...
-  ⚠ AGSI {'type': 'eu'}: nėra užpildymo duomenų (Invalid or missing API key) – reikia nemokamo AGSI_KEY (agsi.gie.eu)
-  ⚠ AGSI {'country': 'LV'}: nėra užpildymo duomenų (Invalid or missing API key) – reikia nemokamo AGSI_KEY (agsi.gie.eu)
-   ES: None %, LV: None %
+   ES: 70.15 %, LV: 52.66 %
 → LT elektros kainos (Elering / Nord Pool)...
    LT intervalų: istorija 2980, šiandien 96
 → Naujienos...
   ✓ Bloomberg: 20 → atrinkta 1
-  ✓ Bloomberg: 20 → atrinkta 3
-  ✓ Bloomberg: 20 → atrinkta 6
+  ✓ Bloomberg: 20 → atrinkta 2
   ✓ Bloomberg: 20 → atrinkta 5
-  ✓ Financial Times: 25 → atrinkta 5
+  ✓ Bloomberg: 20 → atrinkta 5
+  ✓ Financial Times: 25 → atrinkta 6
   ✓ CNBC: 30 → atrinkta 4
   ✓ OilPrice.com: 15 → atrinkta 13
   ✓ LNG Prime: 10 → atrinkta 10
-  ✓ Rigzone: 20 → atrinkta 11
+  ✓ Rigzone: 20 → atrinkta 13
   ✓ EIA: 28 → atrinkta 1
   ✓ Delfi: 47 → atrinkta 0
   ✓ Delfi: 47 → atrinkta 0
   ✓ 15min: 20 → atrinkta 0
   ✓ Verslo žinios: 50 → atrinkta 1
-  ✓ Google News nafta: 100 → atrinkta 14
-  ✓ Google News dujos: 100 → atrinkta 14
-  ✓ Google News Bloomberg: 100 → atrinkta 33
+  ✓ Google News nafta: 100 → atrinkta 15
+  ✓ Google News dujos: 100 → atrinkta 15
+  ✓ Google News Bloomberg: 100 → atrinkta 26
   ✓ Google News Reuters: 99 → atrinkta 27
-  ✓ Google News LT dujos: 29 → atrinkta 14
-   Atrinkta naujienų: 80 · {'Bloomberg': 15, 'Reuters': 15, 'Rigzone': 12, 'LNG Prime': 10, 'OilPrice.com': 8, 'TV3': 6, 'Financial Times': 5, 'CNBC': 5, 'EnergyNow': 4, 'TradeWinds': 2, 'WSJ': 2, 'Verslo žinios': 2, 'Delfi': 2, 'Lrytas': 2, 'Kauno diena': 1, 'Upstream': 1, 'Energy Intelligence': 1, 'EIA': 1, 'Alfa': 1, 'LRT': 1}
-  ✓ Analizė: claude-opus-5-5, 9568→5379 žetonų
+  ✓ Google News LT dujos: 32 → atrinkta 16
+   Atrinkta naujienų: 80 · {'Bloomberg': 15, 'Reuters': 15, 'Rigzone': 13, 'LNG Prime': 10, 'OilPrice.com': 8, 'Financial Times': 6, 'TV3': 6, 'CNBC': 5, 'EnergyNow': 4, 'WSJ': 4, 'Lrytas': 3, 'Kauno diena': 2, 'TradeWinds': 2, 'Verslo žinios': 2, 'Delfi': 2, 'S&P Global': 1, 'Offshore Energy': 1, 'Upstream': 1, 'Energy Intelligence': 1, 'EIA': 1, 'Alfa': 1, 'LRT': 1}
+  ✓ Analizė: claude-opus-5-5, 9180→4802 žetonų
 ✅ Išsaugota → data/pasaulio-rinkos.json, data/pasaulio-rinkos.md
