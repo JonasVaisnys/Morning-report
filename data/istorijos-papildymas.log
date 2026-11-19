@@ -1,30 +1,30 @@
-Ataskaitos diena 2026-11-18; laikotarpis 2026-11-14 00:00 – 2026-11-19 23:00 UTC
+Ataskaitos diena 2026-11-19; laikotarpis 2026-11-15 00:00 – 2026-11-20 23:00 UTC
 kaina_LT                       120 val.  PT15M        eilučių  1  [2026-11:ok]
-kaina_FI                       120 val.  PT15M        eilučių  1  [2026-11:ok]
-kaina_EE                       120 val.  PT15M        eilučių  1  [2026-11:ok]
 kaina_LV                       120 val.  PT15M        eilučių  1  [2026-11:ok]
+kaina_EE                       120 val.  PT15M        eilučių  1  [2026-11:ok]
+kaina_FI                       120 val.  PT15M        eilučių  1  [2026-11:ok]
+apkrova_progn_LT               119 val.  PT15M        eilučių  1  [2026-11:ok]
 kaina_SE4                      120 val.  PT15M        eilučių  1  [2026-11:ok]
+gamyba_LT                     1100 val.  PT15M        eilučių 11  [2026-11:ok]
+apkrova_LT                     100 val.  PT15M        eilučių  1  [2026-11:ok]
 kaina_PL                       120 val.  PT15M        eilučių  1  [2026-11:ok]
-apkrova_LT                     108 val.  PT15M        eilučių  1  [2026-11:ok]
-apkrova_progn_LT               143 val.  PT15M        eilučių  1  [2026-11:ok]
-gamyba_LT                     1188 val.  PT15M        eilučių 11  [2026-11:ok]
-siulomas_LT_SE4                  0 val.  -            eilučių  0  [2026-11:tuščia]
 progn_LT                       238 val.  PT15M        eilučių  2  [2026-11:ok]
+siulomas_LT_SE4                  0 val.  -            eilučių  0  [2026-11:tuščia]
 prekyba_LT_SE4                 119 val.  PT15M        eilučių  1  [2026-11:ok]
-prekyba_SE4_LT                 119 val.  PT15M        eilučių  1  [2026-11:ok]
-siulomas_SE4_LT                  0 val.  -            eilučių  0  [2026-11:tuščia]
-prekyba_LT_PL                  119 val.  PT15M        eilučių  1  [2026-11:ok]
 siulomas_LT_PL                   0 val.  -            eilučių  0  [2026-11:tuščia]
 prekyba_PL_LT                  119 val.  PT15M        eilučių  1  [2026-11:ok]
+prekyba_SE4_LT                 119 val.  PT15M        eilučių  1  [2026-11:ok]
 siulomas_PL_LT                   0 val.  -            eilučių  0  [2026-11:tuščia]
-prekyba_LT_LV                  119 val.  PT15M        eilučių  1  [2026-11:ok]
 siulomas_LT_LV                   0 val.  -            eilučių  0  [2026-11:tuščia]
-prekyba_LV_LT                  119 val.  PT15M        eilučių  1  [2026-11:ok]
+siulomas_SE4_LT                  0 val.  -            eilučių  0  [2026-11:tuščia]
+prekyba_LT_PL                  119 val.  PT15M        eilučių  1  [2026-11:ok]
 siulomas_LV_LT                   0 val.  -            eilučių  0  [2026-11:tuščia]
+prekyba_LT_LV                  119 val.  PT15M        eilučių  1  [2026-11:ok]
+prekyba_LV_LT                  119 val.  PT15M        eilučių  1  [2026-11:ok]
 elering kainos: elering_EE 119 val., elering_FI 119 val., elering_LT 119 val., elering_LV 119 val.; nepavykusių užklausų 0
-kainos: papildymuose 192 val., 2026-11-10 23:00 – 2026-11-18 22:00 UTC
+kainos: papildymuose 216 val., 2026-11-10 23:00 – 2026-11-19 22:00 UTC
 apkrova: papildymuose 215 val., 2026-11-11 00:00 – 2026-11-19 22:00 UTC
-gamyba: papildymuose 191 val., 2026-11-11 00:00 – 2026-11-18 22:00 UTC
-jungtys: papildymuose 192 val., 2026-11-10 23:00 – 2026-11-18 22:00 UTC
-TTF 65 d. (paskutinė 2026-11-17), EUA 198 d. (paskutinė 2026-11-17)
+gamyba: papildymuose 215 val., 2026-11-11 00:00 – 2026-11-19 22:00 UTC
+jungtys: papildymuose 216 val., 2026-11-10 23:00 – 2026-11-19 22:00 UTC
+TTF 66 d. (paskutinė 2026-11-18), EUA 198 d. (paskutinė 2026-11-17)
 Ataskaitos dienai: kainų 24 val., vartojimo prognozės 24 val., vėjo prognozės 24 val., saulės prognozės 24 val.

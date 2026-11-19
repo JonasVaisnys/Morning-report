@@ -1,132 +1,132 @@
 {
- "data": "2026-11-18",
+ "data": "2026-11-19",
  "ref_dienų": 88,
  "galia": {
   "vėjas": 2507,
   "saulė": 3018
  },
  "vartojimas": {
-  "mw": 1738,
-  "norma": 1594,
+  "mw": 1700,
+  "norma": 1613,
   "intervalas": [
-   1561,
-   1638
+   1579,
+   1658
   ],
   "būsena": "didesnis nei įprasta",
-  "nuokrypis_proc": 9.0,
+  "nuokrypis_proc": 5.4,
   "procentilis": null
  },
  "vėjas": {
-  "mw": 517,
+  "mw": 534,
   "norma": 566,
   "intervalas": [
-   338,
+   339,
    694
   ],
   "būsena": "įprasta",
-  "procentilis": 45
+  "procentilis": 48
  },
  "saulė": {
-  "mw": 48,
-  "norma": 28,
+  "mw": 54,
+  "norma": 27,
   "intervalas": [
-   20,
-   42
+   19,
+   39
   ],
   "būsena": "didesnė nei įprasta",
-  "procentilis": 69
+  "procentilis": 80
  },
  "kita_gamyba": {
-  "mw": 261,
-  "norma": 299,
-  "būsena": "mažesnė nei įprasta",
-  "valandos": "00–14",
-  "vėjas_faktas": 713,
-  "saulė_faktas": 25,
-  "vartojimas_faktas": 1652
+  "mw": 249,
+  "norma": 191,
+  "būsena": "didesnė nei įprasta",
+  "valandos": "00–06",
+  "vėjas_faktas": 947,
+  "saulė_faktas": 0,
+  "vartojimas_faktas": 1317
  },
  "dujos": {
-  "ttf": 85.4,
-  "norma_12mėn": 52.2,
-  "santykis": 1.64,
+  "ttf": 81.1,
+  "norma_12mėn": 52.3,
+  "santykis": 1.55,
   "būsena": "gerokai brangesnės nei įprasta",
-  "prieš_metus": 31.4
+  "prieš_metus": 31.7
  },
  "kaina": {
-  "lt": 179.8,
-  "norma": 142.3,
+  "lt": 229.1,
+  "norma": 147.2,
   "intervalas": [
-   116,
-   174
+   120,
+   179
   ],
-  "norma_su_šiandienos_dujomis": 212.9,
-  "būsena": "didesnė nei įprasta",
-  "min": 113.2,
-  "max": 225.3,
-  "min_val": 5,
-  "max_val": 19,
-  "modelis": 218.6
+  "norma_su_šiandienos_dujomis": 210.8,
+  "būsena": "gerokai didesnė nei įprasta",
+  "min": 154.3,
+  "max": 280.1,
+  "min_val": 3,
+  "max_val": 9,
+  "modelis": 246.3
  },
  "indėliai": {
-  "dujos": 72.2,
-  "vartojimas": 13.9,
-  "vėjas": -0.6,
-  "saulė": -0.7,
+  "dujos": 69.4,
+  "vartojimas": 7.1,
+  "vėjas": -0.9,
+  "saulė": -1.3,
   "pralaidumai": 0.0,
-  "kaimynai": -8.4,
-  "kita": -38.8
+  "kaimynai": 24.8,
+  "kita": -17.2
  },
  "kaimynai": {
-  "LV": 179.7,
-  "SE4": 177.8,
-  "PL": 149.0,
-  "EE": 154.4,
-  "FI": 117.7
+  "LV": 209.5,
+  "SE4": 230.3,
+  "PL": 191.7,
+  "EE": 163.8,
+  "FI": 142.8
  },
- "lt_lv_skiriasi_val": 2,
+ "lt_lv_skiriasi_val": 15,
  "kaimynų_būsena": {
   "SE4": {
-   "kaina": 177.8,
-   "norma_su_šiandienos_dujomis": 153.0,
-   "būsena": "įprasta",
-   "procentilis": 61
+   "kaina": 230.3,
+   "norma_su_šiandienos_dujomis": 153.9,
+   "būsena": "didesnė nei įprasta",
+   "procentilis": 81
   },
   "PL": {
-   "kaina": 149.0,
-   "norma_su_šiandienos_dujomis": 204.7,
-   "būsena": "mažesnė nei įprasta",
-   "procentilis": 20
+   "kaina": 191.7,
+   "norma_su_šiandienos_dujomis": 199.1,
+   "būsena": "įprasta",
+   "procentilis": 44
   },
   "FI": {
-   "kaina": 117.7,
-   "norma_su_šiandienos_dujomis": 125.0,
+   "kaina": 142.8,
+   "norma_su_šiandienos_dujomis": 128.0,
    "būsena": "įprasta",
-   "procentilis": 45
+   "procentilis": 51
   }
  },
  "mainai": {
   "SE4": {
-   "mw": 118,
-   "proc_vartojimo": 7
+   "mw": -305,
+   "proc_vartojimo": -18
   },
   "PL": {
-   "mw": 74,
-   "proc_vartojimo": 4
+   "mw": -21,
+   "proc_vartojimo": -1
   },
   "LV": {
-   "mw": 746,
-   "proc_vartojimo": 43
-  },
-  "iš_viso": {
-   "mw": 938,
+   "mw": 920,
    "proc_vartojimo": 54
   },
+  "iš_viso": {
+   "mw": 595,
+   "proc_vartojimo": 35
+  },
   "maks": {
-   "SE4_imp": 700,
-   "SE4_eksp": 425,
-   "PL_imp": 186,
-   "PL_eksp": 179,
-   "LV_imp": 1043,
+   "SE4_imp": 250,
+   "SE4_eksp": 700,
+   "PL_imp": 183,
+   "PL_eksp": 234,
+   "LV_imp": 1101,
    "LV_eksp": 0
   }
  },
@@ -164,7 +164,7 @@
    "importas": {
     "mw": null,
     "min": null,
-    "nominalas": 832,
+    "nominalas": 833,
     "pask_data": "2026-10-14"
    },
    "eksportas": {
@@ -176,8 +176,8 @@
   }
  },
  "sąlygos": {
-  "srmc": 190.3,
-  "srmc_norma": 127.1,
+  "srmc": 182.5,
+  "srmc_norma": 127.4,
   "cap_def": 0
  }
 }
