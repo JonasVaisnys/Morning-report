@@ -738,15 +738,15 @@ def block_legal(inp: Inputs) -> str:
 
 def grants_overview(inp: Inputs) -> str:
     k = inp.grants["kvietimai"]
-    ch = [x for x in k if x.get("būsena") not in (None, "be pokyčių")]
+    ch = [x for x in k if x.get("būsena") in ("nauja", "pasikeitė", "baigiasi", "pasibaigė")]
     n = len(ch)
-    return f"{n} {plural(n, 'kvietimo pokytis', 'kvietimų pokyčiai', 'kvietimų pokyčių')}." if n else f"{len(k)} atviri kvietimai, pokyčių nėra."
+    return f"{n} {plural(n, 'kvietimo pokytis', 'kvietimų pokyčiai', 'kvietimų pokyčių')}: {ch[0].get('pavadinimas', '').rstrip('.')} ({ch[0].get('būsena')})." if n else f"Stebimi {len(k)} kvietimai, pokyčių nėra."
 
 
 def block_grants(inp: Inputs) -> str:
     k = inp.grants["kvietimai"]
     o = ['<section class="mr-block">', '<h2 class="mr-h">Paramos</h2>',
-         '<p class="mr-sub">Kvietimai ir jų pokyčiai · APVA, LEA, Inovacijų agentūra, EnMin</p>',
+         '<p class="mr-sub">Kvietimai ir jų pokyčiai · APVA, LEA, ES investicijos, Inovacijų agentūra, ILTE, EnMin</p>',
          '<table class="mr-table">', '<thead><tr><th>Būsena</th><th>Kvietimas</th><th>Institucija</th><th>Esmė</th><th>Terminas</th></tr></thead>', "<tbody>"]
     for x in k:
         sev = SEV.get(x.get("svarba"), "low")

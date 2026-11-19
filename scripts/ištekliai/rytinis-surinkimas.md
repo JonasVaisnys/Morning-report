@@ -26,10 +26,11 @@ Taisyklės visai užduočiai:
 ## 2. Paramos → `data/paramos.json` ir `data/šaltiniai/paramos-būsena.json`
 
 ### Šaltiniai (pradiniai puslapiai; galima atsidaryti iki 3 nuorodų giliau tame pačiame tinklalapyje)
+- APVIS – visi šiuo metu priimami APVA kvietimai su terminais ir lėšų likučiu: https://apvis.apva.lt/ (sąrašas pradžios puslapyje)
 - APVA planuojami kvietimai: https://apva.lrv.lt/lt/aktualus-kvietimai/
 - APVA energetikos priemonės: https://apva.lrv.lt/lt/veiklos-sritys/projektu-finansavimas/energetika-1852/ ir naujienos https://apva.lrv.lt/lt/naujienos/ (kvietimų skelbimai per paskutines 7 d.)
 - ES investicijos, energetika: paskelbti https://esinvesticijos.lt/kvietimai?activity_scopes[]=67&status[]=45 ir planuojami https://esinvesticijos.lt/kvietimai?activity_scopes[]=67&status[]=44. CSV parsisiuntimas saugomas captcha – jo nenaudoti.
-- Lietuvos energetikos agentūra: https://www.ena.lt/kvietimai-teikti-paraiskas/ (saulės elektrinės sausumoje, kaupikliai, EV įkrovimo prieigos, katilų keitimas)
+- Lietuvos energetikos agentūra: https://www.ena.lt/kvietimai-teikti-paraiskas/ (saulės elektrinės sausumoje, kaupikliai, EV įkrovimo prieigos, katilų keitimas; kiekvienos priemonės puslapyje – „galiojantys kvietimai“ ir kito kvietimo data)
 - ILTE: https://ilte.lt/ (pradžios puslapio ir naujienų energetikos, AEI, renovacijos, energetikos bendrijų priemonės ir paskolos)
 - Inovacijų agentūra: https://www.inovacijuagentura.lt/finansavimas/ (kvietimai energetikai, žaliajam kursui)
 - Energetikos ministerija: https://enmin.lrv.lt/lt/naujienos/ (planuojamos ar paskelbtos paramos priemonės per paskutines 7 d.)
@@ -41,10 +42,10 @@ Paramos, kompensacijos, kvietimai ir lengvatinės paskolos energetikai: AEI (sau
 `data/šaltiniai/paramos-būsena.json` – visų žinomų kvietimų sąrašas: `{"atnaujinta": D, "kvietimai": [{"raktas", "pavadinimas", "institucija", "būklė": "paskelbtas" | "planuojamas", "pradžia", "pabaiga", "suma", "pareiškėjai", "nuoroda", "pirmą_kartą": data}]}`. `raktas` – kvietimo numeris, jei yra, kitaip institucija + pavadinimas mažosiomis raidėmis.
 
 Būsena ataskaitai:
-- `nauja` – kvietimo vakar būsenoje nebuvo arba jis iš planuojamo tapo paskelbtu.
+- `nauja` – kvietimo vakar būsenoje nebuvo (ir paskelbto, ir planuojamo) arba jis iš planuojamo tapo paskelbtu.
 - `pasikeitė` – pasikeitė pabaigos data, suma ar pareiškėjai (lauke `pokytis` – kas tiksliai).
 - `baigiasi` – paskelbtas ir iki pabaigos liko ≤ 14 d.
-- `laukiama` – planuojamas.
+- `laukiama` – planuojamas, žinomas jau anksčiau.
 - `pasibaigė` – vakar buvo paskelbtas, šiandien jo nebėra arba terminas praėjo (rodyti tik vieną dieną, po to iš būsenos pašalinti).
 - `be pokyčių` – kiti paskelbti.
 Jei būsenos failo dar nėra (pirmas paleidimas), visiems `be pokyčių`, išskyrus paskelbtus per paskutines 7 d. – jiems `nauja`.
@@ -57,7 +58,7 @@ Svarba:
 
 ### `data/paramos.json`
 `{"data": D, "šaltiniai_patikrinti": [...], "kvietimai": [{"pavadinimas", "institucija", "būsena", "svarba", "pabaiga": "YYYY-MM-DD" arba "", "pokytis", "esmė", "nuoroda"}]}`
-- Įtraukti visus, kurių būsena ne `be pokyčių`, ir `be pokyčių`, kurių svarba `didelė` ar `kritinė`. Iš viso ne daugiau kaip 12.
+- Įtraukti visus, kurių būsena `nauja`, `pasikeitė`, `baigiasi` ar `pasibaigė`, o `laukiama` ir `be pokyčių` – tik kai svarba `didelė` ar `kritinė`. Iš viso ne daugiau kaip 12.
 - Tvarka: kritinė, didelė, vidutinė, maža; tos pačios svarbos – nauja, pasikeitė, baigiasi, pasibaigė, laukiama, be pokyčių.
 - `esmė` – viena trumpa eilutė: kam, kas finansuojama, suma (pvz. „Juridiniams asmenims – saulės ir vėjo elektrinės savo reikmėms, 20 mln. Eur“). `nuoroda` – tikslus kvietimo puslapis (https).
 - Rašyti tik tai, kas puslapiuose parašyta. Nežinomą lauką palikti tuščią.
@@ -67,3 +68,5 @@ Svarba:
 1. `git add data/šaltiniai data/paramos.json`, `git commit -m "Rytinis surinkimas D"` (su sesijos priskyrimo eilutėmis), `git pull --rebase origin main`, `git push origin HEAD:main`. Nepavykus – pakartoti iki 3 kartų.
 2. Uždaryti Chrome kortelę.
 3. Pabaigoje trumpai parašyti: kiek TAR aktų ir energetikos aktų rasta, kiek paramų ir kokie pokyčiai, kurie šaltiniai nepavyko.
+
+Pastaba: tinklalapių JavaScript rezultatas įrankyje trumpinamas (~1500 simbolių). Ilgesnį tekstą įrašyti į puslapį (`document.body.innerHTML = ''` ir `<pre>`) ir skaityti `get_page_text`.

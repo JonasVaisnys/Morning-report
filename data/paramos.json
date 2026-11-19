@@ -1,0 +1,65 @@
+{
+ "data": "2026-11-19",
+ "šaltiniai_patikrinti": [
+  "APVIS",
+  "APVA planuojami kvietimai",
+  "APVA energetikos priemonės",
+  "esinvesticijos.lt",
+  "LEA",
+  "ILTE",
+  "Inovacijų agentūra",
+  "Energetikos ministerija"
+ ],
+ "kvietimai": [
+  {
+   "pavadinimas": "Pramonės dekarbonizacija",
+   "institucija": "APVA",
+   "būsena": "laukiama",
+   "svarba": "didelė",
+   "pabaiga": "",
+   "pokytis": "",
+   "esmė": "Juridiniams asmenims – pramonės dekarbonizacija, 10 mln. Eur; skelbti planuojama 2026 m. IV ketv. – 2027 m. I ketv.",
+   "nuoroda": "https://apva.lrv.lt/lt/aktualus-kvietimai/"
+  },
+  {
+   "pavadinimas": "Skirstomųjų tinklų skaitmeninio valdymo sistemos AEI plėtrai Vidurio ir Vakarų Lietuvoje (Nr. 03-015-T)",
+   "institucija": "ES investicijos",
+   "būsena": "be pokyčių",
+   "svarba": "didelė",
+   "pabaiga": "2026-12-31",
+   "pokytis": "",
+   "esmė": "Pažangiųjų energetikos sistemų skaitmeninio valdymo diegimas skirstomuosiuose tinkluose, 58,5 mln. Eur",
+   "nuoroda": "https://esinvesticijos.lt/kvietimai?activity_scopes[]=67&status[]=45"
+  },
+  {
+   "pavadinimas": "Skirstomųjų tinklų skaitmeninio valdymo sistemos AEI plėtrai visoje Lietuvoje (Nr. 03-024-T)",
+   "institucija": "ES investicijos",
+   "būsena": "be pokyčių",
+   "svarba": "didelė",
+   "pabaiga": "2026-12-31",
+   "pokytis": "",
+   "esmė": "Pažangiųjų energetikos sistemų skaitmeninio valdymo diegimas skirstomuosiuose tinkluose, 24 mln. Eur",
+   "nuoroda": "https://esinvesticijos.lt/kvietimai?activity_scopes[]=67&status[]=45"
+  },
+  {
+   "pavadinimas": "Daugiabučių namų modernizavimo projektų 14 kvietimas",
+   "institucija": "APVA",
+   "būsena": "nauja",
+   "svarba": "vidutinė",
+   "pabaiga": "2028-04-03",
+   "pokytis": "Naujas kvietimas, paraiškos priimamos nuo 2026-11-23",
+   "esmė": "Daugiabučių namų modernizavimas, 286,93 mln. Eur",
+   "nuoroda": "https://apvis.apva.lt/"
+  },
+  {
+   "pavadinimas": "Investicinė parama biometano gamybai ir (ar) biodujų išvalymui",
+   "institucija": "APVA",
+   "būsena": "baigiasi",
+   "svarba": "vidutinė",
+   "pabaiga": "2026-11-27",
+   "pokytis": "Iki termino liko 8 d.",
+   "esmė": "Juridiniams asmenims – biometano gamyba ir biodujų išvalymas, 16 mln. Eur (likutis 8,11 mln. Eur)",
+   "nuoroda": "https://apva.lrv.lt/lt/veiklos-sritys/projektu-finansavimas/energetika-1852/investicine-parama-biometano-gamybai-ir-ar-bioduju-isvalymui1/"
+  }
+ ]
+}
