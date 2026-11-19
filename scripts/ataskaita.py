@@ -200,6 +200,17 @@ def contributions(inp: Inputs) -> dict:
     return {k: float(v) for k, v in (inp.sit or {}).get("indėliai", {}).items()}
 
 
+def caps_known(inp: Inputs) -> bool:
+    """Ar gauti bent vienos jungties importo pralaidumai (be jų ribojimo vertinti negalima)."""
+    pr = (inp.sit or {}).get("pralaidumai") or {}
+    return any(isinstance(v, dict) and (v.get("importas") or {}).get("mw") is not None for v in pr.values())
+
+
+def drivers(inp: Inputs) -> list:
+    """Veiksniai be pralaidumų, kai jų duomenų nėra (tada jų indėlis 0 nieko nereiškia)."""
+    return [(k, n) for k, n in DRIVERS if k != "pralaidumai" or caps_known(inp)]
+
+
 def energy_story(inp: Inputs) -> str:
     """Kas kainą kelia ir mažina – vienas sakinys iš veiksnių indėlių."""
     if not inp.sit:
@@ -485,7 +496,7 @@ def block_energy(inp: Inputs) -> str:
         o.append(map_svg(inp, False))
         o.append("</figure>")
         c = contributions(inp)
-        items = sorted([(c.get(k, 0.0), k, name) for k, name in DRIVERS], key=lambda t: -t[0]) + [(c.get("kita", 0.0), "kita", "Kita")]
+        items = sorted([(c.get(k, 0.0), k, name) for k, name in drivers(inp)], key=lambda t: -t[0]) + [(c.get("kita", 0.0), "kita", "Kita")]
         li = []
         for v, key, name in items:
             r = round(v)
@@ -503,7 +514,10 @@ def block_energy(inp: Inputs) -> str:
         for lbl, val, unit, note in conditions(inp):
             if lbl == "Jungtys":
                 cd = float((s.get("sąlygos") or {}).get("cap_def") or 0)
-                kp.append(_kpi("Pralaidumų ribojimas", num(cd, 0), "MW", "importo pralaidumai neriboti" if cd < 1 else "trūksta iki įprasto importo pralaidumo"))
+                if caps_known(inp):
+                    kp.append(_kpi("Pralaidumų ribojimas", num(cd, 0), "MW", "importo pralaidumai neriboti" if cd < 1 else "trūksta iki įprasto importo pralaidumo"))
+                else:
+                    kp.append(_kpi("Pralaidumų ribojimas", "–", "", "pralaidumų duomenys negauti"))
             else:
                 kp.append(_kpi(lbl, val, unit, note))
         o.append('<div class="mr-kpis">\n' + "\n".join(kp) + "\n</div>")
@@ -542,8 +556,11 @@ def conditions(inp: Inputs) -> list[tuple[str, str, str, str]]:
     g = s["dujos"]
     out.append(("Dujos (TTF)", num(g["ttf"]), "€/MWh", f"12 mėn. vidurkis {num(g['norma_12mėn'])} · {g['būsena']}"))
     cd = float((s.get("sąlygos") or {}).get("cap_def") or 0)
-    out.append(("Jungtys", "neribojamos" if cd < 1 else f"apribotos {num(cd, 0)}{NB}MW", "",
-                "importo pralaidumai į Lietuvą" if cd < 1 else "trūksta iki įprasto importo pralaidumo"))
+    if not caps_known(inp):
+        out.append(("Jungtys", "nėra duomenų", "", "pralaidumų duomenys negauti"))
+    else:
+        out.append(("Jungtys", "neribojamos" if cd < 1 else f"apribotos {num(cd, 0)}{NB}MW", "",
+                    "importo pralaidumai į Lietuvą" if cd < 1 else "trūksta iki įprasto importo pralaidumo"))
     return out
 
 
@@ -869,7 +886,7 @@ def mail_energy(inp: Inputs) -> str:
                 12, 18, INK2, " padding-top:6px;")
         # kas lemia kainą
         c = contributions(inp)
-        items = sorted([(c.get(k, 0.0), k, name) for k, name in DRIVERS], key=lambda t: -t[0]) + [(c.get("kita", 0.0), "kita", "Kita")]
+        items = sorted([(c.get(k, 0.0), k, name) for k, name in drivers(inp)], key=lambda t: -t[0]) + [(c.get("kita", 0.0), "kita", "Kita")]
         maxpos = max([v for v, _, _ in items if v > 0] + [1])
         maxneg = max([-v for v, _, _ in items if v < 0] + [1])
         unit = min(40 / maxpos, 20 / maxneg)          # procentai lentelės pločio vienam €/MWh
