@@ -8,7 +8,7 @@ Iš eigos surinktų duomenų (aplankas data/) pagamina failus svetainei ir laiš
   public/skiltis.html               šiandienos fragmentas svetainei
   public/archyvas/MMMM-MM-DD.html   tas pats fragmentas archyvui
   public/archyvas/index.json        archyvo sąrašas [{"data", "akcentas"}]
-  public/laiskas.html               el. laiškas (be nuorodų ir be paveikslėlių)
+  public/laiskas.html               el. laiškas (be paveikslėlių; nuorodos – tik į Enerconsult svetainę)
   public/tema.txt                   laiško tema
   public/data.txt                   ataskaitos data MMMM-MM-DD – rašoma paskutinė
 
@@ -60,6 +60,11 @@ RAISE_BAR, LOWER_BAR, OTHER_BAR = "#C55A11", "#2B5797", "#808080"
 RAISE_TXT, LOWER_TXT = "#A84A0C", "#2B5797"
 SEV_COLOR = {"kritinė": "#C00000", "didelė": "#C55A11", "vidutinė": "#BF8F00", "maža": "#808080"}
 FONT = "'Segoe UI', Arial, Helvetica, sans-serif"
+
+# Laiško nuorodos (2026-11-19 sprendimas: laiške – nuorodos į svetainę, turinys lieka laiške)
+SITE_URL = "https://enerconsult.lt/"
+MR_URL = "https://enerconsult.lt/morning-report/"
+MR_MAILBOX = "morningreport@enerconsult.lt"
 
 
 # ─── pagalbinės ──────────────────────────────────────────────────────────────
@@ -803,7 +808,7 @@ def fragment(inp: Inputs, alerts: list[str]) -> str:
     return "\n\n".join(parts) + "\n"
 
 
-# ─── laiškas (B variantas: be nuorodų, be paveikslėlių) ──────────────────────
+# ─── laiškas (B variantas: be paveikslėlių; nuorodos – tik į Enerconsult svetainę) ─
 
 def m_tr(inner: str, pad: str = "22px 36px 0") -> str:
     return f'<tr><td style="padding:{pad};">{inner}</td></tr>'
@@ -815,6 +820,30 @@ def m_table(rows: str, extra: str = "") -> str:
 
 def m_p(text: str, size=14, lh=21, color=INK2, extra="") -> str:
     return f'<p style="margin:0; font-family:{FONT}; font-size:{size}px; line-height:{lh}px; color:{color};{extra}">{text}</p>'
+
+
+def mr_day_url(d: date) -> str:
+    """Tos dienos ataskaita svetainėje (archyvo adresas – tinka ir šiandienai)."""
+    return f"{MR_URL}?data={d.isoformat()}"
+
+
+def m_a(url: str, text: str, color: str = INK, underline: bool = True) -> str:
+    deco = "underline" if underline else "none"
+    return f'<a href="{ea(url)}" style="color:{color}; text-decoration:{deco};">{text}</a>'
+
+
+def m_button(url: str, text: str) -> str:
+    # spalva ir paraštės – langelyje, kad mygtukas atrodytų vienodai ir Outlook kompiuteryje
+    return (f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate;"><tr>'
+            f'<td bgcolor="{INK}" style="padding:9px 18px; background:{INK}; border-radius:3px;">'
+            f'<a href="{ea(url)}" style="font-family:{FONT}; font-size:13px; line-height:18px; font-weight:bold; color:#FFFFFF; text-decoration:none;">{text}</a>'
+            f'</td></tr></table>')
+
+
+def unsub_line() -> str:
+    mailto = f"mailto:{MR_MAILBOX}?subject=Atsisakyti"
+    return ("Gaunate šį laišką, nes užsiprenumeravote Morning Report. Norėdami atsisakyti, atsakykite į šį laišką žodžiu „Atsisakyti“ arba "
+            + m_a(mailto, "parašykite mums", INK2) + ".")
 
 
 def m_section(title: str, caption: str | None, inner: str, first=False) -> str:
@@ -938,6 +967,9 @@ def mail_energy(inp: Inputs) -> str:
             b = s["kaina"]["intervalas"]
             txt += f" Įprasta paros kaina – {num(b[0], 0)}–{num(b[1], 0)}{NB}€/MWh."
         inner += m_sub("Kaina per parą", "vidutinė kaina paros dalimis, €/MWh, Lietuvos laiku") + m_table(tr) + m_p(txt, 12, 18, INK2, " padding-top:6px;")
+    visuals = [name for name, ok in (("rinkos žemėlapis", bool(s)), ("valandinių kainų grafikas", bool(inp.hours))) if ok]
+    if visuals:
+        inner += m_p(f'{cap(" ir ".join(visuals))} – {m_a(mr_day_url(d), "svetainėje")}.', 13, 19, INK2, " padding-top:12px;")
     inner += m_p("Šaltiniai: ENTSO-E, Elering, EEX, ICE (TTF). Skaičiavimai – MB Enerconsult.", 11, 16, INK3, " padding-top:10px;")
     return m_section("Elektros rinka", f"{cap(WEEKDAYS[d.weekday()])}, {day_short(d)} · kitos paros rinka", inner)
 
@@ -1024,12 +1056,13 @@ def email(inp: Inputs, alerts: list[str]) -> str:
     pre = energy_headline(inp) if inp.price is not None else "Morning Report"
     rows = []
     rows.append(m_tr(m_table(
-        f'<tr><td style="padding:0 0 12px; border-bottom:1px solid #A6A6A6; font-family:{FONT}; font-size:20px; line-height:26px; font-weight:bold; letter-spacing:0.02em; color:{INK};">Enerconsult</td>'
+        f'<tr><td style="padding:0 0 12px; border-bottom:1px solid #A6A6A6; font-family:{FONT}; font-size:20px; line-height:26px; font-weight:bold; letter-spacing:0.02em; color:{INK};">{m_a(SITE_URL, "Enerconsult", INK, False)}</td>'
         f'<td align="right" style="padding:0 0 12px; border-bottom:1px solid #A6A6A6; font-family:{FONT}; font-size:12px; line-height:26px; font-style:italic; color:{INK3}; text-align:right;">kasdien 7:00</td></tr>'),
         "24px 36px 0"))
     rows.append(m_tr(m_p("Morning Report", 26, 32, INK, " font-weight:bold;") + m_p(e(day_long(d)), 14, 20, INK, " padding-top:2px;")
                      + m_p("Lietuvos energetikos rinka: kainos, paramos, teisės aktai, naujienos ir pasaulio rinkos", 12, 18, INK3, " font-style:italic; padding-top:2px;"),
                      "18px 36px 0"))
+    rows.append(m_tr(m_button(mr_day_url(d), "Atidaryti svetainėje →"), "14px 36px 0"))
     for a in alerts:
         rows.append(m_tr(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#FFF4DC" style="padding:10px 12px; background:#FFF4DC; border-left:4px solid #F2A93B;">'
                          + m_p(e(a), 13, 19, INK) + "</td></tr></table>", "16px 36px 0"))
@@ -1047,9 +1080,10 @@ def email(inp: Inputs, alerts: list[str]) -> str:
     if inp.world:
         rows.append(mail_world(inp))
     rows.append(m_tr(f'<div style="border-top:1px solid {LINE}; padding-top:18px;">' + m_p("Iki rytojaus, 7:00.", 16, 22, INK, " font-weight:bold;")
-                     + m_p("Šiame laiške nėra nuorodų ir paveikslėlių, todėl nieko nereikia atsisiųsti iš interneto. Vaizdinė ataskaitos versija – Enerconsult svetainės skiltyje „Morning Report“.", 12, 18, INK2, " padding-top:8px;")
-                     + m_p("Gaunate šį laišką, nes užsiprenumeravote Morning Report. Norėdami atsisakyti, atsakykite į šį laišką žodžiu „Atsisakyti“.", 12, 18, INK2, " padding-top:6px;")
-                     + f'<p style="margin:14px 0 0; padding-top:12px; border-top:1px solid #A6A6A6; font-family:{FONT}; font-size:11px; line-height:16px; text-align:center; color:{INK3};">Morning Report · MB Enerconsult</p></div>',
+                     + m_p(f'Vaizdinė versija su rinkos žemėlapiu, grafikais ir ankstesnių dienų archyvu – {m_a(MR_URL, "enerconsult.lt/morning-report")}.', 12, 18, INK2, " padding-top:8px;")
+                     + m_p(f'Gavote persiųstą laišką? {m_a(MR_URL + "#prenumerata", "Užsiprenumeruokite")}.', 12, 18, INK2, " padding-top:6px;")
+                     + m_p(unsub_line(), 12, 18, INK2, " padding-top:6px;")
+                     + f'<p style="margin:14px 0 0; padding-top:12px; border-top:1px solid #A6A6A6; font-family:{FONT}; font-size:11px; line-height:16px; text-align:center; color:{INK3};">Morning Report · {m_a(SITE_URL, "MB Enerconsult", INK3)}</p></div>',
                      "26px 36px 28px"))
     body = "\n".join(rows)
     return f'''<!doctype html>
