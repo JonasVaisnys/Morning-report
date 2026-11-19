@@ -1,0 +1,36 @@
+name: Brevo patikra
+
+# Tikrina Brevo API raktą ir paskyros nustatymus. Rezultatas – data/patikra/brevo.json šioje šakoje.
+# Laiškų nesiunčia, pagrindinės šakos nekeičia.
+
+on:
+  push:
+    branches: [brevo-patikra]
+
+permissions:
+  contents: write
+
+jobs:
+  patikra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "requests>=2.31"
+      - name: Patikra
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: |
+          mkdir -p data/patikra
+          python scripts/brevo.py patikra > data/patikra/brevo.json 2> data/patikra/brevo.log || true
+          curl -s https://api.ipify.org > data/patikra/github-ip.txt || true
+      - name: Įrašyti
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898732+github-actions[bot]@users.noreply.github.com"
+          git add data/patikra
+          git commit -m "Brevo patikra" || exit 0
+          git push
