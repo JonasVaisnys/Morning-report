@@ -65,6 +65,7 @@ FONT = "'Segoe UI', Arial, Helvetica, sans-serif"
 SITE_URL = "https://enerconsult.lt/"
 MR_URL = "https://enerconsult.lt/morning-report/"
 MR_MAILBOX = "morningreport@enerconsult.lt"
+PRIVACY_URL = "https://enerconsult.lt/privatumo-politika/"
 
 
 # ─── pagalbinės ──────────────────────────────────────────────────────────────
@@ -1083,7 +1084,7 @@ def email(inp: Inputs, alerts: list[str]) -> str:
                      + m_p(f'Vaizdinė versija su rinkos žemėlapiu, grafikais ir ankstesnių dienų archyvu – {m_a(MR_URL, "enerconsult.lt/morning-report")}.', 12, 18, INK2, " padding-top:8px;")
                      + m_p(f'Gavote persiųstą laišką? {m_a(MR_URL + "#prenumerata", "Užsiprenumeruokite")}.', 12, 18, INK2, " padding-top:6px;")
                      + m_p(unsub_line(), 12, 18, INK2, " padding-top:6px;")
-                     + f'<p style="margin:14px 0 0; padding-top:12px; border-top:1px solid #A6A6A6; font-family:{FONT}; font-size:11px; line-height:16px; text-align:center; color:{INK3};">Morning Report · {m_a(SITE_URL, "MB Enerconsult", INK3)}</p></div>',
+                     + f'<p style="margin:14px 0 0; padding-top:12px; border-top:1px solid #A6A6A6; font-family:{FONT}; font-size:11px; line-height:16px; text-align:center; color:{INK3};">Morning Report · {m_a(SITE_URL, "MB Enerconsult", INK3)} · {m_a(PRIVACY_URL, "Privatumo politika", INK3)}</p></div>',
                      "26px 36px 28px"))
     body = "\n".join(rows)
     return f'''<!doctype html>
