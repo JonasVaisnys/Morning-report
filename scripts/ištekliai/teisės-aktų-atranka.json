@@ -1,0 +1,17 @@
+{
+  "aprašas": "Energetikai aktualių TAR aktų atranka. Išbandyta 2026-10-12…11-13 duomenimis (1993 aktai, 71 energetikos). Naudoja ir „teisės aktai.py“, ir rytinis surinkimas per Chrome („tar-surinkimas.js“).",
+  "neįtraukti_pavadinime": ["energetikų g", "mikrojudumo", "pensijų kaupimo", "anglies kaupimo", "sankcijų netaikymo", "lietuvos banko"],
+  "neįtraukti_institucijos": ["lietuvos bankas"],
+  "vert_ne_energetika": ["vandens tiekimo", "nuotekų", "atliekų tvarkymo", "atliekų deginimo"],
+  "visada_institucijos": ["energetikos ministerija", "valstybinė energetikos reguliavimo taryba", "energetikos agentūra"],
+  "sritys": [
+    ["AEI ir kaupimas", ["atsinaujinan", "vėjo", "saulės", "geoterm", "hidroelektr", "kaupikl", "energijos kaupim", "kaupimo įrengin", "gaminančių vartotojų"]],
+    ["Elektra", ["elektros energ", "elektros tinkl", "elektros įrengin", "elektros rink", "elektros oro linij", "elektros linij", "persiuntimo paslaug", "perdavimo paslaug", "skirstymo paslaug", "elektrin", "visuomeninio tiekimo", "viešuosius interesus atitinkančių paslaugų", "litgrid"]],
+    ["Dujos", ["gamtinių dujų", "suskystintų gamtinių", "dujų perdav", "dujų skirst", "dujų tiekim", "biometan", "vandenil", "dujinimo", "biodujų"]],
+    ["Šiluma", ["šilumos", "šilumin", "karšto vandens", "šildym", "kogeneracin"]],
+    ["Transportas", ["elektromobil", "įkrovimo prieig", "alternatyviųjų degalų", "degalų"]],
+    ["Efektyvumas", ["energinio efektyvumo", "energijos vartojimo efektyv", "energinio naudingumo", "renovac"]],
+    ["Klimatas", ["šiltnamio efektą", "apyvartinių taršos leidim", "prisitaikymo prie klimato"]],
+    ["Kita energetika", ["energet", "energijos išteklių", "branduolin", "radioaktyv", "naftos", "biokuro", "kuro ir energijos"]]
+  ]
+}

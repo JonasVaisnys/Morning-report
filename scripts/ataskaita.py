@@ -159,7 +159,7 @@ class Inputs:
             and all(isinstance(pr["rodikliai"].get(k), dict) for k in ("brent", "ttf", "eua"))
         self.world = pr if ok else None
         ta = load(os.path.join(data_dir, "teisės-aktai.json"))
-        self.legal = ta if isinstance(ta, dict) and not ta.get("error") and ta.get("energy_relevant") else None
+        self.legal = ta if isinstance(ta, dict) and not ta.get("error") and ta.get("data") == iso and ta.get("energy_relevant") else None
         pa = load(os.path.join(data_dir, "paramos.json"))
         self.grants = pa if isinstance(pa, dict) and pa.get("data") == iso and pa.get("kvietimai") else None
 
@@ -703,6 +703,15 @@ def block_world(inp: Inputs) -> str:
     return "\n".join(o)
 
 
+def inst_short(x: str | None) -> str:
+    """„Lietuvos Respublikos energetikos ministerija“ → „Energetikos ministerija“."""
+    x = (x or "").strip()
+    if x.startswith("Lietuvos Respublikos "):
+        x = x[len("Lietuvos Respublikos "):]
+        x = x[:1].upper() + x[1:]
+    return x
+
+
 def legal_overview(inp: Inputs) -> str:
     acts = inp.legal["energy_relevant"]
     n = len(acts)
@@ -713,15 +722,15 @@ def block_legal(inp: Inputs) -> str:
     acts = inp.legal["energy_relevant"]
     o = ['<section class="mr-block">', '<h2 class="mr-h">Teisės aktai</h2>',
          '<p class="mr-sub">Teisės aktų registre paskelbti energetikai aktualūs aktai · e-tar.lt</p>',
-         '<table class="mr-table">', '<thead><tr><th>Būsena</th><th>Aktas</th><th>Institucija, data</th><th>Įsigalioja</th></tr></thead>', "<tbody>"]
+         '<table class="mr-table">', '<thead><tr><th>Sritis</th><th>Aktas</th><th>Institucija, paskelbta</th><th>Įsigalioja</th></tr></thead>', "<tbody>"]
     for a in acts:
         title = e(a.get("pavadinimas") or "")
         if https(a.get("url")):
             title = f'<a href="{ea(a["url"])}">{title}</a>'
         pub = a.get("paskelbta_tar") or a.get("priimtas") or ""
         eff = a.get("isigalioja") or ""
-        o.append(f'<tr><td><span class="mr-status mr-sev-medium">Paskelbta</span></td><td>{title}</td>'
-                 f'<td>{e(a.get("priemusi_inst") or "")}{", " if pub else ""}{f"<time datetime={chr(34)}{ea(pub[:10])}{chr(34)}>{e(pub[:10])}</time>" if pub else ""}</td>'
+        o.append(f'<tr><td><span class="mr-status mr-sev-medium">{e(a.get("sritis") or "Paskelbta")}</span></td><td>{title}</td>'
+                 f'<td>{e(inst_short(a.get("priemusi_inst")))}{", " if pub else ""}{f"<time datetime={chr(34)}{ea(pub[:10])}{chr(34)}>{e(pub[:10])}</time>" if pub else ""}</td>'
                  f'<td>{f"<time datetime={chr(34)}{ea(eff[:10])}{chr(34)}>{e(eff[:10])}</time>" if eff else "–"}</td></tr>')
     o += ["</tbody>", "</table>", "</section>"]
     return "\n".join(o)
@@ -979,7 +988,7 @@ def mail_legal(inp: Inputs) -> str:
     rows = m_th([("Aktas", "", "left"), ("Institucija, data", "34%", "left")])
     for a in inp.legal["energy_relevant"]:
         pub = (a.get("paskelbta_tar") or a.get("priimtas") or "")[:10]
-        rows += "<tr>" + m_td(e(a.get("pavadinimas") or ""), bold=True, color=INK) + m_td(e(f"{a.get('priemusi_inst') or ''}, {pub}".strip(", "))) + "</tr>"
+        rows += "<tr>" + m_td(e(a.get("pavadinimas") or ""), bold=True, color=INK) + m_td(e(f"{inst_short(a.get('priemusi_inst'))}, {pub}".strip(", "))) + "</tr>"
     return m_section("Teisės aktai", "Teisės aktų registre paskelbti energetikai aktualūs aktai", m_table(rows))
 
 

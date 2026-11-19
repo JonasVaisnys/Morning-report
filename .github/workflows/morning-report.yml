@@ -91,8 +91,10 @@ jobs:
       - name: Teisės aktai
         if: env.SKIP != 'true'
         run: |
-          python "scripts/teisės aktai.py" --json --days 1 > data/teisės-aktai.json 2> data/teisės-aktai-debug.log || true
-          python "scripts/teisės aktai.py" --days 1 > data/teisės-aktai.txt 2>> data/teisės-aktai-debug.log || true
+          # data.gov.lt užkarda GitHub serverių neprileidžia, todėl aktus ~04:40 surenka
+          # suplanuota užduotis per Jono Chrome į data/šaltiniai/tar.json; API – tik atsarginis
+          python "scripts/teisės aktai.py" --json --data "$DATE" --is-failo data/šaltiniai/tar.json > data/teisės-aktai.json 2> data/teisės-aktai-debug.log || true
+          python "scripts/teisės aktai.py" --data "$DATE" --is-failo data/šaltiniai/tar.json > data/teisės-aktai.txt 2>> data/teisės-aktai-debug.log || true
           echo "--- teisės aktai ---"; tail -n 10 data/teisės-aktai-debug.log
 
       - name: Pasaulio rinkos

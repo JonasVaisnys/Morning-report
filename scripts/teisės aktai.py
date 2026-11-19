@@ -14,10 +14,14 @@ Naudojimas:
   python "scripts/teisės aktai.py" --days 1     # tik vakar
   python "scripts/teisės aktai.py" --json       # JSON formatas
   python "scripts/teisės aktai.py" --type Įstatymas  # tik įstatymai
+  python "scripts/teisės aktai.py" --json --data 2026-11-19 --is-failo data/šaltiniai/tar.json
+      # rytinė ataskaita: imami per Chrome surinkti aktai (data.gov.lt užkarda
+      # neprileidžia GitHub serverių); jei failo šiai datai nėra – bandoma API
 """
 
 import argparse
 import json
+import os
 import sys
 from datetime import datetime, timedelta
 from urllib.parse import quote
@@ -27,16 +31,10 @@ import requests
 BASE_URL = "https://get.data.gov.lt"
 DATASET = "datasets/gov/lrsk/teises_aktai/Dokumentas"
 
-# Energetikai aktualios rūšys ir raktažodžiai (filtruoti „relevance" žymą)
-ENERGY_KEYWORDS = [
-    "energi", "elektr", "atsinaujinan", "vėjo", "saulės", "kaupikl",
-    "baterij", "akumuliator", "tinkl", "perdavim", "skirstom",
-    "generato", "elektrinė", "gamyb", "litgrid", "eso ",
-    "ignitis", "epso", "vert ", "apva ", "lea ",
-    "taršos", "emisij", "anglies", "klimat", "žali",
-    "subsidij", "lengvat", "parama", "aukcion",
-    "bess", "pv ", "aei", "gaminan",
-]
+# Energetikos atrankos taisyklės – bendros su rytiniu surinkimu per Chrome
+RULES_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ištekliai", "teisės-aktų-atranka.json")
+with open(RULES_PATH, encoding="utf-8") as _f:
+    RULES = json.load(_f)
 
 
 def fetch_legislation(days: int, type_filter: str | None = None) -> list[dict]:
@@ -65,21 +63,34 @@ def fetch_legislation(days: int, type_filter: str | None = None) -> list[dict]:
     return []
 
 
+def energy_area(doc: dict) -> str | None:
+    """Energetikos sritis pagal pavadinimą ir instituciją arba None (žr. teisės-aktų-atranka.json)."""
+    t = str(doc.get("pavadinimas") or "").lower()
+    pi = (str(doc.get("priemusi_inst") or "") + " " + str(doc.get("parengusi_inst") or "")).lower()
+    if any(k in t for k in RULES["neįtraukti_pavadinime"]):
+        return None
+    if any(k in pi for k in RULES["neįtraukti_institucijos"]):
+        return None
+    if "valstybinė energetikos reguliavimo taryba" in pi and any(k in t for k in RULES["vert_ne_energetika"]):
+        return None
+    for area, kws in RULES["sritys"]:
+        if any(k in t for k in kws):
+            return area
+    return "Kita energetika" if any(k in pi for k in RULES["visada_institucijos"]) else None
+
+
 def is_energy_relevant(doc: dict) -> bool:
     """Patikrina ar dokumentas susijęs su energetika."""
-    text = " ".join([
-        str(doc.get("pavadinimas", "")),
-        str(doc.get("parengusi_inst", "")),
-        str(doc.get("priemusi_inst", "")),
-    ]).lower()
-
-    return any(kw in text for kw in ENERGY_KEYWORDS)
+    return energy_area(doc) is not None
 
 
-def etar_url(tar_kodas: str) -> str:
-    """Sudaro e-TAR nuorodą."""
-    if tar_kodas:
-        return f"https://www.e-tar.lt/portal/lt/legalAct/{tar_kodas}"
+def etar_url(doc) -> str:
+    """e-TAR nuoroda: API laukas „nuoroda“ (…/legalAct/<dokumento_id>); TAR kodu e-TAR akto neranda."""
+    if isinstance(doc, dict):
+        if str(doc.get("nuoroda") or "").startswith("https://"):
+            return doc["nuoroda"]
+        if doc.get("dokumento_id"):
+            return f"https://e-tar.lt/portal/lt/legalAct/{doc['dokumento_id']}"
     return ""
 
 
@@ -123,7 +134,7 @@ def generate_text(docs: list[dict], days: int, type_filter: str | None) -> str:
                 lines.append(f"    Priėmė: {inst}")
             tar = doc.get("tar_kodas", "")
             if tar:
-                lines.append(f"    {etar_url(tar)}")
+                lines.append(f"    {etar_url(doc)}")
             lines.append("")
         lines.append("")
 
@@ -147,7 +158,7 @@ def generate_text(docs: list[dict], days: int, type_filter: str | None) -> str:
                          f"{doc.get('priemusi_inst', '?')}")
             tar = doc.get("tar_kodas", "")
             if tar:
-                lines.append(f"    {etar_url(tar)}")
+                lines.append(f"    {etar_url(doc)}")
             lines.append("")
 
         if len(non_energy) > 30:
@@ -173,6 +184,7 @@ def generate_json(docs: list[dict], days: int, type_filter: str | None) -> dict:
         "energy_relevant": [
             {
                 "pavadinimas": d.get("pavadinimas"),
+                "sritis": d.get("sritis") or energy_area(d),
                 "rusis": d.get("rusis"),
                 "priimtas": d.get("priimtas"),
                 "paskelbta_tar": d.get("paskelbta_tar"),
@@ -181,7 +193,7 @@ def generate_json(docs: list[dict], days: int, type_filter: str | None) -> dict:
                 "priemusi_inst": d.get("priemusi_inst"),
                 "tar_kodas": d.get("tar_kodas"),
                 "atv_dok_nr": d.get("atv_dok_nr"),
-                "url": etar_url(d.get("tar_kodas", "")),
+                "url": etar_url(d),
             }
             for d in energy_docs
         ],
@@ -198,11 +210,36 @@ def generate_json(docs: list[dict], days: int, type_filter: str | None) -> dict:
                 "isigalioja": d.get("isigalioja"),
                 "priemusi_inst": d.get("priemusi_inst"),
                 "tar_kodas": d.get("tar_kodas"),
-                "url": etar_url(d.get("tar_kodas", "")),
+                "url": etar_url(d),
             }
             for d in docs
         ],
     }
+
+
+def fetch_range(nuo: str, iki: str) -> list[dict]:
+    """Aktai, paskelbti TAR nuo `nuo` (imtinai) iki `iki` (neimtinai)."""
+    query = "&".join([f'paskelbta_tar>="{nuo}"', f'paskelbta_tar<"{iki}"', "sort(-paskelbta_tar)", "limit(2000)"])
+    url = f"{BASE_URL}/{DATASET}?{query}"
+    print(f"[teisės aktai] Užklausa: {url}", file=sys.stderr)
+    resp = requests.get(url, headers={"Accept": "application/json"}, timeout=30)
+    resp.raise_for_status()
+    data = resp.json()
+    return data.get("_data", []) if isinstance(data, dict) else (data if isinstance(data, list) else [])
+
+
+def load_collected(path: str, day: str) -> dict | None:
+    """Per Chrome surinktas failas (data/šaltiniai/tar.json), jei jis skirtas šios dienos ataskaitai."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            c = json.load(f)
+    except (OSError, ValueError) as e:
+        print(f"[teisės aktai] Surinkto failo nėra arba jis sugadintas ({path}): {e}", file=sys.stderr)
+        return None
+    if not isinstance(c, dict) or c.get("iki") != day or not isinstance(c.get("aktai"), list):
+        print(f"[teisės aktai] Surinktas failas ne šiai dienai (iki={c.get('iki') if isinstance(c, dict) else None}, reikia {day})", file=sys.stderr)
+        return None
+    return c
 
 
 def main():
@@ -213,7 +250,37 @@ def main():
                         help="Filtruoti pagal rūšį (pvz. Įstatymas)")
     parser.add_argument("--json", action="store_true",
                         help="Išvesti JSON formatu")
+    parser.add_argument("--data", default=None,
+                        help="Ataskaitos data (YYYY-MM-DD): imami aktai, paskelbti iki šios datos nuo ankstesnio surinkimo")
+    parser.add_argument("--is-failo", dest="is_failo", default=None,
+                        help="Per Chrome surinktas failas (data/šaltiniai/tar.json)")
     args = parser.parse_args()
+
+    if args.data:
+        day = args.data
+        collected = load_collected(args.is_failo, day) if args.is_failo else None
+        if collected:
+            docs = collected["aktai"]
+            print(f"[teisės aktai] Iš surinkto failo: {collected.get('viso')} aktų, energetikos {len(docs)} "
+                  f"({collected.get('nuo')} – {collected.get('iki')}, surinkta {collected.get('surinkta')})", file=sys.stderr)
+            source, period, total = "data.gov.lt TAR (surinkta per Chrome)", {"from": collected.get("nuo"), "to": day}, collected.get("viso", len(docs))
+        else:
+            nuo = (datetime.strptime(day, "%Y-%m-%d") - timedelta(days=1)).strftime("%Y-%m-%d")
+            try:
+                docs = fetch_range(nuo, day)
+            except requests.RequestException as e:
+                print(f"[teisės aktai] API klaida: {e}", file=sys.stderr)
+                print(json.dumps({"section": "teises_aktai", "data": day, "error": str(e), "total_count": 0,
+                                  "energy_relevant": [], "all_acts": []}, ensure_ascii=False, indent=2))
+                sys.exit(1)
+            source, period, total = "data.gov.lt TAR (API)", {"from": nuo, "to": day}, len(docs)
+        result = generate_json(docs, 1, args.type_filter)
+        result.update({"data": day, "šaltinis": source, "period": period, "total_count": total})
+        if args.json:
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+        else:
+            print(generate_text(docs, 1, args.type_filter))
+        return
 
     try:
         docs = fetch_legislation(args.days, args.type_filter)
