@@ -64,9 +64,28 @@ OUT_FACTORS = ["gamyba", "vartojimas", "dujos", "pralaidumai", "kita"]
 
 # ─── DUOMENYS ────────────────────────────────────────────────────────────────
 
+LITGRID_MAP = {"LT>LV": "siulomas_LT_LV", "LV>LT": "siulomas_LV_LT", "LT>PL": "siulomas_LT_PL",
+               "PL>LT": "siulomas_PL_LT", "LT>SE4": "siulomas_LT_SE4", "SE4>LT": "siulomas_SE4_LT"}
+
+
+def litgrid_hourly() -> pd.DataFrame:
+    """Litgrid skelbiami kitos paros pralaidumai prekybai (data/istorija/litgrid-pralaidumai.csv,
+    Lietuvos laiku, 15 min.) → valandos vidurkiai UTC su siulomas_* stulpeliais.
+    Nuo 2026-10-08 jie tikslesni už ENTSO-E A31: NordBalt sutampa 100 %, o LitPol ir LT–LV
+    ENTSO-E skelbė pastovią reikšmę (pvz. LV→LT 875 MW), kai iš tikrųjų pralaidumai kinta kas 15 min."""
+    path = os.path.join(HIST_DIR, "litgrid-pralaidumai.csv")
+    if not os.path.exists(path):
+        return pd.DataFrame()
+    lit = pd.read_csv(path)
+    t = pd.to_datetime(lit.pop("laikas")).dt.tz_localize(LT_TZ, ambiguous="NaT", nonexistent="NaT")
+    lit.index = t.dt.tz_convert("UTC")
+    lit = lit[lit.index.notna()].rename(columns=LITGRID_MAP).apply(pd.to_numeric, errors="coerce")
+    return lit.groupby(lit.index.floor("h")).mean()
+
+
 def _read(name: str) -> pd.DataFrame:
     """Istorinis failas ir kasdieniai papildymai (data/istorija/papildymai/, žr. „istorijos papildymas.py“).
-    Papildymų reikšmės turi pirmenybę, nes jos naujesnės."""
+    Papildymų reikšmės turi pirmenybę, nes jos naujesnės. Jungtims pralaidumai, kur yra, imami iš Litgrid."""
     df = pd.read_csv(os.path.join(HIST_DIR, name), index_col=0, parse_dates=True)
     pap = os.path.join(HIST_DIR, "papildymai", name.replace(".csv.gz", ".csv"))
     if os.path.exists(pap):
@@ -74,6 +93,14 @@ def _read(name: str) -> pd.DataFrame:
         if len(extra):
             df = extra.combine_first(df)
     df.index = df.index.tz_localize("UTC")
+    if name == "jungtys.csv.gz":
+        lit = litgrid_hourly()
+        if len(lit):
+            df = df.reindex(df.index.union(lit.index))
+            for c in lit.columns:
+                v = lit[c].dropna()
+                df[c] = df[c] if c in df.columns else np.nan
+                df.loc[v.index, c] = v
     return df
 
 
