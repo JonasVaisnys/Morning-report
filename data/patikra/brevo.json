@@ -1,32 +1,37 @@
 {
  "sąrašai": {
-  "http": 0,
+  "http": 401,
   "duomenys": {
-   "klaida": "BREVO_API_KEY nenustatytas"
+   "message": "We have detected you are using an unrecognised IP address 57.151.143.178. If you performed this action make sure to add the new IP address in this link: https://app.brevo.com/security/authorised_ips",
+   "code": "unauthorized"
   }
  },
  "aplankai": {
-  "http": 0,
+  "http": 401,
   "duomenys": {
-   "klaida": "BREVO_API_KEY nenustatytas"
+   "message": "We have detected you are using an unrecognised IP address 57.151.143.178. If you performed this action make sure to add the new IP address in this link: https://app.brevo.com/security/authorised_ips",
+   "code": "unauthorized"
   }
  },
  "siuntėjai": {
-  "http": 0,
+  "http": 403,
   "duomenys": {
-   "klaida": "BREVO_API_KEY nenustatytas"
+   "message": "api key is not authorized for resource \"account\"",
+   "code": "permission_denied"
   }
  },
  "domenai": {
-  "http": 0,
+  "http": 403,
   "duomenys": {
-   "klaida": "BREVO_API_KEY nenustatytas"
+   "message": "api key is not authorized for resource \"account\"",
+   "code": "permission_denied"
   }
  },
  "kampanijos": {
-  "http": 0,
+  "http": 401,
   "kiekis": {
-   "klaida": "BREVO_API_KEY nenustatytas"
+   "message": "We have detected you are using an unrecognised IP address 57.151.143.178. If you performed this action make sure to add the new IP address in this link: https://app.brevo.com/security/authorised_ips",
+   "code": "unauthorized"
   }
  }
 }
