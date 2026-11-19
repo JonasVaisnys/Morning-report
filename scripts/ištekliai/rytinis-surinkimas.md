@@ -17,6 +17,7 @@ Taisyklės visai užduočiai:
 ## 1. Teisės aktai → `data/šaltiniai/tar.json`
 
 1. NUO – lauko `iki` reikšmė iš esamo `data/šaltiniai/tar.json`, jei ji ne senesnė nei 7 d. Kitaip NUO = D − 1 d. IKI = D.
+   Jei NUO jau lygi D (šiandien surinkta), šį skyrių praleisti.
 2. Kortelėje atidaryti `https://get.data.gov.lt/`.
 3. Sudėti JavaScript tekstą: `const R = ` + `scripts/ištekliai/teisės-aktų-atranka.json` turinys + `;`, `const NUO = "…";`, `const IKI = "…";` ir po jų visas `scripts/ištekliai/tar-surinkimas.js` turinys. Vykdyti `javascript_tool` toje kortelėje.
 4. Grąžintą JSON eilutę be pakeitimų įrašyti į `data/šaltiniai/tar.json`. Patikrinti `python3 -c "import json;json.load(open('data/šaltiniai/tar.json'))"`.
