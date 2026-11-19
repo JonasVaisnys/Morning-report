@@ -1,0 +1,32 @@
+{
+ "sąrašai": {
+  "http": 0,
+  "duomenys": {
+   "klaida": "BREVO_API_KEY nenustatytas"
+  }
+ },
+ "aplankai": {
+  "http": 0,
+  "duomenys": {
+   "klaida": "BREVO_API_KEY nenustatytas"
+  }
+ },
+ "siuntėjai": {
+  "http": 0,
+  "duomenys": {
+   "klaida": "BREVO_API_KEY nenustatytas"
+  }
+ },
+ "domenai": {
+  "http": 0,
+  "duomenys": {
+   "klaida": "BREVO_API_KEY nenustatytas"
+  }
+ },
+ "kampanijos": {
+  "http": 0,
+  "kiekis": {
+   "klaida": "BREVO_API_KEY nenustatytas"
+  }
+ }
+}
