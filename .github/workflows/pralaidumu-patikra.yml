@@ -1,0 +1,40 @@
+name: Pralaidumų patikra
+
+# Laikina: patikrina, ar GitHub serveris pasiekia Litgrid, ir papildo pralaidumų istoriją.
+on:
+  push:
+    branches: [pralaidumu-patikra]
+
+permissions:
+  contents: write
+
+jobs:
+  litgrid:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Litgrid pralaidumai
+        env:
+          ENTSOE_TOKEN: ${{ secrets.ENTSOE_TOKEN }}
+        run: |
+          python - <<'PY'
+          import importlib.util
+          from datetime import date
+          spec = importlib.util.spec_from_file_location("ip", "scripts/istorijos papildymas.py")
+          ip = importlib.util.module_from_spec(spec); spec.loader.exec_module(ip)
+          ip.update_litgrid(date(2026, 11, 19))
+          PY
+          tail -n 3 data/istorija/litgrid-pralaidumai.csv
+      - name: Išsaugoti
+        run: |
+          git config user.name "Morning Report Bot"
+          git config user.email "bot@enerconsult.lt"
+          git add data/istorija/litgrid-pralaidumai.csv
+          git commit -q -m "Pralaidumų patikra: Litgrid istorija" || echo "Pakeitimų nėra."
+          git push -q origin HEAD:pralaidumu-patikra

@@ -10,7 +10,9 @@ Ką paima (valandomis, UTC):
   • kitos paros kainos: LT, LV, EE, FI, SE4, PL (ENTSO-E) ir LT, LV, EE, FI (Elering);
   • LT vartojimas: faktas ir kitos paros prognozė;
   • LT gamyba pagal tipą (faktas) ir vėjo bei saulės kitos paros prognozė;
-  • LT jungtys su SE4, PL ir LV: kitos paros prekybos grafikai ir rinkai siūlomi pralaidumai;
+  • LT jungtys su SE4, PL ir LV: kitos paros prekybos grafikai ir rinkai siūlomi pralaidumai
+    (ENTSO-E) bei Litgrid skelbiami kitos paros pralaidumai prekybai (litgrid-pralaidumai.csv,
+    kuriuos modelis naudoja pirmiausia);
   • dujos (TTF) ir CO2 (EUA) – dienos reikšmės iki vakar.
 
 Didieji istoriniai failai (*.csv.gz) nekeičiami: naujos valandos rašomos į
@@ -28,6 +30,7 @@ import csv
 import importlib.util
 import os
 import sys
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
@@ -108,6 +111,53 @@ def write_pap(name: str, series: dict[str, dict[datetime, float]]) -> int:
     return len(series)
 
 
+def update_litgrid(day: date, budget_s: int = 150) -> None:
+    """Litgrid kitos paros pralaidumai prekybai: nuo paskutinės turimos dienos iki rytojaus.
+    Skydelis riboja užklausų dažnį (HTTP 429), todėl imama ne daugiau kaip savaitė per užklausą
+    ir laikomasi laiko ribos, kad nevėlintų rytinės ataskaitos."""
+    path = os.path.join(D, "litgrid-pralaidumai.csv")
+    data: dict[str, list[str]] = {}
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            for r_ in list(csv.reader(f))[1:]:
+                if r_:
+                    data[r_[0]] = r_[1:7]
+    last = date.fromisoformat(max(data)[:10]) if data else day - timedelta(days=35)
+    cur = max(last - timedelta(days=1), day - timedelta(days=35))
+    end = day + timedelta(days=1)
+    t0, n_new = time.time(), 0
+    while cur <= end and time.time() - t0 < budget_s:
+        to = min(cur + timedelta(days=6), end)
+        part = {}
+        for attempt in range(2):
+            try:
+                code, text = ir.litgrid_export(ir.LITGRID_CAT["da_pralaidumai"], cur, to)
+            except Exception as e:      # noqa: BLE001
+                code, text = 0, f"{type(e).__name__}: {ir.clean(e)[:160]}"
+            if code == 200:
+                part = ir.litgrid_parse(text)
+                break
+            ir.log(f"Litgrid {cur}…{to}: {code} {text[:100]!r}, bandymas {attempt + 1}")
+            if time.time() - t0 + 30 > budget_s:
+                break
+            time.sleep(30)
+        if not part:
+            break
+        n_new += sum(1 for k in part if data.get(k) != part[k])
+        data.update(part)
+        ir.log(f"Litgrid {cur}…{to}: eilučių {len(part)}")
+        cur = to + timedelta(days=1)
+        if cur <= end:
+            time.sleep(20)
+    if n_new:
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            w = csv.writer(f)
+            w.writerow(["laikas"] + ir.LITGRID_COLS)
+            for k in sorted(data):
+                w.writerow([k] + data[k])
+    ir.log(f"Litgrid pralaidumai: naujų ar pakeistų eilučių {n_new}, iš viso {len(data)}, paskutinė {max(data, default='-')}")
+
+
 def update_daily(day: date) -> None:
     """TTF ir EUA dienos reikšmės iki vakar – į dienos.csv ir dienos-ilga.csv."""
     ttf = ir.yahoo_daily("TTF=F", "3mo")
@@ -177,6 +227,10 @@ def main() -> None:
     write_pap("gamyba", pick("gamyba_", "progn_"))
     write_pap("jungtys", pick("prekyba_", "siulomas_"))
     update_daily(day)
+    try:
+        update_litgrid(day)
+    except Exception as exc:        # noqa: BLE001 – be pralaidumų ataskaita vis tiek gaminama
+        ir.log(f"  ⚠ Litgrid: {type(exc).__name__}: {ir.clean(exc)[:200]}")
 
     # ar ataskaitos dienai pakanka duomenų (24 val. Lietuvos laiku)
     k = read_merged("kainos")

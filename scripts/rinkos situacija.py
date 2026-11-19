@@ -289,7 +289,7 @@ class Situation:
         out["mainai"] = {z: {"mw": round(v), "proc_vartojimo": round(100 * v / load)} for z, v in imp.items()}
         out["mainai"]["iš_viso"] = {"mw": round(sum(imp.values())), "proc_vartojimo": round(100 * sum(imp.values()) / load)}
         out["mainai"]["maks"] = {"SE4_imp": round(float(jj.prekyba_SE4_LT.max())), "SE4_eksp": round(float(jj.prekyba_LT_SE4.max())), "PL_imp": round(float(jj.prekyba_PL_LT.max())), "PL_eksp": round(float(jj.prekyba_LT_PL.max())), "LV_imp": round(float(jj.prekyba_LV_LT.max())), "LV_eksp": round(float(jj.prekyba_LT_LV.max()))}
-        # pralaidumai: ENTSO-E (siūlomi rinkai) + Nord Pool, jei yra; nominalas – 365 d. mediana
+        # pralaidumai: Litgrid (nuo 2026-10-08), anksčiau ENTSO-E (siūlomi rinkai); nominalas – 365 d. mediana
         caps = {}
         hist = self.j[(self.jdate < d) & (self.jdate >= d - timedelta(days=365))]
         for name, a, b in (("LT–SE4 (NordBalt)", "SE4", "LT"), ("LT–PL (LitPol)", "PL", "LT"), ("LT–LV", "LV", "LT")):
