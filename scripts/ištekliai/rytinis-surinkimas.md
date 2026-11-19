@@ -12,7 +12,8 @@ Taisyklės visai užduočiai:
 
 1. D – šiandienos data Vilniaus laiku (`TZ=Europe/Vilnius date +%F`).
 2. Saugykla `JonasVaisnys/Morning-report`, šaka `main`. Jei jos sesijoje nėra – `add_repo` (prieiga „push“), tada klonuoti ir `git pull`.
-3. Chrome: `tabs_context_mcp`, tada nauja kortelė `tabs_create_mcp`. Pabaigoje kortelę uždaryti.
+3. Chrome: prie paskyros gali būti prijungtos kelios naršyklės. Pirmiausia `list_connected_browsers`. Jei prijungta „JONAS“ (deviceId `c21c3545-7157-490c-afbf-0737078db3f7`) – `select_browser` su šiuo deviceId. Jei jos nėra, bet prijungta lygiai viena kita – naudoti ją. Jei nėra nė vienos – baigti be pakeitimų. Klausimų (AskUserQuestion) neužduoti – užduotis vykdoma be žmogaus.
+4. Tada `tabs_context_mcp`, nauja kortelė `tabs_create_mcp`. Pabaigoje kortelę uždaryti.
 
 ## 1. Teisės aktai → `data/šaltiniai/tar.json`
 
