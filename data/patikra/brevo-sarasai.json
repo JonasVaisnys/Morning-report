@@ -1,0 +1,46 @@
+{
+ "sąrašai": {
+  "MR pirmadienis": {
+   "id": 4,
+   "pridėta_http": 201,
+   "pridėta": 6
+  },
+  "MR antradienis": {
+   "id": 5,
+   "pridėta_http": 201,
+   "pridėta": 6
+  },
+  "MR trečiadienis": {
+   "id": 6,
+   "pridėta_http": 201,
+   "pridėta": 6
+  },
+  "MR ketvirtadienis": {
+   "id": 7,
+   "pridėta_http": 201,
+   "pridėta": 6
+  },
+  "MR penktadienis": {
+   "id": 8,
+   "pridėta_http": 201,
+   "pridėta": 6
+  },
+  "MR šeštadienis": {
+   "id": 9,
+   "pridėta_http": 201,
+   "pridėta": 6
+  },
+  "MR sekmadienis": {
+   "id": 10,
+   "pridėta_http": 201,
+   "pridėta": 6
+  },
+  "MR savaitės apžvalga": {
+   "id": 11,
+   "pridėta_http": 201,
+   "pridėta": 6
+  }
+ },
+ "klaidos": [],
+ "gavėjų_sąraše_3": 6
+}
