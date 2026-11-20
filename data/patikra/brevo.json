@@ -1,17 +1,27 @@
 {
  "sąrašai": {
-  "http": 401,
-  "duomenys": {
-   "message": "We have detected you are using an unrecognised IP address 57.151.143.178. If you performed this action make sure to add the new IP address in this link: https://app.brevo.com/security/authorised_ips",
-   "code": "unauthorized"
-  }
+  "http": 200,
+  "duomenys": [
+   {
+    "id": 3,
+    "pavadinimas": "Morning Report",
+    "kontaktų": 6
+   },
+   {
+    "id": 2,
+    "pavadinimas": "Your first list",
+    "kontaktų": 1
+   }
+  ]
  },
  "aplankai": {
-  "http": 401,
-  "duomenys": {
-   "message": "We have detected you are using an unrecognised IP address 57.151.143.178. If you performed this action make sure to add the new IP address in this link: https://app.brevo.com/security/authorised_ips",
-   "code": "unauthorized"
-  }
+  "http": 200,
+  "duomenys": [
+   {
+    "id": 1,
+    "pavadinimas": "Your first folder"
+   }
+  ]
  },
  "siuntėjai": {
   "http": 403,
@@ -28,10 +38,7 @@
   }
  },
  "kampanijos": {
-  "http": 401,
-  "kiekis": {
-   "message": "We have detected you are using an unrecognised IP address 57.151.143.178. If you performed this action make sure to add the new IP address in this link: https://app.brevo.com/security/authorised_ips",
-   "code": "unauthorized"
-  }
+  "http": 200,
+  "kiekis": 0
  }
 }
