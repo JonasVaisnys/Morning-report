@@ -1,4 +1,4 @@
-Renku duomenis: 2026-11-19 (ketvirtadienis)...
+Renku duomenis: 2026-11-20 (penktadienis)...
   → Kainos...
     LT (ENTSO-E)... 24 val.
     LV (ENTSO-E)... 24 val.
@@ -6,7 +6,9 @@ Renku duomenis: 2026-11-19 (ketvirtadienis)...
     SE4 (ENTSO-E)... 24 val.
     LT ≠ LV → rodoma atskirai
   → Tarpsisteminiai srautai...
-    LT→SE4... 6 val.
+    LT→SE4...   ⚠ A11 10Y1001A1001: HTTP 599
+    Atsakymas: {"uuAppErrorMap":{"uu-gateway-router/connectTimeout":{"id":"c57f996298d3d4428568f90015a2b33c","timestamp":"2026-11-20T03:32:36.990Z","type":"error","message":"Unable to access service within time limit."}}}
+5 val.
     SE4→LT... 6 val.
     LT→PL... 6 val.
     PL→LT... 6 val.

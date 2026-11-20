@@ -65,6 +65,7 @@ FONT = "'Segoe UI', Arial, Helvetica, sans-serif"
 SITE_URL = "https://enerconsult.lt/"
 MR_URL = "https://enerconsult.lt/morning-report/"
 MR_MAILBOX = "morningreport@enerconsult.lt"
+PRIVACY_URL = "https://enerconsult.lt/privatumo-politika/"
 
 
 # ─── pagalbinės ──────────────────────────────────────────────────────────────
@@ -846,6 +847,16 @@ def unsub_line() -> str:
             + m_a(mailto, "parašykite mums", INK2) + ".")
 
 
+def brevo_footer_lines() -> str:
+    """Brevo laiško atsisakymo ir kontakto eilutės (vietoj unsub_line). {{ unsubscribe }} – Brevo asmeninė nuoroda."""
+    mailto = f"mailto:{MR_MAILBOX}"
+    return ("Gaunate šį laišką, nes užsiprenumeravote Morning Report. "
+            + m_a("{{ unsubscribe }}", "Atsisakyti prenumeratos", INK2) + ".</p>"
+            + f'<p style="margin:0; padding-top:6px; font-family:{FONT}; font-size:12px; line-height:18px; color:{INK2};">'
+            + "Pastebėjote klaidą, kas nors neveikia ar norite ką nors pasakyti? Parašykite "
+            + m_a(mailto, MR_MAILBOX, INK2) + ".")
+
+
 def m_section(title: str, caption: str | None, inner: str, first=False) -> str:
     top = "" if first else f"border-top:1px solid {LINE}; padding-top:18px;"
     cap_html = m_p(caption, 12, 18, INK3, " font-style:italic;") if caption else ""
@@ -1083,7 +1094,7 @@ def email(inp: Inputs, alerts: list[str]) -> str:
                      + m_p(f'Vaizdinė versija su rinkos žemėlapiu, grafikais ir ankstesnių dienų archyvu – {m_a(MR_URL, "enerconsult.lt/morning-report")}.', 12, 18, INK2, " padding-top:8px;")
                      + m_p(f'Gavote persiųstą laišką? {m_a(MR_URL + "#prenumerata", "Užsiprenumeruokite")}.', 12, 18, INK2, " padding-top:6px;")
                      + m_p(unsub_line(), 12, 18, INK2, " padding-top:6px;")
-                     + f'<p style="margin:14px 0 0; padding-top:12px; border-top:1px solid #A6A6A6; font-family:{FONT}; font-size:11px; line-height:16px; text-align:center; color:{INK3};">Morning Report · {m_a(SITE_URL, "MB Enerconsult", INK3)}</p></div>',
+                     + f'<p style="margin:14px 0 0; padding-top:12px; border-top:1px solid #A6A6A6; font-family:{FONT}; font-size:11px; line-height:16px; text-align:center; color:{INK3};">Morning Report · {m_a(SITE_URL, "MB Enerconsult", INK3)} · {m_a(PRIVACY_URL, "Privatumo politika", INK3)}</p></div>',
                      "26px 36px 28px"))
     body = "\n".join(rows)
     return f'''<!doctype html>
@@ -1154,6 +1165,9 @@ def main() -> None:
     idx.sort(key=lambda x: x["data"], reverse=True)
     write("archyvas/index.json", json.dumps(idx, ensure_ascii=False, indent=2) + "\n")
     write("laiskas.html", mail)
+    # Brevo variantas: atsisakymas – Brevo nuoroda, kontaktas – tik pastaboms
+    assert unsub_line() in mail
+    write("laiskas-brevo.html", mail.replace(unsub_line(), brevo_footer_lines()))
     write("tema.txt", subject + "\n")
     write("data.txt", day.isoformat())          # paskutinis: pagal jį Power Automate supranta, kad ataskaita paruošta
     print(f"Įrašyta: {out_dir} (fragmentas {len(frag)} B, laiškas {len(mail)} B)", file=sys.stderr)

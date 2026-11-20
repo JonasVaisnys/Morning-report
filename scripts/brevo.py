@@ -3,11 +3,15 @@
 
 Raktas – tik aplinkos kintamasis BREVO_API_KEY (GitHub Secrets). Į išvestį ir žurnalus jis nepatenka.
 
-  python scripts/brevo.py patikra      – ar raktas veikia, kokie sąrašai, siuntėjai ir domenai
+  python scripts/brevo.py patikra                         – ar raktas veikia, kokie sąrašai
+  python scripts/brevo.py kampanija DATA --sarasas 3      – sukuria dienos kampaniją iš public/laiskas-brevo.html
+                                                            ir suplanuoja 7:00 Vilniaus laiku (jei vėliau – siunčia iš karto)
 """
 import json
 import os
 import sys
+from datetime import date, datetime, time as dtime
+from zoneinfo import ZoneInfo
 
 import requests
 
@@ -41,9 +45,60 @@ def patikra() -> dict:
     return out
 
 
+SENDER = {"name": "Morning Report", "email": "morningreport@enerconsult.lt"}
+LT = ZoneInfo("Europe/Vilnius")
+
+
+def kampanija(day: str, list_id: int, public: str = "public", test: bool = False) -> dict:
+    """Sukuria ir suplanuoja dienos kampaniją. Kartotinis paleidimas tos pačios dienos kampanijos nedubliuoja."""
+    name = f"Morning Report {'bandymas ' if test else ''}{day}"
+    with open(os.path.join(public, "data.txt"), encoding="utf-8") as f:
+        if f.read().strip() != day:
+            return {"klaida": f"public/data.txt ne {day} – ataskaita nepagaminta, nesiunčiama"}
+    html = open(os.path.join(public, "laiskas-brevo.html"), encoding="utf-8").read()
+    subject = open(os.path.join(public, "tema.txt"), encoding="utf-8").read().strip()
+    if "{{ unsubscribe }}" not in html:
+        return {"klaida": "laiške nėra atsisakymo nuorodos"}
+    # ar šios dienos kampanija jau yra
+    for status in ("queued", "sent", "draft", "inProcess"):
+        st, b = call("GET", "/emailCampaigns", params={"status": status, "limit": 50, "sort": "desc"})
+        if st == 200:
+            for c in b.get("campaigns", []):
+                if c.get("name") == name:
+                    return {"jau_yra": c.get("id"), "būsena": c.get("status")}
+    now = datetime.now(LT)
+    at = datetime.combine(date.fromisoformat(day), dtime(7, 0), LT)
+    body = {"name": name, "subject": subject, "sender": SENDER, "htmlContent": html,
+            "recipients": {"listIds": [list_id]}, "inlineImageActivation": False, "mirrorActive": False}
+    send_now = (at - now).total_seconds() < 120
+    if not send_now:
+        body["scheduledAt"] = at.isoformat()
+    st, b = call("POST", "/emailCampaigns", json=body)
+    if st not in (200, 201):
+        return {"klaida": f"kampanijos sukūrimas HTTP {st}", "atsakymas": b}
+    cid = b.get("id")
+    out = {"kampanija": cid, "pavadinimas": name, "sąrašas": list_id}
+    if send_now:
+        st, b = call("POST", f"/emailCampaigns/{cid}/sendNow")
+        out["siųsta_iškart"] = st
+        if st not in (200, 204):
+            out["klaida"] = b
+    else:
+        out["suplanuota"] = at.isoformat()
+    return out
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "patikra"
     if cmd == "patikra":
         print(json.dumps(patikra(), ensure_ascii=False, indent=1))
+    elif cmd == "kampanija":
+        day = sys.argv[2]
+        lid = int(sys.argv[sys.argv.index("--sarasas") + 1]) if "--sarasas" in sys.argv else 3
+        pub = sys.argv[sys.argv.index("--public") + 1] if "--public" in sys.argv else "public"
+        res = kampanija(day, lid, pub, "--bandymas" in sys.argv)
+        print(json.dumps(res, ensure_ascii=False, indent=1))
+        if "klaida" in res:
+            sys.exit(1)
     else:
         sys.exit(f"Nežinoma komanda: {cmd}")

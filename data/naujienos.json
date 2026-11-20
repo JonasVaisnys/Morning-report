@@ -1,26 +1,35 @@
 {
- "data": "2026-11-19",
- "sugeneruota": "2026-11-19T05:36:34+02:00",
+ "data": "2026-11-20",
+ "sugeneruota": "2026-11-20T05:36:28+02:00",
  "svarbiausia": 0,
  "naujienos": [
   {
    "regionas": "Lietuva",
-   "pavadinimas": "Biodujų gamyklos Elektrėnų savivaldybėje planai stringa",
-   "santrauka": "Biodujų gamyklą Elektrėnų savivaldybėje žadėjęs statyti verslininkas po gyventojų kritikos traukiasi. Jis teigia, kad važiuos ten, kur jų nori.",
-   "svarba": "vidutinė",
-   "šaltinis": "15min",
-   "nuoroda": "https://www.15min.lt/naujiena/aktualu/lietuva/lyg-savartyno-nebutu-gana-elektrenu-savivaldybes-gyventojai-issigando-naujos-gamyklos-56-2808330?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed",
-   "paskelbta": "2026-11-18 20:44"
+   "pavadinimas": "SkGD terminalo perviršis mažins dujų tiekimo saugumo dedamąją",
+   "santrauka": "Klaipėdos SkGD terminalui šiemet surinkus 9,8 mln. Eur daugiau reguliuojamos veiklos pajamų nei numatyta, perviršis kitąmet bus grąžinamas vartotojams. Dėl to 2027 m. dujų tiekimo saugumo dedamoji sumažės iki minus 55 Eur/MWh.",
+   "svarba": "didelė",
+   "šaltinis": "Verslo žinios",
+   "nuoroda": "https://www.vz.lt/energetika/2026/11/19/skgd-terminalo-pervirsis-2027-m-duju-tiekimo-saugumo-dedamaja-sumazins-iki-minus-55-eurmwh-593008",
+   "paskelbta": "2026-11-19 17:36"
   },
   {
    "regionas": "Lietuva",
-   "pavadinimas": "Energijos kainos – tarp veiksnių, lemsiančių verslo augimą",
-   "santrauka": "Lietuvos verslo lyderių apklausa rodo, kad energijos kainos ir didėjančios darbo jėgos sąnaudos daugiausia paveiks kitų metų augimą.",
+   "pavadinimas": "Gaminantys vartotojai „Ignitis grupei“ vis dar nuostolingi",
+   "santrauka": "Gaminančių vartotojų generuojamą nuostolį „Ignitis grupei“ padeda kompensuoti nauja tvarka, pagal kurią saulės elektrinių savininkus per tarifą papildomai subsidijuoja kiti elektros vartotojai. Nepaisant to, ši veikla didžiausiai šalies energetikos bendrovei lieka nuostolinga.",
+   "svarba": "vidutinė",
+   "šaltinis": "Verslo žinios",
+   "nuoroda": "https://www.vz.lt/rinkos/2026/11/18/gaminanciu-vartotoju-nesamas-nuostolis-sumazejo-bet-neisnyko-592950",
+   "paskelbta": "2026-11-19 12:26"
+  },
+  {
+   "regionas": "Lietuva",
+   "pavadinimas": "„KN Energies“ grupės pajamos ir EBITDA augo",
+   "santrauka": "Naftos ir SkGD terminalų operatorės „KN Energies“ grupė sausį–rugsėjį gavo 82,1 mln. Eur pajamų, tai 7 % daugiau nei pernai. EBITDA, pasak pavadinimo, išaugo 6 % iki 43 mln. Eur.",
    "svarba": "maža",
    "šaltinis": "Verslo žinios",
-   "nuoroda": "https://www.vz.lt/vadyba/2026/11/17/verslo-lyderiu-apklausa-pelnas-ir-pajamos-augs-darbuotoju-skaicius-nelabai-592862",
-   "paskelbta": "2026-11-18 07:25"
+   "nuoroda": "https://www.vz.lt/rinkos/2026/11/19/kn-energies-grupes-pajamos-siemet-augo-7-iki-82-mln-eur-ebitda-6-iki-43-mln-eur-592973",
+   "paskelbta": "2026-11-19 12:15"
   }
  ],
- "kandidatų": 10
+ "kandidatų": 14
 }
