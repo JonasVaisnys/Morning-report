@@ -847,6 +847,16 @@ def unsub_line() -> str:
             + m_a(mailto, "parašykite mums", INK2) + ".")
 
 
+def brevo_footer_lines() -> str:
+    """Brevo laiško atsisakymo ir kontakto eilutės (vietoj unsub_line). {{ unsubscribe }} – Brevo asmeninė nuoroda."""
+    mailto = f"mailto:{MR_MAILBOX}"
+    return ("Gaunate šį laišką, nes užsiprenumeravote Morning Report. "
+            + m_a("{{ unsubscribe }}", "Atsisakyti prenumeratos", INK2) + ".</p>"
+            + f'<p style="margin:0; padding-top:6px; font-family:{FONT}; font-size:12px; line-height:18px; color:{INK2};">'
+            + "Pastebėjote klaidą, kas nors neveikia ar norite ką nors pasakyti? Parašykite "
+            + m_a(mailto, MR_MAILBOX, INK2) + ".")
+
+
 def m_section(title: str, caption: str | None, inner: str, first=False) -> str:
     top = "" if first else f"border-top:1px solid {LINE}; padding-top:18px;"
     cap_html = m_p(caption, 12, 18, INK3, " font-style:italic;") if caption else ""
@@ -1155,6 +1165,9 @@ def main() -> None:
     idx.sort(key=lambda x: x["data"], reverse=True)
     write("archyvas/index.json", json.dumps(idx, ensure_ascii=False, indent=2) + "\n")
     write("laiskas.html", mail)
+    # Brevo variantas: atsisakymas – Brevo nuoroda, kontaktas – tik pastaboms
+    assert unsub_line() in mail
+    write("laiskas-brevo.html", mail.replace(unsub_line(), brevo_footer_lines()))
     write("tema.txt", subject + "\n")
     write("data.txt", day.isoformat())          # paskutinis: pagal jį Power Automate supranta, kad ataskaita paruošta
     print(f"Įrašyta: {out_dir} (fragmentas {len(frag)} B, laiškas {len(mail)} B)", file=sys.stderr)
