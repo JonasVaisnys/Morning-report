@@ -1,0 +1,77 @@
+{
+ "prieš": [
+  {
+   "id": 6,
+   "name": "Morning Report bandymas 2026-11-21",
+   "status": "queued",
+   "scheduledAt": "2026-11-21T07:00:00.000+02:00",
+   "sentDate": null,
+   "sąrašai": [
+    2
+   ]
+  },
+  {
+   "id": 1,
+   "name": "Morning Report bandymas 2026-11-20",
+   "status": "sent",
+   "scheduledAt": "2026-11-20T11:47:13.000+02:00",
+   "sentDate": "2026-11-20T11:47:37.000+02:00",
+   "sąrašai": [
+    2
+   ]
+  }
+ ],
+ "veiksmai": [
+  {
+   "id": 6,
+   "name": "Morning Report bandymas 2026-11-21",
+   "sustabdyta": {
+    "http": 204,
+    "atsakymas": {}
+   },
+   "ištrinta": {
+    "http": 403,
+    "atsakymas": {
+     "code": "permission_denied",
+     "message": "Campaign once scheduled can not be deleted"
+    }
+   },
+   "į_juodraštį": {
+    "http": 400,
+    "atsakymas": {
+     "code": "invalid_parameter",
+     "message": "draft is an invalid status for suspended campaign"
+    }
+   },
+   "ištrinta_2": {
+    "http": 403,
+    "atsakymas": {
+     "code": "permission_denied",
+     "message": "Campaign once scheduled can not be deleted"
+    }
+   }
+  }
+ ],
+ "po": [
+  {
+   "id": 6,
+   "name": "Morning Report bandymas 2026-11-21",
+   "status": "suspended",
+   "scheduledAt": "2026-11-21T07:00:00.000+02:00",
+   "sentDate": null,
+   "sąrašai": [
+    2
+   ]
+  },
+  {
+   "id": 1,
+   "name": "Morning Report bandymas 2026-11-20",
+   "status": "sent",
+   "scheduledAt": "2026-11-20T11:47:13.000+02:00",
+   "sentDate": "2026-11-20T11:47:37.000+02:00",
+   "sąrašai": [
+    2
+   ]
+  }
+ ]
+}
