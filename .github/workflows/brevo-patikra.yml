@@ -19,13 +19,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install "requests>=2.31"
+      - run: pip install -r requirements.txt
       - name: Patikra
         env:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         run: |
           mkdir -p data/patikra
           python scripts/brevo.py patikra > data/patikra/brevo.json 2> data/patikra/brevo.log || true
+          # bandomasis laiškas tik sąrašui #2 (vienas kontaktas – Jonas)
+          python scripts/ataskaita.py 2026-11-20 --out /tmp/out 2>> data/patikra/brevo.log
+          python scripts/brevo.py kampanija 2026-11-20 --sarasas 2 --bandymas --public /tmp/out > data/patikra/brevo-kampanija.json 2>> data/patikra/brevo.log || true
           curl -s https://api.ipify.org > data/patikra/github-ip.txt || true
       - name: Įrašyti
         run: |
