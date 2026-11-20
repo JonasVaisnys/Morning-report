@@ -21,31 +21,34 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - name: Planavimo patikra
+      - name: Bandomosios kampanijos atšaukimas
         env:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         run: |
           mkdir -p data/patikra
-          D=$(TZ=Europe/Vilnius date +%F)
-          R=$(TZ=Europe/Vilnius date -d tomorrow +%F)
-          python scripts/ataskaita.py "$D" --out /tmp/out 2> data/patikra/brevo.log || true
-          printf '%s' "$R" > /tmp/out/data.txt
-          python scripts/brevo.py kampanija "$R" --sarasas 2 --bandymas --public /tmp/out > /tmp/k.json 2>> data/patikra/brevo.log || true
-          python - <<'PY' > data/patikra/brevo-planavimas.json
+          python - <<'PY' > data/patikra/brevo-kampanijos.json
           import json, sys
           sys.path.insert(0, "scripts")
           import brevo
-          try:
-              k = json.load(open("/tmp/k.json"))
-          except Exception as e:
-              k = {"klaida": f"nėra rezultato: {e}"}
-          out = {"sukurta": k}
-          cid = k.get("kampanija") or k.get("jau_yra")
-          if cid:
-              st, b = brevo.call("GET", f"/emailCampaigns/{cid}")
-              out["būsena"] = {"http": st, "status": b.get("status"), "scheduledAt": b.get("scheduledAt"), "name": b.get("name"), "sąrašai": (b.get("recipients") or {}).get("lists")}
-              st, b = brevo.call("DELETE", f"/emailCampaigns/{cid}")
-              out["ištrinta"] = {"http": st, "atsakymas": b}
+          out = {"prieš": [], "veiksmai": [], "po": []}
+          def sąrašas():
+              st, b = brevo.call("GET", "/emailCampaigns", params={"limit": 50, "sort": "desc"})
+              return [{"id": c.get("id"), "name": c.get("name"), "status": c.get("status"), "scheduledAt": c.get("scheduledAt"), "sentDate": c.get("sentDate"), "sąrašai": (c.get("recipients") or {}).get("lists")} for c in b.get("campaigns", [])] if st == 200 else {"http": st, "atsakymas": b}
+          out["prieš"] = sąrašas()
+          for c in (out["prieš"] if isinstance(out["prieš"], list) else []):
+              if str(c["name"]).startswith("Morning Report bandymas") and c["status"] in ("queued", "suspended", "draft"):
+                  v = {"id": c["id"], "name": c["name"]}
+                  st, b = brevo.call("PUT", f"/emailCampaigns/{c['id']}/status", json={"status": "suspended"})
+                  v["sustabdyta"] = {"http": st, "atsakymas": b}
+                  st, b = brevo.call("DELETE", f"/emailCampaigns/{c['id']}")
+                  v["ištrinta"] = {"http": st, "atsakymas": b}
+                  if st not in (200, 204):
+                      st2, b2 = brevo.call("PUT", f"/emailCampaigns/{c['id']}/status", json={"status": "draft"})
+                      v["į_juodraštį"] = {"http": st2, "atsakymas": b2}
+                      st3, b3 = brevo.call("DELETE", f"/emailCampaigns/{c['id']}")
+                      v["ištrinta_2"] = {"http": st3, "atsakymas": b3}
+                  out["veiksmai"].append(v)
+          out["po"] = sąrašas()
           print(json.dumps(out, ensure_ascii=False, indent=1))
           PY
       - name: Įrašyti
