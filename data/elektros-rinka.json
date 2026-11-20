@@ -1,132 +1,132 @@
 {
- "data": "2026-11-19",
- "ref_dienų": 88,
+ "data": "2026-11-20",
+ "ref_dienų": 89,
  "galia": {
   "vėjas": 2507,
   "saulė": 3018
  },
  "vartojimas": {
-  "mw": 1700,
-  "norma": 1613,
+  "mw": 1690,
+  "norma": 1630,
   "intervalas": [
-   1579,
-   1658
+   1597,
+   1677
   ],
   "būsena": "didesnis nei įprasta",
-  "nuokrypis_proc": 5.4,
+  "nuokrypis_proc": 3.6,
   "procentilis": null
  },
  "vėjas": {
-  "mw": 534,
-  "norma": 566,
+  "mw": 956,
+  "norma": 560,
   "intervalas": [
-   339,
-   694
+   338,
+   690
   ],
-  "būsena": "įprasta",
-  "procentilis": 48
+  "būsena": "didesnė nei įprasta",
+  "procentilis": 81
  },
  "saulė": {
-  "mw": 54,
-  "norma": 27,
+  "mw": 52,
+  "norma": 25,
   "intervalas": [
-   19,
-   39
+   17,
+   35
   ],
   "būsena": "didesnė nei įprasta",
   "procentilis": 80
  },
  "kita_gamyba": {
-  "mw": 249,
-  "norma": 191,
+  "mw": 250,
+  "norma": 197,
   "būsena": "didesnė nei įprasta",
   "valandos": "00–06",
-  "vėjas_faktas": 947,
+  "vėjas_faktas": 1050,
   "saulė_faktas": 0,
-  "vartojimas_faktas": 1317
+  "vartojimas_faktas": 1332
  },
  "dujos": {
-  "ttf": 81.1,
-  "norma_12mėn": 52.3,
-  "santykis": 1.55,
+  "ttf": 84.5,
+  "norma_12mėn": 52.4,
+  "santykis": 1.61,
   "būsena": "gerokai brangesnės nei įprasta",
-  "prieš_metus": 31.7
+  "prieš_metus": 30.9
  },
  "kaina": {
-  "lt": 229.1,
-  "norma": 147.2,
+  "lt": 196.4,
+  "norma": 151.3,
   "intervalas": [
-   120,
-   179
+   128,
+   183
   ],
-  "norma_su_šiandienos_dujomis": 210.8,
-  "būsena": "gerokai didesnė nei įprasta",
-  "min": 154.3,
-  "max": 280.1,
-  "min_val": 3,
+  "norma_su_šiandienos_dujomis": 221.0,
+  "būsena": "didesnė nei įprasta",
+  "min": 96.2,
+  "max": 246.9,
+  "min_val": 23,
   "max_val": 9,
-  "modelis": 246.3
+  "modelis": 194.7
  },
  "indėliai": {
-  "dujos": 69.4,
-  "vartojimas": 7.1,
-  "vėjas": -0.9,
+  "dujos": 65.6,
+  "vartojimas": 3.9,
+  "vėjas": -35.0,
   "saulė": -1.3,
   "pralaidumai": 0.0,
-  "kaimynai": 24.8,
-  "kita": -17.2
+  "kaimynai": 10.3,
+  "kita": 1.7
  },
  "kaimynai": {
-  "LV": 209.5,
-  "SE4": 230.3,
-  "PL": 191.7,
-  "EE": 163.8,
-  "FI": 142.8
+  "LV": 186.4,
+  "SE4": 207.4,
+  "PL": 208.5,
+  "EE": 167.1,
+  "FI": 55.2
  },
- "lt_lv_skiriasi_val": 15,
+ "lt_lv_skiriasi_val": 9,
  "kaimynų_būsena": {
   "SE4": {
-   "kaina": 230.3,
-   "norma_su_šiandienos_dujomis": 153.9,
+   "kaina": 207.4,
+   "norma_su_šiandienos_dujomis": 161.9,
    "būsena": "didesnė nei įprasta",
-   "procentilis": 81
+   "procentilis": 73
   },
   "PL": {
-   "kaina": 191.7,
-   "norma_su_šiandienos_dujomis": 199.1,
+   "kaina": 208.5,
+   "norma_su_šiandienos_dujomis": 203.5,
    "būsena": "įprasta",
-   "procentilis": 44
+   "procentilis": 52
   },
   "FI": {
-   "kaina": 142.8,
-   "norma_su_šiandienos_dujomis": 128.0,
-   "būsena": "įprasta",
-   "procentilis": 51
+   "kaina": 55.2,
+   "norma_su_šiandienos_dujomis": 154.6,
+   "būsena": "mažesnė nei įprasta",
+   "procentilis": 19
   }
  },
  "mainai": {
   "SE4": {
-   "mw": -305,
-   "proc_vartojimo": -18
+   "mw": -477,
+   "proc_vartojimo": -28
   },
   "PL": {
-   "mw": -21,
-   "proc_vartojimo": -1
+   "mw": -215,
+   "proc_vartojimo": -13
   },
   "LV": {
-   "mw": 920,
-   "proc_vartojimo": 54
+   "mw": 951,
+   "proc_vartojimo": 56
   },
   "iš_viso": {
-   "mw": 595,
-   "proc_vartojimo": 35
+   "mw": 258,
+   "proc_vartojimo": 15
   },
   "maks": {
-   "SE4_imp": 250,
+   "SE4_imp": 58,
    "SE4_eksp": 700,
-   "PL_imp": 183,
-   "PL_eksp": 234,
-   "LV_imp": 1101,
+   "PL_imp": 2,
+   "PL_eksp": 245,
+   "LV_imp": 1130,
    "LV_eksp": 0
   }
  },
@@ -134,50 +134,50 @@
  "pralaidumai": {
   "LT–SE4 (NordBalt)": {
    "importas": {
-    "mw": null,
-    "min": null,
+    "mw": 700,
+    "min": 700,
     "nominalas": 700,
-    "pask_data": "2026-11-12"
+    "pask_data": "2026-11-21"
    },
    "eksportas": {
-    "mw": null,
-    "min": null,
+    "mw": 700,
+    "min": 700,
     "nominalas": 700,
-    "pask_data": "2026-11-12"
+    "pask_data": "2026-11-21"
    }
   },
   "LT–PL (LitPol)": {
    "importas": {
-    "mw": null,
-    "min": null,
-    "nominalas": 163,
-    "pask_data": "2026-10-14"
+    "mw": 183,
+    "min": 179,
+    "nominalas": 164,
+    "pask_data": "2026-11-21"
    },
    "eksportas": {
-    "mw": null,
-    "min": null,
-    "nominalas": 192,
-    "pask_data": "2026-10-14"
+    "mw": 225,
+    "min": 208,
+    "nominalas": 193,
+    "pask_data": "2026-11-21"
    }
   },
   "LT–LV": {
    "importas": {
-    "mw": null,
-    "min": null,
-    "nominalas": 833,
-    "pask_data": "2026-10-14"
+    "mw": 1039,
+    "min": 894,
+    "nominalas": 840,
+    "pask_data": "2026-11-21"
    },
    "eksportas": {
-    "mw": null,
-    "min": null,
-    "nominalas": 946,
-    "pask_data": "2026-10-14"
+    "mw": 900,
+    "min": 796,
+    "nominalas": 942,
+    "pask_data": "2026-11-21"
    }
   }
  },
  "sąlygos": {
-  "srmc": 182.5,
-  "srmc_norma": 127.4,
+  "srmc": 186.4,
+  "srmc_norma": 127.6,
   "cap_def": 0
  }
 }
