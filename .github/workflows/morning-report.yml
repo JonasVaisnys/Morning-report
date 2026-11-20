@@ -2,7 +2,7 @@ name: Morning report
 
 # Kas rytą surenka duomenis ir pagamina Morning Report failus aplanke public/
 # svetainei ir laiškui (žr. scripts/ataskaita.py).
-# Pagrindinį paleidimą 05:30 Vilniaus laiku daro Power Automate (workflow_dispatch),
+# Pagrindinį paleidimą 05:30 Vilniaus laiku daro Power Automate (workflow_dispatch); laišką siunčia Brevo (paskutinis žingsnis),
 # tvarkaraštis – tik atsarginis: jis nieko nedaro, jei šios dienos ataskaita jau paruošta.
 
 on:
@@ -130,3 +130,14 @@ jobs:
           done
           echo "Nepavyko įkelti rezultato." >&2
           exit 1
+
+      # Laiškas prenumeratoriams per Brevo (sąrašas #3 „Morning Report“): suplanuojamas 7:00 Vilniaus laiku,
+      # jei jau vėliau – išsiunčiamas iš karto. Tos pačios dienos kampanija antrą kartą nekuriama.
+      # Tik šiandienos ataskaitai (rankiniai paleidimai praeities datoms laiško nesiunčia).
+      - name: Laiškas per Brevo
+        if: env.SKIP != 'true'
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: |
+          if [ "$DATE" != "$(TZ=Europe/Vilnius date +%F)" ]; then echo "Ne šiandienos data – laiškas nesiunčiamas."; exit 0; fi
+          python scripts/brevo.py kampanija "$DATE" --sarasas 3
