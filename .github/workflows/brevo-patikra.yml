@@ -1,6 +1,7 @@
 name: Brevo patikra
 
-# Tikrina Brevo API raktą ir paskyros nustatymus. Rezultatas – data/patikra/brevo.json šioje šakoje.
+# Tikrina Brevo siuntimo kelią šioje šakoje. Rezultatas – data/patikra/ šioje šakoje.
+# Planavimo patikra: sukuria suplanuotą bandomąją kampaniją (tik sąrašui #2), perskaito jos būseną ir ją ištrina.
 # Laiškų nesiunčia, pagrindinės šakos nekeičia.
 
 on:
@@ -13,27 +14,44 @@ permissions:
 jobs:
   patikra:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -r requirements.txt
-      - name: Patikra
+      - name: Planavimo patikra
         env:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         run: |
           mkdir -p data/patikra
-          python scripts/brevo.py patikra > data/patikra/brevo.json 2> data/patikra/brevo.log || true
-          # bandomasis laiškas tik sąrašui #2 (vienas kontaktas – Jonas)
-          python scripts/ataskaita.py 2026-11-20 --out /tmp/out 2>> data/patikra/brevo.log
-          python scripts/brevo.py kampanija 2026-11-20 --sarasas 2 --bandymas --public /tmp/out > data/patikra/brevo-kampanija.json 2>> data/patikra/brevo.log || true
-          curl -s https://api.ipify.org > data/patikra/github-ip.txt || true
+          D=$(TZ=Europe/Vilnius date +%F)
+          R=$(TZ=Europe/Vilnius date -d tomorrow +%F)
+          python scripts/ataskaita.py "$D" --out /tmp/out 2> data/patikra/brevo.log || true
+          printf '%s' "$R" > /tmp/out/data.txt
+          python scripts/brevo.py kampanija "$R" --sarasas 2 --bandymas --public /tmp/out > /tmp/k.json 2>> data/patikra/brevo.log || true
+          python - <<'PY' > data/patikra/brevo-planavimas.json
+          import json, sys
+          sys.path.insert(0, "scripts")
+          import brevo
+          try:
+              k = json.load(open("/tmp/k.json"))
+          except Exception as e:
+              k = {"klaida": f"nėra rezultato: {e}"}
+          out = {"sukurta": k}
+          cid = k.get("kampanija") or k.get("jau_yra")
+          if cid:
+              st, b = brevo.call("GET", f"/emailCampaigns/{cid}")
+              out["būsena"] = {"http": st, "status": b.get("status"), "scheduledAt": b.get("scheduledAt"), "name": b.get("name"), "sąrašai": (b.get("recipients") or {}).get("lists")}
+              st, b = brevo.call("DELETE", f"/emailCampaigns/{cid}")
+              out["ištrinta"] = {"http": st, "atsakymas": b}
+          print(json.dumps(out, ensure_ascii=False, indent=1))
+          PY
       - name: Įrašyti
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898732+github-actions[bot]@users.noreply.github.com"
           git add data/patikra
-          git commit -m "Brevo patikra" || exit 0
+          git commit -m "Brevo planavimo patikra" || exit 0
           git push
