@@ -131,7 +131,7 @@ jobs:
           echo "Nepavyko įkelti rezultato." >&2
           exit 1
 
-      # Laiškas prenumeratoriams per Brevo (sąrašas #3 „Morning Report“): suplanuojamas 7:00 Vilniaus laiku,
+      # Laiškas prenumeratoriams per Brevo (tos savaitės dienos sąrašas): suplanuojamas 7:00 Vilniaus laiku,
       # jei jau vėliau – išsiunčiamas iš karto. Tos pačios dienos kampanija antrą kartą nekuriama.
       # Tik šiandienos ataskaitai (rankiniai paleidimai praeities datoms laiško nesiunčia).
       - name: Laiškas per Brevo
@@ -140,4 +140,6 @@ jobs:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         run: |
           if [ "$DATE" != "$(TZ=Europe/Vilnius date +%F)" ]; then echo "Ne šiandienos data – laiškas nesiunčiamas."; exit 0; fi
-          python scripts/brevo.py kampanija "$DATE" --sarasas 3
+          # prenumeratoriai patys pasirenka dienas: Brevo sąrašai #4 (pirmadienis) … #10 (sekmadienis)
+          LIST=$(( $(TZ=Europe/Vilnius date +%u) + 3 ))
+          python scripts/brevo.py kampanija "$DATE" --sarasas "$LIST"
