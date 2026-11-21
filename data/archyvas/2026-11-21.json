@@ -1,0 +1,338 @@
+{
+ "data": "2026-11-21",
+ "elektros_rinka": {
+  "data": "2026-11-21",
+  "ref_dienų": 34,
+  "galia": {
+   "vėjas": 2507,
+   "saulė": 3018
+  },
+  "vartojimas": {
+   "mw": 1572,
+   "norma": 1445,
+   "intervalas": [
+    1415,
+    1486
+   ],
+   "būsena": "didesnis nei įprasta",
+   "nuokrypis_proc": 8.8,
+   "procentilis": null
+  },
+  "vėjas": {
+   "mw": 1501,
+   "norma": 356,
+   "intervalas": [
+    211,
+    545
+   ],
+   "būsena": "gerokai didesnė nei įprasta",
+   "procentilis": 100
+  },
+  "saulė": {
+   "mw": 70,
+   "norma": 30,
+   "intervalas": [
+    19,
+    48
+   ],
+   "būsena": "didesnė nei įprasta",
+   "procentilis": 85
+  },
+  "kita_gamyba": {
+   "mw": 278,
+   "norma": 177,
+   "būsena": "gerokai didesnė nei įprasta",
+   "valandos": "00–06",
+   "vėjas_faktas": 1449,
+   "saulė_faktas": 0,
+   "vartojimas_faktas": 1361
+  },
+  "dujos": {
+   "ttf": 88.7,
+   "norma_12mėn": 52.6,
+   "santykis": 1.69,
+   "būsena": "gerokai brangesnės nei įprasta",
+   "prieš_metus": 31.2
+  },
+  "kaina": {
+   "lt": 52.7,
+   "norma": 114.6,
+   "intervalas": [
+    102,
+    144
+   ],
+   "norma_su_šiandienos_dujomis": 173.8,
+   "būsena": "mažesnė nei įprasta",
+   "min": 27.5,
+   "max": 95.0,
+   "min_val": 23,
+   "max_val": 11,
+   "modelis": 95.9,
+   "modelis_su_jungtimis": 73.0
+  },
+  "indėliai": {
+   "dujos": 17.9,
+   "vartojimas": 6.4,
+   "vėjas": -52.4,
+   "saulė": -1.1,
+   "pralaidumai": 0.0,
+   "kaimynai": -19.3,
+   "kita": -13.4
+  },
+  "dujų_metodas": "šiandienos sąlygomis",
+  "kaimynų_detalės": {
+   "kainos": -4.2,
+   "jungčių_apkrova": -15.1
+  },
+  "kaimynai": {
+   "LV": 47.4,
+   "SE4": 141.0,
+   "PL": 106.0,
+   "EE": 47.4,
+   "FI": 25.4
+  },
+  "lt_lv_skiriasi_val": 6,
+  "kaimynų_būsena": {
+   "SE4": {
+    "kaina": 141.0,
+    "norma_su_šiandienos_dujomis": 118.8,
+    "būsena": "įprasta",
+    "procentilis": 65
+   },
+   "PL": {
+    "kaina": 106.0,
+    "norma_su_šiandienos_dujomis": 174.6,
+    "būsena": "gerokai mažesnė nei įprasta",
+    "procentilis": 9
+   },
+   "FI": {
+    "kaina": 25.4,
+    "norma_su_šiandienos_dujomis": 78.4,
+    "būsena": "mažesnė nei įprasta",
+    "procentilis": 18
+   }
+  },
+  "mainai": {
+   "SE4": {
+    "mw": -688,
+    "proc_vartojimo": -44
+   },
+   "PL": {
+    "mw": -239,
+    "proc_vartojimo": -15
+   },
+   "LV": {
+    "mw": 679,
+    "proc_vartojimo": 43
+   },
+   "iš_viso": {
+    "mw": -248,
+    "proc_vartojimo": -16
+   },
+   "maks": {
+    "SE4_imp": 0,
+    "SE4_eksp": 700,
+    "PL_imp": 0,
+    "PL_eksp": 250,
+    "LV_imp": 858,
+    "LV_eksp": 0
+   }
+  },
+  "nordpool": {},
+  "pralaidumai": {
+   "LT–SE4 (NordBalt)": {
+    "importas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-22"
+    }
+   },
+   "LT–PL (LitPol)": {
+    "importas": {
+     "mw": 181,
+     "min": 177,
+     "nominalas": 164,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 240,
+     "min": 228,
+     "nominalas": 193,
+     "pask_data": "2026-11-22"
+    }
+   },
+   "LT–LV": {
+    "importas": {
+     "mw": 832,
+     "min": 498,
+     "nominalas": 840,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 843,
+     "min": 687,
+     "nominalas": 942,
+     "pask_data": "2026-11-22"
+    }
+   }
+  },
+  "sąlygos": {
+   "srmc": 193.9,
+   "srmc_norma": 127.9,
+   "cap_def": 0
+  },
+  "jungtys_būsena": {
+   "SE4": {
+    "eksportas_pilnas_val": 20,
+    "importas_pilnas_val": 0
+   },
+   "PL": {
+    "eksportas_pilnas_val": 24,
+    "importas_pilnas_val": 0
+   },
+   "LV": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 5
+   }
+  },
+  "lt_lv": {
+   "brangiau_val": 5,
+   "pigiau_val": 0,
+   "skirtumas": 5.3
+  },
+  "kaimynų_valandos": {
+   "SE4": {
+    "min": 111.8,
+    "max": 192.8,
+    "max_val": 19
+   },
+   "PL": {
+    "min": 75.8,
+    "max": 150.5,
+    "max_val": 1
+   },
+   "LV": {
+    "min": 27.5,
+    "max": 82.5,
+    "max_val": 0
+   },
+   "FI": {
+    "min": 12.8,
+    "max": 34.8,
+    "max_val": 0
+   }
+  },
+  "kitos_aiškinimas": {
+   "nuo": 3,
+   "iki": 24,
+   "valandų": 21,
+   "kryptimi_val": 19,
+   "paros_val": 24,
+   "dalis": 1.06,
+   "kaina": 51.0,
+   "modelis": 75.6,
+   "LV": 45.0,
+   "EE": 45.0,
+   "FI": 24.7,
+   "SE4": 143.3,
+   "PL": 103.3,
+   "lt_lygu_lv_val": 16,
+   "x_se4": 17,
+   "i_se4": 0,
+   "x_pl": 21,
+   "i_pl": 0,
+   "x_lv": 0,
+   "i_lv": 5
+  }
+ },
+ "valandos": [
+  82.47,
+  50.0,
+  60.96,
+  50.29,
+  53.1,
+  55.13,
+  36.15,
+  54.43,
+  49.81,
+  50.03,
+  92.62,
+  95.0,
+  45.45,
+  30.89,
+  36.05,
+  44.33,
+  58.92,
+  62.17,
+  54.89,
+  50.46,
+  43.88,
+  37.32,
+  43.27,
+  27.47
+ ],
+ "naujienos": {
+  "data": "2026-11-21",
+  "sugeneruota": "2026-11-21T05:37:31+02:00",
+  "svarbiausia": 0,
+  "naujienos": [
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Reguliuotojas: kainų augimo švelninimas priklauso nuo „Igničio“ ir valstybės",
+    "santrauka": "Valstybinė energetikos reguliavimo taryba nuo sausio prognozuoja 23–27 % aukštesnes visuomeninės elektros ir 38–46 % aukštesnes dujų kainas vartotojams. Tarybos vadovas sako girdintis raginimų sušvelninti augimą, tačiau pabrėžia, kad sprendimai dėl tarifų mažinimo yra „Igničio“ ir valstybės rankose.",
+    "svarba": "didelė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/energetika/2026/11/20/vert-pirmininkas-sprendimai-del-elektros-ir-duju-tarifu-mazinimo-ignicio-ir-valstybes-rankose-593029",
+    "paskelbta": "2026-11-20 09:46"
+   },
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Kaupiklių galia perkopė 1 GW, bet balansavimo rinkos uždarbis mažėja",
+    "santrauka": "Prie Lietuvos elektros tinklo prijungtų energijos kaupiklių galia šį rudenį perkopė 1 GW, tačiau jų uždarbis balansavimo rinkoje mažėja jau trečią mėnesį iš eilės. Įmonei, svarstančiai įsidiegti kaupiklį, atsipirkimą lems ne šiandien skaičiuojamos pajamos, o ilgesnio laikotarpio perspektyva.",
+    "svarba": "vidutinė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/energetika/2026/11/19/brangesnis-kaupiklis-pigesne-kilovatvalande-kaip-palyginti-pasiulymus-592990",
+    "paskelbta": "2026-11-20 08:10"
+   }
+  ],
+  "kandidatų": 11
+ },
+ "pasaulio_rinkos": {
+  "kotiruotės_laikas": "2026-11-20T23:59+02:00",
+  "rodikliai": [
+   {
+    "pavadinimas": "Nafta (Brent)",
+    "reikšmė": 89.87,
+    "vienetai": "USD/bbl",
+    "per_dieną": -2.29,
+    "per_7d": -6.23,
+    "per_30d": -17.41
+   },
+   {
+    "pavadinimas": "Dujos (TTF)",
+    "reikšmė": 88.7,
+    "vienetai": "€/MWh",
+    "per_dieną": 5.03,
+    "per_7d": -2.48,
+    "per_30d": 1.46
+   },
+   {
+    "pavadinimas": "Taršos leidimai (ATL)",
+    "reikšmė": 80.6,
+    "vienetai": "€/t",
+    "per_dieną": -0.87,
+    "per_7d": -9.85,
+    "per_30d": -5.29
+   }
+  ]
+ },
+ "teisės_aktai": null,
+ "paramos": null
+}

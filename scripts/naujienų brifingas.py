@@ -332,7 +332,7 @@ Kiekvienai atrinktai naujienai:
   "Europa" – ES ir kitos Europos šalys (pvz., Vokietija, Ukraina, Moldova); "Pasaulis" – visa kita;
 - "pavadinimas": trumpas pavadinimas lietuviškai;
 - "santrauka": vienas ar du sakiniai lietuviškai TIK iš pateikto pavadinimo ir aprašo – jokių
-  skaičių, faktų ar vertinimų, kurių tekste nėra;
+  skaičių, faktų ar vertinimų, kurių tekste nėra; nerašyk, iš kur informacija (pvz. „pasak pavadinimo“);
 - "svarba": "didelė", "vidutinė" arba "maža" Lietuvos energetikos verslui.
 Vieną naujieną pažymėk kaip svarbiausią laukelyje "svarbiausia" (jos nr).
 

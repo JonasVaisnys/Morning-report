@@ -49,9 +49,9 @@ SENDER = {"name": "Morning Report", "email": "morningreport@enerconsult.lt"}
 LT = ZoneInfo("Europe/Vilnius")
 
 
-def kampanija(day: str, list_id: int, public: str = "public", test: bool = False) -> dict:
-    """Sukuria ir suplanuoja dienos kampaniją. Kartotinis paleidimas tos pačios dienos kampanijos nedubliuoja."""
-    name = f"Morning Report {'bandymas ' if test else ''}{day}"
+def kampanija(day: str, list_id: int, public: str = "public", test: bool = False, weekly: bool = False, at_time: dtime = dtime(7, 0)) -> dict:
+    """Sukuria ir suplanuoja dienos (arba savaitės apžvalgos) kampaniją. Kartotinis paleidimas tos pačios dienos kampanijos nedubliuoja."""
+    name = f"Morning Report {'savaitės apžvalga ' if weekly else ''}{'bandymas ' if test else ''}{day}"
     with open(os.path.join(public, "data.txt"), encoding="utf-8") as f:
         if f.read().strip() != day:
             return {"klaida": f"public/data.txt ne {day} – ataskaita nepagaminta, nesiunčiama"}
@@ -67,7 +67,7 @@ def kampanija(day: str, list_id: int, public: str = "public", test: bool = False
                 if c.get("name") == name:
                     return {"jau_yra": c.get("id"), "būsena": c.get("status")}
     now = datetime.now(LT)
-    at = datetime.combine(date.fromisoformat(day), dtime(7, 0), LT)
+    at = datetime.combine(date.fromisoformat(day), at_time, LT)
     body = {"name": name, "subject": subject, "sender": SENDER, "htmlContent": html,
             "recipients": {"listIds": [list_id]}, "inlineImageActivation": False, "mirrorActive": False}
     send_now = (at - now).total_seconds() < 120
@@ -95,8 +95,10 @@ if __name__ == "__main__":
     elif cmd == "kampanija":
         day = sys.argv[2]
         lid = int(sys.argv[sys.argv.index("--sarasas") + 1]) if "--sarasas" in sys.argv else 3
-        pub = sys.argv[sys.argv.index("--public") + 1] if "--public" in sys.argv else "public"
-        res = kampanija(day, lid, pub, "--bandymas" in sys.argv)
+        weekly = "--savaitė" in sys.argv
+        pub = sys.argv[sys.argv.index("--public") + 1] if "--public" in sys.argv else ("public/savaitė" if weekly else "public")
+        hh, mm = (sys.argv[sys.argv.index("--laikas") + 1] if "--laikas" in sys.argv else "07:00").split(":")
+        res = kampanija(day, lid, pub, "--bandymas" in sys.argv, weekly, dtime(int(hh), int(mm)))
         print(json.dumps(res, ensure_ascii=False, indent=1))
         if "klaida" in res:
             sys.exit(1)

@@ -12,8 +12,11 @@ Iš eigos surinktų duomenų (aplankas data/) pagamina failus svetainei ir laiš
   public/tema.txt                   laiško tema
   public/data.txt                   ataskaitos data MMMM-MM-DD – rašoma paskutinė
 
-Blokai: Apžvalga, Elektros rinka, Paramos, Teisės aktai, Naujienos, Pasaulio rinkos.
-Bloko, kurio duomenų tą dieną nėra, nėra ir ataskaitoje.
+Blokai: Apžvalga, Šiandien (paramų terminai, įsigaliojantys teisės aktai), Elektros rinka, Naujienos,
+Pasaulio rinkos. Teisės aktų ir paramų sąrašai – pirmadienio savaitės apžvalgoje („savaitės ataskaita.py“;
+kasdieniame laiške juos grąžina DAILY_SLOW = True). Bloko, kurio duomenų tą dieną nėra, nėra ir ataskaitoje.
+
+Be to, data/archyvas/MMMM-MM-DD.json – glaustas dienos duomenų įrašas savaitės apžvalgai.
 
 Duomenys (visi nebūtini):
   data/elektros-rinka.json      „rinkos situacija.py“ (kainos, srautai, normos, veiksniai)
@@ -146,6 +149,7 @@ def https(url) -> bool:
 class Inputs:
     def __init__(self, data_dir: str, day: date):
         self.day = day
+        self.data_dir = data_dir
         iso = day.isoformat()
         sit = load(os.path.join(data_dir, "elektros-rinka.json"))
         self.sit = sit if isinstance(sit, dict) and sit.get("data") == iso and "kaina" in sit else None
@@ -783,9 +787,11 @@ def block_overview(inp: Inputs) -> str:
     rows = []
     if inp.price is not None:
         rows.append(("Elektra", energy_overview(inp)))
-    if inp.grants:
+    if today_items(inp):
+        rows.append(("Šiandien", e(today_overview(inp))))
+    if inp.grants and DAILY_SLOW:
         rows.append(("Paramos", e(grants_overview(inp))))
-    if inp.legal:
+    if inp.legal and DAILY_SLOW:
         rows.append(("Teisės aktai", e(legal_overview(inp))))
     if inp.news:
         rows.append(("Naujienos", e(news_overview(inp))))
@@ -1091,14 +1097,70 @@ def block_grants(inp: Inputs) -> str:
     return "\n".join(o)
 
 
+# ─── šiandien: terminai ir įsigaliojimai (lėti procesai – savaitės apžvalgoje) ──
+
+DAILY_SLOW = False      # teisės aktų ir paramų sąrašai kasdieniame laiške (2026-11-20 sprendimas: jie – savaitės apžvalgoje)
+
+
+def today_items(inp: Inputs) -> list[str]:
+    """Kas vyksta šiandien ar rytoj: paramų terminai ir pradžios, teisės aktų įsigaliojimas."""
+    if getattr(inp, "_today", None) is not None:
+        return inp._today
+    d = inp.day
+    iso, tom = d.isoformat(), date.fromordinal(d.toordinal() + 1).isoformat()
+    base = getattr(inp, "data_dir", None) or os.path.join(ROOT, "data")
+    g = load(os.path.join(base, "šaltiniai", "paramos-būsena.json")) or {}
+    t = load(os.path.join(base, "šaltiniai", "tar.json")) or {}
+    out = []
+    for x in g.get("kvietimai") or []:
+        name = re.sub(r"\s+\d{4}-\d{2}$", "", x.get("pavadinimas") or "").strip()
+        inst = x.get("institucija") or ""
+        end, start = (x.get("pabaiga") or "")[:10], (x.get("pradžia") or "")[:10]
+        if x.get("būklė") == "paskelbtas" and end == iso:
+            out.append(f"Šiandien baigiasi paraiškų priėmimas: {name} ({inst}).")
+        elif x.get("būklė") == "paskelbtas" and end == tom:
+            out.append(f"Rytoj baigiasi paraiškų priėmimas: {name} ({inst}).")
+        if start == iso:
+            out.append(f"Šiandien prasideda paraiškų priėmimas: {name} ({inst}).")
+    for a in t.get("aktai") or []:
+        if (a.get("isigalioja") or "")[:10] == iso:
+            out.append(f"Šiandien įsigalioja: {(a.get('pavadinimas') or '').rstrip('.')}.")
+    inp._today = out
+    return out
+
+
+def today_overview(inp: Inputs) -> str:
+    it = today_items(inp)
+    n = len(it) - 1
+    return it[0] + (f" Dar {n} {plural(n, 'terminas', 'terminai', 'terminų')} – žemiau." if n > 0 else "")
+
+
+def block_today(inp: Inputs) -> str:
+    it = today_items(inp)
+    if not it:
+        return ""
+    li = "\n".join(f'<li class="mr-sip-row"><span class="mr-sip-text">{e(x)}</span></li>' for x in it)
+    return f'<section class="mr-block">\n<h2 class="mr-h">Šiandien</h2>\n<p class="mr-sub">Paramų terminai ir teisės aktų įsigaliojimas</p>\n<ul class="mr-sip">\n{li}\n</ul>\n</section>'
+
+
+def mail_today(inp: Inputs) -> str:
+    it = today_items(inp)
+    if not it:
+        return ""
+    tr = "".join(f'<tr><td width="14" valign="top" style="padding:4px 0; font-family:{FONT}; font-size:13px; line-height:19px; color:{INK};">–</td>'
+                 f'<td style="padding:4px 0; font-family:{FONT}; font-size:13px; line-height:19px; color:{INK2};">{e(x)}</td></tr>' for x in it)
+    return m_section("Šiandien", "Paramų terminai ir teisės aktų įsigaliojimas · visa savaitės apžvalga – pirmadieniais", m_table(tr))
+
+
 def fragment(inp: Inputs, alerts: list[str]) -> str:
     parts = [f'<article class="mr-report" data-date="{inp.day.isoformat()}">']
     for a in alerts:
         parts.append(f'<p class="mr-alert">{e(a)}</p>')
     for b in (block_overview(inp),
+              block_today(inp),
               block_energy(inp) if inp.price is not None else "",
-              block_grants(inp) if inp.grants else "",
-              block_legal(inp) if inp.legal else "",
+              block_grants(inp) if inp.grants and DAILY_SLOW else "",
+              block_legal(inp) if inp.legal and DAILY_SLOW else "",
               block_news(inp) if inp.news else "",
               block_world(inp) if inp.world else ""):
         if b:
@@ -1198,9 +1260,11 @@ def mail_overview(inp: Inputs) -> str:
     rows = []
     if inp.price is not None:
         rows.append(("Elektra", energy_overview(inp)))
-    if inp.grants:
+    if today_items(inp):
+        rows.append(("Šiandien", e(today_overview(inp))))
+    if inp.grants and DAILY_SLOW:
         rows.append(("Paramos", e(grants_overview(inp))))
-    if inp.legal:
+    if inp.legal and DAILY_SLOW:
         rows.append(("Teisės aktai", e(legal_overview(inp))))
     if inp.news:
         rows.append(("Naujienos", e(news_overview(inp))))
@@ -1381,7 +1445,7 @@ def email(inp: Inputs, alerts: list[str]) -> str:
         f'<td align="right" style="padding:0 0 12px; border-bottom:1px solid #A6A6A6; font-family:{FONT}; font-size:12px; line-height:26px; font-style:italic; color:{INK3}; text-align:right;">kasdien 7:00</td></tr>'),
         "24px 36px 0"))
     rows.append(m_tr(m_p("Morning Report", 26, 32, INK, " font-weight:bold;") + m_p(e(day_long(d)), 14, 20, INK, " padding-top:2px;")
-                     + m_p("Lietuvos energetikos rinka: kainos, paramos, teisės aktai, naujienos ir pasaulio rinkos", 12, 18, INK3, " font-style:italic; padding-top:2px;"),
+                     + m_p("Lietuvos energetikos rinka: kainos, šiandienos terminai, naujienos ir pasaulio rinkos", 12, 18, INK3, " font-style:italic; padding-top:2px;"),
                      "18px 36px 0"))
     rows.append(m_tr(m_button(mr_day_url(d), "Atidaryti svetainėje →"), "14px 36px 0"))
     for a in alerts:
@@ -1390,11 +1454,14 @@ def email(inp: Inputs, alerts: list[str]) -> str:
     ov = mail_overview(inp)
     if ov:
         rows.append(ov)
+    td = mail_today(inp)
+    if td:
+        rows.append(td)
     if inp.price is not None:
         rows.append(mail_energy(inp))
-    if inp.grants:
+    if inp.grants and DAILY_SLOW:
         rows.append(mail_grants(inp))
-    if inp.legal:
+    if inp.legal and DAILY_SLOW:
         rows.append(mail_legal(inp))
     if inp.news:
         rows.append(mail_news(inp))
@@ -1430,6 +1497,22 @@ def email(inp: Inputs, alerts: list[str]) -> str:
 </body>
 </html>
 '''
+
+
+# ─── dienos duomenų archyvas savaitės apžvalgai ─────────────────────────────
+
+def archive_record(inp: Inputs) -> dict:
+    """Glaustas dienos įrašas data/archyvas/MMMM-MM-DD.json: iš jų savaitės apžvalga (žr. „savaitės ataskaita.py“)."""
+    pr = inp.world
+    world = None
+    if pr:
+        world = {"kotiruotės_laikas": (pr["rodikliai"].get("brent") or {}).get("kotiruotės_laikas"),
+                 "rodikliai": [{"pavadinimas": l, "reikšmė": v, "vienetai": u, "per_dieną": d1, "per_7d": d7, "per_30d": d30}
+                               for l, v, u, d1, d7, d30 in world_kpis(pr)]}
+    return {"data": inp.day.isoformat(), "elektros_rinka": inp.sit, "valandos": inp.hours,
+            "naujienos": inp.news, "pasaulio_rinkos": world,
+            "teisės_aktai": (inp.legal or {}).get("energy_relevant") if inp.legal else None,
+            "paramos": (inp.grants or {}).get("kvietimai") if inp.grants else None}
 
 
 # ─── pagrindinis ─────────────────────────────────────────────────────────────
@@ -1479,6 +1562,11 @@ def main() -> None:
     assert unsub_line() in mail
     write("laiskas-brevo.html", mail.replace(unsub_line(), brevo_footer_lines()))
     write("tema.txt", subject + "\n")
+    arch = os.path.join(data_dir, "archyvas")
+    os.makedirs(arch, exist_ok=True)
+    with open(os.path.join(arch, f"{day.isoformat()}.json"), "w", encoding="utf-8", newline="\n") as f:
+        json.dump(archive_record(inp), f, ensure_ascii=False, indent=1)
+        f.write("\n")
     write("data.txt", day.isoformat())          # paskutinis: pagal jį Power Automate supranta, kad ataskaita paruošta
     print(f"Įrašyta: {out_dir} (fragmentas {len(frag)} B, laiškas {len(mail)} B)", file=sys.stderr)
 

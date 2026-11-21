@@ -1,0 +1,329 @@
+{
+ "data": "2026-11-18",
+ "elektros_rinka": {
+  "data": "2026-11-18",
+  "ref_dienų": 88,
+  "galia": {
+   "vėjas": 2507,
+   "saulė": 3018
+  },
+  "vartojimas": {
+   "mw": 1738,
+   "norma": 1594,
+   "intervalas": [
+    1562,
+    1640
+   ],
+   "būsena": "didesnis nei įprasta",
+   "nuokrypis_proc": 9.0,
+   "procentilis": null
+  },
+  "vėjas": {
+   "mw": 517,
+   "norma": 566,
+   "intervalas": [
+    338,
+    694
+   ],
+   "būsena": "įprasta",
+   "procentilis": 45
+  },
+  "saulė": {
+   "mw": 48,
+   "norma": 28,
+   "intervalas": [
+    20,
+    42
+   ],
+   "būsena": "didesnė nei įprasta",
+   "procentilis": 69
+  },
+  "kita_gamyba": {
+   "mw": 326,
+   "norma": 339,
+   "būsena": "įprasta",
+   "valandos": "00–24",
+   "vėjas_faktas": 941,
+   "saulė_faktas": 15,
+   "vartojimas_faktas": 1727
+  },
+  "dujos": {
+   "ttf": 85.4,
+   "norma_12mėn": 52.2,
+   "santykis": 1.64,
+   "būsena": "gerokai brangesnės nei įprasta",
+   "prieš_metus": 31.4
+  },
+  "kaina": {
+   "lt": 179.8,
+   "norma": 142.3,
+   "intervalas": [
+    116,
+    174
+   ],
+   "norma_su_šiandienos_dujomis": 212.9,
+   "būsena": "didesnė nei įprasta",
+   "min": 113.2,
+   "max": 225.3,
+   "min_val": 5,
+   "max_val": 19,
+   "modelis": 218.6,
+   "modelis_su_jungtimis": 216.1
+  },
+  "indėliai": {
+   "dujos": 59.7,
+   "vartojimas": 11.2,
+   "vėjas": -0.3,
+   "saulė": -0.6,
+   "pralaidumai": 0.0,
+   "kaimynai": -8.2,
+   "kita": -24.2
+  },
+  "dujų_metodas": "šiandienos sąlygomis",
+  "kaimynų_detalės": {
+   "kainos": -6.5,
+   "jungčių_apkrova": -1.7
+  },
+  "kaimynai": {
+   "LV": 179.7,
+   "SE4": 177.8,
+   "PL": 149.0,
+   "EE": 154.4,
+   "FI": 117.7
+  },
+  "lt_lv_skiriasi_val": 2,
+  "kaimynų_būsena": {
+   "SE4": {
+    "kaina": 177.8,
+    "norma_su_šiandienos_dujomis": 153.0,
+    "būsena": "įprasta",
+    "procentilis": 61
+   },
+   "PL": {
+    "kaina": 149.0,
+    "norma_su_šiandienos_dujomis": 204.7,
+    "būsena": "mažesnė nei įprasta",
+    "procentilis": 20
+   },
+   "FI": {
+    "kaina": 117.7,
+    "norma_su_šiandienos_dujomis": 125.0,
+    "būsena": "įprasta",
+    "procentilis": 45
+   }
+  },
+  "mainai": {
+   "SE4": {
+    "mw": 118,
+    "proc_vartojimo": 7
+   },
+   "PL": {
+    "mw": 74,
+    "proc_vartojimo": 4
+   },
+   "LV": {
+    "mw": 746,
+    "proc_vartojimo": 43
+   },
+   "iš_viso": {
+    "mw": 938,
+    "proc_vartojimo": 54
+   },
+   "maks": {
+    "SE4_imp": 700,
+    "SE4_eksp": 425,
+    "PL_imp": 186,
+    "PL_eksp": 179,
+    "LV_imp": 1043,
+    "LV_eksp": 0
+   }
+  },
+  "nordpool": {},
+  "pralaidumai": {
+   "LT–SE4 (NordBalt)": {
+    "importas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-22"
+    }
+   },
+   "LT–PL (LitPol)": {
+    "importas": {
+     "mw": 183,
+     "min": 177,
+     "nominalas": 164,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 219,
+     "min": 207,
+     "nominalas": 193,
+     "pask_data": "2026-11-22"
+    }
+   },
+   "LT–LV": {
+    "importas": {
+     "mw": 1031,
+     "min": 798,
+     "nominalas": 837,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 926,
+     "min": 872,
+     "nominalas": 942,
+     "pask_data": "2026-11-22"
+    }
+   }
+  },
+  "sąlygos": {
+   "srmc": 190.3,
+   "srmc_norma": 127.1,
+   "cap_def": 0
+  },
+  "jungtys_būsena": {
+   "SE4": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 2
+   },
+   "PL": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 10
+   },
+   "LV": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 3
+   }
+  },
+  "lt_lv": {
+   "brangiau_val": 1,
+   "pigiau_val": 0,
+   "skirtumas": 0.1
+  },
+  "kaimynų_valandos": {
+   "SE4": {
+    "min": 111.7,
+    "max": 222.6,
+    "max_val": 18
+   },
+   "PL": {
+    "min": 100.0,
+    "max": 194.6,
+    "max_val": 9
+   },
+   "LV": {
+    "min": 113.2,
+    "max": 225.3,
+    "max_val": 19
+   },
+   "FI": {
+    "min": 29.0,
+    "max": 195.6,
+    "max_val": 13
+   }
+  },
+  "kitos_aiškinimas": {
+   "nuo": 0,
+   "iki": 22,
+   "valandų": 22,
+   "kryptimi_val": 22,
+   "paros_val": 24,
+   "dalis": 1.01,
+   "kaina": 178.3,
+   "modelis": 218.3,
+   "LV": 178.1,
+   "EE": 154.4,
+   "FI": 120.0,
+   "SE4": 176.1,
+   "PL": 150.0,
+   "lt_lygu_lv_val": 21,
+   "x_se4": 0,
+   "i_se4": 2,
+   "x_pl": 0,
+   "i_pl": 10,
+   "x_lv": 0,
+   "i_lv": 3
+  }
+ },
+ "valandos": [
+  158.67,
+  130.47,
+  138.07,
+  129.86,
+  117.83,
+  113.25,
+  124.91,
+  152.65,
+  184.33,
+  190.73,
+  182.53,
+  184.03,
+  186.96,
+  197.56,
+  201.06,
+  204.85,
+  222.15,
+  216.44,
+  223.88,
+  225.34,
+  223.09,
+  213.82,
+  200.98,
+  192.38
+ ],
+ "naujienos": {
+  "data": "2026-11-18",
+  "sugeneruota": "2026-11-18T14:03:47+02:00",
+  "svarbiausia": 0,
+  "naujienos": [
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Energijos kainos – vienas pagrindinių verslo augimo veiksnių",
+    "santrauka": "Lietuvos verslo lyderių apklausa rodo, kad energijos kainos ir didėjančios darbo jėgos sąnaudos daugiausia įtakos turės kitų metų augimui. Dauguma vadovų mano, kad tarptautinė ir šalies ekonominė padėtis prastės arba nesikeis.",
+    "svarba": "maža",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/vadyba/2026/11/17/verslo-lyderiu-apklausa-pelnas-ir-pajamos-augs-darbuotoju-skaicius-nelabai-592862",
+    "paskelbta": "2026-11-18 07:25"
+   }
+  ],
+  "kandidatų": 9
+ },
+ "pasaulio_rinkos": {
+  "kotiruotės_laikas": "2026-11-18T13:52+02:00",
+  "rodikliai": [
+   {
+    "pavadinimas": "Nafta (Brent)",
+    "reikšmė": 89.96,
+    "vienetai": "USD/bbl",
+    "per_dieną": -3.41,
+    "per_7d": -3.02,
+    "per_30d": -17.88
+   },
+   {
+    "pavadinimas": "Dujos (TTF)",
+    "reikšmė": 83.56,
+    "vienetai": "€/MWh",
+    "per_dieną": -2.15,
+    "per_7d": -3.57,
+    "per_30d": -5.09
+   },
+   {
+    "pavadinimas": "Taršos leidimai (ATL)",
+    "reikšmė": 87.15,
+    "vienetai": "€/t",
+    "per_dieną": -0.29,
+    "per_7d": -0.8,
+    "per_30d": 1.93
+   }
+  ]
+ },
+ "teisės_aktai": null,
+ "paramos": null
+}

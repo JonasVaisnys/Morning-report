@@ -1,0 +1,307 @@
+{
+ "data": "2026-11-16",
+ "elektros_rinka": {
+  "data": "2026-11-16",
+  "ref_dienų": 88,
+  "galia": {
+   "vėjas": 2507,
+   "saulė": 3018
+  },
+  "vartojimas": {
+   "mw": 1704,
+   "norma": 1559,
+   "intervalas": [
+    1527,
+    1603
+   ],
+   "būsena": "gerokai didesnis nei įprasta",
+   "nuokrypis_proc": 9.3,
+   "procentilis": null
+  },
+  "vėjas": {
+   "mw": 1518,
+   "norma": 571,
+   "intervalas": [
+    337,
+    700
+   ],
+   "būsena": "gerokai didesnė nei įprasta",
+   "procentilis": 97
+  },
+  "saulė": {
+   "mw": 110,
+   "norma": 29,
+   "intervalas": [
+    22,
+    46
+   ],
+   "būsena": "gerokai didesnė nei įprasta",
+   "procentilis": 97
+  },
+  "kita_gamyba": {
+   "mw": 351,
+   "norma": 328,
+   "būsena": "įprasta",
+   "valandos": "00–24",
+   "vėjas_faktas": 1720,
+   "saulė_faktas": 115,
+   "vartojimas_faktas": 1698
+  },
+  "dujos": {
+   "ttf": 91.0,
+   "norma_12mėn": 51.9,
+   "santykis": 1.75,
+   "būsena": "gerokai brangesnės nei įprasta",
+   "prieš_metus": 31.2
+  },
+  "kaina": {
+   "lt": 141.8,
+   "norma": 134.6,
+   "intervalas": [
+    109,
+    167
+   ],
+   "norma_su_šiandienos_dujomis": 214.0,
+   "būsena": "įprasta",
+   "min": 15.9,
+   "max": 217.5,
+   "min_val": 0,
+   "max_val": 9,
+   "modelis": 150.9,
+   "modelis_su_jungtimis": 144.8
+  },
+  "indėliai": {
+   "dujos": 52.6,
+   "vartojimas": 7.4,
+   "vėjas": -44.5,
+   "saulė": -3.3,
+   "pralaidumai": 0.0,
+   "kaimynai": -3.1,
+   "kita": -1.9
+  },
+  "dujų_metodas": "šiandienos sąlygomis",
+  "kaimynų_detalės": {
+   "kainos": 0.7,
+   "jungčių_apkrova": -3.8
+  },
+  "kaimynai": {
+   "LV": 141.8,
+   "SE4": 192.8,
+   "PL": 143.7,
+   "EE": 90.1,
+   "FI": 85.5
+  },
+  "lt_lv_skiriasi_val": 0,
+  "kaimynų_būsena": {
+   "SE4": {
+    "kaina": 192.8,
+    "norma_su_šiandienos_dujomis": 149.8,
+    "būsena": "didesnė nei įprasta",
+    "procentilis": 67
+   },
+   "PL": {
+    "kaina": 143.7,
+    "norma_su_šiandienos_dujomis": 207.4,
+    "būsena": "mažesnė nei įprasta",
+    "procentilis": 20
+   },
+   "FI": {
+    "kaina": 85.5,
+    "norma_su_šiandienos_dujomis": 129.9,
+    "būsena": "mažesnė nei įprasta",
+    "procentilis": 33
+   }
+  },
+  "mainai": {
+   "SE4": {
+    "mw": -689,
+    "proc_vartojimo": -40
+   },
+   "PL": {
+    "mw": -200,
+    "proc_vartojimo": -12
+   },
+   "LV": {
+    "mw": 536,
+    "proc_vartojimo": 31
+   },
+   "iš_viso": {
+    "mw": -353,
+    "proc_vartojimo": -21
+   },
+   "maks": {
+    "SE4_imp": 0,
+    "SE4_eksp": 700,
+    "PL_imp": 0,
+    "PL_eksp": 250,
+    "LV_imp": 730,
+    "LV_eksp": 0
+   }
+  },
+  "nordpool": {},
+  "pralaidumai": {
+   "LT–SE4 (NordBalt)": {
+    "importas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-22"
+    }
+   },
+   "LT–PL (LitPol)": {
+    "importas": {
+     "mw": 183,
+     "min": 177,
+     "nominalas": 164,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 245,
+     "min": 233,
+     "nominalas": 192,
+     "pask_data": "2026-11-22"
+    }
+   },
+   "LT–LV": {
+    "importas": {
+     "mw": 907,
+     "min": 718,
+     "nominalas": 837,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 961,
+     "min": 906,
+     "nominalas": 940,
+     "pask_data": "2026-11-22"
+    }
+   }
+  },
+  "sąlygos": {
+   "srmc": 201.2,
+   "srmc_norma": 126.6,
+   "cap_def": 0
+  },
+  "jungtys_būsena": {
+   "SE4": {
+    "eksportas_pilnas_val": 22,
+    "importas_pilnas_val": 0
+   },
+   "PL": {
+    "eksportas_pilnas_val": 11,
+    "importas_pilnas_val": 0
+   },
+   "LV": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 0
+   }
+  },
+  "lt_lv": {
+   "brangiau_val": 0,
+   "pigiau_val": 0,
+   "skirtumas": 0.0
+  },
+  "kaimynų_valandos": {
+   "SE4": {
+    "min": 112.0,
+    "max": 269.5,
+    "max_val": 19
+   },
+   "PL": {
+    "min": 94.9,
+    "max": 322.7,
+    "max_val": 16
+   },
+   "LV": {
+    "min": 15.9,
+    "max": 217.5,
+    "max_val": 9
+   },
+   "FI": {
+    "min": 11.7,
+    "max": 193.1,
+    "max_val": 19
+   }
+  }
+ },
+ "valandos": [
+  15.88,
+  42.07,
+  39.02,
+  35.09,
+  34.45,
+  28.25,
+  111.1,
+  157.95,
+  211.81,
+  217.51,
+  122.71,
+  107.02,
+  185.94,
+  188.17,
+  201.22,
+  209.68,
+  200.1,
+  181.13,
+  190.2,
+  193.31,
+  186.49,
+  190.44,
+  190.03,
+  163.65
+ ],
+ "naujienos": {
+  "data": "2026-11-16",
+  "sugeneruota": "2026-11-16T11:53:55+02:00",
+  "svarbiausia": 0,
+  "naujienos": [
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Būtiniausių paslaugų išlaikymas dingus elektrai ir ryšiui",
+    "santrauka": "Straipsnyje svarstoma, kaip Lietuva išlaikytų būtiniausias paslaugas, jei dingtų elektra ir ryšys. Pateiktame tekste kitos informacijos nėra.",
+    "svarba": "maža",
+    "šaltinis": "15min",
+    "nuoroda": "https://www.15min.lt/naujiena/aktualu/lietuva/dingtu-elektra-ir-rysys-kaip-lietuva-islaikytu-butiniausias-paslaugas-56-2806780?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed",
+    "paskelbta": "2026-11-16 12:50"
+   }
+  ],
+  "kandidatų": 7
+ },
+ "pasaulio_rinkos": {
+  "kotiruotės_laikas": "2026-11-16T11:43+02:00",
+  "rodikliai": [
+   {
+    "pavadinimas": "Nafta (Brent)",
+    "reikšmė": 92.52,
+    "vienetai": "USD/bbl",
+    "per_dieną": -3.46,
+    "per_7d": -0.05,
+    "per_30d": -15.78
+   },
+   {
+    "pavadinimas": "Dujos (TTF)",
+    "reikšmė": 90.952,
+    "vienetai": "€/MWh",
+    "per_dieną": -1.42,
+    "per_7d": 6.27,
+    "per_30d": 4.38
+   },
+   {
+    "pavadinimas": "Taršos leidimai (ATL)",
+    "reikšmė": 89.41,
+    "vienetai": "€/t",
+    "per_dieną": -0.31,
+    "per_7d": 2.17,
+    "per_30d": 2.75
+   }
+  ]
+ },
+ "teisės_aktai": null,
+ "paramos": null
+}

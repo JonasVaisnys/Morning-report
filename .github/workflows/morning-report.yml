@@ -115,6 +115,15 @@ jobs:
           python scripts/ataskaita.py "$DATE"
           echo "--- public/ ---"; ls -la public public/archyvas; cat public/tema.txt; cat public/data.txt; echo
 
+      # Pirmadieniais – praėjusios savaitės (pirmadienio–sekmadienio) apžvalga atskiru laišku (žr. scripts/savaitės ataskaita.py).
+      # Nepavykus kasdienis laiškas vis tiek siunčiamas.
+      - name: Savaitės apžvalga
+        if: env.SKIP != 'true'
+        run: |
+          if [ "$(date -d "$DATE" +%u)" != "1" ]; then echo "Ne pirmadienis – savaitės apžvalga negaminama."; exit 0; fi
+          python "scripts/savaitės ataskaita.py" "$DATE" || echo "Savaitės apžvalgos pagaminti nepavyko." >&2
+          [ -f public/savaitė/tema.txt ] && cat public/savaitė/tema.txt || true
+
       - name: Išsaugoti rezultatą
         if: env.SKIP != 'true'
         run: |
@@ -143,3 +152,14 @@ jobs:
           # prenumeratoriai patys pasirenka dienas: Brevo sąrašai #4 (pirmadienis) … #10 (sekmadienis)
           LIST=$(( $(TZ=Europe/Vilnius date +%u) + 3 ))
           python scripts/brevo.py kampanija "$DATE" --sarasas "$LIST"
+
+      # Savaitės apžvalga pirmadieniais 7:15. SAVAITES_SARASAS: 2 – tik Jonui (kol tvirtinamas vaizdas), 11 – „MR savaitės apžvalga“.
+      - name: Savaitės apžvalga per Brevo
+        if: env.SKIP != 'true'
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          SAVAITES_SARASAS: "2"
+        run: |
+          if [ "$DATE" != "$(TZ=Europe/Vilnius date +%F)" ] || [ "$(TZ=Europe/Vilnius date +%u)" != "1" ]; then echo "Ne šios dienos pirmadienis – nesiunčiama."; exit 0; fi
+          if [ "$(cat public/savaitė/data.txt 2>/dev/null)" != "$DATE" ]; then echo "Savaitės apžvalga nepagaminta – nesiunčiama." >&2; exit 0; fi
+          python scripts/brevo.py kampanija "$DATE" --savaitė --sarasas "$SAVAITES_SARASAS" --laikas 07:15

@@ -1,0 +1,347 @@
+{
+ "data": "2026-11-20",
+ "elektros_rinka": {
+  "data": "2026-11-20",
+  "ref_dienų": 89,
+  "galia": {
+   "vėjas": 2507,
+   "saulė": 3018
+  },
+  "vartojimas": {
+   "mw": 1690,
+   "norma": 1630,
+   "intervalas": [
+    1597,
+    1677
+   ],
+   "būsena": "didesnis nei įprasta",
+   "nuokrypis_proc": 3.6,
+   "procentilis": null
+  },
+  "vėjas": {
+   "mw": 956,
+   "norma": 560,
+   "intervalas": [
+    338,
+    690
+   ],
+   "būsena": "didesnė nei įprasta",
+   "procentilis": 81
+  },
+  "saulė": {
+   "mw": 52,
+   "norma": 25,
+   "intervalas": [
+    17,
+    35
+   ],
+   "būsena": "didesnė nei įprasta",
+   "procentilis": 80
+  },
+  "kita_gamyba": {
+   "mw": 423,
+   "norma": 348,
+   "būsena": "įprasta",
+   "valandos": "00–24",
+   "vėjas_faktas": 1262,
+   "saulė_faktas": 20,
+   "vartojimas_faktas": 1706
+  },
+  "dujos": {
+   "ttf": 84.5,
+   "norma_12mėn": 52.4,
+   "santykis": 1.61,
+   "būsena": "gerokai brangesnės nei įprasta",
+   "prieš_metus": 30.9
+  },
+  "kaina": {
+   "lt": 196.4,
+   "norma": 151.3,
+   "intervalas": [
+    128,
+    183
+   ],
+   "norma_su_šiandienos_dujomis": 221.0,
+   "būsena": "didesnė nei įprasta",
+   "min": 96.2,
+   "max": 246.9,
+   "min_val": 23,
+   "max_val": 9,
+   "modelis": 194.7,
+   "modelis_su_jungtimis": 180.4
+  },
+  "indėliai": {
+   "dujos": 61.9,
+   "vartojimas": 3.3,
+   "vėjas": -28.5,
+   "saulė": -1.1,
+   "pralaidumai": 0.0,
+   "kaimynai": -1.5,
+   "kita": 10.9
+  },
+  "dujų_metodas": "šiandienos sąlygomis",
+  "kaimynų_detalės": {
+   "kainos": 8.3,
+   "jungčių_apkrova": -9.8
+  },
+  "kaimynai": {
+   "LV": 186.4,
+   "SE4": 207.4,
+   "PL": 208.5,
+   "EE": 167.1,
+   "FI": 55.2
+  },
+  "lt_lv_skiriasi_val": 9,
+  "kaimynų_būsena": {
+   "SE4": {
+    "kaina": 207.4,
+    "norma_su_šiandienos_dujomis": 161.9,
+    "būsena": "didesnė nei įprasta",
+    "procentilis": 73
+   },
+   "PL": {
+    "kaina": 208.5,
+    "norma_su_šiandienos_dujomis": 203.5,
+    "būsena": "įprasta",
+    "procentilis": 52
+   },
+   "FI": {
+    "kaina": 55.2,
+    "norma_su_šiandienos_dujomis": 154.6,
+    "būsena": "mažesnė nei įprasta",
+    "procentilis": 19
+   }
+  },
+  "mainai": {
+   "SE4": {
+    "mw": -477,
+    "proc_vartojimo": -28
+   },
+   "PL": {
+    "mw": -215,
+    "proc_vartojimo": -13
+   },
+   "LV": {
+    "mw": 951,
+    "proc_vartojimo": 56
+   },
+   "iš_viso": {
+    "mw": 258,
+    "proc_vartojimo": 15
+   },
+   "maks": {
+    "SE4_imp": 58,
+    "SE4_eksp": 700,
+    "PL_imp": 2,
+    "PL_eksp": 245,
+    "LV_imp": 1130,
+    "LV_eksp": 0
+   }
+  },
+  "nordpool": {},
+  "pralaidumai": {
+   "LT–SE4 (NordBalt)": {
+    "importas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-22"
+    }
+   },
+   "LT–PL (LitPol)": {
+    "importas": {
+     "mw": 183,
+     "min": 179,
+     "nominalas": 164,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 225,
+     "min": 208,
+     "nominalas": 193,
+     "pask_data": "2026-11-22"
+    }
+   },
+   "LT–LV": {
+    "importas": {
+     "mw": 1039,
+     "min": 894,
+     "nominalas": 840,
+     "pask_data": "2026-11-22"
+    },
+    "eksportas": {
+     "mw": 900,
+     "min": 796,
+     "nominalas": 942,
+     "pask_data": "2026-11-22"
+    }
+   }
+  },
+  "sąlygos": {
+   "srmc": 186.4,
+   "srmc_norma": 127.6,
+   "cap_def": 0
+  },
+  "jungtys_būsena": {
+   "SE4": {
+    "eksportas_pilnas_val": 7,
+    "importas_pilnas_val": 0
+   },
+   "PL": {
+    "eksportas_pilnas_val": 21,
+    "importas_pilnas_val": 0
+   },
+   "LV": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 11
+   }
+  },
+  "lt_lv": {
+   "brangiau_val": 9,
+   "pigiau_val": 0,
+   "skirtumas": 10.0
+  },
+  "kaimynų_valandos": {
+   "SE4": {
+    "min": 151.9,
+    "max": 250.9,
+    "max_val": 9
+   },
+   "PL": {
+    "min": 125.3,
+    "max": 272.3,
+    "max_val": 9
+   },
+   "LV": {
+    "min": 96.2,
+    "max": 222.6,
+    "max_val": 11
+   },
+   "FI": {
+    "min": 31.9,
+    "max": 100.0,
+    "max_val": 16
+   }
+  },
+  "kitos_aiškinimas": {
+   "nuo": 4,
+   "iki": 24,
+   "valandų": 20,
+   "kryptimi_val": 20,
+   "paros_val": 24,
+   "dalis": 1.01,
+   "kaina": 201.7,
+   "modelis": 182.4,
+   "LV": 189.7,
+   "EE": 172.9,
+   "FI": 58.9,
+   "SE4": 213.9,
+   "PL": 217.5,
+   "lt_lygu_lv_val": 11,
+   "x_se4": 7,
+   "i_se4": 0,
+   "x_pl": 20,
+   "i_pl": 0,
+   "x_lv": 0,
+   "i_lv": 10
+  }
+ },
+ "valandos": [
+  188.16,
+  162.26,
+  166.12,
+  163.38,
+  162.44,
+  162.56,
+  175.94,
+  209.62,
+  244.23,
+  246.85,
+  224.75,
+  228.18,
+  209.22,
+  202.66,
+  208.76,
+  221.79,
+  237.43,
+  215.03,
+  239.71,
+  236.79,
+  187.4,
+  185.92,
+  138.53,
+  96.2
+ ],
+ "naujienos": {
+  "data": "2026-11-20",
+  "sugeneruota": "2026-11-20T05:36:28+02:00",
+  "svarbiausia": 0,
+  "naujienos": [
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "SkGD terminalo perviršis mažins dujų tiekimo saugumo dedamąją",
+    "santrauka": "Klaipėdos SkGD terminalui šiemet surinkus 9,8 mln. Eur daugiau reguliuojamos veiklos pajamų nei numatyta, perviršis kitąmet bus grąžinamas vartotojams. Dėl to 2027 m. dujų tiekimo saugumo dedamoji sumažės iki minus 55 Eur/MWh.",
+    "svarba": "didelė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/energetika/2026/11/19/skgd-terminalo-pervirsis-2027-m-duju-tiekimo-saugumo-dedamaja-sumazins-iki-minus-55-eurmwh-593008",
+    "paskelbta": "2026-11-19 17:36"
+   },
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Gaminantys vartotojai „Ignitis grupei“ vis dar nuostolingi",
+    "santrauka": "Gaminančių vartotojų generuojamą nuostolį „Ignitis grupei“ padeda kompensuoti nauja tvarka, pagal kurią saulės elektrinių savininkus per tarifą papildomai subsidijuoja kiti elektros vartotojai. Nepaisant to, ši veikla didžiausiai šalies energetikos bendrovei lieka nuostolinga.",
+    "svarba": "vidutinė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/rinkos/2026/11/18/gaminanciu-vartotoju-nesamas-nuostolis-sumazejo-bet-neisnyko-592950",
+    "paskelbta": "2026-11-19 12:26"
+   },
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "„KN Energies“ grupės pajamos ir EBITDA augo",
+    "santrauka": "Naftos ir SkGD terminalų operatorės „KN Energies“ grupė sausį–rugsėjį gavo 82,1 mln. Eur pajamų, tai 7 % daugiau nei pernai. EBITDA, pasak pavadinimo, išaugo 6 % iki 43 mln. Eur.",
+    "svarba": "maža",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/rinkos/2026/11/19/kn-energies-grupes-pajamos-siemet-augo-7-iki-82-mln-eur-ebitda-6-iki-43-mln-eur-592973",
+    "paskelbta": "2026-11-19 12:15"
+   }
+  ],
+  "kandidatų": 14
+ },
+ "pasaulio_rinkos": {
+  "kotiruotės_laikas": "2026-11-20T05:21+02:00",
+  "rodikliai": [
+   {
+    "pavadinimas": "Nafta (Brent)",
+    "reikšmė": 89.79,
+    "vienetai": "USD/bbl",
+    "per_dieną": -2.35,
+    "per_7d": -6.29,
+    "per_30d": -17.46
+   },
+   {
+    "pavadinimas": "Dujos (TTF)",
+    "reikšmė": 84.45,
+    "vienetai": "€/MWh",
+    "per_dieną": 4.46,
+    "per_7d": -8.46,
+    "per_30d": -0.72
+   },
+   {
+    "pavadinimas": "Taršos leidimai (ATL)",
+    "reikšmė": 81.31,
+    "vienetai": "€/t",
+    "per_dieną": -6.7,
+    "per_7d": -9.34,
+    "per_30d": -4.45
+   }
+  ]
+ },
+ "teisės_aktai": null,
+ "paramos": null
+}
