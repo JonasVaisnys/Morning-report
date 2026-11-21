@@ -1,35 +1,26 @@
 {
- "data": "2026-11-20",
- "sugeneruota": "2026-11-20T05:36:28+02:00",
+ "data": "2026-11-21",
+ "sugeneruota": "2026-11-21T05:37:31+02:00",
  "svarbiausia": 0,
  "naujienos": [
   {
    "regionas": "Lietuva",
-   "pavadinimas": "SkGD terminalo perviršis mažins dujų tiekimo saugumo dedamąją",
-   "santrauka": "Klaipėdos SkGD terminalui šiemet surinkus 9,8 mln. Eur daugiau reguliuojamos veiklos pajamų nei numatyta, perviršis kitąmet bus grąžinamas vartotojams. Dėl to 2027 m. dujų tiekimo saugumo dedamoji sumažės iki minus 55 Eur/MWh.",
+   "pavadinimas": "Reguliuotojas: kainų augimo švelninimas priklauso nuo „Igničio“ ir valstybės",
+   "santrauka": "Valstybinė energetikos reguliavimo taryba nuo sausio prognozuoja 23–27 % aukštesnes visuomeninės elektros ir 38–46 % aukštesnes dujų kainas vartotojams. Tarybos vadovas sako girdintis raginimų sušvelninti augimą, tačiau pabrėžia, kad sprendimai dėl tarifų mažinimo yra „Igničio“ ir valstybės rankose.",
    "svarba": "didelė",
    "šaltinis": "Verslo žinios",
-   "nuoroda": "https://www.vz.lt/energetika/2026/11/19/skgd-terminalo-pervirsis-2027-m-duju-tiekimo-saugumo-dedamaja-sumazins-iki-minus-55-eurmwh-593008",
-   "paskelbta": "2026-11-19 17:36"
+   "nuoroda": "https://www.vz.lt/energetika/2026/11/20/vert-pirmininkas-sprendimai-del-elektros-ir-duju-tarifu-mazinimo-ignicio-ir-valstybes-rankose-593029",
+   "paskelbta": "2026-11-20 09:46"
   },
   {
    "regionas": "Lietuva",
-   "pavadinimas": "Gaminantys vartotojai „Ignitis grupei“ vis dar nuostolingi",
-   "santrauka": "Gaminančių vartotojų generuojamą nuostolį „Ignitis grupei“ padeda kompensuoti nauja tvarka, pagal kurią saulės elektrinių savininkus per tarifą papildomai subsidijuoja kiti elektros vartotojai. Nepaisant to, ši veikla didžiausiai šalies energetikos bendrovei lieka nuostolinga.",
+   "pavadinimas": "Kaupiklių galia perkopė 1 GW, bet balansavimo rinkos uždarbis mažėja",
+   "santrauka": "Prie Lietuvos elektros tinklo prijungtų energijos kaupiklių galia šį rudenį perkopė 1 GW, tačiau jų uždarbis balansavimo rinkoje mažėja jau trečią mėnesį iš eilės. Įmonei, svarstančiai įsidiegti kaupiklį, atsipirkimą lems ne šiandien skaičiuojamos pajamos, o ilgesnio laikotarpio perspektyva.",
    "svarba": "vidutinė",
    "šaltinis": "Verslo žinios",
-   "nuoroda": "https://www.vz.lt/rinkos/2026/11/18/gaminanciu-vartotoju-nesamas-nuostolis-sumazejo-bet-neisnyko-592950",
-   "paskelbta": "2026-11-19 12:26"
-  },
-  {
-   "regionas": "Lietuva",
-   "pavadinimas": "„KN Energies“ grupės pajamos ir EBITDA augo",
-   "santrauka": "Naftos ir SkGD terminalų operatorės „KN Energies“ grupė sausį–rugsėjį gavo 82,1 mln. Eur pajamų, tai 7 % daugiau nei pernai. EBITDA, pasak pavadinimo, išaugo 6 % iki 43 mln. Eur.",
-   "svarba": "maža",
-   "šaltinis": "Verslo žinios",
-   "nuoroda": "https://www.vz.lt/rinkos/2026/11/19/kn-energies-grupes-pajamos-siemet-augo-7-iki-82-mln-eur-ebitda-6-iki-43-mln-eur-592973",
-   "paskelbta": "2026-11-19 12:15"
+   "nuoroda": "https://www.vz.lt/energetika/2026/11/19/brangesnis-kaupiklis-pigesne-kilovatvalande-kaip-palyginti-pasiulymus-592990",
+   "paskelbta": "2026-11-20 08:10"
   }
  ],
- "kandidatų": 14
+ "kandidatų": 11
 }
