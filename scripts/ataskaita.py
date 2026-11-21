@@ -871,7 +871,8 @@ def conditions(inp: Inputs) -> list[tuple[str, str, str, str]]:
     if not caps_known(inp):
         out.append(("Jungtys", "nėra duomenų", "", "pralaidumų duomenys negauti"))
     else:
-        out.append(("Jungtys", "neribojamos" if cd < 1 else f"apribotos {num(cd, 0)}{NB}MW", "",
+        full = bool(sum(lines_full(inp), []))
+        out.append(("Jungtys", f"apribotos {num(cd, 0)}{NB}MW" if cd >= 1 else "pilnai apkrautos" if full else "neribojamos", "",
                     lines_note(inp) or ("importo pralaidumai į Lietuvą" if cd < 1 else "trūksta iki įprasto importo pralaidumo")))
     return out
 
