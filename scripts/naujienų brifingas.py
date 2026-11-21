@@ -34,8 +34,10 @@ RSS_FEEDS = [
     # Delfi ekonomika ir verslas (dažnai skirtingi, kartais tie patys – deduplikuojama pagal URL)
     ("Delfi ekonomika",  "https://www.delfi.lt/rss/feeds/ekonomika.xml"),
     ("Delfi verslas",    "https://www.delfi.lt/rss/feeds/verslas.xml"),
-    # 15min – bendras srautas (ekonomika/verslas/politika)
+    # 15min – bendras srautas turi tik 20 naujausių įrašų (apima kelias valandas), todėl
+    # papildomai imamas verslo srautas (2026-11-21: be jo praleista žinia apie „Ignitis grupės“ vadovą)
     ("15min",            "https://www.15min.lt/rss"),
+    ("15min verslas",    "https://www.15min.lt/rss/verslas"),
     # Verslo žinios – geriausias energetikos padengimas
     ("Verslo žinios",    "https://www.vz.lt/rss/"),
     # Baltpool (Baltijos energijos birža) – kartais tuščias, bet vertingas
@@ -54,17 +56,21 @@ RSS_FEEDS = [
 MONTEL_QUERIES = ["Lithuania", "Lithuanian", "Litgrid", "Ignitis", "Baltics", "Baltic"]
 MONTEL_DAYS    = 3   # pirmadienį apima ir savaitgalį
 
+# Atranka pagal žodžių kamienus (tinka visiems linksniams: „energetika“, „energetikos“…)
+# ir energetikos bendrovių bei institucijų pavadinimus. Galutinai atrenka Claude.
 KEYWORDS = [
-    "energetika", "elektra", "elektros", "saulės energija", "saulės park",
-    "vėjo elektrin", "vėjo park", "baterijų kaupikl", "bess", "litgrid",
-    "eso ", "vert ", "atsinaujinanti energija", "elektros kaina",
-    "nordpool", "nord pool", "energijos kainos", "gamyba", "tinklai",
-    "akumuliatoriai", "pv park", "jūrinė energetika", "šiluma",
-    "dujų", "naftos", "biokuras", "biodujos", "vėjas", "saulė",
-    "renovacija", "efektyvumas", "emisijos", "co2", "žalioji",
-    "investicij", "projektas", "parkas", "stotis", "tinkl",
-    "baltpool", "viešnagė", "aukcion", "leidimai", "prijungim",
+    "energet", "energij", "elektr", "šilum", "dujų", "dujos", "dujom", "dujotiek", "suskystint",
+    "naft", "degal", "biokur", "biodujų", "biometan", "vandenil", "branduolin", "atomin",
+    "vėjo", "saulės", "kaupikl", "baterij", "akumuliator", "tinkl", "prijungim", "sinchroniz",
+    "aukcion", "tarif", "emisij", "taršos leidim", "atsinaujinanči", "renovacij", "efektyvum",
+    # bendrovės, operatoriai, rinkos
+    "ignit", "ignič", "litgrid", "epso", "amber grid", "kn energies", "klaipėdos naft", "orlen",
+    "achema", "lietuvos energ", "baltpool", "getbaltic", "conexus", "elering", "augstsprieguma",
+    "latvenergo", "eesti energia", "enefit", "fortum", "vattenfall", "nord pool", "nordpool",
+    "nordbalt", "litpol", "estlink", "harmony link", "kruon", "elektrėn", "visagin", "ignalin",
+    "apva", "energetikos ministr", "reguliavimo taryb",
 ]
+KEYWORD_WORDS = re.compile(r"\b(eso|vert|lea|ast|bess|sgd|skgd|co2|ppa|aei)\b", re.I)
 
 # ── RSS nuskaitymas ───────────────────────────────────────────────────────────
 
@@ -185,8 +191,10 @@ def fetch_montel() -> list[dict]:
 
 def filter_energy(items: list[dict]) -> list[dict]:
     kw = [k.lower() for k in KEYWORDS]
-    return [it for it in items
-            if any(k in (it["title"] + " " + it["desc"]).lower() for k in kw)]
+    def hit(it):
+        t = (it["title"] + " " + it["desc"]).lower()
+        return any(k in t for k in kw) or bool(KEYWORD_WORDS.search(t))
+    return [it for it in items if hit(it)]
 
 
 def collect() -> list[dict]:
@@ -299,7 +307,7 @@ def generate_json(news: list[dict], date_lt: str) -> dict:
            "svarbiausia": None, "naujienos": [], "kandidatų": len(news)}
     if not news:
         return out
-    cand = news[:80]
+    cand = news[:150]
     block = "\n".join(
         f"[{i+1}] [{it['source']} · {it.get('date', '')}] {it['title']}\n    {it['desc'][:300]}"
         for i, it in enumerate(cand)
@@ -309,7 +317,10 @@ Pateikiu naujienų sąrašą iš Lietuvos portalų RSS srautų ir Montel News (a
 
 Atrink iki 8 svarbiausių energetikos naujienų rytinei ataskaitai Lietuvos energetikos verslui
 (elektra, saulė, vėjas, kaupikliai, tinklai, reguliavimas, kainos, dujos, nafta, šiluma).
-Nesusijusias naujienas praleisk. Montel straipsniuose „Baltic“ kartais reiškia tik Baltijos jūrą –
+Nesusijusias naujienas praleisk. Svarbios ir energetikos bendrovių bei institucijų naujienos: vadovų
+pasikeitimai, strateginiai sprendimai, finansiniai rezultatai, investicijos („Ignitis grupė“, ESO, „Litgrid“,
+EPSO-G, „Amber Grid“, „KN Energies“, „Orlen Lietuva“, VERT, Energetikos ministerija ir pan.).
+Montel straipsniuose „Baltic“ kartais reiškia tik Baltijos jūrą –
 tokius praleisk, jei nėra ryšio su Lietuva ar Baltijos šalimis.
 Pageidaujama apimtis: apie 70 % Lietuva, 15 % kaimynai, 10 % Europa, 5 % pasaulis;
 energetikoje apie 70 % elektra, 30 % iškastinis kuras. Jei tinkamų naujienų mažiau – pateik mažiau.

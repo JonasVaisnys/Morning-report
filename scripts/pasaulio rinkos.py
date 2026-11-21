@@ -811,6 +811,7 @@ Griežtos taisyklės:
 5. Jei apie kurią sritį šiandien naujienų nėra, parašyk tai vienu sakiniu ir nieko neišgalvok.
 6. Lietuvos kontekstą (Klaipėdos SGD terminalas, GIPL, Inčukalnio saugykla, Elektrėnų kombinuoto ciklo blokas, NordBalt ir LitPol jungtys) minėk tik tada, kai tai pagrįsta duomenimis arba naujienomis.
 7. Rinkos kainos gali būti ne šiandienos: savaitgalį ir pirmadienio rytą tai paskutinės prekybos dienos (dažniausiai penktadienio) uždarymas – rašyk tiksliai, kada kaina pasikeitė.
+7a. Skirtumą tarp dviejų dydžių rašyk taip, kad jo nebūtų galima palaikyti pačiu dydžiu: nurodyk abu dydžius ir skirtumą, pvz. „vakaro piko kaina – 46,6 €/MWh, 147 €/MWh mažesnė už CCGT SRMC (193,9 €/MWh)“, o ne „vakaro pikas 147 €/MWh žemesnis už SRMC“.
 8. Stilius: lietuvių kalba, glaustai, dalykiškai; visa analizė – iki 400 žodžių; dešimtainis kablelis; nerašyk didžiosiomis raidėmis; nevartok žodžių „mielai" ir „padarysiu"; jei sakinyje jungtukas „ir" vienas, kableliu jo neskirk. Terminai: Hormuzo sąsiauris, SGD, TTF, SRMC.
 
 Atsakyk Markdown formatu, tik šiomis antraštėmis:

@@ -25,8 +25,19 @@ Normos („įprasta šiam laikotarpiui")
 Modelis
     kaina = SRMC × m(likutinė apkrova, pralaidumų ribojimas, SE4/SRMC, PL/SRMC,
     FI/SRMC, paros valanda, darbo d./savaitgalis); skaidymas – Shapley pagal
-    grupes: dujos, vartojimas, vėjas, saulė, pralaidumai, kaimynai; „kita" –
-    faktinės kainos ir modelio skirtumas.
+    grupes: vartojimas, vėjas, saulė, pralaidumai, kaimynai (esant įprastoms
+    dujoms).
+    Dujos (nuo 2026-11-21): įtaka šiandienos sąlygomis – kiek elektra būtų
+    pigesnė, jei dujos ir CO2 būtų įprastos kainos: kaina × (1 − SRMC norma /
+    SRMC šiandien). Kiti veiksniai ir „kita" įvertinti esant įprastai dujų kainai.
+    Jungtys (nuo 2026-11-21): antras modelis papildomai žino, kurios jungtys
+    valandą pilnai išnaudotos (prekybos grafikas ≥ 95 % pralaidumo). Jo ir
+    pagrindinio modelio skirtumas – jungčių apkrovos įtaka (pvz. pilnai
+    apkrauta NordBalt neperduoda brangios Švedijos kainos); ji priskiriama
+    kaimynų rinkoms (kaimynų kainos ir tai, ar jungtys jas perduoda).
+    „Kita" – faktinės kainos ir antrojo
+    modelio skirtumas; kai ji ≥ 10 €/MWh, nurodomos valandos, kuriomis kaina
+    labiausiai skyrėsi nuo modelio, ir tų valandų rinkos duomenys.
 
 Naudojimas
     python "scripts/rinkos situacija.py" 2026-11-12 [--json]
@@ -95,10 +106,41 @@ RAW = [c for cs in GROUPS.values() for c in cs]
 OWNER = {c: g for g, cs in GROUPS.items() for c in cs}
 FEATS_N = ["rl", "cap_def", "r_se4", "r_pl", "r_fi", "hour", "wknd"]
 MONO_N = [1, 1, 1, 1, 1, 0, 0]
-def fit_n(train):
+def fit_n(train, feats=FEATS_N, mono=MONO_N):
     from sklearn.ensemble import HistGradientBoostingRegressor
-    m = HistGradientBoostingRegressor(max_iter=300, learning_rate=0.06, max_leaf_nodes=15, min_samples_leaf=40, l2_regularization=1.0, monotonic_cst=MONO_N, random_state=0)
-    return m.fit(train[FEATS_N], train["p"] / train["srmc"], sample_weight=train["srmc"] ** 2)
+    m = HistGradientBoostingRegressor(max_iter=300, learning_rate=0.06, max_leaf_nodes=15, min_samples_leaf=40, l2_regularization=1.0, monotonic_cst=mono, random_state=0)
+    return m.fit(train[feats], train["p"] / train["srmc"], sample_weight=train["srmc"] ** 2)
+
+# jungčių apkrova: valanda, kai kitos paros prekybos grafikas ≥ 95 % rinkai skirto pralaidumo
+FULL = 0.95
+CONG_PAIRS = {"x_se4": ("prekyba_LT_SE4", "siulomas_LT_SE4"), "i_se4": ("prekyba_SE4_LT", "siulomas_SE4_LT"),
+              "x_pl": ("prekyba_LT_PL", "siulomas_LT_PL"), "i_pl": ("prekyba_PL_LT", "siulomas_PL_LT"),
+              "x_lv": ("prekyba_LT_LV", "siulomas_LT_LV"), "i_lv": ("prekyba_LV_LT", "siulomas_LV_LT")}
+CONG = list(CONG_PAIRS)
+FEATS_C = FEATS_N + CONG
+MONO_C = MONO_N + [0] * len(CONG)
+GAS_METHOD = "šiandienos sąlygomis"          # „shapley“ – dujos kaip viena iš Shapley grupių (iki 2026-11-20)
+KITA_RIBA = 10.0                             # €/MWh: didesnę „kitą“ ataskaita paaiškina
+
+def add_congestion(df, j):
+    """Kurios jungtys valandą pilnai išnaudotos. Pralaidumo spragos užpildomos tos krypties mediana."""
+    for k_, (fc, cc) in CONG_PAIRS.items():
+        flow = j[fc].reindex(df.index)
+        cap = j[cc].reindex(df.index).fillna(float(j[cc].median()))
+        df[k_] = np.where(flow.isna(), np.nan, ((flow >= FULL * cap) & (cap > 20)).astype(float))
+    return df
+
+def max_window(res, sign):
+    """Ištisinis valandų intervalas, kuriame faktinės kainos ir modelio skirtumas (nurodyta kryptimi) didžiausias."""
+    best, cur, start = (0.0, 0, -1), 0.0, 0
+    for i, v in enumerate(sign * np.asarray(res, float)):
+        if cur <= 0:
+            cur, start = v, i
+        else:
+            cur += v
+        if cur > best[0]:
+            best = (cur, start, i)
+    return best
 
 def capacity_series():
     cap = pd.read_csv(D + "galios.csv")
@@ -139,6 +181,7 @@ class Situation:
         for z in ("SE4", "PL", "FI"):
             self.df[f"r_{z.lower()}"] = self.df[f"p_{z}"] / self.df["srmc"]
         self.df = self.df.dropna(subset=["r_se4", "r_pl", "r_fi"]).copy(); self.df["pos"] = np.arange(len(self.df))
+        self.df = add_congestion(self.df, j)
         self.j, self.k = j, k
         lt = j.index.tz_convert("Europe/Vilnius"); self.jdate = pd.Series(lt.date, index=j.index)
         self.kdate = pd.Series(k.index.tz_convert("Europe/Vilnius").date, index=k.index)
@@ -255,12 +298,38 @@ class Situation:
                     phi[:, kk] += math.factorial(s_) * math.factorial(n - s_ - 1) / math.factorial(n) * (val[on] - val[mk])
         def per_target(a):                      # vidurkis per normos valandas kiekvienai tikslo valandai, tada per parą
             return float(pd.Series(a).groupby(ti).mean().mean())
-        contrib = {NAMES[i]: per_target(phi[:, i]) for i in range(n)}
+        contrib6 = {NAMES[i]: per_target(phi[:, i]) for i in range(n)}
         p_norm = per_target(val[tuple([0] * n)]); p_model = per_target(val[tuple([1] * n)])
         gas_only = tuple(1 if nm == "dujos" else 0 for nm in NAMES)
         p_norm_gas_today = per_target(val[gas_only])
         price = float(T.p.mean())
-        contrib["kita"] = price - p_model
+        # antrasis modelis papildomai žino, kurios jungtys pilnai išnaudotos
+        mc = fit_n(df[df.date < d], FEATS_C, MONO_C)
+        pc_h = mc.predict(T[FEATS_C]) * T.srmc.to_numpy()
+        p_c = float(pc_h.mean())
+        if GAS_METHOD == "shapley":
+            contrib, scale = dict(contrib6), 1.0
+        else:
+            # dujos – šiandienos sąlygomis; kiti veiksniai – Shapley esant įprastoms dujoms
+            gi = NAMES.index("dujos"); oth = [i for i in range(n) if i != gi]; n5 = len(oth)
+            def full_mask(m5):
+                z = [0] * n
+                for i_, b_ in zip(oth, m5): z[i_] = b_
+                return tuple(z)
+            phi5 = np.zeros((len(ti), n5))
+            for a_ in range(n5):
+                for m5 in itertools.product([0, 1], repeat=n5):
+                    if m5[a_] == 0:
+                        on = list(m5); on[a_] = 1; s_ = sum(m5)
+                        phi5[:, a_] += math.factorial(s_) * math.factorial(n5 - s_ - 1) / math.factorial(n5) * (val[full_mask(tuple(on))] - val[full_mask(m5)])
+            contrib = {NAMES[oth[a_]]: per_target(phi5[:, a_]) for a_ in range(n5)}
+            scale = srmc_n / float(T.srmc.mean())
+            contrib["dujos"] = price * (1 - scale)
+        apkrova = (p_c - p_model) * scale
+        kain = contrib["kaimynai"]
+        contrib["kaimynai"] = kain + apkrova          # kaimynų kainos ir tai, ar jungtys jas perduoda
+        contrib["kita"] = (price - p_c) * scale
+        contrib = {k_: contrib[k_] for k_ in ("dujos", "vartojimas", "vėjas", "saulė", "pralaidumai", "kaimynai", "kita")}
         # įprastas kainų intervalas: normos dienų kainos pagal modelį (normalios dujos, neriboti pralaidumai)
         base = pd.DataFrame({"t": ti, "b": bi, "v": val[tuple([0] * n)]})
         base["rdate"] = B.date.to_numpy()[bi]
@@ -272,8 +341,11 @@ class Situation:
         st, pct = status(price, sim, W_F)
         out["kaina"] = {"lt": round(price, 1), "norma": round(p_norm, 1), "intervalas": [round(float(np.percentile(sim, 33.3))), round(float(np.percentile(sim, 66.7)))],
                         "norma_su_šiandienos_dujomis": round(p_norm_gas_today, 1), "būsena": st, "min": round(float(T.p.min()), 1), "max": round(float(T.p.max()), 1),
-                        "min_val": int(T.hour[T.p.idxmin()]), "max_val": int(T.hour[T.p.idxmax()]), "modelis": round(p_model, 1)}
+                        "min_val": int(T.hour[T.p.idxmin()]), "max_val": int(T.hour[T.p.idxmax()]), "modelis": round(p_model, 1),
+                        "modelis_su_jungtimis": round(p_c, 1)}
         out["indėliai"] = {k_: round(v_, 1) for k_, v_ in contrib.items()}
+        out["dujų_metodas"] = GAS_METHOD
+        out["kaimynų_detalės"] = {"kainos": round(kain, 1), "jungčių_apkrova": round(apkrova, 1)}
         # kaimynai
         kk_ = self.k[self.kdate == d]
         out["kaimynai"] = {z: round(float(kk_[f"kaina_{z}"].mean()), 1) for z in ("LV", "SE4", "PL", "EE", "FI")}
@@ -304,6 +376,40 @@ class Situation:
             out["nordpool"] = {f"{r.kryptis} {r.jungtis}": [round(r.mw_mean), round(r.mw_min)] for r in t.groupby(["kryptis", "jungtis"]).mw.agg(mw_mean="mean", mw_min="min").reset_index().itertuples()}
         out["pralaidumai"] = caps
         out["sąlygos"] = {"srmc": round(srmc, 1), "srmc_norma": round(srmc_n, 1), "cap_def": round(float(T.cap_def.mean()))}
+        # valandų duomenys jungtims ir „kitai“ paaiškinti
+        H24 = pd.DataFrame({"hour": T.hour.to_numpy(), "LT": T.p.to_numpy(), "modelis": pc_h}, index=T.index)
+        for z in ("LV", "EE", "FI", "SE4", "PL"):
+            H24[z] = self.k[f"kaina_{z}"].reindex(T.index).to_numpy()
+        for c_ in CONG:
+            H24[c_] = T[c_].to_numpy()
+        out["jungtys_būsena"] = {z: {"eksportas_pilnas_val": int(np.nansum(H24[f"x_{z.lower()}"])), "importas_pilnas_val": int(np.nansum(H24[f"i_{z.lower()}"]))}
+                                 for z in ("SE4", "PL", "LV")}
+        dlv = (H24.LT - H24.LV).dropna()
+        out["lt_lv"] = {"brangiau_val": int((dlv > 0.5).sum()), "pigiau_val": int((dlv < -0.5).sum()), "skirtumas": round(float(dlv.mean()), 1) if len(dlv) else None}
+        out["kaimynų_valandos"] = {}
+        for z in ("SE4", "PL", "LV", "FI"):
+            s_ = H24[z].dropna()
+            if len(s_):
+                out["kaimynų_valandos"][z] = {"min": round(float(s_.min()), 1), "max": round(float(s_.max()), 1), "max_val": int(H24.hour[s_.idxmax()])}
+        kita_v = contrib["kita"]
+        if abs(kita_v) >= KITA_RIBA:
+            res = (H24.LT - H24.modelis).to_numpy()
+            sign = 1 if kita_v > 0 else -1
+            tot, a_, b_ = max_window(res, sign)
+            day_res = float(np.nansum(res))
+            if b_ >= a_ >= 0:
+                W = H24.iloc[a_:b_ + 1]
+                ex = {"nuo": int(W.hour.iloc[0]), "iki": int(W.hour.iloc[-1]) + 1, "valandų": int(len(W)),
+                      "kryptimi_val": int((sign * res > 0).sum()), "paros_val": int(len(res)),
+                      "dalis": round(float(tot / abs(day_res)), 2) if day_res else None,
+                      "kaina": round(float(W.LT.mean()), 1), "modelis": round(float(W.modelis.mean()), 1)}
+                for z in ("LV", "EE", "FI", "SE4", "PL"):
+                    if W[z].notna().any():
+                        ex[z] = round(float(W[z].mean()), 1)
+                ex["lt_lygu_lv_val"] = int(((W.LT - W.LV).abs() <= 0.5).sum())
+                for c_ in CONG:
+                    ex[c_] = int(np.nansum(W[c_]))
+                out["kitos_aiškinimas"] = ex
         return out
 
 

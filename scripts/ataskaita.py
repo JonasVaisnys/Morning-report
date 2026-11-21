@@ -188,8 +188,24 @@ REASON = {("dujos", 1): "brangios dujos", ("dujos", -1): "pigesnės dujos",
           ("saulė", 1): "maža saulės gamyba", ("saulė", -1): "didelė saulės gamyba",
           ("pralaidumai", 1): "apriboti pralaidumai", ("pralaidumai", -1): "didesni pralaidumai",
           ("kaimynai", 1): "brangesnės kaimynų rinkos", ("kaimynai", -1): "pigesnės kaimynų rinkos"}
+REASON_GEN = {("dujos", 1): "brangių dujų", ("dujos", -1): "pigesnių dujų",
+              ("vartojimas", 1): "didelio vartojimo", ("vartojimas", -1): "mažesnio vartojimo",
+              ("vėjas", 1): "silpno vėjo", ("vėjas", -1): "stipraus vėjo",
+              ("saulė", 1): "mažos saulės gamybos", ("saulė", -1): "didelės saulės gamybos",
+              ("pralaidumai", 1): "apribotų pralaidumų", ("pralaidumai", -1): "didesnių pralaidumų",
+              ("kaimynai", 1): "brangesnių kaimynų rinkų", ("kaimynai", -1): "pigesnių kaimynų rinkų"}
 PRICE_PHRASE = {"gerokai mažesnė nei įprasta": "gerokai pigiau nei įprasta", "mažesnė nei įprasta": "pigiau nei įprasta",
                 "didesnė nei įprasta": "brangiau nei įprasta", "gerokai didesnė nei įprasta": "gerokai brangiau nei įprasta"}
+# būsenos žodis, kuris atitinka veiksnio kryptį (pvz. vėjas mažina kainą, kai jo „didesnė nei įprasta“)
+STATE_DIR = {"vėjas": {-1: "didesn", 1: "mažesn"}, "saulė": {-1: "didesn", 1: "mažesn"},
+             "vartojimas": {1: "didesn", -1: "mažesn"}, "dujos": {1: "brangesn", -1: "pigesn"}}
+# zonų linksniai: vardininkas, kilmininkas, galininkas, vietininkas
+ZN = {"SE4": ("Švedija", "Švedijos", "Švediją", "Švedijoje"), "PL": ("Lenkija", "Lenkijos", "Lenkiją", "Lenkijoje"),
+      "LV": ("Latvija", "Latvijos", "Latviją", "Latvijoje"), "EE": ("Estija", "Estijos", "Estiją", "Estijoje"),
+      "FI": ("Suomija", "Suomijos", "Suomiją", "Suomijoje")}
+LINE = {"SE4": ("LT–SE4 (NordBalt)", "NordBalt"), "PL": ("LT–PL (LitPol)", "LitPol"), "LV": ("LT–LV", "jungtys su Latvija")}
+KITA_RIBA = 10.0          # €/MWh: didesnė „kita“ paaiškinama tekste (Jono sprendimas 2026-11-21)
+FULL_HOURS = 12           # jungtis „pilnai apkrauta“ tekste, kai pilna bent tiek valandų
 
 
 def energy_headline(inp: Inputs) -> str:
@@ -197,13 +213,17 @@ def energy_headline(inp: Inputs) -> str:
     if inp.sit:
         st = inp.sit["kaina"]["būsena"]
         if st in PRICE_PHRASE:
-            return f"Elektra šiandien {num(p)}{NB}€/MWh – {PRICE_PHRASE[st]}."
+            why = headline_reason(inp)
+            return f"Elektra šiandien {num(p)}{NB}€/MWh – {PRICE_PHRASE[st]}" + (f" dėl {why}." if why else ".")
         return f"Elektra šiandien {num(p)}{NB}€/MWh – įprasta kaina šiam metų laikui."
     return f"Elektra šiandien vidutiniškai {num(p)}{NB}€/MWh."
 
 
 def contributions(inp: Inputs) -> dict:
-    return {k: float(v) for k, v in (inp.sit or {}).get("indėliai", {}).items()}
+    c = {k: float(v) for k, v in (inp.sit or {}).get("indėliai", {}).items()}
+    if "jungtys" in c:                      # suderinamumas, jei kada nors būtų rašoma „jungtys“
+        c["pralaidumai"] = c.pop("jungtys")
+    return c
 
 
 def caps_known(inp: Inputs) -> bool:
@@ -217,30 +237,306 @@ def drivers(inp: Inputs) -> list:
     return [(k, n) for k, n in DRIVERS if k != "pralaidumai" or caps_known(inp)]
 
 
-def energy_story(inp: Inputs) -> str:
-    """Kas kainą kelia ir mažina – vienas sakinys iš veiksnių indėlių."""
+def _strong(inp: Inputs, key: str, sign: int) -> bool:
+    st = ((inp.sit or {}).get(key) or {}).get("būsena") or ""
+    return st.startswith("gerokai") and STATE_DIR.get(key, {}).get(sign, "§") in st
+
+
+def reason(inp: Inputs, key: str, sign: int, gen: bool = False, intense: bool = True) -> str:
+    if key == "kaimynai":
+        return neighbours_reason(inp, sign, gen)
+    base = (REASON_GEN if gen else REASON)[(key, sign)]
+    return ("labai " + base) if intense and _strong(inp, key, sign) else base
+
+
+def lines_full(inp: Inputs) -> tuple[list, list]:
+    """Jungtys, kurios eksportui ar importui pilnai apkrautos bent FULL_HOURS valandų."""
+    jb = (inp.sit or {}).get("jungtys_būsena") or {}
+    exp = [z for z in ("SE4", "PL") if (jb.get(z) or {}).get("eksportas_pilnas_val", 0) >= FULL_HOURS]
+    imp = [z for z in ("SE4", "PL", "LV") if (jb.get(z) or {}).get("importas_pilnas_val", 0) >= FULL_HOURS]
+    return exp, imp
+
+
+def neighbours_reason(inp: Inputs, sign: int, gen: bool = False) -> str:
+    det = (inp.sit or {}).get("kaimynų_detalės") or {}
+    apk, kain = float(det.get("jungčių_apkrova", 0)), float(det.get("kainos", 0))
+    exp, imp = lines_full(inp)
+    if abs(apk) >= abs(kain):
+        if sign < 0 and exp:
+            w = join_lt([ZN[z][2] for z in exp])
+            return f"pilnai apkrautų jungčių į {w}" if gen else f"pilnai apkrautos jungtys į {w}"
+        if sign > 0 and imp:
+            w = join_lt([ZN[z][1] for z in imp])
+            return f"pilnai apkrautų jungčių iš {w}" if gen else f"pilnai apkrautos jungtys iš {w}"
+    return (REASON_GEN if gen else REASON)[("kaimynai", sign)]
+
+
+def headline_reason(inp: Inputs) -> str | None:
+    """Pagrindinė nuokrypio priežastis kilmininku – tik jei ji lemia bent pusę nuokrypio."""
+    k = inp.sit["kaina"]
+    diff = float(k["lt"]) - float(k["norma"])
+    sign = 1 if diff >= 0 else -1
+    c = {f: v for f, v in contributions(inp).items() if f in dict(drivers(inp))}
+    if not c:
+        return None
+    f, v = max(c.items(), key=lambda t: t[1] * sign)
+    if v * sign < max(10.0, 0.5 * abs(diff)):
+        return None
+    return reason(inp, f, sign, gen=True)
+
+
+def fact(inp: Inputs, key: str, sign: int) -> str:
+    """Fizinis veiksnio paaiškinimas skaičiais."""
+    s = inp.sit
+    if key == "vėjas":
+        w, L, n = float(s["vėjas"]["mw"]), float(s["vartojimas"]["mw"]), float(s["vėjas"]["norma"])
+        if sign < 0:
+            q = w / L if L else 0
+            rel = ("daugiau, nei Lietuva suvartoja" if q >= 1.05 else "beveik tiek, kiek Lietuva suvartoja" if q >= 0.85
+                   else f"{round(100 * q)}{NB}% vartojimo")
+            return (f"vėjo elektrinės gamina {num(w, 0)}{NB}MW – {rel} ({num(L, 0)}{NB}MW); "
+                    f"įprastai šiuo metų laiku – apie {num(n, 0)}{NB}MW")
+        return f"vėjo elektrinės gamina tik {num(w, 0)}{NB}MW, įprastai šiuo metų laiku – apie {num(n, 0)}{NB}MW"
+    if key == "saulė":
+        v = s["saulė"]
+        return f"saulės elektrinės gamina {num(v['mw'], 0)}{NB}MW, įprastai – apie {num(v['norma'], 0)}{NB}MW"
+    if key == "vartojimas":
+        v = s["vartojimas"]
+        return f"vartojimas – {num(v['mw'], 0)}{NB}MW, įprastai – apie {num(v['norma'], 0)}{NB}MW"
+    if key == "dujos":
+        g = s["dujos"]
+        r = round(100 * (float(g["ttf"]) / float(g["norma_12mėn"]) - 1))
+        return f"TTF – {num(g['ttf'])}{NB}€/MWh, {abs(r)}{NB}% {'brangiau' if r > 0 else 'pigiau'} nei 12 mėn. vidurkis"
+    if key == "pralaidumai":
+        lim = []
+        for z in ("SE4", "PL"):
+            x = (((s.get("pralaidumai") or {}).get(LINE[z][0]) or {}).get("importas")) or {}
+            if x.get("mw") is not None and x.get("nominalas") and float(x["mw"]) < 0.85 * float(x["nominalas"]):
+                lim.append(f"{LINE[z][1]} – {num(x['mw'], 0)} iš {num(x['nominalas'], 0)}{NB}MW")
+        return ("importo pralaidumai apriboti: " + ", ".join(lim)) if lim else "importo pralaidumai mažesni nei įprasta"
+    if key == "kaimynai":
+        kn = s["kaimynai"]
+        return f"Švedijoje (SE4) – {num(kn['SE4'])}, Lenkijoje – {num(kn['PL'])}, Suomijoje – {num(kn['FI'])}{NB}€/MWh"
+    return ""
+
+
+def lines_note(inp: Inputs) -> str:
+    """Trumpai: kurios jungtys kiek valandų pilnai apkrautos (bent 6 val.)."""
+    jb = (inp.sit or {}).get("jungtys_būsena") or {}
+    parts = []
+    for z in ("SE4", "PL", "LV"):
+        x = jb.get(z) or {}
+        for side, word in (("eksportas", "eksportui"), ("importas", "importui")):
+            n = int(x.get(f"{side}_pilnas_val") or 0)
+            if n >= 6:
+                parts.append(f"jungtys su Latvija {word} pilnos {n}{NB}val." if z == "LV" else f"{LINE[z][1]} {word} pilna {n}{NB}val.")
+    return cap(", ".join(parts))
+
+
+def prices_text(inp: Inputs, zones: list) -> str:
+    """„Švedijoje elektra kainuoja 141,0 €/MWh (19–20 val. – 192,8 €/MWh), Lenkijoje – 106,0 €/MWh“."""
+    kn, kh = inp.sit.get("kaimynai") or {}, inp.sit.get("kaimynų_valandos") or {}
+    parts = []
+    for i, z in enumerate(zones):
+        t = f"{ZN[z][3]} elektra kainuoja {num(kn[z])}{NB}€/MWh" if i == 0 else f"{ZN[z][3]} – {num(kn[z])}{NB}€/MWh"
+        pk = kh.get(z) if i == 0 else None
+        if pk and float(pk["max"]) > float(kn[z]) + 25:
+            t += f" ({hours_label(int(pk['max_val']))} – {num(pk['max'])}{NB}€/MWh)"
+        parts.append(t)
+    return ", ".join(parts)
+
+
+def trade_lines(inp: Inputs) -> tuple[list, list]:
+    """Jungtys su Švedija ir Lenkija, kurios pilnai apkrautos eksportui ar importui (Latvija – atskirai per LT ir LV kainų skirtumą)."""
+    exp, imp = lines_full(inp)
+    return exp, [z for z in imp if z != "LV"]
+
+
+def trade_sentences(inp: Inputs, with_number: bool) -> list[str]:
+    """Jungtys ir kaimynai: kur eksportuojama ar importuojama visa jungties galia, kiek tai lemia kainą."""
+    s = inp.sit
+    m, kn, caps = s.get("mainai") or {}, s.get("kaimynai") or {}, s.get("pralaidumai") or {}
+    lt_p = float(s["kaina"]["lt"])
+    v = contributions(inp).get("kaimynai", 0.0)
+    exp, imp = trade_lines(inp)
+    out = []
+
+    def flows(zones, side):
+        parts, ratios = [], []
+        for z in zones:
+            fl = abs(float((m.get(z) or {}).get("mw") or 0))
+            cp = (((caps.get(LINE[z][0]) or {}).get(side)) or {}).get("mw")
+            parts.append(f"{LINE[z][1]} – {num(fl, 0)}" + (f" iš {num(cp, 0)}" if cp else "") + f"{NB}MW")
+            if cp:
+                ratios.append(fl / float(cp))
+        how = "visa" if ratios and min(ratios) >= 0.99 else "beveik visa" if ratios and min(ratios) >= 0.9 else "didžiąją paros dalį visa"
+        return how + (" jungties" if len(zones) == 1 else " jungčių") + " galia", ", ".join(parts)
+
+    one = lambda zones, single, plural_: single if len(zones) == 1 else plural_
+    if exp:
+        how, fl = flows(exp, "eksportas")
+        sent = f"Į {join_lt([ZN[z][2] for z in exp])} eksportuojama {how} ({fl})"
+        dear = [z for z in exp if float(kn.get(z, 0)) > lt_p + 10]
+        if dear:
+            sent += ": " + prices_text(inp, dear)
+            sent += ". " + one(dear, "Pilnai apkrauta jungtis šios kainos", "Pilnai apkrautos jungtys šių kainų") + " į Lietuvą neperduoda"
+            if with_number and abs(v) >= 5:
+                sent += (f", todėl kaimynų rinkos kainą mažina ({sgn(v)}{NB}€/MWh)" if v < 0
+                         else f"; kaimynų rinkos kainą kelia ({sgn(v)}{NB}€/MWh)")
+        out.append(sent + ".")
+    if imp:
+        how, fl = flows(imp, "importas")
+        sent = f"Iš {join_lt([ZN[z][1] for z in imp])} importuojama {how} ({fl})"
+        cheap = [z for z in imp if z in kn and float(kn[z]) < lt_p - 10]
+        if cheap:
+            sent += ": " + prices_text(inp, cheap)
+            sent += ". Daugiau pigesnės elektros " + one(cheap, "jungtis nepraleidžia", "jungtys nepraleidžia")
+            if with_number and abs(v) >= 5:
+                sent += (f", todėl kaimynų rinkos kainą kelia ({sgn(v)}{NB}€/MWh)" if v > 0
+                         else f"; kaimynų rinkos kainą mažina ({sgn(v)}{NB}€/MWh)")
+        out.append(sent + ".")
+    ll = s.get("lt_lv") or {}
+    n_hi, n_lo, dlt = int(ll.get("brangiau_val") or 0), int(ll.get("pigiau_val") or 0), float(ll.get("skirtumas") or 0)
+    net_export = float(((m.get("iš_viso") or {}).get("mw")) or 0) < 0
+    if n_hi >= 3 and dlt >= 1:
+        hrs = f"{n_hi} {plural(n_hi, 'valandą', 'valandas', 'valandų')}"
+        if exp and net_export:
+            out.append(f"Eksportas kainą {'šiek tiek ' if dlt < 8 else ''}kelia: {hrs} elektra Lietuvoje buvo brangesnė nei Latvijoje, "
+                       f"per parą vidutiniškai {num(dlt)}{NB}€/MWh.")
+        else:
+            out.append(f"{cap(hrs)} jungtys iš Latvijos buvo pilnai apkrautos, todėl elektra Lietuvoje buvo brangesnė nei Latvijoje, "
+                       f"per parą vidutiniškai {num(dlt)}{NB}€/MWh.")
+    elif n_lo >= 3 and dlt <= -1:
+        hrs = f"{n_lo} {plural(n_lo, 'valandą', 'valandas', 'valandų')}"
+        out.append(f"{cap(hrs)} elektra Lietuvoje buvo pigesnė nei Latvijoje, per parą vidutiniškai {num(abs(dlt))}{NB}€/MWh.")
+    return out
+
+
+def kita_sentences(inp: Inputs) -> list[str]:
+    """„Kita“ ≥ KITA_RIBA: kuriomis valandomis kaina labiausiai skyrėsi nuo modelio ir ką tada rodė rinka."""
+    s = inp.sit
+    v = contributions(inp).get("kita", 0.0)
+    if abs(v) < KITA_RIBA:
+        return []
+    head = f"Likusios dalies („kita“, {sgn(v)}{NB}€/MWh) šie veiksniai nepaaiškina."
+    x = s.get("kitos_aiškinimas")
+    if not x:
+        return [head, "Jos priežasties turimuose duomenyse nematyti."]
+    n = int(x["valandų"])
+    when = "Beveik visą parą" if n >= 16 else f"{x['nuo']}–{x['iki']}{NB}val."
+    lead = f"{when} kaina buvo {'mažesnė' if v < 0 else 'didesnė'}, nei tikėjosi modelis"
+    lt_p = float(x["kaina"])
+    near = lambda z: z in x and abs(float(x[z]) - lt_p) <= max(3.0, 0.03 * lt_p)
+    line_free = lambda z: x.get(f"x_{z.lower()}", 0) + x.get(f"i_{z.lower()}", 0) < 0.5 * n
+    expl = None
+    if v < 0:
+        z = next((z for z in ("SE4", "PL") if near(z) and line_free(z)), None)
+        if z:
+            expl = (f"Lietuvos kaina buvo artima {ZN[z][1]} ({num(x[z], 0)}{NB}€/MWh), nes jungtis su {ZN[z][0]} daugumą valandų "
+                    f"nebuvo pilnai apkrauta – kaina nepakilo virš {ZN[z][1]} kainos")
+        elif x.get("lt_lygu_lv_val", 0) >= 0.6 * n and "LV" in x:
+            expl = f"daugumą valandų Lietuvos kaina sutapo su Latvijos (vidutiniškai {num(x['LV'], 0)}{NB}€/MWh)"
+            if "FI" in x and float(x["FI"]) < float(x["LV"]) - 10:
+                expl += f", o Suomijoje elektra buvo dar pigesnė ({num(x['FI'], 0)}{NB}€/MWh)"
+    else:
+        if x.get("i_lv", 0) >= 0.3 * n and "LV" in x and lt_p > float(x["LV"]) + 3:
+            k_ = int(x["i_lv"])
+            expl = (f"{k_} {plural(k_, 'valandą', 'valandas', 'valandų')} jungtys iš Latvijos buvo pilnai apkrautos, todėl "
+                    f"Lietuvoje elektra buvo brangesnė nei Latvijoje ({num(lt_p, 0)} ir {num(x['LV'], 0)}{NB}€/MWh)")
+        else:
+            z = next((z for z in ("SE4", "PL") if x.get(f"i_{z.lower()}", 0) >= 0.5 * n and z in x and float(x[z]) < lt_p - 10), None)
+            if z:
+                expl = (f"jungtis iš {ZN[z][1]} buvo pilnai apkrauta, todėl pigesnė {ZN[z][1]} elektra ({num(x[z], 0)}{NB}€/MWh) "
+                        f"Lietuvos kainos daugiau nemažino")
+            else:
+                z = next((z for z in ("SE4", "PL", "LV") if near(z)), None)
+                if z:
+                    expl = f"Lietuvos kaina buvo artima {ZN[z][1]} ({num(x[z], 0)}{NB}€/MWh) – regione elektra brangesnė, nei rodo modelio veiksniai"
+    return [head, f"{lead}: {expl or 'jungtys nebuvo pilnai apkrautos, kaimynų kainos neišsiskyrė, todėl aiškios priežasties duomenyse nematyti'}."]
+
+
+def energy_paragraphs(inp: Inputs) -> list[str]:
+    """Kas kainą lemia: pagrindinis veiksnys (nuokrypio kryptimi) su skaičiais, priešingi veiksniai, jungtys, „kita“."""
     if not inp.sit:
         h = inp.hours
         i_max, i_min = h.index(max(h)), h.index(min(h))
-        return (f"Brangiausia {hours_label(i_max)} ({num(max(h))}{NB}€/MWh), "
-                f"pigiausia {hours_label(i_min)} ({num(min(h))}{NB}€/MWh).")
+        return [f"Brangiausia {hours_label(i_max)} ({num(max(h))}{NB}€/MWh), pigiausia {hours_label(i_min)} ({num(min(h))}{NB}€/MWh)."]
     c = contributions(inp)
     k = inp.sit["kaina"]
     diff = float(k["lt"]) - float(k["norma"])
-    tot = sum(abs(v) for v in c.values())
-    thr = max(8.0, 0.06 * tot)
     sign = 1 if diff >= 0 else -1
-    main = sorted([(abs(v), f) for f, v in c.items() if f != "kita" and v * sign >= thr], reverse=True)
-    counter = sorted([(abs(v), f) for f, v in c.items() if f != "kita" and v * sign <= -thr], reverse=True)
-    if not main:
-        return "Kainą lemiantys veiksniai šiandien artimi įprastiems."
-    s = join_lt([REASON[(f, sign)] for _, f in main])
-    s += " lemia " + ("padidėjusią" if sign > 0 else "sumažėjusią") + " kainą"
-    if counter:
-        a_main, a_cnt = sum(a for a, _ in main), sum(a for a, _ in counter)
-        bit = "šiek tiek " if a_cnt < 0.5 * a_main else ""
-        s += ", tačiau " + join_lt([REASON[(f, -sign)] for _, f in counter]) + f" kainą {bit}" + ("mažina" if sign > 0 else "kelia")
-    return cap(s) + "."
+    drv = {f: c.get(f, 0.0) for f, _ in drivers(inp)}
+    thr = max(5.0, 0.06 * sum(abs(v) for v in c.values()))
+    ranked = sorted(drv.items(), key=lambda t: -abs(t[1]))
+    same = [(f, v) for f, v in ranked if v * sign >= thr]
+    opp = [(f, v) for f, v in ranked if v * sign <= -thr]
+    trade_known = bool(sum(trade_lines(inp), []))
+    P, mentioned = [], set()
+    st = k.get("būsena") or ""
+    up = max(drv.items(), key=lambda t: t[1], default=None)
+    dn = min(drv.items(), key=lambda t: t[1], default=None)
+    if st not in PRICE_PHRASE and up and dn and up[1] >= 15 and dn[1] <= -15 and min(up[1], -dn[1]) >= 0.6 * max(up[1], -dn[1]):
+        # įprasta kaina, bet stiprūs priešingi veiksniai beveik atsveria vienas kitą
+        P.append(f"{cap(reason(inp, up[0], 1, intense=False))} ir {reason(inp, dn[0], -1, intense=False)} šiandien beveik atsveria vienas kitą.")
+        P.append(f"Kainą kelia {reason(inp, up[0], 1)} ({sgn(up[1])}{NB}€/MWh): {fact(inp, up[0], 1)}.")
+        P.append(f"Kainą mažina {reason(inp, dn[0], -1)} ({sgn(dn[1])}{NB}€/MWh): {fact(inp, dn[0], -1)}.")
+        mentioned |= {up[0], dn[0]}
+    elif not same:
+        P.append("Kainą lemiantys veiksniai šiandien artimi įprastiems.")
+    else:
+        f0, v0 = same[0]
+        verb = "kelia" if sign > 0 else "mažina"
+        P.append(f"Kainą labiausiai {verb} {reason(inp, f0, sign)} ({sgn(v0)}{NB}€/MWh): {fact(inp, f0, sign)}.")
+        mentioned.add(f0)
+        for f, v in same[1:3]:
+            if abs(v) >= 0.35 * abs(v0) and not (f == "kaimynai" and trade_known):
+                P.append(f"Taip pat {verb} {reason(inp, f, sign, intense=False)} ({sgn(v)}{NB}€/MWh): {fact(inp, f, sign)}.")
+                mentioned.add(f)
+        for f, v in opp[:2]:
+            if f == "kaimynai" and trade_known:
+                continue
+            bit = "šiek tiek " if abs(v) < 0.4 * abs(v0) else ""
+            P.append(f"Kainą {bit}{'mažina' if sign > 0 else 'kelia'} {reason(inp, f, -sign, intense=False)} ({sgn(v)}{NB}€/MWh): {fact(inp, f, -sign)}.")
+            mentioned.add(f)
+    out = [" ".join(P)]
+    t = trade_sentences(inp, with_number="kaimynai" not in mentioned)
+    if t:
+        out.append(" ".join(t))
+    kx = kita_sentences(inp)
+    if kx:
+        out.append(" ".join(kx))
+    return out
+
+
+def drivers_note(inp: Inputs) -> str:
+    t = "„Kita“ – kainos dalis, kurios šie veiksniai nepaaiškina."
+    if (inp.sit or {}).get("dujų_metodas") == "šiandienos sąlygomis":
+        t = ("Dujų įtaka – kiek elektra brangesnė dėl dujų ir CO2 kainos šiandienos sąlygomis; kiti veiksniai įvertinti esant įprastai dujų kainai. "
+             "Kaimynų rinkos – kaimynų kainos ir tai, ar jungtys jas perduoda. " + t)
+    return t
+
+
+def energy_story(inp: Inputs) -> str:
+    return " ".join(energy_paragraphs(inp))
+
+
+def trade_highlight(inp: Inputs) -> str:
+    """Vienas sakinys apžvalgai: jungtys, pilnai išnaudotos prekybai su gerokai brangesne ar pigesne kaimyne."""
+    kn = inp.sit.get("kaimynai") or {}
+    lt_p = float(inp.sit["kaina"]["lt"])
+    exp, imp = trade_lines(inp)
+    dear = [z for z in exp if float(kn.get(z, 0)) >= 1.3 * lt_p + 10]
+    cheap = [z for z in imp if float(kn.get(z, 1e9)) <= 0.77 * lt_p - 10]
+    names = lambda zs: " ir ".join(LINE[z][1] for z in zs)
+    if dear:
+        one = len(dear) == 1
+        return (f"{names(dear)} pilnai {'išnaudota' if one else 'išnaudotos'} eksportui į {'brangesnę' if one else 'brangesnes'} "
+                + join_lt([f"{ZN[z][2]} ({num(kn[z], 0)}{NB}€/MWh)" for z in dear]) + ".")
+    if cheap:
+        one = len(cheap) == 1
+        return (f"{names(cheap)} pilnai {'išnaudota' if one else 'išnaudotos'} importui iš {'pigesnės' if one else 'pigesnių'} "
+                + join_lt([f"{ZN[z][1]} ({num(kn[z], 0)}{NB}€/MWh)" for z in cheap]) + ".")
+    return ""
 
 
 def energy_overview(inp: Inputs) -> str:
@@ -248,15 +544,26 @@ def energy_overview(inp: Inputs) -> str:
     if inp.sit:
         st = inp.sit["kaina"]["būsena"]
         head = f"<b>{num(p)}{NB}€/MWh</b> – " + (PRICE_PHRASE.get(st) or "įprasta kaina šiam metų laikui") + "."
-        c = {f: v for f, v in contributions(inp).items() if f != "kita"}
+        k = inp.sit["kaina"]
+        sign = 1 if float(k["lt"]) - float(k["norma"]) >= 0 else -1
+        c = {f: contributions(inp).get(f, 0.0) for f, _ in drivers(inp)}
         up = max(c.items(), key=lambda t: t[1], default=None)
         dn = min(c.items(), key=lambda t: t[1], default=None)
-        parts = []
-        if up and up[1] >= 5:
-            parts.append(f"labiausiai kelia {REASON[(up[0], 1)]} ({sgn(up[1])}{NB}€/MWh)")
-        if dn and dn[1] <= -5:
-            parts.append(("labiausiai mažina " if not parts else "mažina ") + f"{REASON[(dn[0], -1)]} ({sgn(dn[1])}{NB}€/MWh)")
-        return head + (" Kainą " + ", ".join(parts) + "." if parts else "")
+        if st not in PRICE_PHRASE and up and dn and up[1] >= 15 and dn[1] <= -15 and min(up[1], -dn[1]) >= 0.6 * max(up[1], -dn[1]):
+            txt = (f" {cap(e(reason(inp, up[0], 1)))} ({sgn(up[1])}{NB}€/MWh) ir {e(reason(inp, dn[0], -1))} ({sgn(dn[1])}{NB}€/MWh) "
+                   f"beveik atsveria vienas kitą.")
+        else:
+            main = up if sign > 0 else dn
+            cnt = dn if sign > 0 else up
+            parts = []
+            if main and main[1] * sign >= 5:
+                parts.append(f"labiausiai {'kelia' if sign > 0 else 'mažina'} {e(reason(inp, main[0], sign))} ({sgn(main[1])}{NB}€/MWh)")
+            if cnt and -cnt[1] * sign >= 5:
+                bit = "šiek tiek " if main and abs(cnt[1]) < 0.4 * abs(main[1]) else ""
+                parts.append(f"{bit}{'mažina' if sign > 0 else 'kelia'} {e(reason(inp, cnt[0], -sign, intense=False))} ({sgn(cnt[1])}{NB}€/MWh)")
+            txt = (" Kainą " + ", ".join(parts) + ".") if parts else ""
+        th = trade_highlight(inp)
+        return head + txt + (" " + e(th) if th else "")
     h = inp.hours
     return f"<b>{num(p)}{NB}€/MWh</b> paros vidurkis; brangiausia {hours_label(h.index(max(h)))} ({num(max(h))}{NB}€/MWh)."
 
@@ -492,8 +799,7 @@ def block_energy(inp: Inputs) -> str:
     d = inp.day
     o = ['<section class="mr-block">', '<h2 class="mr-h">Elektros rinka</h2>',
          f'<p class="mr-sub">{cap(WEEKDAYS[d.weekday()])}, {day_short(d)} · Lietuvos prekybos zona · kitos paros rinka</p>',
-         f'<p class="mr-headline">{e(energy_headline(inp))}</p>',
-         f'<p class="mr-text">{e(energy_story(inp))}</p>']
+         f'<p class="mr-headline">{e(energy_headline(inp))}</p>'] + [f'<p class="mr-text">{e(t)}</p>' for t in energy_paragraphs(inp)]
     s = inp.sit
     if s:
         o.append('<div class="mr-pair">')
@@ -514,14 +820,14 @@ def block_energy(inp: Inputs) -> str:
         o.append(f'<p class="mr-driver-total">įprastomis sąlygomis <b>{num(k["norma"], 0)}</b> → šiandien <b>{num(k["lt"])}</b> '
                  f'<span class="mr-delta">{sgn(float(k["lt"]) - float(k["norma"]))}</span></p>')
         o.append('<p class="mr-keys"><span class="mr-key mr-raise">kelia kainą</span><span class="mr-key mr-lower">mažina kainą</span><span class="mr-key mr-other">kita</span></p>')
-        o.append('<p class="mr-note">„Kita“ – kainos dalis, kurios šie veiksniai nepaaiškina.</p>\n</div>\n</div>')
+        o.append(f'<p class="mr-note">{e(drivers_note(inp))}</p>\n</div>\n</div>')
         o.append('<h3 class="mr-h3">Sąlygos šiandien</h3>')
         kp = []
         for lbl, val, unit, note in conditions(inp):
             if lbl == "Jungtys":
                 cd = float((s.get("sąlygos") or {}).get("cap_def") or 0)
                 if caps_known(inp):
-                    kp.append(_kpi("Pralaidumų ribojimas", num(cd, 0), "MW", "importo pralaidumai neriboti" if cd < 1 else "trūksta iki įprasto importo pralaidumo"))
+                    kp.append(_kpi("Pralaidumų ribojimas", num(cd, 0), "MW", lines_note(inp) or ("importo pralaidumai neriboti" if cd < 1 else "trūksta iki įprasto importo pralaidumo")))
                 else:
                     kp.append(_kpi("Pralaidumų ribojimas", "–", "", "pralaidumų duomenys negauti"))
             else:
@@ -566,7 +872,7 @@ def conditions(inp: Inputs) -> list[tuple[str, str, str, str]]:
         out.append(("Jungtys", "nėra duomenų", "", "pralaidumų duomenys negauti"))
     else:
         out.append(("Jungtys", "neribojamos" if cd < 1 else f"apribotos {num(cd, 0)}{NB}MW", "",
-                    "importo pralaidumai į Lietuvą" if cd < 1 else "trūksta iki įprasto importo pralaidumo"))
+                    lines_note(inp) or ("importo pralaidumai į Lietuvą" if cd < 1 else "trūksta iki įprasto importo pralaidumo")))
     return out
 
 
@@ -907,7 +1213,7 @@ def mail_overview(inp: Inputs) -> str:
 def mail_energy(inp: Inputs) -> str:
     s, d = inp.sit, inp.day
     inner = m_p(e(energy_headline(inp)), 16, 22, INK, " font-weight:bold;") + \
-        m_p(e(energy_story(inp)), 14, 21, INK2, " padding-top:4px;")
+        "".join(m_p(e(t), 14, 21, INK2, " padding-top:6px;") for t in energy_paragraphs(inp))
     if s:
         m, kn = s["mainai"], s["kaimynai"]
 
@@ -949,14 +1255,17 @@ def mail_energy(inp: Inputs) -> str:
                          f'<td style="padding:0 14px 0 6px; font-family:{FONT}; font-size:11px; line-height:16px; color:{INK3};">{t}</td>'
                          for col, t in ((RAISE_BAR, "kelia kainą"), (LOWER_BAR, "mažina kainą"), (OTHER_BAR, "kita – veiksniai jos nepaaiškina")))
         inner += m_sub("Kas lemia kainą", "nuokrypis nuo kainos įprastomis sąlygomis, €/MWh") + m_table(tr) + \
-            f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; margin-top:8px;"><tr>{legend}</tr></table>'
+            f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; margin-top:8px;"><tr>{legend}</tr></table>' + \
+            m_p(e(drivers_note(inp)), 11, 16, INK3, " padding-top:6px;")
         # sąlygos
         rows = m_th([("Rodiklis", "", "left"), ("Šiandien", "24%", "right"), ("Įprasta", "20%", "right")])
         for lbl, val, unit_, note in conditions(inp):
             norm = note.split(" · ")[0].replace("įprasta ", "").replace("12 mėn. vidurkis ", "")
             state = note.split(" · ")[1] if " · " in note else ""
             if lbl == "Jungtys":
-                rows += "<tr>" + m_td(lbl, bold=True, color=INK) + m_td(val, "right", True, INK) + m_td("–", "right") + "</tr>"
+                ln = lines_note(inp)
+                lab = f'{lbl}<br><span style="font-weight:normal; font-size:12px; color:{INK3};">{e(ln)}</span>' if ln else lbl
+                rows += "<tr>" + m_td(lab, bold=True, color=INK) + m_td(val, "right", True, INK) + m_td("–", "right") + "</tr>"
                 continue
             rows += ("<tr>" + m_td(f'{lbl}<br><span style="font-weight:normal; font-size:12px; color:{INK3};">{e(state)}</span>', bold=True, color=INK)
                      + m_td(f"{val}{NB}{unit_}", "right", True, INK) + m_td(norm, "right") + "</tr>")
