@@ -1,0 +1,347 @@
+{
+ "data": "2026-11-22",
+ "elektros_rinka": {
+  "data": "2026-11-22",
+  "ref_dienų": 35,
+  "galia": {
+   "vėjas": 2507,
+   "saulė": 3018
+  },
+  "vartojimas": {
+   "mw": 1560,
+   "norma": 1474,
+   "intervalas": [
+    1444,
+    1516
+   ],
+   "būsena": "didesnis nei įprasta",
+   "nuokrypis_proc": 5.8,
+   "procentilis": null
+  },
+  "vėjas": {
+   "mw": 848,
+   "norma": 363,
+   "intervalas": [
+    213,
+    565
+   ],
+   "būsena": "didesnė nei įprasta",
+   "procentilis": 77
+  },
+  "saulė": {
+   "mw": 58,
+   "norma": 23,
+   "intervalas": [
+    17,
+    48
+   ],
+   "būsena": "didesnė nei įprasta",
+   "procentilis": 69
+  },
+  "kita_gamyba": {
+   "mw": 231,
+   "norma": 179,
+   "būsena": "didesnė nei įprasta",
+   "valandos": "00–06",
+   "vėjas_faktas": 1532,
+   "saulė_faktas": 0,
+   "vartojimas_faktas": 1299
+  },
+  "dujos": {
+   "ttf": 88.5,
+   "norma_12mėn": 52.8,
+   "santykis": 1.68,
+   "būsena": "gerokai brangesnės nei įprasta",
+   "prieš_metus": 30.2
+  },
+  "kaina": {
+   "lt": 138.9,
+   "norma": 116.4,
+   "intervalas": [
+    105,
+    146
+   ],
+   "norma_su_šiandienos_dujomis": 175.6,
+   "būsena": "įprasta",
+   "min": 44.0,
+   "max": 223.2,
+   "min_val": 6,
+   "max_val": 18,
+   "modelis": 147.8,
+   "modelis_su_jungtimis": 123.6
+  },
+  "indėliai": {
+   "dujos": 46.8,
+   "vartojimas": 5.8,
+   "vėjas": -25.8,
+   "saulė": -0.8,
+   "pralaidumai": 0.0,
+   "kaimynai": -13.7,
+   "kita": 10.1
+  },
+  "dujų_metodas": "šiandienos sąlygomis",
+  "kaimynų_detalės": {
+   "kainos": 2.3,
+   "jungčių_apkrova": -16.0
+  },
+  "kaimynai": {
+   "LV": 129.7,
+   "SE4": 158.2,
+   "PL": 131.2,
+   "EE": 89.2,
+   "FI": 9.0
+  },
+  "lt_lv_skiriasi_val": 5,
+  "kaimynų_būsena": {
+   "SE4": {
+    "kaina": 158.2,
+    "norma_su_šiandienos_dujomis": 121.0,
+    "būsena": "didesnė nei įprasta",
+    "procentilis": 74
+   },
+   "PL": {
+    "kaina": 131.2,
+    "norma_su_šiandienos_dujomis": 180.1,
+    "būsena": "gerokai mažesnė nei įprasta",
+    "procentilis": 9
+   },
+   "FI": {
+    "kaina": 9.0,
+    "norma_su_šiandienos_dujomis": 78.1,
+    "būsena": "gerokai mažesnė nei įprasta",
+    "procentilis": 11
+   }
+  },
+  "mainai": {
+   "SE4": {
+    "mw": -8,
+    "proc_vartojimo": 0
+   },
+   "PL": {
+    "mw": -225,
+    "proc_vartojimo": -14
+   },
+   "LV": {
+    "mw": 607,
+    "proc_vartojimo": 39
+   },
+   "iš_viso": {
+    "mw": 375,
+    "proc_vartojimo": 24
+   },
+   "maks": {
+    "SE4_imp": 435,
+    "SE4_eksp": 700,
+    "PL_imp": 0,
+    "PL_eksp": 239,
+    "LV_imp": 791,
+    "LV_eksp": 0
+   }
+  },
+  "nordpool": {},
+  "pralaidumai": {
+   "LT–SE4 (NordBalt)": {
+    "importas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-23"
+    },
+    "eksportas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-23"
+    }
+   },
+   "LT–PL (LitPol)": {
+    "importas": {
+     "mw": 182,
+     "min": 177,
+     "nominalas": 164,
+     "pask_data": "2026-11-23"
+    },
+    "eksportas": {
+     "mw": 226,
+     "min": 207,
+     "nominalas": 193,
+     "pask_data": "2026-11-23"
+    }
+   },
+   "LT–LV": {
+    "importas": {
+     "mw": 724,
+     "min": 563,
+     "nominalas": 839,
+     "pask_data": "2026-11-23"
+    },
+    "eksportas": {
+     "mw": 782,
+     "min": 330,
+     "nominalas": 942,
+     "pask_data": "2026-11-23"
+    }
+   }
+  },
+  "sąlygos": {
+   "srmc": 193.4,
+   "srmc_norma": 128.2,
+   "cap_def": 0
+  },
+  "jungtys_būsena": {
+   "SE4": {
+    "eksportas_pilnas_val": 4,
+    "importas_pilnas_val": 0
+   },
+   "PL": {
+    "eksportas_pilnas_val": 23,
+    "importas_pilnas_val": 0
+   },
+   "LV": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 9
+   }
+  },
+  "lt_lv": {
+   "brangiau_val": 5,
+   "pigiau_val": 0,
+   "skirtumas": 9.2
+  },
+  "kaimynų_valandos": {
+   "SE4": {
+    "min": 51.4,
+    "max": 227.7,
+    "max_val": 18
+   },
+   "PL": {
+    "min": 13.6,
+    "max": 240.3,
+    "max_val": 18
+   },
+   "LV": {
+    "min": 44.0,
+    "max": 218.1,
+    "max_val": 19
+   },
+   "FI": {
+    "min": 4.2,
+    "max": 13.1,
+    "max_val": 18
+   }
+  },
+  "kitos_aiškinimas": {
+   "nuo": 1,
+   "iki": 24,
+   "valandų": 23,
+   "kryptimi_val": 20,
+   "paros_val": 24,
+   "dalis": 1.05,
+   "kaina": 142.9,
+   "modelis": 126.3,
+   "LV": 133.3,
+   "EE": 91.1,
+   "FI": 9.0,
+   "SE4": 157.5,
+   "PL": 132.4,
+   "lt_lygu_lv_val": 18,
+   "x_se4": 3,
+   "i_se4": 0,
+   "x_pl": 22,
+   "i_pl": 0,
+   "x_lv": 0,
+   "i_lv": 9
+  }
+ },
+ "valandos": [
+  45.91,
+  77.5,
+  71.99,
+  76.4,
+  100.22,
+  56.26,
+  44.02,
+  67.39,
+  85.41,
+  99.11,
+  101.07,
+  110.41,
+  178.43,
+  169.83,
+  175.0,
+  198.47,
+  214.09,
+  214.82,
+  223.19,
+  218.12,
+  220.84,
+  206.73,
+  194.69,
+  183.34
+ ],
+ "naujienos": {
+  "data": "2026-11-22",
+  "sugeneruota": "2026-11-22T05:35:59+02:00",
+  "svarbiausia": 0,
+  "naujienos": [
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Naujasis „Ignitis grupės“ vadovas pareigas pradės anksčiau",
+    "santrauka": "„Ignitis grupės“ stebėtojų taryba ir valdyba galutinai patvirtino Vytenį Koryzną grupės valdybos pirmininku ir vadovu. Jo kadencija prasidės 2027 m. sausio 1 d., o D. Maikštėną jis pakeis anksčiau, nei planuota.",
+    "svarba": "didelė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/energetika/2026/11/20/naujasis-didziausios-energetikes-vadovas-d-maikstena-pakeis-anksciau-nei-planuota-593067",
+    "paskelbta": "2026-11-20 19:16"
+   },
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Visagino LEZ įstatymo projektas pateiktas Seimui",
+    "santrauka": "Seimui pateiktas Visagino LEZ įstatymo projektas, kuriuo siekiama stiprinti regiono ekonomiką ir ekonominėmis priemonėmis suvaldyti branduolinės infrastruktūros demontavimo pasekmes. Projekte taip pat numatyta šalia LEZ rezervuoti teritoriją.",
+    "svarba": "vidutinė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/pramone/2026/11/21/visagino-lez-projektas-toli-nuo-atomo-kol-kas-nebus-pabegta-592975",
+    "paskelbta": "2026-11-21 13:10"
+   },
+   {
+    "regionas": "Pasaulis",
+    "pavadinimas": "Iranas ribos elektros tiekimą dėl smūgių energetikai",
+    "santrauka": "Dėl smūgių energetikos infrastruktūrai Iranas ribos elektros tiekimą.",
+    "svarba": "maža",
+    "šaltinis": "15min",
+    "nuoroda": "https://www.15min.lt/naujiena/aktualu/pasaulis/del-smugiu-energetikai-iranas-ribos-elektros-tiekima-57-2811594?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed",
+    "paskelbta": "2026-11-21 23:30"
+   }
+  ],
+  "kandidatų": 9
+ },
+ "pasaulio_rinkos": {
+  "kotiruotės_laikas": "2026-11-20T23:59+02:00",
+  "rodikliai": [
+   {
+    "pavadinimas": "Nafta (Brent)",
+    "reikšmė": 92.57,
+    "vienetai": "USD/bbl",
+    "per_dieną": 0.64,
+    "per_7d": -3.41,
+    "per_30d": -14.93
+   },
+   {
+    "pavadinimas": "Dujos (TTF)",
+    "reikšmė": 88.451,
+    "vienetai": "€/MWh",
+    "per_dieną": 4.73,
+    "per_7d": -2.75,
+    "per_30d": 1.17
+   },
+   {
+    "pavadinimas": "Taršos leidimai (ATL)",
+    "reikšmė": 80.6,
+    "vienetai": "€/t",
+    "per_dieną": -0.87,
+    "per_7d": -9.85,
+    "per_30d": -5.29
+   }
+  ]
+ },
+ "teisės_aktai": null,
+ "paramos": null
+}

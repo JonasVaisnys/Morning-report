@@ -1,12 +1,17 @@
-# Naujienų brifingas — 2026-11-21
+# Naujienų brifingas — 2026-11-22
 
 ## Lietuva
 
-[**Reguliuotojas: kainų augimo švelninimas priklauso nuo „Igničio“ ir valstybės**](https://www.vz.lt/energetika/2026/11/20/vert-pirmininkas-sprendimai-del-elektros-ir-duju-tarifu-mazinimo-ignicio-ir-valstybes-rankose-593029)
-Valstybinė energetikos reguliavimo taryba nuo sausio prognozuoja 23–27 % aukštesnes visuomeninės elektros ir 38–46 % aukštesnes dujų kainas vartotojams. Tarybos vadovas sako girdintis raginimų sušvelninti augimą, tačiau pabrėžia, kad sprendimai dėl tarifų mažinimo yra „Igničio“ ir valstybės rankose. _Verslo žinios, 2026-11-20 09:46_
+[**Naujasis „Ignitis grupės“ vadovas pareigas pradės anksčiau**](https://www.vz.lt/energetika/2026/11/20/naujasis-didziausios-energetikes-vadovas-d-maikstena-pakeis-anksciau-nei-planuota-593067)
+„Ignitis grupės“ stebėtojų taryba ir valdyba galutinai patvirtino Vytenį Koryzną grupės valdybos pirmininku ir vadovu. Jo kadencija prasidės 2027 m. sausio 1 d., o D. Maikštėną jis pakeis anksčiau, nei planuota. _Verslo žinios, 2026-11-20 19:16_
 
-[**Kaupiklių galia perkopė 1 GW, bet balansavimo rinkos uždarbis mažėja**](https://www.vz.lt/energetika/2026/11/19/brangesnis-kaupiklis-pigesne-kilovatvalande-kaip-palyginti-pasiulymus-592990)
-Prie Lietuvos elektros tinklo prijungtų energijos kaupiklių galia šį rudenį perkopė 1 GW, tačiau jų uždarbis balansavimo rinkoje mažėja jau trečią mėnesį iš eilės. Įmonei, svarstančiai įsidiegti kaupiklį, atsipirkimą lems ne šiandien skaičiuojamos pajamos, o ilgesnio laikotarpio perspektyva. _Verslo žinios, 2026-11-20 08:10_
+[**Visagino LEZ įstatymo projektas pateiktas Seimui**](https://www.vz.lt/pramone/2026/11/21/visagino-lez-projektas-toli-nuo-atomo-kol-kas-nebus-pabegta-592975)
+Seimui pateiktas Visagino LEZ įstatymo projektas, kuriuo siekiama stiprinti regiono ekonomiką ir ekonominėmis priemonėmis suvaldyti branduolinės infrastruktūros demontavimo pasekmes. Projekte taip pat numatyta šalia LEZ rezervuoti teritoriją. _Verslo žinios, 2026-11-21 13:10_
+
+## Pasaulis
+
+[**Iranas ribos elektros tiekimą dėl smūgių energetikai**](https://www.15min.lt/naujiena/aktualu/pasaulis/del-smugiu-energetikai-iranas-ribos-elektros-tiekima-57-2811594?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed)
+Dėl smūgių energetikos infrastruktūrai Iranas ribos elektros tiekimą. _15min, 2026-11-21 23:30_
 
 ---
-_Generuota automatiškai 2026-11-21 · MB Enerconsult_
+_Generuota automatiškai 2026-11-22 · MB Enerconsult_
