@@ -207,7 +207,8 @@ STATE_DIR = {"vėjas": {-1: "didesn", 1: "mažesn"}, "saulė": {-1: "didesn", 1:
 ZN = {"SE4": ("Švedija", "Švedijos", "Švediją", "Švedijoje"), "PL": ("Lenkija", "Lenkijos", "Lenkiją", "Lenkijoje"),
       "LV": ("Latvija", "Latvijos", "Latviją", "Latvijoje"), "EE": ("Estija", "Estijos", "Estiją", "Estijoje"),
       "FI": ("Suomija", "Suomijos", "Suomiją", "Suomijoje")}
-LINE = {"SE4": ("LT–SE4 (NordBalt)", "NordBalt"), "PL": ("LT–PL (LitPol)", "LitPol"), "LV": ("LT–LV", "jungtys su Latvija")}
+# jungtys: pralaidumų rakto pavadinimas ir trumpas vardas (ne LINE – tai linijų spalva!)
+IC_LINES = {"SE4": ("LT–SE4 (NordBalt)", "NordBalt"), "PL": ("LT–PL (LitPol)", "LitPol"), "LV": ("LT–LV", "jungtys su Latvija")}
 KITA_RIBA = 10.0          # €/MWh: didesnė „kita“ paaiškinama tekste (Jono sprendimas 2026-11-21)
 FULL_HOURS = 12           # jungtis „pilnai apkrauta“ tekste, kai pilna bent tiek valandų
 
@@ -314,9 +315,9 @@ def fact(inp: Inputs, key: str, sign: int) -> str:
     if key == "pralaidumai":
         lim = []
         for z in ("SE4", "PL"):
-            x = (((s.get("pralaidumai") or {}).get(LINE[z][0]) or {}).get("importas")) or {}
+            x = (((s.get("pralaidumai") or {}).get(IC_LINES[z][0]) or {}).get("importas")) or {}
             if x.get("mw") is not None and x.get("nominalas") and float(x["mw"]) < 0.85 * float(x["nominalas"]):
-                lim.append(f"{LINE[z][1]} – {num(x['mw'], 0)} iš {num(x['nominalas'], 0)}{NB}MW")
+                lim.append(f"{IC_LINES[z][1]} – {num(x['mw'], 0)} iš {num(x['nominalas'], 0)}{NB}MW")
         return ("importo pralaidumai apriboti: " + ", ".join(lim)) if lim else "importo pralaidumai mažesni nei įprasta"
     if key == "kaimynai":
         kn = s["kaimynai"]
@@ -325,7 +326,7 @@ def fact(inp: Inputs, key: str, sign: int) -> str:
 
 
 def lines_note(inp: Inputs) -> str:
-    """Trumpai: kurios jungtys kiek valandų pilnai apkrautos (bent 6 val.)."""
+    """Trumpai: kurios jungtys kiek valandų pilnai apkrautos (bent 6 val.), pvz. „LitPol eksportui 23 val., iš Latvijos 9 val.“."""
     jb = (inp.sit or {}).get("jungtys_būsena") or {}
     parts = []
     for z in ("SE4", "PL", "LV"):
@@ -333,21 +334,9 @@ def lines_note(inp: Inputs) -> str:
         for side, word in (("eksportas", "eksportui"), ("importas", "importui")):
             n = int(x.get(f"{side}_pilnas_val") or 0)
             if n >= 6:
-                parts.append(f"jungtys su Latvija {word} pilnos {n}{NB}val." if z == "LV" else f"{LINE[z][1]} {word} pilna {n}{NB}val.")
+                where = ("į Latviją" if side == "eksportas" else "iš Latvijos") if z == "LV" else f"{IC_LINES[z][1]} {word}"
+                parts.append(f"{where} {n}{NB}val.")
     return cap(", ".join(parts))
-
-
-def prices_text(inp: Inputs, zones: list) -> str:
-    """„Švedijoje elektra kainuoja 141,0 €/MWh (19–20 val. – 192,8 €/MWh), Lenkijoje – 106,0 €/MWh“."""
-    kn, kh = inp.sit.get("kaimynai") or {}, inp.sit.get("kaimynų_valandos") or {}
-    parts = []
-    for i, z in enumerate(zones):
-        t = f"{ZN[z][3]} elektra kainuoja {num(kn[z])}{NB}€/MWh" if i == 0 else f"{ZN[z][3]} – {num(kn[z])}{NB}€/MWh"
-        pk = kh.get(z) if i == 0 else None
-        if pk and float(pk["max"]) > float(kn[z]) + 25:
-            t += f" ({hours_label(int(pk['max_val']))} – {num(pk['max'])}{NB}€/MWh)"
-        parts.append(t)
-    return ", ".join(parts)
 
 
 def trade_lines(inp: Inputs) -> tuple[list, list]:
@@ -369,8 +358,8 @@ def trade_sentences(inp: Inputs, with_number: bool) -> list[str]:
         parts, ratios = [], []
         for z in zones:
             fl = abs(float((m.get(z) or {}).get("mw") or 0))
-            cp = (((caps.get(LINE[z][0]) or {}).get(side)) or {}).get("mw")
-            parts.append(f"{LINE[z][1]} – {num(fl, 0)}" + (f" iš {num(cp, 0)}" if cp else "") + f"{NB}MW")
+            cp = (((caps.get(IC_LINES[z][0]) or {}).get(side)) or {}).get("mw")
+            parts.append(f"{IC_LINES[z][1]} – {num(fl, 0)}" + (f" iš {num(cp, 0)}" if cp else "") + f"{NB}MW")
             if cp:
                 ratios.append(fl / float(cp))
         how = "visa" if ratios and min(ratios) >= 0.99 else "beveik visa" if ratios and min(ratios) >= 0.9 else "didžiąją paros dalį visa"
@@ -531,7 +520,7 @@ def trade_highlight(inp: Inputs) -> str:
     exp, imp = trade_lines(inp)
     dear = [z for z in exp if float(kn.get(z, 0)) >= 1.3 * lt_p + 10]
     cheap = [z for z in imp if float(kn.get(z, 1e9)) <= 0.77 * lt_p - 10]
-    names = lambda zs: " ir ".join(LINE[z][1] for z in zs)
+    names = lambda zs: " ir ".join(IC_LINES[z][1] for z in zs)
     if dear:
         one = len(dear) == 1
         return (f"{names(dear)} pilnai {'išnaudota' if one else 'išnaudotos'} eksportui į {'brangesnę' if one else 'brangesnes'} "
@@ -1181,7 +1170,8 @@ def fragment(inp: Inputs, alerts: list[str]) -> str:
 # ─── laiškas (B variantas: be paveikslėlių; nuorodos – tik į Enerconsult svetainę) ─
 
 def m_tr(inner: str, pad: str = "22px 36px 0") -> str:
-    return f'<tr><td style="padding:{pad};">{inner}</td></tr>'
+    # mr-px: telefone šonų paraštės 16 px vietoj 36 px (žr. <style> laiško antraštėje)
+    return f'<tr><td class="mr-px" style="padding:{pad};">{inner}</td></tr>'
 
 
 def m_table(rows: str, extra: str = "") -> str:
@@ -1481,12 +1471,18 @@ def email(inp: Inputs, alerts: list[str]) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="x-apple-disable-message-reformatting">
 <meta name="format-detection" content="telephone=no, date=no, address=no">
+<style>
+@media only screen and (max-width: 480px) {{
+  .mr-px {{ padding-left: 16px !important; padding-right: 16px !important; }}
+  .mr-outer {{ padding: 8px 0 !important; }}
+}}
+</style>
 <title>Morning Report · {e(day_short(d))}</title>
 </head>
 <body style="margin:0; padding:0; background:#F2F2F2;">
 <div style="display:none; max-height:0; overflow:hidden; mso-hide:all;">{e(pre)}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F2F2F2" style="background:#F2F2F2;">
-<tr><td align="center" style="padding:24px 10px;">
+<tr><td class="mr-outer" align="center" style="padding:24px 10px;">
 <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="max-width:600px; background:#FFFFFF; border-collapse:collapse;">
 {body}
@@ -1557,6 +1553,9 @@ def main() -> None:
     idx.append({"data": day.isoformat(), "akcentas": akcentas})
     idx.sort(key=lambda x: x["data"], reverse=True)
     write("archyvas/index.json", json.dumps(idx, ensure_ascii=False, indent=2) + "\n")
+    bad = re.findall(r'style="[^"]*[{}\[\]][^"]*"', mail + frag)
+    if bad or not re.fullmatch(r"#[0-9A-Fa-f]{6}", LINE):
+        sys.exit(f"Sugadinti stiliai laiške ar fragmente ({len(bad)}), pvz. {bad[:1]} – laiškas nesiunčiamas")
     write("laiskas.html", mail)
     # Brevo variantas: atsisakymas – Brevo nuoroda, kontaktas – tik pastaboms
     assert unsub_line() in mail

@@ -604,12 +604,18 @@ def email(w: Week) -> tuple[str, str]:
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="x-apple-disable-message-reformatting">
 <meta name="format-detection" content="telephone=no, date=no, address=no">
+<style>
+@media only screen and (max-width: 480px) {{
+  .mr-px {{ padding-left: 16px !important; padding-right: 16px !important; }}
+  .mr-outer {{ padding: 8px 0 !important; }}
+}}
+</style>
 <title>Morning Report · savaitės apžvalga · {e(range_lt(w.start, w.end))}</title>
 </head>
 <body style="margin:0; padding:0; background:#F2F2F2;">
 <div style="display:none; max-height:0; overflow:hidden; mso-hide:all;">{e(pre)}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F2F2F2" style="background:#F2F2F2;">
-<tr><td align="center" style="padding:24px 10px;">
+<tr><td class="mr-outer" align="center" style="padding:24px 10px;">
 <!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="max-width:600px; background:#FFFFFF; border-collapse:collapse;">
 {body}
@@ -645,6 +651,9 @@ def main() -> None:
     def write(rel, text):
         with open(os.path.join(out_dir, rel), "w", encoding="utf-8", newline="\n") as f:
             f.write(text)
+    bad = re.findall(r'style="[^"]*[{}\[\]][^"]*"', mail)
+    if bad or not re.fullmatch(r"#[0-9A-Fa-f]{6}", LINE):
+        sys.exit(f"Sugadinti stiliai savaitės apžvalgoje ({len(bad)}), pvz. {bad[:1]} – nesiunčiama")
     write("laiskas.html", mail)
     assert A.unsub_line() in mail
     write("laiskas-brevo.html", mail.replace(A.unsub_line(), A.brevo_footer_lines()))
