@@ -1141,8 +1141,10 @@ def block_today(inp: Inputs) -> str:
     it = today_items(inp)
     if not it:
         return ""
-    li = "\n".join(f'<li class="mr-sip-row"><span class="mr-sip-text">{e(x)}</span></li>' for x in it)
-    return f'<section class="mr-block">\n<h2 class="mr-h">Šiandien</h2>\n<p class="mr-sub">Paramų terminai ir teisės aktų įsigaliojimas</p>\n<ul class="mr-sip">\n{li}\n</ul>\n</section>'
+    # paprastos pastraipos (kaip „Ką stebėti“): mr-sip – apžvalgos dviejų stulpelių išdėstymas,
+    # be temos stulpelio tekstas svetainėje suspaudžiamas į siaurą pirmą stulpelį (2026-11-23)
+    li = "\n".join(f'<p class="mr-text">{"– " if len(it) > 1 else ""}{e(x)}</p>' for x in it)
+    return f'<section class="mr-block">\n<h2 class="mr-h">Šiandien</h2>\n<p class="mr-sub">Paramų terminai ir teisės aktų įsigaliojimas</p>\n{li}\n</section>'
 
 
 def mail_today(inp: Inputs) -> str:
