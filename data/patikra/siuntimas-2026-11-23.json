@@ -1,0 +1,68 @@
+{
+ "pradžia": "2026-11-23T06:51:15+02:00",
+ "veiksmai": [
+  {
+   "sustabdyta": 10,
+   "pavadinimas": "Morning Report savaitės apžvalga 2026-11-23",
+   "http": 204,
+   "atsakymas": {}
+  },
+  {
+   "sustabdyta": 9,
+   "pavadinimas": "Morning Report 2026-11-23",
+   "http": 204,
+   "atsakymas": {}
+  }
+ ],
+ "kampanijos_prieš": [
+  {
+   "id": 10,
+   "pavadinimas": "Morning Report savaitės apžvalga 2026-11-23",
+   "būsena": "queued",
+   "sąrašai": [
+    2
+   ]
+  },
+  {
+   "id": 9,
+   "pavadinimas": "Morning Report 2026-11-23",
+   "būsena": "queued",
+   "sąrašai": [
+    4
+   ]
+  }
+ ],
+ "savaitės_apžvalga_#11": {
+  "kampanija": 11,
+  "pavadinimas": "Morning Report savaitės apžvalga 2026-11-23",
+  "sąrašas": 11,
+  "siųsta_iškart": 204
+ },
+ "kampanijos_po": [
+  {
+   "id": 11,
+   "pavadinimas": "Morning Report savaitės apžvalga 2026-11-23",
+   "būsena": "queued",
+   "sąrašai": [
+    11
+   ]
+  },
+  {
+   "id": 10,
+   "pavadinimas": "Morning Report savaitės apžvalga 2026-11-23",
+   "būsena": "suspended",
+   "sąrašai": [
+    2
+   ]
+  },
+  {
+   "id": 9,
+   "pavadinimas": "Morning Report 2026-11-23",
+   "būsena": "suspended",
+   "sąrašai": [
+    4
+   ]
+  }
+ ],
+ "pabaiga": "2026-11-23T06:51:20+02:00"
+}
