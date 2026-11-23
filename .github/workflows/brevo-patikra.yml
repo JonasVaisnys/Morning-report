@@ -1,0 +1,58 @@
+name: Brevo patikra
+
+# 2026-11-23 (Jono prašymu): šįryt vietoj kasdienio laiško siunčiama savaitės apžvalga.
+# Sustabdo kasdienę kampaniją „Morning Report 2026-11-23“ ir bandomąją savaitės kampaniją (sąrašas #2),
+# savaitės apžvalgą iškart siunčia sąrašui #11 „MR savaitės apžvalga“. Rezultatas – data/patikra/ šioje šakoje.
+
+on:
+  push:
+    branches: [brevo-patikra]
+
+permissions:
+  contents: write
+
+jobs:
+  siuntimas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - name: Savaitės apžvalga vietoj kasdienio laiško
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: |
+          mkdir -p data/patikra
+          python - <<'PY' > data/patikra/siuntimas-2026-11-23.json
+          import json, sys
+          from datetime import datetime
+          sys.path.insert(0, "scripts")
+          import brevo
+          DAY = "2026-11-23"
+          out = {"pradžia": datetime.now(brevo.LT).isoformat(timespec="seconds"), "veiksmai": []}
+          st, b = brevo.call("GET", "/emailCampaigns", params={"limit": 50, "sort": "desc"})
+          camps = b.get("campaigns", []) if st == 200 else []
+          out["kampanijos_prieš"] = [{"id": c["id"], "pavadinimas": c["name"], "būsena": c["status"], "sąrašai": (c.get("recipients") or {}).get("lists")} for c in camps if DAY in c["name"]]
+          for c in camps:
+              if c["name"] in (f"Morning Report {DAY}", f"Morning Report savaitės apžvalga {DAY}") and c["status"] in ("queued", "draft"):
+                  s2, r2 = brevo.call("PUT", f"/emailCampaigns/{c['id']}/status", json={"status": "suspended"})
+                  out["veiksmai"].append({"sustabdyta": c["id"], "pavadinimas": c["name"], "http": s2, "atsakymas": r2})
+          res = brevo.kampanija(DAY, 11, "public/savaitė", weekly=True, at_time=datetime.now(brevo.LT).time())
+          out["savaitės_apžvalga_#11"] = res
+          st, b = brevo.call("GET", "/emailCampaigns", params={"limit": 50, "sort": "desc"})
+          out["kampanijos_po"] = [{"id": c["id"], "pavadinimas": c["name"], "būsena": c["status"], "sąrašai": (c.get("recipients") or {}).get("lists")} for c in (b.get("campaigns", []) if st == 200 else []) if DAY in c["name"]]
+          out["pabaiga"] = datetime.now(brevo.LT).isoformat(timespec="seconds")
+          print(json.dumps(out, ensure_ascii=False, indent=1, default=str))
+          PY
+          cat data/patikra/siuntimas-2026-11-23.json
+      - name: Išsaugoti rezultatą
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/patikra
+          git commit -m "Brevo: savaitės apžvalga vietoj kasdienio laiško 2026-11-23" || true
+          git push origin HEAD:brevo-patikra || true
