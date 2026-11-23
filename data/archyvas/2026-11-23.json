@@ -1,0 +1,307 @@
+{
+ "data": "2026-11-23",
+ "elektros_rinka": {
+  "data": "2026-11-23",
+  "ref_dienų": 88,
+  "galia": {
+   "vėjas": 2507,
+   "saulė": 3018
+  },
+  "vartojimas": {
+   "mw": 1758,
+   "norma": 1665,
+   "intervalas": [
+    1631,
+    1713
+   ],
+   "būsena": "didesnis nei įprasta",
+   "nuokrypis_proc": 5.6,
+   "procentilis": null
+  },
+  "vėjas": {
+   "mw": 277,
+   "norma": 513,
+   "intervalas": [
+    339,
+    686
+   ],
+   "būsena": "mažesnė nei įprasta",
+   "procentilis": 26
+  },
+  "saulė": {
+   "mw": 68,
+   "norma": 22,
+   "intervalas": [
+    16,
+    34
+   ],
+   "būsena": "didesnė nei įprasta",
+   "procentilis": 89
+  },
+  "kita_gamyba": {
+   "mw": 240,
+   "norma": 207,
+   "būsena": "didesnė nei įprasta",
+   "valandos": "00–06",
+   "vėjas_faktas": 312,
+   "saulė_faktas": 0,
+   "vartojimas_faktas": 1339
+  },
+  "dujos": {
+   "ttf": 88.5,
+   "norma_12mėn": 52.9,
+   "santykis": 1.67,
+   "būsena": "gerokai brangesnės nei įprasta",
+   "prieš_metus": 30.2
+  },
+  "kaina": {
+   "lt": 232.1,
+   "norma": 159.1,
+   "intervalas": [
+    138,
+    190
+   ],
+   "norma_su_šiandienos_dujomis": 239.5,
+   "būsena": "didesnė nei įprasta",
+   "min": 150.7,
+   "max": 303.0,
+   "min_val": 0,
+   "max_val": 18,
+   "modelis": 284.8,
+   "modelis_su_jungtimis": 245.2
+  },
+  "indėliai": {
+   "dujos": 77.9,
+   "vartojimas": 9.6,
+   "vėjas": 23.2,
+   "saulė": -3.6,
+   "pralaidumai": 0.0,
+   "kaimynai": -25.4,
+   "kita": -8.7
+  },
+  "dujų_metodas": "šiandienos sąlygomis",
+  "kaimynų_detalės": {
+   "kainos": 0.9,
+   "jungčių_apkrova": -26.3
+  },
+  "kaimynai": {
+   "LV": 212.6,
+   "SE4": 233.4,
+   "PL": 195.2,
+   "EE": 181.0,
+   "FI": 13.6
+  },
+  "lt_lv_skiriasi_val": 10,
+  "kaimynų_būsena": {
+   "SE4": {
+    "kaina": 233.4,
+    "norma_su_šiandienos_dujomis": 175.0,
+    "būsena": "didesnė nei įprasta",
+    "procentilis": 75
+   },
+   "PL": {
+    "kaina": 195.2,
+    "norma_su_šiandienos_dujomis": 210.4,
+    "būsena": "įprasta",
+    "procentilis": 41
+   },
+   "FI": {
+    "kaina": 13.6,
+    "norma_su_šiandienos_dujomis": 170.8,
+    "būsena": "gerokai mažesnė nei įprasta",
+    "procentilis": 9
+   }
+  },
+  "mainai": {
+   "SE4": {
+    "mw": 453,
+    "proc_vartojimo": 26
+   },
+   "PL": {
+    "mw": -141,
+    "proc_vartojimo": -8
+   },
+   "LV": {
+    "mw": 876,
+    "proc_vartojimo": 50
+   },
+   "iš_viso": {
+    "mw": 1187,
+    "proc_vartojimo": 68
+   },
+   "maks": {
+    "SE4_imp": 700,
+    "SE4_eksp": 74,
+    "PL_imp": 185,
+    "PL_eksp": 212,
+    "LV_imp": 1012,
+    "LV_eksp": 0
+   }
+  },
+  "nordpool": {},
+  "pralaidumai": {
+   "LT–SE4 (NordBalt)": {
+    "importas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-24"
+    },
+    "eksportas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-24"
+    }
+   },
+   "LT–PL (LitPol)": {
+    "importas": {
+     "mw": 184,
+     "min": 177,
+     "nominalas": 164,
+     "pask_data": "2026-11-24"
+    },
+    "eksportas": {
+     "mw": 209,
+     "min": 204,
+     "nominalas": 193,
+     "pask_data": "2026-11-24"
+    }
+   },
+   "LT–LV": {
+    "importas": {
+     "mw": 946,
+     "min": 676,
+     "nominalas": 838,
+     "pask_data": "2026-11-24"
+    },
+    "eksportas": {
+     "mw": 918,
+     "min": 823,
+     "nominalas": 942,
+     "pask_data": "2026-11-24"
+    }
+   }
+  },
+  "sąlygos": {
+   "srmc": 193.4,
+   "srmc_norma": 128.5,
+   "cap_def": 0
+  },
+  "jungtys_būsena": {
+   "SE4": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 8
+   },
+   "PL": {
+    "eksportas_pilnas_val": 15,
+    "importas_pilnas_val": 2
+   },
+   "LV": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 12
+   }
+  },
+  "lt_lv": {
+   "brangiau_val": 10,
+   "pigiau_val": 0,
+   "skirtumas": 19.6
+  },
+  "kaimynų_valandos": {
+   "SE4": {
+    "min": 161.3,
+    "max": 309.3,
+    "max_val": 18
+   },
+   "PL": {
+    "min": 103.2,
+    "max": 316.9,
+    "max_val": 17
+   },
+   "LV": {
+    "min": 103.1,
+    "max": 269.0,
+    "max_val": 16
+   },
+   "FI": {
+    "min": 3.4,
+    "max": 20.2,
+    "max_val": 13
+   }
+  }
+ },
+ "valandos": [
+  150.72,
+  170.41,
+  170.51,
+  162.29,
+  164.06,
+  162.34,
+  177.27,
+  217.78,
+  265.83,
+  272.78,
+  264.48,
+  243.63,
+  239.43,
+  239.54,
+  213.21,
+  246.03,
+  275.66,
+  290.52,
+  303.04,
+  300.37,
+  288.35,
+  273.94,
+  247.72,
+  231.52
+ ],
+ "naujienos": {
+  "data": "2026-11-23",
+  "sugeneruota": "2026-11-23T05:36:40+02:00",
+  "svarbiausia": 0,
+  "naujienos": [
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Pirmasis Lietuvoje plokščias saulės parkas Skiemonyse",
+    "santrauka": "„Saulės grąža“ Anykščių rajone, Skiemonyse, stato pirmąjį Lietuvoje plokščią saulės parką, kuris užima 2,5 ha. Bendrovė įžvelgia naudą: daugiau galios mažesniame žemės plote, pigesnį robotizuotą montavimą ir palankesnę kainą pirkėjui.",
+    "svarba": "maža",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/energetika/2026/11/23/maziau-zemes-tai-paciai-galiai-kuo-issiskiria-pirmasis-lietuvoje-plokscias-saules-parkas-593022",
+    "paskelbta": "2026-11-23 06:40"
+   }
+  ],
+  "kandidatų": 4
+ },
+ "pasaulio_rinkos": {
+  "kotiruotės_laikas": "2026-11-23T05:21+02:00",
+  "rodikliai": [
+   {
+    "pavadinimas": "Nafta (Brent)",
+    "reikšmė": 89.69,
+    "vienetai": "USD/bbl",
+    "per_dieną": -3.11,
+    "per_7d": -6.42,
+    "per_30d": -23.16
+   },
+   {
+    "pavadinimas": "Dujos (TTF)",
+    "reikšmė": 88.451,
+    "vienetai": "€/MWh",
+    "per_dieną": 4.73,
+    "per_7d": -2.75,
+    "per_30d": 1.17
+   },
+   {
+    "pavadinimas": "Taršos leidimai (ATL)",
+    "reikšmė": 80.6,
+    "vienetai": "€/t",
+    "per_dieną": -0.87,
+    "per_7d": -9.85,
+    "per_30d": -5.29
+   }
+  ]
+ },
+ "teisės_aktai": null,
+ "paramos": null
+}
