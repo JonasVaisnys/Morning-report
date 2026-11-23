@@ -1,0 +1,131 @@
+{
+ "http": 200,
+ "KALBA": [
+  {
+   "name": "KALBA",
+   "category": "category",
+   "enumeration": [
+    {
+     "value": 1,
+     "valueStr": "1",
+     "label": "Lietuvių"
+    },
+    {
+     "value": 2,
+     "valueStr": "2",
+     "label": "English"
+    }
+   ]
+  }
+ ],
+ "sąrašai": [
+  {
+   "id": 19,
+   "pavadinimas": "MR savaitės apžvalga EN",
+   "aplankas": 1,
+   "kontaktų": 0
+  },
+  {
+   "id": 18,
+   "pavadinimas": "MR sekmadienis EN",
+   "aplankas": 1,
+   "kontaktų": 0
+  },
+  {
+   "id": 17,
+   "pavadinimas": "MR šeštadienis EN",
+   "aplankas": 1,
+   "kontaktų": 0
+  },
+  {
+   "id": 16,
+   "pavadinimas": "MR penktadienis EN",
+   "aplankas": 1,
+   "kontaktų": 0
+  },
+  {
+   "id": 15,
+   "pavadinimas": "MR ketvirtadienis EN",
+   "aplankas": 1,
+   "kontaktų": 0
+  },
+  {
+   "id": 14,
+   "pavadinimas": "MR trečiadienis EN",
+   "aplankas": 1,
+   "kontaktų": 0
+  },
+  {
+   "id": 13,
+   "pavadinimas": "MR antradienis EN",
+   "aplankas": 1,
+   "kontaktų": 0
+  },
+  {
+   "id": 12,
+   "pavadinimas": "MR pirmadienis EN",
+   "aplankas": 1,
+   "kontaktų": 0
+  },
+  {
+   "id": 9,
+   "pavadinimas": "MR šeštadienis",
+   "aplankas": 1,
+   "kontaktų": 6
+  },
+  {
+   "id": 10,
+   "pavadinimas": "MR sekmadienis",
+   "aplankas": 1,
+   "kontaktų": 6
+  },
+  {
+   "id": 11,
+   "pavadinimas": "MR savaitės apžvalga",
+   "aplankas": 1,
+   "kontaktų": 6
+  },
+  {
+   "id": 7,
+   "pavadinimas": "MR ketvirtadienis",
+   "aplankas": 1,
+   "kontaktų": 6
+  },
+  {
+   "id": 6,
+   "pavadinimas": "MR trečiadienis",
+   "aplankas": 1,
+   "kontaktų": 6
+  },
+  {
+   "id": 8,
+   "pavadinimas": "MR penktadienis",
+   "aplankas": 1,
+   "kontaktų": 6
+  },
+  {
+   "id": 5,
+   "pavadinimas": "MR antradienis",
+   "aplankas": 1,
+   "kontaktų": 6
+  },
+  {
+   "id": 4,
+   "pavadinimas": "MR pirmadienis",
+   "aplankas": 1,
+   "kontaktų": 6
+  },
+  {
+   "id": 3,
+   "pavadinimas": "Morning Report",
+   "aplankas": 1,
+   "kontaktų": 6
+  },
+  {
+   "id": 2,
+   "pavadinimas": "Your first list",
+   "aplankas": 1,
+   "kontaktų": 1
+  }
+ ]
+}

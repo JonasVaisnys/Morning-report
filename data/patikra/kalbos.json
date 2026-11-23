@@ -1,0 +1,69 @@
+{
+ "atributas": "sukurtas (HTTP 201)",
+ "sąrašai": [
+  {
+   "sąrašas": 4,
+   "pavadinimas": "MR pirmadienis",
+   "angliškas": 12,
+   "anglų_kalba": 0,
+   "pridėta": 0,
+   "pašalinta": 0
+  },
+  {
+   "sąrašas": 5,
+   "pavadinimas": "MR antradienis",
+   "angliškas": 13,
+   "anglų_kalba": 0,
+   "pridėta": 0,
+   "pašalinta": 0
+  },
+  {
+   "sąrašas": 6,
+   "pavadinimas": "MR trečiadienis",
+   "angliškas": 14,
+   "anglų_kalba": 0,
+   "pridėta": 0,
+   "pašalinta": 0
+  },
+  {
+   "sąrašas": 7,
+   "pavadinimas": "MR ketvirtadienis",
+   "angliškas": 15,
+   "anglų_kalba": 0,
+   "pridėta": 0,
+   "pašalinta": 0
+  },
+  {
+   "sąrašas": 8,
+   "pavadinimas": "MR penktadienis",
+   "angliškas": 16,
+   "anglų_kalba": 0,
+   "pridėta": 0,
+   "pašalinta": 0
+  },
+  {
+   "sąrašas": 9,
+   "pavadinimas": "MR šeštadienis",
+   "angliškas": 17,
+   "anglų_kalba": 0,
+   "pridėta": 0,
+   "pašalinta": 0
+  },
+  {
+   "sąrašas": 10,
+   "pavadinimas": "MR sekmadienis",
+   "angliškas": 18,
+   "anglų_kalba": 0,
+   "pridėta": 0,
+   "pašalinta": 0
+  },
+  {
+   "sąrašas": 11,
+   "pavadinimas": "MR savaitės apžvalga",
+   "angliškas": 19,
+   "anglų_kalba": 0,
+   "pridėta": 0,
+   "pašalinta": 0
+  }
+ ]
+}
