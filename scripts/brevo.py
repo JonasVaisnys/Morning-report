@@ -49,9 +49,12 @@ SENDER = {"name": "Morning Report", "email": "morningreport@enerconsult.lt"}
 LT = ZoneInfo("Europe/Vilnius")
 
 
-def kampanija(day: str, list_id: int, public: str = "public", test: bool = False, weekly: bool = False, at_time: dtime = dtime(7, 0)) -> dict:
-    """Sukuria ir suplanuoja dienos (arba savaitės apžvalgos) kampaniją. Kartotinis paleidimas tos pačios dienos kampanijos nedubliuoja."""
-    name = f"Morning Report {'savaitės apžvalga ' if weekly else ''}{'bandymas ' if test else ''}{day}"
+def kampanija(day: str, list_id: int, public: str = "public", test: bool = False, weekly: bool = False, at_time: dtime = dtime(7, 0),
+              exclude: list | None = None, lang: str = "lt") -> dict:
+    """Sukuria ir suplanuoja dienos (arba savaitės apžvalgos) kampaniją. Kartotinis paleidimas tos pačios dienos kampanijos nedubliuoja.
+    exclude – sąrašai, kurių kontaktai šios kampanijos negauna (pvz. pirmadienį – savaitės apžvalgos gavėjai);
+    lang – „en“ prideda „ EN“ prie kampanijos pavadinimo (angliška versija)."""
+    name = f"Morning Report {'savaitės apžvalga ' if weekly else ''}{'bandymas ' if test else ''}{day}{' EN' if lang == 'en' else ''}"
     with open(os.path.join(public, "data.txt"), encoding="utf-8") as f:
         if f.read().strip() != day:
             return {"klaida": f"public/data.txt ne {day} – ataskaita nepagaminta, nesiunčiama"}
@@ -69,7 +72,8 @@ def kampanija(day: str, list_id: int, public: str = "public", test: bool = False
     now = datetime.now(LT)
     at = datetime.combine(date.fromisoformat(day), at_time, LT)
     body = {"name": name, "subject": subject, "sender": SENDER, "htmlContent": html,
-            "recipients": {"listIds": [list_id]}, "inlineImageActivation": False, "mirrorActive": False}
+            "recipients": {"listIds": [list_id], **({"exclusionListIds": list(exclude)} if exclude else {})},
+            "inlineImageActivation": False, "mirrorActive": False}
     send_now = (at - now).total_seconds() < 120
     if not send_now:
         body["scheduledAt"] = at.isoformat()
@@ -77,7 +81,7 @@ def kampanija(day: str, list_id: int, public: str = "public", test: bool = False
     if st not in (200, 201):
         return {"klaida": f"kampanijos sukūrimas HTTP {st}", "atsakymas": b}
     cid = b.get("id")
-    out = {"kampanija": cid, "pavadinimas": name, "sąrašas": list_id}
+    out = {"kampanija": cid, "pavadinimas": name, "sąrašas": list_id, "be_sąrašų": exclude or []}
     if send_now:
         st, b = call("POST", f"/emailCampaigns/{cid}/sendNow")
         out["siųsta_iškart"] = st
@@ -96,9 +100,12 @@ if __name__ == "__main__":
         day = sys.argv[2]
         lid = int(sys.argv[sys.argv.index("--sarasas") + 1]) if "--sarasas" in sys.argv else 3
         weekly = "--savaitė" in sys.argv
-        pub = sys.argv[sys.argv.index("--public") + 1] if "--public" in sys.argv else ("public/savaitė" if weekly else "public")
+        lang = sys.argv[sys.argv.index("--kalba") + 1] if "--kalba" in sys.argv else "lt"
+        base = "public/en" if lang == "en" else "public"
+        pub = sys.argv[sys.argv.index("--public") + 1] if "--public" in sys.argv else (f"{base}/savaitė" if weekly else base)
         hh, mm = (sys.argv[sys.argv.index("--laikas") + 1] if "--laikas" in sys.argv else "07:00").split(":")
-        res = kampanija(day, lid, pub, "--bandymas" in sys.argv, weekly, dtime(int(hh), int(mm)))
+        exclude = [int(x) for x in sys.argv[sys.argv.index("--be") + 1].split(",") if x.strip()] if "--be" in sys.argv else []
+        res = kampanija(day, lid, pub, "--bandymas" in sys.argv, weekly, dtime(int(hh), int(mm)), exclude, lang)
         print(json.dumps(res, ensure_ascii=False, indent=1))
         if "klaida" in res:
             sys.exit(1)
