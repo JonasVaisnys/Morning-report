@@ -1,0 +1,56 @@
+{
+ "laikas": "2026-11-23T06:52:22+02:00",
+ "kampanijos": [
+  {
+   "id": 9,
+   "http": 200,
+   "pavadinimas": "Morning Report 2026-11-23",
+   "būsena": "suspended",
+   "išsiųsta": null,
+   "sąrašai": [
+    4
+   ],
+   "statistika": {
+    "sent": 0,
+    "delivered": 0,
+    "hardBounces": 0,
+    "softBounces": 0,
+    "uniqueViews": 0
+   }
+  },
+  {
+   "id": 10,
+   "http": 200,
+   "pavadinimas": "Morning Report savaitės apžvalga 2026-11-23",
+   "būsena": "suspended",
+   "išsiųsta": null,
+   "sąrašai": [
+    2
+   ],
+   "statistika": {
+    "sent": 0,
+    "delivered": 0,
+    "hardBounces": 0,
+    "softBounces": 0,
+    "uniqueViews": 0
+   }
+  },
+  {
+   "id": 11,
+   "http": 200,
+   "pavadinimas": "Morning Report savaitės apžvalga 2026-11-23",
+   "būsena": "sent",
+   "išsiųsta": "2026-11-23T06:52:11.000+02:00",
+   "sąrašai": [
+    11
+   ],
+   "statistika": {
+    "sent": 6,
+    "delivered": 0,
+    "hardBounces": 0,
+    "softBounces": 0,
+    "uniqueViews": 0
+   }
+  }
+ ]
+}
