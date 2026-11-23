@@ -339,6 +339,19 @@ def lines_note(inp: Inputs) -> str:
     return cap(", ".join(parts))
 
 
+def prices_text(inp: Inputs, zones: list) -> str:
+    """„Švedijoje elektra kainuoja 141,0 €/MWh (19–20 val. – 192,8 €/MWh), Lenkijoje – 106,0 €/MWh“."""
+    kn, kh = inp.sit.get("kaimynai") or {}, inp.sit.get("kaimynų_valandos") or {}
+    parts = []
+    for i, z in enumerate(zones):
+        t = f"{ZN[z][3]} elektra kainuoja {num(kn[z])}{NB}€/MWh" if i == 0 else f"{ZN[z][3]} – {num(kn[z])}{NB}€/MWh"
+        pk = kh.get(z) if i == 0 else None
+        if pk and float(pk["max"]) > float(kn[z]) + 25:
+            t += f" ({hours_label(int(pk['max_val']))} – {num(pk['max'])}{NB}€/MWh)"
+        parts.append(t)
+    return ", ".join(parts)
+
+
 def trade_lines(inp: Inputs) -> tuple[list, list]:
     """Jungtys su Švedija ir Lenkija, kurios pilnai apkrautos eksportui ar importui (Latvija – atskirai per LT ir LV kainų skirtumą)."""
     exp, imp = lines_full(inp)
