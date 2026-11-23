@@ -1,0 +1,64 @@
+name: Angliška versija – bandymas
+
+# Vienkartinis bandymas šakoje anglu-versija: vertimai per Claude API, angliškos ataskaitos
+# (2026-11-23) ir Brevo kalbų sąranka (KALBA atributas, sąrašai „… EN“). Laiškų nesiunčia.
+
+on:
+  push:
+    branches: [anglu-versija]
+
+permissions:
+  contents: write
+
+jobs:
+  bandymas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Vertimai
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          timeout 300 python scripts/vertimai.py 2026-11-23 2> data/vertimai-debug.log || true
+          cat data/vertimai-debug.log
+
+      - name: Angliškos ataskaitos
+        run: |
+          python scripts/ataskaita.py 2026-11-23 --kalba en
+          python "scripts/savaitės ataskaita.py" 2026-11-23 --kalba en
+          cat public/en/tema.txt public/en/savaitė/tema.txt
+
+      - name: Brevo kalbos
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: |
+          mkdir -p data/patikra
+          python scripts/brevo.py kalbos > data/patikra/kalbos.json 2> data/patikra/kalbos-klaidos.log || true
+          python - > data/patikra/kalbos-atributas.json <<'PY'
+          import json, sys
+          sys.path.insert(0, "scripts")
+          import brevo
+          st, b = brevo.call("GET", "/contacts/attributes")
+          kal = [a for a in b.get("attributes", []) if a.get("name") == "KALBA"] if st == 200 else b
+          ls = brevo.lists_all()
+          print(json.dumps({"http": st, "KALBA": kal,
+                            "sąrašai": [{"id": l["id"], "pavadinimas": l["name"], "aplankas": l.get("folderId"),
+                                         "kontaktų": l.get("uniqueSubscribers", l.get("totalSubscribers"))} for l in ls]},
+                           ensure_ascii=False, indent=1))
+          PY
+          cat data/patikra/kalbos.json data/patikra/kalbos-klaidos.log data/patikra/kalbos-atributas.json
+
+      - name: Išsaugoti
+        run: |
+          git config user.name "Morning Report Bot"
+          git config user.email "bot@enerconsult.lt"
+          git add data public
+          git commit -q -m "Angliška versija: bandymo rezultatai 2026-11-23" || exit 0
+          git push -q origin HEAD:anglu-versija

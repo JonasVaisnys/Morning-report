@@ -1,7 +1,7 @@
 name: Morning report
 
 # Kas rytą surenka duomenis ir pagamina Morning Report failus aplanke public/
-# svetainei ir laiškui (žr. scripts/ataskaita.py).
+# svetainei ir laiškui (žr. scripts/ataskaita.py); angliška versija – public/en/ (2026-11-23).
 # Pagrindinį paleidimą 05:30 Vilniaus laiku daro Power Automate (workflow_dispatch); laišką siunčia Brevo (paskutinis žingsnis),
 # tvarkaraštis – tik atsarginis: jis nieko nedaro, jei šios dienos ataskaita jau paruošta.
 
@@ -109,11 +109,24 @@ jobs:
           [ -f data/pasaulio-rinkos.json ] || echo '{"klaida": "nesugeneruota"}' > data/pasaulio-rinkos.json
           echo "--- pasaulio rinkos ---"; tail -n 20 data/pasaulio-rinkos-debug.log
 
+      # Angliškai versijai: naujienų ir pasaulio rinkų tekstai (laukai *_en), paramų ir teisės aktų pavadinimai (data/vertimai.json).
+      # Nepavykus angliška ataskaita gaminama be jų (naujienų ir pasaulio rinkų teksto nėra); lietuviškai niekas nesikeičia.
+      - name: Vertimai anglų kalbai
+        if: env.SKIP != 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          timeout 300 python scripts/vertimai.py "$DATE" 2> data/vertimai-debug.log || true
+          echo "--- vertimai ---"; tail -n 20 data/vertimai-debug.log
+
       - name: Ataskaita svetainei ir laiškui
         if: env.SKIP != 'true'
         run: |
           python scripts/ataskaita.py "$DATE"
           echo "--- public/ ---"; ls -la public public/archyvas; cat public/tema.txt; cat public/data.txt; echo
+          # angliška versija (public/en/) – jos klaida lietuviškos nesustabdo
+          python scripts/ataskaita.py "$DATE" --kalba en || echo "Angliškos ataskaitos pagaminti nepavyko." >&2
+          cat public/en/tema.txt 2>/dev/null || true
 
       # Pirmadieniais – praėjusios savaitės (pirmadienio–sekmadienio) apžvalga atskiru laišku (žr. scripts/savaitės ataskaita.py).
       # Nepavykus kasdienis laiškas vis tiek siunčiamas.
@@ -123,8 +136,11 @@ jobs:
           if [ "$(date -d "$DATE" +%u)" != "1" ]; then echo "Ne pirmadienis – savaitės apžvalga negaminama."; exit 0; fi
           python "scripts/savaitės ataskaita.py" "$DATE" || echo "Savaitės apžvalgos pagaminti nepavyko." >&2
           [ -f public/savaitė/tema.txt ] && cat public/savaitė/tema.txt || true
+          python "scripts/savaitės ataskaita.py" "$DATE" --kalba en || echo "Angliškos savaitės apžvalgos pagaminti nepavyko." >&2
+          [ -f public/en/savaitė/tema.txt ] && cat public/en/savaitė/tema.txt || true
 
       - name: Išsaugoti rezultatą
+        id: issaugoti
         if: env.SKIP != 'true'
         run: |
           git config user.name "Morning Report Bot"
@@ -143,12 +159,14 @@ jobs:
       # Laiškas prenumeratoriams per Brevo (tos savaitės dienos sąrašas): suplanuojamas 7:00 Vilniaus laiku,
       # jei jau vėliau – išsiunčiamas iš karto. Tos pačios dienos kampanija antrą kartą nekuriama.
       # Tik šiandienos ataskaitai (rankiniai paleidimai praeities datoms laiško nesiunčia).
+      # Kalbos: prieš siunčiant English kontaktai perkeliami į sąrašus „… EN“ (brevo.py kalbos); lietuviškas laiškas jų negauna.
       - name: Laiškas per Brevo
         if: env.SKIP != 'true'
         env:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         run: |
           if [ "$DATE" != "$(TZ=Europe/Vilnius date +%F)" ]; then echo "Ne šiandienos data – laiškas nesiunčiamas."; exit 0; fi
+          python scripts/brevo.py kalbos || echo "Kalbų sąrašų atnaujinti nepavyko – siunčiama pagal ankstesnius." >&2
           # prenumeratoriai patys pasirenka dienas: Brevo sąrašai #4 (pirmadienis) … #10 (sekmadienis)
           DOW=$(TZ=Europe/Vilnius date +%u)
           LIST=$(( DOW + 3 ))
@@ -156,6 +174,22 @@ jobs:
           BE=""
           if [ "$DOW" = "1" ] && [ "$(cat public/savaitė/data.txt 2>/dev/null)" = "$DATE" ]; then BE="--be 11"; fi
           python scripts/brevo.py kampanija "$DATE" --sarasas "$LIST" $BE
+
+      # Angliškas laiškas tos dienos sąrašo English kontaktams (sąrašas „… EN“); nesiunčiamas, jei jų nėra.
+      # Lietuviško laiško klaida jo nesustabdo.
+      - name: Laiškas anglų kalba per Brevo
+        if: ${{ !cancelled() && env.SKIP != 'true' && steps.issaugoti.outcome == 'success' }}
+        continue-on-error: true      # nepavykus – savaitės apžvalga (kitas žingsnis) vis tiek siunčiama
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+        run: |
+          if [ "$DATE" != "$(TZ=Europe/Vilnius date +%F)" ]; then echo "Ne šiandienos data – laiškas nesiunčiamas."; exit 0; fi
+          if [ "$(cat public/en/data.txt 2>/dev/null)" != "$DATE" ]; then echo "Angliška ataskaita nepagaminta – nesiunčiama." >&2; exit 0; fi
+          DOW=$(TZ=Europe/Vilnius date +%u)
+          LIST=$(( DOW + 3 ))
+          BE=""
+          if [ "$DOW" = "1" ] && [ "$(cat public/en/savaitė/data.txt 2>/dev/null)" = "$DATE" ]; then BE="--be 11"; fi
+          python scripts/brevo.py kampanija "$DATE" --sarasas "$LIST" --kalba en $BE
 
       # Savaitės apžvalga pirmadieniais 7:00 sąrašui #11 „MR savaitės apžvalga“ (vaizdas patvirtintas 2026-11-23).
       - name: Savaitės apžvalga per Brevo
@@ -165,5 +199,14 @@ jobs:
           SAVAITES_SARASAS: "11"
         run: |
           if [ "$DATE" != "$(TZ=Europe/Vilnius date +%F)" ] || [ "$(TZ=Europe/Vilnius date +%u)" != "1" ]; then echo "Ne šios dienos pirmadienis – nesiunčiama."; exit 0; fi
-          if [ "$(cat public/savaitė/data.txt 2>/dev/null)" != "$DATE" ]; then echo "Savaitės apžvalga nepagaminta – nesiunčiama." >&2; exit 0; fi
-          python scripts/brevo.py kampanija "$DATE" --savaitė --sarasas "$SAVAITES_SARASAS" --laikas 07:00
+          RC=0
+          if [ "$(cat public/savaitė/data.txt 2>/dev/null)" = "$DATE" ]; then
+            python scripts/brevo.py kampanija "$DATE" --savaitė --sarasas "$SAVAITES_SARASAS" --laikas 07:00 || RC=$?
+          else
+            echo "Savaitės apžvalga nepagaminta – nesiunčiama." >&2
+          fi
+          # angliškai – sąrašo „MR savaitės apžvalga EN“ kontaktams
+          if [ "$(cat public/en/savaitė/data.txt 2>/dev/null)" = "$DATE" ]; then
+            python scripts/brevo.py kampanija "$DATE" --savaitė --sarasas "$SAVAITES_SARASAS" --laikas 07:00 --kalba en || RC=$?
+          fi
+          exit $RC

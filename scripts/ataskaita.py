@@ -26,13 +26,19 @@ Duomenys (visi nebūtini):
   data/teisės-aktai.json        „teisės aktai.py“
   data/paramos.json             paramų rinkimas (kai bus)
 
+Angliška versija (--kalba en) rašoma į public/en/ (tie patys failai, be data/archyvas įrašo):
+angliški sakiniai – „ataskaita anglų kalba.py“, naujienų ir pasaulio rinkų vertimai – „vertimai.py“
+(laukai *_en ir data/vertimai.json). Lietuviškai ataskaita nesikeičia.
+
 Naudojimas:
   python scripts/ataskaita.py                 # šiandien (Vilniaus laiku)
   python scripts/ataskaita.py 2026-11-16
+  python scripts/ataskaita.py 2026-11-16 --kalba en
   python scripts/ataskaita.py 2026-11-12 --data kitas/data --out kitas/public
 """
 
 import html
+import importlib.util
 import json
 import math
 import os
@@ -53,6 +59,9 @@ MONTHS = ["sausio", "vasario", "kovo", "balandžio", "gegužės", "birželio", "
 WEEKDAYS = ["pirmadienis", "antradienis", "trečiadienis", "ketvirtadienis", "penktadienis", "šeštadienis", "sekmadienis"]
 REGIONS = ["Lietuva", "Kaimynai", "Europa", "Pasaulis"]
 REGIONS_ACC = {"Lietuva": "Lietuvą", "Kaimynai": "kaimynus", "Europa": "Europą", "Pasaulis": "pasaulį"}
+MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+             "November", "December"]
+WEEKDAYS_EN = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 SEV = {"kritinė": "critical", "didelė": "high", "vidutinė": "medium", "maža": "low"}
 
 # tamsios figūros (kaip galutiniame energijos dizaine)
@@ -69,14 +78,107 @@ SITE_URL = "https://enerconsult.lt/"
 MR_URL = "https://enerconsult.lt/morning-report/"
 MR_MAILBOX = "morningreport@enerconsult.lt"
 PRIVACY_URL = "https://enerconsult.lt/privatumo-politika/"
+# angliška svetainės dalis (enerconsult.lt/en/); puslapius sukuria svetainės pokalbis
+SITE_URL_EN = "https://enerconsult.lt/en/"
+MR_URL_EN = "https://enerconsult.lt/en/morning-report/"
+PRIVACY_URL_EN = "https://enerconsult.lt/en/privacy-policy/"
+
+LANG = "lt"             # „en“ – angliška versija (main(): --kalba en)
+
+
+def tr(lt: str, en: str) -> str:
+    """Tekstas ataskaitos kalba."""
+    return en if LANG == "en" else lt
+
+
+def site_url() -> str:
+    return tr(SITE_URL, SITE_URL_EN)
+
+
+def mr_url() -> str:
+    return tr(MR_URL, MR_URL_EN)
+
+
+def privacy_url() -> str:
+    return tr(PRIVACY_URL, PRIVACY_URL_EN)
+
+
+class _G:
+    """Šio modulio globalai angliškų tekstų moduliui (veikia ir kai šis modulis įkeltas per importlib)."""
+    def __getattr__(self, k):
+        try:
+            return globals()[k]
+        except KeyError:
+            raise AttributeError(k) from None
+
+
+_EN = None
+
+
+def en():
+    """Angliški sakiniai („ataskaita anglų kalba.py“)."""
+    global _EN
+    if _EN is None:
+        spec = importlib.util.spec_from_file_location("ataskaita_anglu", os.path.join(HERE, "ataskaita anglų kalba.py"))
+        _EN = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(_EN)
+        _EN.A = _G()
+    return _EN
+
+
+_VERT = None
+DATA_DIR = os.path.join(ROOT, "data")       # main() nustato pagal --data
+
+
+def vertimas(text: str) -> str:
+    """Angliškas vertimas iš data/vertimai.json (paramų, teisės aktų, institucijų pavadinimai); nėra – originalas."""
+    global _VERT
+    if LANG != "en" or not text:
+        return text
+    if _VERT is None:
+        _VERT = load(os.path.join(DATA_DIR, "vertimai.json")) or {}
+    return _VERT.get(text.strip()) or text
+
+
+def nf(n: dict, key: str) -> str:
+    """Naujienos laukas ataskaitos kalba (pavadinimas_en, santrauka_en; nėra – lietuviškas)."""
+    if LANG == "en":
+        return n.get(key + "_en") or vertimas(n.get(key) or "")
+    return n.get(key) or ""
+
+
+def news_en(nw: dict) -> dict | None:
+    """Angliškai – tik išverstos naujienos (lietuviškų angliškoje ataskaitoje nerodome)."""
+    items = nw["naujienos"]
+    keep = [i for i, n in enumerate(items)
+            if nf(n, "pavadinimas") != (n.get("pavadinimas") or "") and nf(n, "santrauka") != (n.get("santrauka") or "")]
+    if not keep:
+        return None
+    top = nw.get("svarbiausia")
+    return dict(nw, naujienos=[items[i] for i in keep], svarbiausia=keep.index(top) if top in keep else None)
+
+
+def region_name(r: str) -> str:
+    return en().REGION.get(r, r) if LANG == "en" else r
+
+
+def st_txt(st) -> str:
+    """Būsena („gerokai didesnė nei įprasta“) ataskaitos kalba."""
+    return en().state(st) if LANG == "en" else (st or "")
+
+
+def weekday_name(d: date) -> str:
+    return tr(cap(WEEKDAYS[d.weekday()]), WEEKDAYS_EN[d.weekday()])
 
 
 # ─── pagalbinės ──────────────────────────────────────────────────────────────
 
 def num(x: float, d: int = 1) -> str:
-    """Lietuviškas skaičius: tarpas tūkstančiams, dešimtainis kablelis, minuso ženklas."""
+    """Lietuviškas skaičius: tarpas tūkstančiams, dešimtainis kablelis, minuso ženklas (angliškai – 1,234.5)."""
     r = round(float(x), d)
-    s = f"{abs(r):,.{d}f}".replace(",", " ").replace(".", ",").replace(" ", NB)
+    s = f"{abs(r):,.{d}f}"
+    if LANG != "en":
+        s = s.replace(",", " ").replace(".", ",").replace(" ", NB)
     return (MINUS if r < 0 else "") + s
 
 
@@ -88,7 +190,7 @@ def sgn(x: float, d: int = 0) -> str:
 
 
 def pct(x: float, d: int = 1) -> str:
-    return sgn(x, d) + NB + "%"
+    return sgn(x, d) + tr(NB, "") + "%"
 
 
 def e(s) -> str:
@@ -100,11 +202,12 @@ def ea(s) -> str:
 
 
 def day_short(d: date) -> str:
-    return f"{MONTHS[d.month - 1]} {d.day} d."
+    return tr(f"{MONTHS[d.month - 1]} {d.day} d.", f"{d.day} {MONTHS_EN[d.month - 1]}")
 
 
 def day_long(d: date) -> str:
-    return f"{d.year} m. {MONTHS[d.month - 1]} {d.day} d., {WEEKDAYS[d.weekday()]}"
+    return tr(f"{d.year} m. {MONTHS[d.month - 1]} {d.day} d., {WEEKDAYS[d.weekday()]}",
+              f"{WEEKDAYS_EN[d.weekday()]}, {d.day} {MONTHS_EN[d.month - 1]} {d.year}")
 
 
 def cap(s: str) -> str:
@@ -128,7 +231,7 @@ def plural(n: int, one: str, few: str, many: str) -> str:
 
 
 def hours_label(h: int) -> str:
-    return f"{h}–{h + 1}{NB}val."
+    return tr(f"{h}–{h + 1}{NB}val.", f"{h:02d}:00–{h + 1:02d}:00")
 
 
 def load(path: str):
@@ -164,6 +267,8 @@ class Inputs:
         self.eb = eb if self.hours else None
         nw = load(os.path.join(data_dir, "naujienos.json"))
         self.news = nw if isinstance(nw, dict) and nw.get("data") == iso and nw.get("naujienos") else None
+        if self.news and LANG == "en":
+            self.news = news_en(self.news)
         pr = load(os.path.join(data_dir, "pasaulio-rinkos.json"))
         ok = isinstance(pr, dict) and pr.get("data") == iso and isinstance(pr.get("rodikliai"), dict) \
             and all(isinstance(pr["rodikliai"].get(k), dict) for k in ("brent", "ttf", "eua"))
@@ -214,6 +319,8 @@ FULL_HOURS = 12           # jungtis „pilnai apkrauta“ tekste, kai pilna bent
 
 
 def energy_headline(inp: Inputs) -> str:
+    if LANG == "en":
+        return en().energy_headline(inp)
     p = inp.price
     if inp.sit:
         st = inp.sit["kaina"]["būsena"]
@@ -239,7 +346,11 @@ def caps_known(inp: Inputs) -> bool:
 
 def drivers(inp: Inputs) -> list:
     """Veiksniai be pralaidumų, kai jų duomenų nėra (tada jų indėlis 0 nieko nereiškia)."""
-    return [(k, n) for k, n in DRIVERS if k != "pralaidumai" or caps_known(inp)]
+    return [(k, tr(n, en().DRIVER_NAMES[k] if LANG == "en" else n)) for k, n in DRIVERS if k != "pralaidumai" or caps_known(inp)]
+
+
+def other_name() -> str:
+    return tr("Kita", "Other")
 
 
 def _strong(inp: Inputs, key: str, sign: int) -> bool:
@@ -278,6 +389,8 @@ def neighbours_reason(inp: Inputs, sign: int, gen: bool = False) -> str:
 
 def headline_reason(inp: Inputs) -> str | None:
     """Pagrindinė nuokrypio priežastis kilmininku – tik jei ji lemia bent pusę nuokrypio."""
+    if LANG == "en":
+        return en().headline_reason(inp)
     k = inp.sit["kaina"]
     diff = float(k["lt"]) - float(k["norma"])
     sign = 1 if diff >= 0 else -1
@@ -327,6 +440,8 @@ def fact(inp: Inputs, key: str, sign: int) -> str:
 
 def lines_note(inp: Inputs) -> str:
     """Trumpai: kurios jungtys kiek valandų pilnai apkrautos (bent 6 val.), pvz. „LitPol eksportui 23 val., iš Latvijos 9 val.“."""
+    if LANG == "en":
+        return en().lines_note(inp)
     jb = (inp.sit or {}).get("jungtys_būsena") or {}
     parts = []
     for z in ("SE4", "PL", "LV"):
@@ -463,6 +578,8 @@ def kita_sentences(inp: Inputs) -> list[str]:
 
 def energy_paragraphs(inp: Inputs) -> list[str]:
     """Kas kainą lemia: pagrindinis veiksnys (nuokrypio kryptimi) su skaičiais, priešingi veiksniai, jungtys, „kita“."""
+    if LANG == "en":
+        return en().energy_paragraphs(inp)
     if not inp.sit:
         h = inp.hours
         i_max, i_min = h.index(max(h)), h.index(min(h))
@@ -515,6 +632,8 @@ def energy_paragraphs(inp: Inputs) -> list[str]:
 
 
 def drivers_note(inp: Inputs) -> str:
+    if LANG == "en":
+        return en().drivers_note(inp)
     t = "„Kita“ – kainos dalis, kurios šie veiksniai nepaaiškina."
     if (inp.sit or {}).get("dujų_metodas") == "šiandienos sąlygomis":
         t = ("Dujų įtaka – kiek elektra brangesnė dėl dujų ir CO2 kainos šiandienos sąlygomis; kiti veiksniai įvertinti esant įprastai dujų kainai. "
@@ -546,6 +665,8 @@ def trade_highlight(inp: Inputs) -> str:
 
 
 def energy_overview(inp: Inputs) -> str:
+    if LANG == "en":
+        return en().energy_overview(inp)
     p = inp.price
     if inp.sit:
         st = inp.sit["kaina"]["būsena"]
@@ -627,21 +748,21 @@ def curve_svg(hours: list[float], band, avg: float, wide: bool, aria: str) -> st
         labs.append(f'<text x="{cx:.1f}" y="{ty:.1f}" text-anchor="{anchor}">{num(hours[i])}</text>')
     lx = x1 + 8
     y_avg = Y(avg) + 4
-    labs.append(f'<text x="{lx}" y="{y_avg:.1f}">vid. {num(avg)}</text>')
+    labs.append(f'<text x="{lx}" y="{y_avg:.1f}">{tr("vid.", "avg.")} {num(avg)}</text>')
     out.append(f'<g font-family="IBM Plex Mono, monospace" font-size="{fl}" font-weight="500" fill="{D_INK}">{"".join(labs)}</g>')
     side = []
     if band:
         yb1 = (Y(band[0]) + Y(band[1])) / 2 - 2
         if abs(yb1 - y_avg) < fs * 2.4:
             yb1 = y_avg + fs * 2.4 if yb1 >= y_avg else y_avg - fs * 3.4
-        side.append(f'<text x="{lx}" y="{yb1:.1f}">įprasta</text><text x="{lx}" y="{yb1 + fs + 3:.1f}">{num(band[0], 0)}–{num(band[1], 0)}</text>')
+        side.append(f'<text x="{lx}" y="{yb1:.1f}">{tr("įprasta", "normal")}</text><text x="{lx}" y="{yb1 + fs + 3:.1f}">{num(band[0], 0)}–{num(band[1], 0)}</text>')
     v = vmin
     while v <= vmax + 1e-9:
         side.append(f'<text x="{x0 - 8}" y="{Y(v) + 4:.1f}" text-anchor="end">{num(v, 0)}</text>')
         v += step
     for t in ticks:
         anchor = "start" if t == 0 else "end" if t == 24 else "middle"
-        side.append(f'<text x="{X(t):.1f}" y="{yb + fs + 9}" text-anchor="{anchor}">{"0 val." if t == 0 else t}</text>')
+        side.append(f'<text x="{X(t):.1f}" y="{yb + fs + 9}" text-anchor="{anchor}">{tr("0 val.", "0 h") if t == 0 else t}</text>')
     out.append(f'<g font-family="IBM Plex Mono, monospace" font-size="{fs}" fill="{D_MUTED}">{"".join(side)}</g>')
     out.append("</svg>")
     return "\n".join(out)
@@ -713,18 +834,24 @@ def map_svg(inp: Inputs, wide: bool) -> str:
             tip = _back(P[lvp], end, 6)
             fan.append(f'<path d="M{end[0]:.1f} {end[1]:.1f}L{tip[0]:.1f} {tip[1]:.1f}"{mk(lv, True)}/>')
     vb = "0 0 760 570" if wide else "262 96 448 448"
-    names = {"SE4": "Švedija (SE4)", "LV": "Latvija", "PL": "Lenkija"}
+    names = tr({"SE4": "Švedija (SE4)", "LV": "Latvija", "PL": "Lenkija"}, {"SE4": "Sweden (SE4)", "LV": "Latvia", "PL": "Poland"})
+    lt_name = tr("Lietuva", "Lithuania")
     kn = s["kaimynai"]
     lt_price = float(s["kaina"]["lt"])
 
     def flow_words(code, v):
         if abs(v) < 5:
-            return f"{names[code]} – prekybos srauto beveik nėra"
-        frm, to = ("iš " + {"SE4": "Švedijos", "LV": "Latvijos", "PL": "Lenkijos"}[code], "į Lietuvą") if v > 0 else \
-            ("iš Lietuvos", "į " + {"SE4": "Švediją", "LV": "Latviją", "PL": "Lenkiją"}[code])
+            return f"{names[code]} – " + tr("prekybos srauto beveik nėra", "almost no trade flow")
+        if LANG == "en":
+            z = {"SE4": "Sweden", "LV": "Latvia", "PL": "Poland"}[code]
+            frm, to = (f"from {z}", "to Lithuania") if v > 0 else ("from Lithuania", f"to {z}")
+        else:
+            frm, to = ("iš " + {"SE4": "Švedijos", "LV": "Latvijos", "PL": "Lenkijos"}[code], "į Lietuvą") if v > 0 else \
+                ("iš Lietuvos", "į " + {"SE4": "Švediją", "LV": "Latviją", "PL": "Lenkiją"}[code])
         return f"{frm} {to} {num(abs(v), 0)} MW"
-    aria = (f"Rinkos žemėlapis. Paros vidurkiai: Lietuva {num(lt_price)} €/MWh, Švedija (SE4) {num(kn['SE4'])}, "
-            f"Latvija {num(kn['LV'])}, Lenkija {num(kn['PL'])}. Srautai: " +
+    aria = (tr("Rinkos žemėlapis. Paros vidurkiai: ", "Market map. Daily averages: ")
+            + f"{lt_name} {num(lt_price)} €/MWh, {names['SE4']} {num(kn['SE4'])}, "
+            f"{names['LV']} {num(kn['LV'])}, {names['PL']} {num(kn['PL'])}. " + tr("Srautai: ", "Flows: ") +
             ", ".join(flow_words(c, v) for c, v in (("LV", lv), ("SE4", se), ("PL", pl))) + ".")
     o = [f'<svg class="{"mr-wide" if wide else "mr-narrow"}" viewBox="{vb}" role="img" aria-label="{ea(aria)}">', geo]
     o.append('<g fill="none" stroke-linecap="round" stroke-linejoin="round">')
@@ -748,12 +875,12 @@ def map_svg(inp: Inputs, wide: bool) -> str:
                  f'<text x="256" y="267" text-anchor="middle">{num(abs(se), 0)} MW</text>'
                  f'<text x="538" y="175" text-anchor="end">{num(abs(lv), 0)} MW</text>'
                  f'<text x="436" y="453" text-anchor="end">{num(abs(pl), 0)} MW</text></g>')
-        lines = [f"vėjas {num(s['vėjas']['mw'], 0)} MW · saulė {num(s['saulė']['mw'], 0)} MW"]
+        lines = [f"{tr('vėjas', 'wind')} {num(s['vėjas']['mw'], 0)} MW · {tr('saulė', 'solar')} {num(s['saulė']['mw'], 0)} MW"]
         kg = s.get("kita_gamyba")
         if kg and _hours_span(kg.get("valandos")) >= 12:
-            lines.append(f"kita gamyba {num(kg['mw'], 0)} MW")
-        lines.append(f"{'importas' if tot >= 0 else 'eksportas'} {num(abs(tot), 0)} MW · {abs(share)}{NB}%")
-        o.append(f'<g text-anchor="middle" fill="{D_BG}"><text x="549" y="264" font-family="IBM Plex Mono, monospace" font-size="13" fill="#3B4A68">Lietuva</text>'
+            lines.append(f"{tr('kita gamyba', 'other generation')} {num(kg['mw'], 0)} MW")
+        lines.append(f"{tr('importas', 'import') if tot >= 0 else tr('eksportas', 'export')} {num(abs(tot), 0)} MW · {abs(share)}{tr(NB, '')}%")
+        o.append(f'<g text-anchor="middle" fill="{D_BG}"><text x="549" y="264" font-family="IBM Plex Mono, monospace" font-size="13" fill="#3B4A68">{lt_name}</text>'
                  f'<text x="549" y="300"><tspan font-family="Barlow, sans-serif" font-size="36" font-weight="600">{num(lt_price)}</tspan><tspan font-family="IBM Plex Mono, monospace" font-size="13" dx="6">€/MWh</tspan></text>'
                  f'<g font-family="Open Sans, sans-serif" font-size="13" font-weight="600">' +
                  "".join(f'<text x="549" y="{323 + 19 * i}">{t}</text>' for i, t in enumerate(lines)) + "</g></g>")
@@ -766,11 +893,11 @@ def map_svg(inp: Inputs, wide: bool) -> str:
                  f'<text x="272" y="322" text-anchor="start">{num(abs(se), 0)} MW</text>'
                  f'<text x="538" y="170" text-anchor="end">{num(abs(lv), 0)} MW</text>'
                  f'<text x="436" y="450" text-anchor="end">{num(abs(pl), 0)} MW</text></g>')
-        o.append(f'<g text-anchor="middle" fill="{D_BG}"><text x="549" y="264" font-family="IBM Plex Mono, monospace" font-size="17" fill="#3B4A68">Lietuva</text>'
+        o.append(f'<g text-anchor="middle" fill="{D_BG}"><text x="549" y="264" font-family="IBM Plex Mono, monospace" font-size="17" fill="#3B4A68">{lt_name}</text>'
                  f'<text x="549" y="310"><tspan font-family="Barlow, sans-serif" font-size="46" font-weight="600">{num(lt_price)}</tspan><tspan font-family="IBM Plex Mono, monospace" font-size="17" dx="6">€/MWh</tspan></text>'
                  f'<g font-family="Open Sans, sans-serif" font-size="15" font-weight="600">'
-                 f'<text x="549" y="335">vėjas {num(s["vėjas"]["mw"], 0)} MW · saulė {num(s["saulė"]["mw"], 0)} MW</text>'
-                 f'<text x="549" y="357">{"importas" if tot >= 0 else "eksportas"} {num(abs(tot), 0)} MW · {abs(share)}{NB}%</text></g></g>')
+                 f'<text x="549" y="335">{tr("vėjas", "wind")} {num(s["vėjas"]["mw"], 0)} MW · {tr("saulė", "solar")} {num(s["saulė"]["mw"], 0)} MW</text>'
+                 f'<text x="549" y="357">{tr("importas", "import") if tot >= 0 else tr("eksportas", "export")} {num(abs(tot), 0)} MW · {abs(share)}{tr(NB, "")}%</text></g></g>')
     o.append("</svg>")
     return "\n".join(o)
 
@@ -785,78 +912,99 @@ def _hours_span(v) -> int:
 
 # ─── fragmentas svetainei ────────────────────────────────────────────────────
 
-def block_overview(inp: Inputs) -> str:
+def overview_rows(inp: Inputs) -> list[tuple[str, str]]:
     rows = []
     if inp.price is not None:
-        rows.append(("Elektra", energy_overview(inp)))
+        rows.append((tr("Elektra", "Electricity"), energy_overview(inp)))
     if today_items(inp):
-        rows.append(("Šiandien", e(today_overview(inp))))
+        rows.append((tr("Šiandien", "Today"), e(today_overview(inp))))
     if inp.grants and DAILY_SLOW:
         rows.append(("Paramos", e(grants_overview(inp))))
     if inp.legal and DAILY_SLOW:
         rows.append(("Teisės aktai", e(legal_overview(inp))))
     if inp.news:
-        rows.append(("Naujienos", e(news_overview(inp))))
+        rows.append((tr("Naujienos", "News"), e(news_overview(inp))))
+    return rows
+
+
+def block_overview(inp: Inputs) -> str:
+    rows = overview_rows(inp)
     if not rows:
         return ""
     li = "\n".join(f'<li class="mr-sip-row"><span class="mr-sip-topic">{t}</span><span class="mr-sip-text">{x}</span></li>' for t, x in rows)
-    return f'<section class="mr-block mr-lead">\n<h2 class="mr-h">Apžvalga</h2>\n<ul class="mr-sip">\n{li}\n</ul>\n</section>'
+    return f'<section class="mr-block mr-lead">\n<h2 class="mr-h">{tr("Apžvalga", "Overview")}</h2>\n<ul class="mr-sip">\n{li}\n</ul>\n</section>'
 
 
 def block_energy(inp: Inputs) -> str:
     d = inp.day
-    o = ['<section class="mr-block">', '<h2 class="mr-h">Elektros rinka</h2>',
-         f'<p class="mr-sub">{cap(WEEKDAYS[d.weekday()])}, {day_short(d)} · Lietuvos prekybos zona · kitos paros rinka</p>',
+    o = ['<section class="mr-block">', f'<h2 class="mr-h">{tr("Elektros rinka", "Electricity market")}</h2>',
+         f'<p class="mr-sub">{weekday_name(d)}, {day_short(d)} · ' + tr("Lietuvos prekybos zona · kitos paros rinka",
+                                                                        "Lithuanian bidding zone · day-ahead market") + '</p>',
          f'<p class="mr-headline">{e(energy_headline(inp))}</p>'] + [f'<p class="mr-text">{e(t)}</p>' for t in energy_paragraphs(inp)]
     s = inp.sit
     if s:
         o.append('<div class="mr-pair">')
-        o.append('<figure class="mr-fig mr-fig-map mr-fig-dark">\n<figcaption class="mr-cap">Rinkos žemėlapis: paros vidurkiai, €/MWh, ir prekybos srautai, MW</figcaption>')
+        o.append('<figure class="mr-fig mr-fig-map mr-fig-dark">\n<figcaption class="mr-cap">'
+                 + tr("Rinkos žemėlapis: paros vidurkiai, €/MWh, ir prekybos srautai, MW",
+                      "Market map: daily averages, €/MWh, and trade flows, MW") + '</figcaption>')
         o.append(map_svg(inp, True))
         o.append(map_svg(inp, False))
         o.append("</figure>")
         c = contributions(inp)
-        items = sorted([(c.get(k, 0.0), k, name) for k, name in drivers(inp)], key=lambda t: -t[0]) + [(c.get("kita", 0.0), "kita", "Kita")]
+        items = sorted([(c.get(k, 0.0), k, name) for k, name in drivers(inp)], key=lambda t: -t[0]) + [(c.get("kita", 0.0), "kita", other_name())]
         li = []
         for v, key, name in items:
             r = round(v)
             cls = "mr-other" if key == "kita" or r == 0 else ("mr-raise" if r > 0 else "mr-lower")
             li.append(f'<li class="mr-driver {cls}" data-value="{r}"><span class="mr-driver-name">{name}</span><span class="mr-driver-val">{sgn(r)}</span></li>')
         k = s["kaina"]
-        o.append('<div class="mr-drivers">\n<h3 class="mr-h3">Kas lemia kainą</h3>\n<p class="mr-sub">nuokrypis nuo kainos įprastomis sąlygomis, €/MWh</p>')
+        o.append('<div class="mr-drivers">\n<h3 class="mr-h3">' + tr("Kas lemia kainą", "What drives the price") + '</h3>\n<p class="mr-sub">'
+                 + tr("nuokrypis nuo kainos įprastomis sąlygomis, €/MWh", "deviation from the price under normal conditions, €/MWh") + '</p>')
         o.append('<ul class="mr-driver-list">\n' + "\n".join(li) + "\n</ul>")
-        o.append(f'<p class="mr-driver-total">įprastomis sąlygomis <b>{num(k["norma"], 0)}</b> → šiandien <b>{num(k["lt"])}</b> '
+        o.append(f'<p class="mr-driver-total">{tr("įprastomis sąlygomis", "normal conditions")} <b>{num(k["norma"], 0)}</b> → {tr("šiandien", "today")} <b>{num(k["lt"])}</b> '
                  f'<span class="mr-delta">{sgn(float(k["lt"]) - float(k["norma"]))}</span></p>')
-        o.append('<p class="mr-keys"><span class="mr-key mr-raise">kelia kainą</span><span class="mr-key mr-lower">mažina kainą</span><span class="mr-key mr-other">kita</span></p>')
+        o.append(f'<p class="mr-keys"><span class="mr-key mr-raise">{tr("kelia kainą", "raises the price")}</span><span class="mr-key mr-lower">{tr("mažina kainą", "lowers the price")}</span>'
+                 f'<span class="mr-key mr-other">{tr("kita", "other")}</span></p>')
         o.append(f'<p class="mr-note">{e(drivers_note(inp))}</p>\n</div>\n</div>')
-        o.append('<h3 class="mr-h3">Sąlygos šiandien</h3>')
+        o.append(f'<h3 class="mr-h3">{tr("Sąlygos šiandien", "Conditions today")}</h3>')
         kp = []
-        for lbl, val, unit, note in conditions(inp):
-            if lbl == "Jungtys":
+        for key, lbl, val, unit, norm, state in conditions(inp):
+            if key == "jungtys":
                 cd = float((s.get("sąlygos") or {}).get("cap_def") or 0)
+                lbl_cap = tr("Pralaidumų ribojimas", "Capacity restriction")
                 if caps_known(inp):
-                    kp.append(_kpi("Pralaidumų ribojimas", num(cd, 0), "MW", lines_note(inp) or ("importo pralaidumai neriboti" if cd < 1 else "trūksta iki įprasto importo pralaidumo")))
+                    kp.append(_kpi(lbl_cap, num(cd, 0), "MW", lines_note(inp) or (tr("importo pralaidumai neriboti", "import capacity not restricted") if cd < 1
+                                                                                  else tr("trūksta iki įprasto importo pralaidumo", "short of normal import capacity"))))
                 else:
-                    kp.append(_kpi("Pralaidumų ribojimas", "–", "", "pralaidumų duomenys negauti"))
+                    kp.append(_kpi(lbl_cap, "–", "", tr("pralaidumų duomenys negauti", "capacity data not received")))
             else:
-                kp.append(_kpi(lbl, val, unit, note))
+                kp.append(_kpi(lbl, val, unit, f"{norm} · {state}"))
         o.append('<div class="mr-kpis">\n' + "\n".join(kp) + "\n</div>")
     if inp.hours:
         h = inp.hours
         band = s["kaina"]["intervalas"] if s else None
         avg = sum(h) / 24
-        aria = (f"Valandinės elektros kainos Lietuvoje {day_short(d)}: nuo {num(min(h))} iki {num(max(h))} €/MWh, paros vidurkis {num(avg)} €/MWh"
-                + (f", įprasta {num(band[0], 0)}–{num(band[1], 0)} €/MWh" if band else ""))
-        o.append('<figure class="mr-fig mr-fig-curve mr-fig-dark">\n<figcaption class="mr-cap">Kaina per parą: valandinės kainos, €/MWh, Lietuvos laiku'
-                 + (", pilka juosta – įprastas lygis" if band else "") + "</figcaption>")
+        aria = (tr(f"Valandinės elektros kainos Lietuvoje {day_short(d)}: nuo {num(min(h))} iki {num(max(h))} €/MWh, paros vidurkis {num(avg)} €/MWh",
+                   f"Hourly electricity prices in Lithuania on {day_short(d)}: from {num(min(h))} to {num(max(h))} €/MWh, daily average {num(avg)} €/MWh")
+                + (tr(f", įprasta {num(band[0], 0)}–{num(band[1], 0)} €/MWh", f", normal {num(band[0], 0)}–{num(band[1], 0)} €/MWh") if band else ""))
+        o.append('<figure class="mr-fig mr-fig-curve mr-fig-dark">\n<figcaption class="mr-cap">'
+                 + tr("Kaina per parą: valandinės kainos, €/MWh, Lietuvos laiku", "Price through the day: hourly prices, €/MWh, Lithuanian time")
+                 + (tr(", pilka juosta – įprastas lygis", ", grey band – normal level") if band else "") + "</figcaption>")
         o.append(curve_svg(h, band, avg, True, aria))
         o.append(curve_svg(h, band, avg, False, aria))
         o.append("</figure>")
-    note = ("Vėjas, saulė ir vartojimas – kitos paros prognozės; srautai – kitos paros prekybos grafikai; importo dalis – nuo vartojimo. "
-            if s else "Veiksnių šiandien apskaičiuoti nepavyko, todėl rodomos tik kainos. ")
-    o.append(f'<p class="mr-note">{note}Šaltiniai: ENTSO-E, Elering, EEX, ICE (TTF). Skaičiavimai – MB Enerconsult.</p>')
+    note = (tr("Vėjas, saulė ir vartojimas – kitos paros prognozės; srautai – kitos paros prekybos grafikai; importo dalis – nuo vartojimo. ",
+               "Wind, solar and consumption are day-ahead forecasts; flows are day-ahead trade schedules; the import share is relative to consumption. ")
+            if s else tr("Veiksnių šiandien apskaičiuoti nepavyko, todėl rodomos tik kainos. ",
+                         "The price drivers could not be calculated today, so only prices are shown. "))
+    o.append(f'<p class="mr-note">{note}{energy_sources()}</p>')
     o.append("</section>")
     return "\n".join(o)
+
+
+def energy_sources() -> str:
+    return tr("Šaltiniai: ENTSO-E, Elering, EEX, ICE (TTF). Skaičiavimai – MB Enerconsult.",
+              "Sources: ENTSO-E, Elering, EEX, ICE (TTF). Calculations by MB Enerconsult.")
 
 
 def _kpi(label, value, unit, note) -> str:
@@ -865,23 +1013,29 @@ def _kpi(label, value, unit, note) -> str:
             f'<span class="mr-kpi-note">{note}</span></div>')
 
 
-def conditions(inp: Inputs) -> list[tuple[str, str, str, str]]:
+def conditions(inp: Inputs) -> list[tuple[str, str, str, str, str, str]]:
+    """(raktas, pavadinimas, reikšmė, vienetai, įprasta – su žodžiu „įprasta“ ar „12 mėn. vidurkis“, būsena)."""
     s = inp.sit
-    out = [("Vartojimas", num(s["vartojimas"]["mw"], 0), "MW", f"įprasta {num(s['vartojimas']['norma'], 0)} · {s['vartojimas']['būsena']}"),
-           ("Vėjas", num(s["vėjas"]["mw"], 0), "MW", f"įprasta {num(s['vėjas']['norma'], 0)} · {s['vėjas']['būsena']}"),
-           ("Saulė", num(s["saulė"]["mw"], 0), "MW", f"įprasta {num(s['saulė']['norma'], 0)} · {s['saulė']['būsena']}")]
+    nrm = lambda v: f"{tr('įprasta', 'normal')} {num(v, 0)}"
+    out = [("vartojimas", tr("Vartojimas", "Consumption"), num(s["vartojimas"]["mw"], 0), "MW", nrm(s["vartojimas"]["norma"]), st_txt(s["vartojimas"]["būsena"])),
+           ("vėjas", tr("Vėjas", "Wind"), num(s["vėjas"]["mw"], 0), "MW", nrm(s["vėjas"]["norma"]), st_txt(s["vėjas"]["būsena"])),
+           ("saulė", tr("Saulė", "Solar"), num(s["saulė"]["mw"], 0), "MW", nrm(s["saulė"]["norma"]), st_txt(s["saulė"]["būsena"]))]
     kg = s.get("kita_gamyba")
     if kg and _hours_span(kg.get("valandos")) >= 12:
-        out.append(("Kita gamyba", num(kg["mw"], 0), "MW", f"įprasta {num(kg['norma'], 0)} · {kg['būsena']}"))
+        out.append(("kita_gamyba", tr("Kita gamyba", "Other generation"), num(kg["mw"], 0), "MW", nrm(kg["norma"]), st_txt(kg["būsena"])))
     g = s["dujos"]
-    out.append(("Dujos (TTF)", num(g["ttf"]), "€/MWh", f"12 mėn. vidurkis {num(g['norma_12mėn'])} · {g['būsena']}"))
+    out.append(("dujos", tr("Dujos (TTF)", "Gas (TTF)"), num(g["ttf"]), "€/MWh", f"{tr('12 mėn. vidurkis', '12-month average')} {num(g['norma_12mėn'])}",
+                st_txt(g["būsena"])))
     cd = float((s.get("sąlygos") or {}).get("cap_def") or 0)
+    lbl = tr("Jungtys", "Interconnectors")
     if not caps_known(inp):
-        out.append(("Jungtys", "nėra duomenų", "", "pralaidumų duomenys negauti"))
+        out.append(("jungtys", lbl, tr("nėra duomenų", "no data"), "", "", tr("pralaidumų duomenys negauti", "capacity data not received")))
     else:
         full = bool(sum(lines_full(inp), []))
-        out.append(("Jungtys", f"apribotos {num(cd, 0)}{NB}MW" if cd >= 1 else "pilnai apkrautos" if full else "neribojamos", "",
-                    lines_note(inp) or ("importo pralaidumai į Lietuvą" if cd < 1 else "trūksta iki įprasto importo pralaidumo")))
+        val = (tr(f"apribotos {num(cd, 0)}{NB}MW", f"restricted by {num(cd, 0)}{NB}MW") if cd >= 1
+               else tr("pilnai apkrautos", "fully loaded") if full else tr("neribojamos", "not restricted"))
+        out.append(("jungtys", lbl, val, "", "", lines_note(inp) or (tr("importo pralaidumai į Lietuvą", "import capacity into Lithuania") if cd < 1
+                                                                     else tr("trūksta iki įprasto importo pralaidumo", "short of normal import capacity"))))
     return out
 
 
@@ -895,6 +1049,8 @@ def news_sorted(inp: Inputs) -> list[dict]:
 
 
 def news_overview(inp: Inputs) -> str:
+    if LANG == "en":
+        return en().news_overview(inp)
     items = news_sorted(inp)
     top, rest = items[0], items[1:]
     s = top["pavadinimas"].rstrip(".") + "."
@@ -915,26 +1071,27 @@ def block_news(inp: Inputs) -> str:
         if n.get("šaltinis") and n["šaltinis"] not in srcs:
             srcs.append(n["šaltinis"])
     cnt = len(items)
-    o = ['<section class="mr-block">', '<h2 class="mr-h">Naujienos</h2>',
-         f'<p class="mr-sub">{cnt} {plural(cnt, "naujiena", "naujienos", "naujienų")} per parą · {e(", ".join(srcs))}</p>',
+    count = tr(f"{cnt} {plural(cnt, 'naujiena', 'naujienos', 'naujienų')} per parą", f"{cnt} {'item' if cnt == 1 else 'items'} in the past 24 hours")
+    o = ['<section class="mr-block">', f'<h2 class="mr-h">{tr("Naujienos", "News")}</h2>',
+         f'<p class="mr-sub">{count} · {e(", ".join(srcs))}</p>',
          '<div class="mr-news-list">']
     for n in items:
         sev = SEV.get(n.get("svarba"))
         cls = "mr-news" + (f" mr-sev-{sev}" if sev else "")
-        title = e(n["pavadinimas"])
+        title = e(nf(n, "pavadinimas"))
         if https(n.get("nuoroda")):
             title = f'<a href="{ea(n["nuoroda"])}">{title}</a>'
-        o.append(f'<article class="{cls}"><p class="mr-news-meta"><span class="mr-region">{e(n["regionas"])}</span>'
+        o.append(f'<article class="{cls}"><p class="mr-news-meta"><span class="mr-region">{e(region_name(n["regionas"]))}</span>'
                  f'<span class="mr-source">{e(n.get("šaltinis") or "")}</span></p>'
-                 f'<h3 class="mr-news-topic">{title}</h3><p class="mr-news-text">{e(n["santrauka"])}</p></article>')
+                 f'<h3 class="mr-news-topic">{title}</h3><p class="mr-news-text">{e(nf(n, "santrauka"))}</p></article>')
     o += ["</div>", "</section>"]
     return "\n".join(o)
 
 
 def world_sections(pr: dict) -> dict:
-    """Analizės tekstas pagal antraštes (be jaustukų)."""
+    """Analizės tekstas pagal antraštes (be jaustukų); angliškai – analizė_md_en."""
     out, cur = {}, None
-    for line in (pr.get("analizė_md") or "").splitlines():
+    for line in (pr.get(tr("analizė_md", "analizė_md_en")) or "").splitlines():
         if line.startswith("### "):
             cur = re.sub(r"[^\w\s,.–-]", "", line[4:]).strip()
             out[cur] = []
@@ -959,7 +1116,9 @@ def world_chain_svg(pr: dict) -> str | None:
     vmax = math.ceil(top * 1.1 / 50) * 50
     X0, X1 = 250.0, 900.0
     sx = lambda v: X0 + v / vmax * (X1 - X0)
-    o = [f'<svg viewBox="0 0 1000 190" role="img" aria-label="{ea(f"Dujinių elektrinių kintamieji kaštai: nauja {num(ccgt["iš_viso"])}, senesnė {num(old["iš_viso"])} €/MWh; Lietuvos paros vidurkis {num(avg)} €/MWh")}">']
+    aria = tr(f"Dujinių elektrinių kintamieji kaštai: nauja {num(ccgt['iš_viso'])}, senesnė {num(old['iš_viso'])} €/MWh; Lietuvos paros vidurkis {num(avg)} €/MWh",
+              f"Variable costs of gas-fired plants: new {num(ccgt['iš_viso'])}, older {num(old['iš_viso'])} €/MWh; Lithuanian daily average {num(avg)} €/MWh")
+    o = [f'<svg viewBox="0 0 1000 190" role="img" aria-label="{ea(aria)}">']
     grid, labs = [], []
     v = 0
     while v <= vmax + 1e-9:
@@ -968,25 +1127,26 @@ def world_chain_svg(pr: dict) -> str | None:
         v += 50
     o.append(f'<g stroke="#FFFFFF" stroke-opacity="0.1" stroke-width="1">{"".join(grid)}</g>')
     o.append(f'<line x1="{X0}" y1="148" x2="{X1}" y2="148" stroke="{D_MUTED}" stroke-opacity="0.7" stroke-width="1"/>')
-    for (name, sub, dd, y) in (("Nauja dujinė elektrinė", "naudingumas 55 %", ccgt, 46), ("Senesnė dujinė elektrinė", "naudingumas 40 %", old, 100)):
+    for (name, sub, dd, y) in ((tr("Nauja dujinė elektrinė", "New gas-fired plant"), tr("naudingumas 55 %", "efficiency 55%"), ccgt, 46),
+                               (tr("Senesnė dujinė elektrinė", "Older gas-fired plant"), tr("naudingumas 40 %", "efficiency 40%"), old, 100)):
         a, b, cc, dd2 = sx(0), sx(dd["kuras"]), sx(dd["kuras"] + dd["co2"]), sx(dd["kuras"] + dd["co2"] + dd["vom"])
         o.append(f'<rect x="{a:.1f}" y="{y}" width="{b - a:.1f}" height="30" fill="#C5D1E3"/>'
                  f'<rect x="{b:.1f}" y="{y}" width="{cc - b:.1f}" height="30" fill="#7C8AA3"/>'
                  f'<rect x="{cc:.1f}" y="{y}" width="{dd2 - cc:.1f}" height="30" fill="#3B4A68"/>')
         o.append(f'<g font-family="IBM Plex Mono, monospace" font-size="13" font-weight="500" fill="{D_BG}">'
-                 f'<text x="{a + 10:.1f}" y="{y + 20}">kuras {num(dd["kuras"])}</text>'
+                 f'<text x="{a + 10:.1f}" y="{y + 20}">{tr("kuras", "fuel")} {num(dd["kuras"])}</text>'
                  + (f'<text x="{b + 8:.1f}" y="{y + 20}">CO2 {num(dd["co2"])}</text>' if cc - b > 80 else "") + "</g>")
         o.append(f'<text x="0" y="{y + 13}" font-family="Open Sans, sans-serif" font-size="15" font-weight="600" fill="{D_INK}">{name}</text>'
                  f'<text x="0" y="{y + 30}" font-family="IBM Plex Mono, monospace" font-size="13" fill="{D_MUTED}">{sub}</text>'
                  f'<text x="1000" y="{y + 21}" text-anchor="end" font-family="Barlow, sans-serif" font-size="18" font-weight="600" fill="{D_INK}">{num(dd["iš_viso"])}</text>')
     xm = sx(avg)
     o.append(f'<line x1="{xm:.1f}" y1="30" x2="{xm:.1f}" y2="148" stroke="{D_INK}" stroke-width="1.5" stroke-dasharray="4 3"/>'
-             f'<text x="{xm - 6:.1f}" y="22" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="500" fill="{D_INK}">paros vidurkis {num(avg)}</text>')
+             f'<text x="{xm - 6:.1f}" y="22" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="500" fill="{D_INK}">{tr("paros vidurkis", "daily average")} {num(avg)}</text>')
     if eve is not None:
         xe = sx(eve)
         o.append(f'<line x1="{xe:.1f}" y1="30" x2="{xe:.1f}" y2="148" stroke="#F2A93B" stroke-width="1.5" stroke-dasharray="4 3"/>'
-                 f'<text x="{xe + 6:.1f}" y="22" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="500" fill="#F2A93B">vakaro pikas {num(eve)}</text>')
-    o.append(f'<g font-family="IBM Plex Mono, monospace" font-size="13" fill="{D_MUTED}">{"".join(labs)}<text x="1000" y="22" text-anchor="end">iš viso</text></g>')
+                 f'<text x="{xe + 6:.1f}" y="22" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="500" fill="#F2A93B">{tr("vakaro pikas", "evening peak")} {num(eve)}</text>')
+    o.append(f'<g font-family="IBM Plex Mono, monospace" font-size="13" fill="{D_MUTED}">{"".join(labs)}<text x="1000" y="22" text-anchor="end">{tr("iš viso", "total")}</text></g>')
     o.append("</svg>")
     return "\n".join(o)
 
@@ -994,7 +1154,8 @@ def world_chain_svg(pr: dict) -> str | None:
 def world_kpis(pr: dict) -> list[tuple]:
     R = pr["rodikliai"]
     rows = []
-    for key, label in (("brent", "Nafta (Brent)"), ("ttf", "Dujos (TTF)"), ("eua", "Taršos leidimai (ATL)")):
+    for key, label in (("brent", tr("Nafta (Brent)", "Oil (Brent)")), ("ttf", tr("Dujos (TTF)", "Gas (TTF)")),
+                       ("eua", tr("Taršos leidimai (ATL)", "Emission allowances (EUA)"))):
         r = R[key]
         rows.append((label, r["reikšmė"], r.get("vienetai", ""), r.get("pokytis_d_proc"), r.get("pokytis_7d_proc"), r.get("pokytis_30d_proc")))
     return rows
@@ -1008,35 +1169,41 @@ def block_world(inp: Inputs) -> str:
     m = re.match(r"(\d{4})-(\d\d)-(\d\d)T(\d\d:\d\d)", t)
     if m:
         dq = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
-        when = f"kotiruotės {day_short(dq)} {m.group(4)} · "
-    o = ['<section class="mr-block">', '<h2 class="mr-h">Pasaulio rinkos</h2>',
-         f'<p class="mr-sub">{when}nafta, dujos ir taršos leidimai · poveikis Lietuvos elektros kainai</p>', '<div class="mr-kpis">']
+        when = f"{tr('kotiruotės', 'quotes as of')} {day_short(dq)} {m.group(4)} · "
+    o = ['<section class="mr-block">', f'<h2 class="mr-h">{tr("Pasaulio rinkos", "Global markets")}</h2>',
+         f'<p class="mr-sub">{when}' + tr("nafta, dujos ir taršos leidimai · poveikis Lietuvos elektros kainai",
+                                         "oil, gas and emission allowances · impact on the Lithuanian electricity price") + '</p>', '<div class="mr-kpis">']
     for label, val, unit, d1, d7, d30 in world_kpis(pr):
         note = []
         if d1 is not None:
-            note.append(f'<span class="mr-delta">{pct(d1)}</span> per dieną')
+            note.append(f'<span class="mr-delta">{pct(d1)}</span> ' + tr("per dieną", "on the day"))
         if d7 is not None:
-            note.append(f"{pct(d7)} per 7 d.")
+            note.append(f"{pct(d7)} " + tr("per 7 d.", "over 7 days"))
         o.append(_kpi(label, num(val, 2), e(unit), ", ".join(note)))
     o.append("</div>")
     sec = world_sections(pr)
-    if sec.get("Santrauka"):
-        o.append(f'<p class="mr-text">{_md_inline(" ".join(sec["Santrauka"]))}</p>')
+    summary = tr("Santrauka", "Summary")
+    if sec.get(summary):
+        o.append(f'<p class="mr-text">{_md_inline(" ".join(sec[summary]))}</p>')
     ch = world_chain_svg(pr)
     if ch:
-        o.append('<figure class="mr-fig mr-fig-dark">\n<figcaption class="mr-cap">Nuo dujų iki elektros kainos: dujinių elektrinių kintamieji kaštai ir Lietuvos kaina, €/MWh</figcaption>')
+        o.append('<figure class="mr-fig mr-fig-dark">\n<figcaption class="mr-cap">'
+                 + tr("Nuo dujų iki elektros kainos: dujinių elektrinių kintamieji kaštai ir Lietuvos kaina, €/MWh",
+                      "From gas to the electricity price: variable costs of gas-fired plants and the Lithuanian price, €/MWh") + '</figcaption>')
         o.append(ch)
         o.append("</figure>")
-        o.append('<p class="mr-note">Šviesi juostos dalis – kuras (TTF kaina, padalyta iš naudingumo), pilka – CO2 (ATL kaina pagal išmetimus), tamsi – kiti kintamieji kaštai.</p>')
-    for name in ("Nafta", "Dujos ir SGD", "Poveikis Lietuvai"):
+        o.append('<p class="mr-note">' + tr("Šviesi juostos dalis – kuras (TTF kaina, padalyta iš naudingumo), pilka – CO2 (ATL kaina pagal išmetimus), tamsi – kiti kintamieji kaštai.",
+                                           "Light part of the bar – fuel (TTF price divided by efficiency), grey – CO2 (EUA price by emissions), dark – other variable costs.") + '</p>')
+    for name in tr(("Nafta", "Dujos ir SGD", "Poveikis Lietuvai"), ("Oil", "Gas and LNG", "Impact on Lithuania")):
         key = next((k for k in sec if k.startswith(name)), None)
         if key and sec[key]:
             o.append(f'<h3 class="mr-h3">{e(name)}</h3>\n<p class="mr-text">{_md_inline(" ".join(sec[key]))}</p>')
-    watch_key = next((k for k in sec if k.startswith("Ką stebėti")), None)
+    watch = tr("Ką stebėti", "What to watch")
+    watch_key = next((k for k in sec if k.startswith(watch)), None)
     if watch_key:
         items = [re.sub(r"^[-•]\s*", "", x) for x in sec[watch_key] if x.startswith(("-", "•"))]
         if items:
-            o.append('<h3 class="mr-h3">Ką stebėti</h3>\n' + "\n".join(f'<p class="mr-text">– {_md_inline(x)}</p>' for x in items))
+            o.append(f'<h3 class="mr-h3">{watch}</h3>\n' + "\n".join(f'<p class="mr-text">– {_md_inline(x)}</p>' for x in items))
     o.append("</section>")
     return "\n".join(o)
 
@@ -1108,6 +1275,9 @@ def today_items(inp: Inputs) -> list[str]:
     """Kas vyksta šiandien ar rytoj: paramų terminai ir pradžios, teisės aktų įsigaliojimas."""
     if getattr(inp, "_today", None) is not None:
         return inp._today
+    if LANG == "en":
+        inp._today = en().today_items(inp)
+        return inp._today
     d = inp.day
     iso, tom = d.isoformat(), date.fromordinal(d.toordinal() + 1).isoformat()
     base = getattr(inp, "data_dir", None) or os.path.join(ROOT, "data")
@@ -1132,6 +1302,8 @@ def today_items(inp: Inputs) -> list[str]:
 
 
 def today_overview(inp: Inputs) -> str:
+    if LANG == "en":
+        return en().today_overview(inp)
     it = today_items(inp)
     n = len(it) - 1
     return it[0] + (f" Dar {n} {plural(n, 'terminas', 'terminai', 'terminų')} – žemiau." if n > 0 else "")
@@ -1144,20 +1316,23 @@ def block_today(inp: Inputs) -> str:
     # paprastos pastraipos (kaip „Ką stebėti“): mr-sip – apžvalgos dviejų stulpelių išdėstymas,
     # be temos stulpelio tekstas svetainėje suspaudžiamas į siaurą pirmą stulpelį (2026-11-23)
     li = "\n".join(f'<p class="mr-text">{"– " if len(it) > 1 else ""}{e(x)}</p>' for x in it)
-    return f'<section class="mr-block">\n<h2 class="mr-h">Šiandien</h2>\n<p class="mr-sub">Paramų terminai ir teisės aktų įsigaliojimas</p>\n{li}\n</section>'
+    return (f'<section class="mr-block">\n<h2 class="mr-h">{tr("Šiandien", "Today")}</h2>\n<p class="mr-sub">'
+            + tr("Paramų terminai ir teisės aktų įsigaliojimas", "Grant deadlines and legislation taking effect")
+            + f'</p>\n{li}\n</section>')
 
 
 def mail_today(inp: Inputs) -> str:
     it = today_items(inp)
     if not it:
         return ""
-    tr = "".join(f'<tr><td width="14" valign="top" style="padding:4px 0; font-family:{FONT}; font-size:13px; line-height:19px; color:{INK};">–</td>'
-                 f'<td style="padding:4px 0; font-family:{FONT}; font-size:13px; line-height:19px; color:{INK2};">{e(x)}</td></tr>' for x in it)
-    return m_section("Šiandien", "Paramų terminai ir teisės aktų įsigaliojimas · visa savaitės apžvalga – pirmadieniais", m_table(tr))
+    rows = "".join(f'<tr><td width="14" valign="top" style="padding:4px 0; font-family:{FONT}; font-size:13px; line-height:19px; color:{INK};">–</td>'
+                   f'<td style="padding:4px 0; font-family:{FONT}; font-size:13px; line-height:19px; color:{INK2};">{e(x)}</td></tr>' for x in it)
+    return m_section(tr("Šiandien", "Today"), tr("Paramų terminai ir teisės aktų įsigaliojimas · visa savaitės apžvalga – pirmadieniais",
+                                                     "Grant deadlines and legislation taking effect · full weekly review on Mondays"), m_table(rows))
 
 
 def fragment(inp: Inputs, alerts: list[str]) -> str:
-    parts = [f'<article class="mr-report" data-date="{inp.day.isoformat()}">']
+    parts = [f'<article class="mr-report" data-date="{inp.day.isoformat()}"' + (' lang="en"' if LANG == "en" else "") + ">"]
     for a in alerts:
         parts.append(f'<p class="mr-alert">{e(a)}</p>')
     for b in (block_overview(inp),
@@ -1175,9 +1350,10 @@ def fragment(inp: Inputs, alerts: list[str]) -> str:
     if inp.world:
         src += ["Yahoo Finance", "ECB", "EIA"]
     now = datetime.now(VLN)
-    news_src = "; naujienų šaltiniai nurodyti prie kiekvienos naujienos" if inp.news else ""
-    parts.append(f'<footer class="mr-foot">\n<p class="mr-note">Šaltiniai: {e(", ".join(dict.fromkeys(src)) or "–")}{news_src}. '
-                 f'Skaičiavimai – MB Enerconsult. Parengta automatiškai {now:%Y-%m-%d %H:%M}.</p>\n</footer>')
+    news_src = tr("; naujienų šaltiniai nurodyti prie kiekvienos naujienos", "; news sources are given with each item") if inp.news else ""
+    parts.append(f'<footer class="mr-foot">\n<p class="mr-note">{tr("Šaltiniai", "Sources")}: {e(", ".join(dict.fromkeys(src)) or "–")}{news_src}. '
+                 + tr(f"Skaičiavimai – MB Enerconsult. Parengta automatiškai {now:%Y-%m-%d %H:%M}.",
+                      f"Calculations by MB Enerconsult. Prepared automatically {now:%Y-%m-%d %H:%M}.") + '</p>\n</footer>')
     parts.append("</article>")
     return "\n\n".join(parts) + "\n"
 
@@ -1199,7 +1375,7 @@ def m_p(text: str, size=14, lh=21, color=INK2, extra="") -> str:
 
 def mr_day_url(d: date) -> str:
     """Tos dienos ataskaita svetainėje (archyvo adresas – tinka ir šiandienai)."""
-    return f"{MR_URL}?data={d.isoformat()}"
+    return f"{mr_url()}?data={d.isoformat()}"
 
 
 def m_a(url: str, text: str, color: str = INK, underline: bool = True) -> str:
@@ -1216,6 +1392,9 @@ def m_button(url: str, text: str) -> str:
 
 
 def unsub_line() -> str:
+    if LANG == "en":
+        return ("You are receiving this email because you subscribed to Morning Report. To unsubscribe, reply with the word “Unsubscribe” or "
+                + m_a(f"mailto:{MR_MAILBOX}?subject=Unsubscribe", "write to us", INK2) + ".")
     mailto = f"mailto:{MR_MAILBOX}?subject=Atsisakyti"
     return ("Gaunate šį laišką, nes užsiprenumeravote Morning Report. Norėdami atsisakyti, atsakykite į šį laišką žodžiu „Atsisakyti“ arba "
             + m_a(mailto, "parašykite mums", INK2) + ".")
@@ -1224,10 +1403,11 @@ def unsub_line() -> str:
 def brevo_footer_lines() -> str:
     """Brevo laiško atsisakymo ir kontakto eilutės (vietoj unsub_line). {{ unsubscribe }} – Brevo asmeninė nuoroda."""
     mailto = f"mailto:{MR_MAILBOX}"
-    return ("Gaunate šį laišką, nes užsiprenumeravote Morning Report. "
-            + m_a("{{ unsubscribe }}", "Atsisakyti prenumeratos", INK2) + ".</p>"
+    return (tr("Gaunate šį laišką, nes užsiprenumeravote Morning Report. ", "You are receiving this email because you subscribed to Morning Report. ")
+            + m_a("{{ unsubscribe }}", tr("Atsisakyti prenumeratos", "Unsubscribe"), INK2) + ".</p>"
             + f'<p style="margin:0; padding-top:6px; font-family:{FONT}; font-size:12px; line-height:18px; color:{INK2};">'
-            + "Pastebėjote klaidą, kas nors neveikia ar norite ką nors pasakyti? Parašykite "
+            + tr("Pastebėjote klaidą, kas nors neveikia ar norite ką nors pasakyti? Parašykite ",
+                 "Spotted an error, something not working or want to tell us something? Write to ")
             + m_a(mailto, MR_MAILBOX, INK2) + ".")
 
 
@@ -1262,22 +1442,12 @@ def m_bar(width_pct: float, color: str, align="left") -> str:
 
 
 def mail_overview(inp: Inputs) -> str:
-    rows = []
-    if inp.price is not None:
-        rows.append(("Elektra", energy_overview(inp)))
-    if today_items(inp):
-        rows.append(("Šiandien", e(today_overview(inp))))
-    if inp.grants and DAILY_SLOW:
-        rows.append(("Paramos", e(grants_overview(inp))))
-    if inp.legal and DAILY_SLOW:
-        rows.append(("Teisės aktai", e(legal_overview(inp))))
-    if inp.news:
-        rows.append(("Naujienos", e(news_overview(inp))))
+    rows = overview_rows(inp)
     if not rows:
         return ""
-    tr = "".join(f'<tr><td width="28%" valign="top" style="padding:9px 8px 9px 0; border-top:1px solid {LINE}; font-family:{FONT}; font-size:14px; line-height:20px; font-weight:bold; color:{INK};">{t}</td>'
-                 f'<td valign="top" style="padding:9px 0; border-top:1px solid {LINE}; font-family:{FONT}; font-size:14px; line-height:20px; color:{INK2};">{x}</td></tr>' for t, x in rows)
-    return m_section("Apžvalga", None, m_table(tr), first=True)
+    rows_html = "".join(f'<tr><td width="28%" valign="top" style="padding:9px 8px 9px 0; border-top:1px solid {LINE}; font-family:{FONT}; font-size:14px; line-height:20px; font-weight:bold; color:{INK};">{t}</td>'
+                        f'<td valign="top" style="padding:9px 0; border-top:1px solid {LINE}; font-family:{FONT}; font-size:14px; line-height:20px; color:{INK2};">{x}</td></tr>' for t, x in rows)
+    return m_section(tr("Apžvalga", "Overview"), None, m_table(rows_html), first=True)
 
 
 def mail_energy(inp: Inputs) -> str:
@@ -1290,99 +1460,112 @@ def mail_energy(inp: Inputs) -> str:
         def flow(code, v, gen_to, gen_from):
             if abs(v) < 5:
                 return "–"
-            return f"į Lietuvą {num(abs(v), 0)}{NB}MW" if v > 0 else f"iš Lietuvos {num(abs(v), 0)}{NB}MW"
-        rows = m_th([("Zona", "", "left"), ("Kaina, €/MWh", "26%", "right"), ("Prekybos srautas", "36%", "left")])
-        rows += "<tr>" + m_td("Lietuva", bold=True, color=INK) + m_td(num(s["kaina"]["lt"]), "right", True, INK) + m_td("–") + "</tr>"
-        for code, name in (("LV", "Latvija"), ("SE4", "Švedija (SE4)"), ("PL", "Lenkija")):
+            return (tr("į Lietuvą", "to Lithuania") if v > 0 else tr("iš Lietuvos", "from Lithuania")) + f" {num(abs(v), 0)}{NB}MW"
+        rows = m_th([(tr("Zona", "Zone"), "", "left"), (tr("Kaina, €/MWh", "Price, €/MWh"), "26%", "right"), (tr("Prekybos srautas", "Trade flow"), "36%", "left")])
+        rows += "<tr>" + m_td(tr("Lietuva", "Lithuania"), bold=True, color=INK) + m_td(num(s["kaina"]["lt"]), "right", True, INK) + m_td("–") + "</tr>"
+        for code, name in tr((("LV", "Latvija"), ("SE4", "Švedija (SE4)"), ("PL", "Lenkija")), (("LV", "Latvia"), ("SE4", "Sweden (SE4)"), ("PL", "Poland"))):
             rows += "<tr>" + m_td(name, bold=True, color=INK) + m_td(num(kn[code]), "right", True, INK) + m_td(flow(code, m[code]["mw"], "", "")) + "</tr>"
         tot = m["iš_viso"]
-        inner += m_sub("Kainos ir srautai", "paros vidurkiai") + m_table(rows) + \
-            m_p(f"Lietuvoje: vėjas {num(s['vėjas']['mw'], 0)}{NB}MW, saulė {num(s['saulė']['mw'], 0)}{NB}MW. "
-                f"Grynasis {'importas' if tot['mw'] >= 0 else 'eksportas'} – {num(abs(tot['mw']), 0)}{NB}MW, {abs(tot['proc_vartojimo'])}{NB}% vartojimo.",
-                12, 18, INK2, " padding-top:6px;")
+        if LANG == "en":
+            mix = (f"In Lithuania: wind {num(s['vėjas']['mw'], 0)}{NB}MW, solar {num(s['saulė']['mw'], 0)}{NB}MW. "
+                   f"Net {'import' if tot['mw'] >= 0 else 'export'} – {num(abs(tot['mw']), 0)}{NB}MW, {abs(tot['proc_vartojimo'])}% of consumption.")
+        else:
+            mix = (f"Lietuvoje: vėjas {num(s['vėjas']['mw'], 0)}{NB}MW, saulė {num(s['saulė']['mw'], 0)}{NB}MW. "
+                   f"Grynasis {'importas' if tot['mw'] >= 0 else 'eksportas'} – {num(abs(tot['mw']), 0)}{NB}MW, {abs(tot['proc_vartojimo'])}{NB}% vartojimo.")
+        inner += m_sub(tr("Kainos ir srautai", "Prices and flows"), tr("paros vidurkiai", "daily averages")) + m_table(rows) + \
+            m_p(mix, 12, 18, INK2, " padding-top:6px;")
         # kas lemia kainą
         c = contributions(inp)
-        items = sorted([(c.get(k, 0.0), k, name) for k, name in drivers(inp)], key=lambda t: -t[0]) + [(c.get("kita", 0.0), "kita", "Kita")]
+        items = sorted([(c.get(k, 0.0), k, name) for k, name in drivers(inp)], key=lambda t: -t[0]) + [(c.get("kita", 0.0), "kita", other_name())]
         maxpos = max([v for v, _, _ in items if v > 0] + [1])
         maxneg = max([-v for v, _, _ in items if v < 0] + [1])
         unit = min(40 / maxpos, 20 / maxneg)          # procentai lentelės pločio vienam €/MWh
-        tr = ""
+        bars = ""
         for v, key, name in items:
             r = round(v)
             col = OTHER_BAR if key == "kita" else (RAISE_BAR if v > 0 else LOWER_BAR)
             neg = m_bar(abs(v) * unit / 20 * 100, col, "right") if r < 0 else "&nbsp;"
             pos = m_bar(abs(v) * unit / 40 * 100, col, "left") if r > 0 else "&nbsp;"
-            tr += (f'<tr><td width="34%" style="padding:4px 8px 4px 0; font-family:{FONT}; font-size:13px; line-height:18px; color:{INK};">{name}</td>'
+            bars += (f'<tr><td width="34%" style="padding:4px 8px 4px 0; font-family:{FONT}; font-size:13px; line-height:18px; color:{INK};">{name}</td>'
                    f'<td width="20%" valign="middle" style="padding:4px 0;">{neg}</td>'
                    f'<td width="1" bgcolor="{INK}" style="width:1px; background:{INK}; font-size:0; line-height:0;">&nbsp;</td>'
                    f'<td width="40%" valign="middle" style="padding:4px 0;">{pos}</td>'
                    f'<td align="right" style="padding:4px 0; font-family:{FONT}; font-size:14px; line-height:18px; font-weight:bold; color:{INK}; text-align:right;">{sgn(r)}</td></tr>')
         k = s["kaina"]
-        tr += (f'<tr><td colspan="4" style="padding:8px 0 0; border-top:1px solid {INK}; font-family:{FONT}; font-size:13px; line-height:20px; color:{INK2};">'
-               f'įprastomis sąlygomis <b style="color:{INK};">{num(k["norma"], 0)}</b> → šiandien <b style="color:{INK};">{num(k["lt"])}</b></td>'
+        bars += (f'<tr><td colspan="4" style="padding:8px 0 0; border-top:1px solid {INK}; font-family:{FONT}; font-size:13px; line-height:20px; color:{INK2};">'
+               f'{tr("įprastomis sąlygomis", "normal conditions")} <b style="color:{INK};">{num(k["norma"], 0)}</b> → {tr("šiandien", "today")} <b style="color:{INK};">{num(k["lt"])}</b></td>'
                f'<td align="right" style="padding:8px 0 0; border-top:1px solid {INK}; font-family:{FONT}; font-size:16px; line-height:20px; font-weight:bold; color:{INK}; text-align:right;">{sgn(float(k["lt"]) - float(k["norma"]))}</td></tr>')
         legend = "".join(f'<td width="10" height="10" bgcolor="{col}" style="width:10px; height:10px; background:{col}; font-size:0; line-height:0;">&nbsp;</td>'
                          f'<td style="padding:0 14px 0 6px; font-family:{FONT}; font-size:11px; line-height:16px; color:{INK3};">{t}</td>'
-                         for col, t in ((RAISE_BAR, "kelia kainą"), (LOWER_BAR, "mažina kainą"), (OTHER_BAR, "kita – veiksniai jos nepaaiškina")))
-        inner += m_sub("Kas lemia kainą", "nuokrypis nuo kainos įprastomis sąlygomis, €/MWh") + m_table(tr) + \
+                         for col, t in ((RAISE_BAR, tr("kelia kainą", "raises the price")), (LOWER_BAR, tr("mažina kainą", "lowers the price")),
+                                        (OTHER_BAR, tr("kita – veiksniai jos nepaaiškina", "other – not explained by the drivers"))))
+        inner += m_sub(tr("Kas lemia kainą", "What drives the price"), tr("nuokrypis nuo kainos įprastomis sąlygomis, €/MWh",
+                                                                         "deviation from the price under normal conditions, €/MWh")) + m_table(bars) + \
             f'<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; margin-top:8px;"><tr>{legend}</tr></table>' + \
             m_p(e(drivers_note(inp)), 11, 16, INK3, " padding-top:6px;")
         # sąlygos
-        rows = m_th([("Rodiklis", "", "left"), ("Šiandien", "24%", "right"), ("Įprasta", "20%", "right")])
-        for lbl, val, unit_, note in conditions(inp):
-            norm = note.split(" · ")[0].replace("įprasta ", "").replace("12 mėn. vidurkis ", "")
-            state = note.split(" · ")[1] if " · " in note else ""
-            if lbl == "Jungtys":
+        rows = m_th([(tr("Rodiklis", "Indicator"), "", "left"), (tr("Šiandien", "Today"), "24%", "right"), (tr("Įprasta", "Normal"), "20%", "right")])
+        for key, lbl, val, unit_, norm, state in conditions(inp):
+            norm = norm.split(" ")[-1] if norm else ""
+            if key == "jungtys":
                 ln = lines_note(inp)
                 lab = f'{lbl}<br><span style="font-weight:normal; font-size:12px; color:{INK3};">{e(ln)}</span>' if ln else lbl
                 rows += "<tr>" + m_td(lab, bold=True, color=INK) + m_td(val, "right", True, INK) + m_td("–", "right") + "</tr>"
                 continue
             rows += ("<tr>" + m_td(f'{lbl}<br><span style="font-weight:normal; font-size:12px; color:{INK3};">{e(state)}</span>', bold=True, color=INK)
                      + m_td(f"{val}{NB}{unit_}", "right", True, INK) + m_td(norm, "right") + "</tr>")
-        inner += m_sub("Sąlygos šiandien", "paros vidurkiai; vėjas, saulė ir vartojimas – kitos paros prognozės; dujos – 12 mėn. vidurkis") + m_table(rows)
+        inner += m_sub(tr("Sąlygos šiandien", "Conditions today"), tr("paros vidurkiai; vėjas, saulė ir vartojimas – kitos paros prognozės; dujos – 12 mėn. vidurkis",
+                                                                     "daily averages; wind, solar and consumption are day-ahead forecasts; gas – 12-month average")) + m_table(rows)
     if inp.hours:
         h = inp.hours
-        ints = [("Naktis", 0, 6), ("Ryto kilimas", 6, 7), ("Ryto pikas", 7, 10), ("Vidurdienis", 10, 16), ("Popietė", 16, 18), ("Vakaro pikas", 18, 22), ("Vėlus vakaras", 22, 24)]
+        ints = tr([("Naktis", 0, 6), ("Ryto kilimas", 6, 7), ("Ryto pikas", 7, 10), ("Vidurdienis", 10, 16), ("Popietė", 16, 18), ("Vakaro pikas", 18, 22), ("Vėlus vakaras", 22, 24)],
+                  [("Night", 0, 6), ("Morning ramp", 6, 7), ("Morning peak", 7, 10), ("Midday", 10, 16), ("Afternoon", 16, 18), ("Evening peak", 18, 22), ("Late evening", 22, 24)])
         vals = [(n, a, b, sum(h[a:b]) / (b - a)) for n, a, b in ints]
         vmax = max(max(v for *_, v in vals), 1)
-        tr = ""
+        parts_html = ""
         for n, a, b, v in vals:
             bar = m_bar(max(v, 0) / vmax * 100, INK) if v > 0 else "&nbsp;"
-            tr += (f'<tr><td width="40%" style="padding:5px 8px 5px 0; border-bottom:1px solid {LINE}; font-family:{FONT}; font-size:13px; line-height:18px; color:{INK};">'
-                   f'{n} <span style="color:{INK3};">{a}–{b}{NB}val.</span></td>'
+            span = tr(f"{a}–{b}{NB}val.", f"{a:02d}:00–{b:02d}:00")
+            parts_html += (f'<tr><td width="40%" style="padding:5px 8px 5px 0; border-bottom:1px solid {LINE}; font-family:{FONT}; font-size:13px; line-height:18px; color:{INK};">'
+                           f'{n} <span style="color:{INK3};">{span}</span></td>'
                    f'<td width="44%" valign="middle" style="padding:5px 0; border-bottom:1px solid {LINE};">{bar}</td>'
                    f'<td align="right" style="padding:5px 0; border-bottom:1px solid {LINE}; font-family:{FONT}; font-size:13px; line-height:18px; font-weight:bold; color:{INK}; text-align:right;">{num(v)}</td></tr>')
-        txt = f"Brangiausia {hours_label(h.index(max(h)))} – {num(max(h))}{NB}€/MWh, pigiausia {hours_label(h.index(min(h)))} – {num(min(h))}{NB}€/MWh."
+        txt = tr(f"Brangiausia {hours_label(h.index(max(h)))} – {num(max(h))}{NB}€/MWh, pigiausia {hours_label(h.index(min(h)))} – {num(min(h))}{NB}€/MWh.",
+                 f"The most expensive hour is {hours_label(h.index(max(h)))} at {num(max(h))}{NB}€/MWh, the cheapest {hours_label(h.index(min(h)))} at {num(min(h))}{NB}€/MWh.")
         if s:
             b = s["kaina"]["intervalas"]
-            txt += f" Įprasta paros kaina – {num(b[0], 0)}–{num(b[1], 0)}{NB}€/MWh."
-        inner += m_sub("Kaina per parą", "vidutinė kaina paros dalimis, €/MWh, Lietuvos laiku") + m_table(tr) + m_p(txt, 12, 18, INK2, " padding-top:6px;")
-    visuals = [name for name, ok in (("rinkos žemėlapis", bool(s)), ("valandinių kainų grafikas", bool(inp.hours))) if ok]
+            txt += tr(f" Įprasta paros kaina – {num(b[0], 0)}–{num(b[1], 0)}{NB}€/MWh.", f" The normal daily price is {num(b[0], 0)}–{num(b[1], 0)}{NB}€/MWh.")
+        inner += m_sub(tr("Kaina per parą", "Price through the day"), tr("vidutinė kaina paros dalimis, €/MWh, Lietuvos laiku",
+                                                                         "average price by part of the day, €/MWh, Lithuanian time")) + m_table(parts_html) + m_p(txt, 12, 18, INK2, " padding-top:6px;")
+    visuals = [name for name, ok in ((tr("rinkos žemėlapis", "the market map"), bool(s)), (tr("valandinių kainų grafikas", "the hourly price chart"), bool(inp.hours))) if ok]
     if visuals:
-        inner += m_p(f'{cap(" ir ".join(visuals))} – {m_a(mr_day_url(d), "svetainėje")}.', 13, 19, INK2, " padding-top:12px;")
-    inner += m_p("Šaltiniai: ENTSO-E, Elering, EEX, ICE (TTF). Skaičiavimai – MB Enerconsult.", 11, 16, INK3, " padding-top:10px;")
-    return m_section("Elektros rinka", f"{cap(WEEKDAYS[d.weekday()])}, {day_short(d)} · kitos paros rinka", inner)
+        if LANG == "en":
+            inner += m_p(f'See {" and ".join(visuals)} {m_a(mr_day_url(d), "on the website")}.', 13, 19, INK2, " padding-top:12px;")
+        else:
+            inner += m_p(f'{cap(" ir ".join(visuals))} – {m_a(mr_day_url(d), "svetainėje")}.', 13, 19, INK2, " padding-top:12px;")
+    inner += m_p(energy_sources(), 11, 16, INK3, " padding-top:10px;")
+    return m_section(tr("Elektros rinka", "Electricity market"), f"{weekday_name(d)}, {day_short(d)} · " + tr("kitos paros rinka", "day-ahead market"), inner)
 
 
 def mail_news(inp: Inputs) -> str:
     items = news_sorted(inp)
     top, rest = items[0], items[1:]
     lead = (f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;"><tr><td bgcolor="#F4F5F2" style="padding:12px 14px; background:#F4F5F2;">'
-            + m_p("Svarbiausia", 11, 16, INK3, " font-weight:bold;")
-            + m_p(e(top["pavadinimas"]), 15, 21, INK, " font-weight:bold; padding-top:2px;")
-            + m_p(e(top["santrauka"]), 13, 19, INK2, " padding-top:4px;")
-            + m_p(e(f"{top.get('šaltinis') or ''} · {top['regionas']}"), 11, 16, INK3, " font-style:italic; padding-top:4px;")
+            + m_p(tr("Svarbiausia", "Top story"), 11, 16, INK3, " font-weight:bold;")
+            + m_p(e(nf(top, "pavadinimas")), 15, 21, INK, " font-weight:bold; padding-top:2px;")
+            + m_p(e(nf(top, "santrauka")), 13, 19, INK2, " padding-top:4px;")
+            + m_p(e(f"{top.get('šaltinis') or ''} · {region_name(top['regionas'])}"), 11, 16, INK3, " font-style:italic; padding-top:4px;")
             + "</td></tr></table>")
     body = ""
     for reg in REGIONS:
         rows = [n for n in rest if n.get("regionas") == reg]
         if not rows:
             continue
-        body += m_p(reg, 13, 18, INK, f" font-weight:bold; padding-top:16px; padding-bottom:2px; border-bottom:1px solid {INK};")
+        body += m_p(region_name(reg), 13, 18, INK, f" font-weight:bold; padding-top:16px; padding-bottom:2px; border-bottom:1px solid {INK};")
         for n in rows:
-            body += (f'<div style="padding:8px 0; border-bottom:1px solid {LINE};">' + m_p(e(n["pavadinimas"]), 13, 19, INK, " font-weight:bold;")
-                     + m_p(e(n["santrauka"]), 13, 19, INK2) + m_p(e(n.get("šaltinis") or ""), 11, 16, INK3, " font-style:italic;") + "</div>")
-    return m_section("Naujienos", "Per parą · šaltinis nurodytas prie kiekvienos naujienos", lead + body)
+            body += (f'<div style="padding:8px 0; border-bottom:1px solid {LINE};">' + m_p(e(nf(n, "pavadinimas")), 13, 19, INK, " font-weight:bold;")
+                     + m_p(e(nf(n, "santrauka")), 13, 19, INK2) + m_p(e(n.get("šaltinis") or ""), 11, 16, INK3, " font-style:italic;") + "</div>")
+    return m_section(tr("Naujienos", "News"), tr("Per parą · šaltinis nurodytas prie kiekvienos naujienos", "Past 24 hours · source given with each item"), lead + body)
 
 
 def mail_world(inp: Inputs) -> str:
@@ -1392,7 +1575,8 @@ def mail_world(inp: Inputs) -> str:
         if v is None:
             return "–"
         return f'<span style="color:{RAISE_TXT if v > 0 else LOWER_TXT}; font-weight:bold;">{pct(v)}</span>'
-    rows = m_th([("Rodiklis", "", "left"), ("Kaina", "28%", "right"), ("Per dieną", "17%", "right"), ("Per 7 d.", "16%", "right")])
+    rows = m_th([(tr("Rodiklis", "Indicator"), "", "left"), (tr("Kaina", "Price"), "28%", "right"), (tr("Per dieną", "1 day"), "17%", "right"),
+                 (tr("Per 7 d.", "7 days"), "16%", "right")])
     for label, val, unit, d1, d7, d30 in world_kpis(pr):
         # siaurame ekrane vienetas nukeliamas po skaičiumi, kad lentelė tilptų telefone
         rows += ("<tr>" + m_td(label, bold=True, color=INK) + m_td(f'<b style="color:{INK}; white-space:nowrap;">{num(val, 2)}</b> '
@@ -1400,27 +1584,31 @@ def mail_world(inp: Inputs) -> str:
                  + m_td(ch(d1), "right") + m_td(ch(d7), "right") + "</tr>")
     sec = world_sections(pr)
     inner = m_table(rows)
-    if sec.get("Santrauka"):
-        inner += m_p(_md_inline(" ".join(sec["Santrauka"])), 13, 19, INK2, " padding-top:10px;")
+    summary = tr("Santrauka", "Summary")
+    if sec.get(summary):
+        inner += m_p(_md_inline(" ".join(sec[summary])), 13, 19, INK2, " padding-top:10px;")
     c = ((pr.get("grandinė") or {}).get("srmc") or {}).get("ccgt")
     lt_el = ((pr.get("rodikliai") or {}).get("lt_elektra") or {}).get("šiandien") or {}
     if c and lt_el.get("vidurkis") is not None:
-        inner += m_p(f"Dujinės elektrinės kintamieji kaštai – {num(c['iš_viso'])}{NB}€/MWh (kuras {num(c['kuras'])}, CO2 {num(c['co2'])}, kiti {num(c['vom'])}). "
-                     f"Lietuvos paros vidurkis – {num(lt_el['vidurkis'])}{NB}€/MWh.", 13, 19, INK2, " padding-top:8px;")
-    watch_key = next((k for k in sec if k.startswith("Ką stebėti")), None)
+        inner += m_p(tr(f"Dujinės elektrinės kintamieji kaštai – {num(c['iš_viso'])}{NB}€/MWh (kuras {num(c['kuras'])}, CO2 {num(c['co2'])}, kiti {num(c['vom'])}). "
+                        f"Lietuvos paros vidurkis – {num(lt_el['vidurkis'])}{NB}€/MWh.",
+                        f"Variable cost of a gas-fired plant – {num(c['iš_viso'])}{NB}€/MWh (fuel {num(c['kuras'])}, CO2 {num(c['co2'])}, other {num(c['vom'])}). "
+                        f"Lithuanian daily average – {num(lt_el['vidurkis'])}{NB}€/MWh."), 13, 19, INK2, " padding-top:8px;")
+    watch = tr("Ką stebėti", "What to watch")
+    watch_key = next((k for k in sec if k.startswith(watch)), None)
     if watch_key:
         items = [re.sub(r"^[-•]\s*", "", x) for x in sec[watch_key] if x.startswith(("-", "•"))]
         if items:
-            tr = "".join(f'<tr><td width="14" valign="top" style="padding:4px 0; font-family:{FONT}; font-size:13px; line-height:19px; color:{INK};">–</td>'
-                         f'<td style="padding:4px 0; font-family:{FONT}; font-size:13px; line-height:19px; color:{INK2};">{_md_inline(x)}</td></tr>' for x in items)
-            inner += m_sub("Ką stebėti") + m_table(tr)
+            rows_w = "".join(f'<tr><td width="14" valign="top" style="padding:4px 0; font-family:{FONT}; font-size:13px; line-height:19px; color:{INK};">–</td>'
+                             f'<td style="padding:4px 0; font-family:{FONT}; font-size:13px; line-height:19px; color:{INK2};">{_md_inline(x)}</td></tr>' for x in items)
+            inner += m_sub(watch) + m_table(rows_w)
     R = pr["rodikliai"]
     t = R["brent"].get("kotiruotės_laikas") or ""
     mm = re.match(r"(\d{4})-(\d\d)-(\d\d)T(\d\d:\d\d)", t)
-    capt = "Nafta, dujos ir taršos leidimai"
+    capt = tr("Nafta, dujos ir taršos leidimai", "Oil, gas and emission allowances")
     if mm:
-        capt = f"Kotiruotės {day_short(date(int(mm.group(1)), int(mm.group(2)), int(mm.group(3))))} {mm.group(4)} · " + capt.lower()
-    return m_section("Pasaulio rinkos", capt, inner)
+        capt = f"{tr('Kotiruotės', 'Quotes as of')} {day_short(date(int(mm.group(1)), int(mm.group(2)), int(mm.group(3))))} {mm.group(4)} · " + capt.lower()
+    return m_section(tr("Pasaulio rinkos", "Global markets"), capt, inner)
 
 
 def mail_legal(inp: Inputs) -> str:
@@ -1446,13 +1634,14 @@ def email(inp: Inputs, alerts: list[str]) -> str:
     pre = energy_headline(inp) if inp.price is not None else "Morning Report"
     rows = []
     rows.append(m_tr(m_table(
-        f'<tr><td style="padding:0 0 12px; border-bottom:1px solid #A6A6A6; font-family:{FONT}; font-size:20px; line-height:26px; font-weight:bold; letter-spacing:0.02em; color:{INK};">{m_a(SITE_URL, "Enerconsult", INK, False)}</td>'
-        f'<td align="right" style="padding:0 0 12px; border-bottom:1px solid #A6A6A6; font-family:{FONT}; font-size:12px; line-height:26px; font-style:italic; color:{INK3}; text-align:right;">kasdien 7:00</td></tr>'),
+        f'<tr><td style="padding:0 0 12px; border-bottom:1px solid #A6A6A6; font-family:{FONT}; font-size:20px; line-height:26px; font-weight:bold; letter-spacing:0.02em; color:{INK};">{m_a(site_url(), "Enerconsult", INK, False)}</td>'
+        f'<td align="right" style="padding:0 0 12px; border-bottom:1px solid #A6A6A6; font-family:{FONT}; font-size:12px; line-height:26px; font-style:italic; color:{INK3}; text-align:right;">{tr("kasdien 7:00", "daily at 7:00")}</td></tr>'),
         "24px 36px 0"))
     rows.append(m_tr(m_p("Morning Report", 26, 32, INK, " font-weight:bold;") + m_p(e(day_long(d)), 14, 20, INK, " padding-top:2px;")
-                     + m_p("Lietuvos energetikos rinka: kainos, šiandienos terminai, naujienos ir pasaulio rinkos", 12, 18, INK3, " font-style:italic; padding-top:2px;"),
+                     + m_p(tr("Lietuvos energetikos rinka: kainos, šiandienos terminai, naujienos ir pasaulio rinkos",
+                              "Lithuanian energy market: prices, today's deadlines, news and global markets"), 12, 18, INK3, " font-style:italic; padding-top:2px;"),
                      "18px 36px 0"))
-    rows.append(m_tr(m_button(mr_day_url(d), "Atidaryti svetainėje →"), "14px 36px 0"))
+    rows.append(m_tr(m_button(mr_day_url(d), tr("Atidaryti svetainėje →", "Open on the website →")), "14px 36px 0"))
     for a in alerts:
         rows.append(m_tr(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td bgcolor="#FFF4DC" style="padding:10px 12px; background:#FFF4DC; border-left:4px solid #F2A93B;">'
                          + m_p(e(a), 13, 19, INK) + "</td></tr></table>", "16px 36px 0"))
@@ -1472,15 +1661,21 @@ def email(inp: Inputs, alerts: list[str]) -> str:
         rows.append(mail_news(inp))
     if inp.world:
         rows.append(mail_world(inp))
-    rows.append(m_tr(f'<div style="border-top:1px solid {LINE}; padding-top:18px;">' + m_p("Iki rytojaus, 7:00.", 16, 22, INK, " font-weight:bold;")
-                     + m_p(f'Vaizdinė versija su rinkos žemėlapiu, grafikais ir ankstesnių dienų archyvu – {m_a(MR_URL, "enerconsult.lt/morning-report")}.', 12, 18, INK2, " padding-top:8px;")
-                     + m_p(f'Gavote persiųstą laišką? {m_a(MR_URL + "#prenumerata", "Užsiprenumeruokite")}.', 12, 18, INK2, " padding-top:6px;")
+    if LANG == "en":
+        foot = (m_p("See you tomorrow at 7:00.", 16, 22, INK, " font-weight:bold;")
+                + m_p(f'The visual version with the market map, charts and the archive of previous days – {m_a(MR_URL_EN, "enerconsult.lt/en/morning-report")}.', 12, 18, INK2, " padding-top:8px;")
+                + m_p(f'Was this forwarded to you? {m_a(MR_URL_EN + "#subscribe", "Subscribe")}.', 12, 18, INK2, " padding-top:6px;"))
+    else:
+        foot = (m_p("Iki rytojaus, 7:00.", 16, 22, INK, " font-weight:bold;")
+                + m_p(f'Vaizdinė versija su rinkos žemėlapiu, grafikais ir ankstesnių dienų archyvu – {m_a(MR_URL, "enerconsult.lt/morning-report")}.', 12, 18, INK2, " padding-top:8px;")
+                + m_p(f'Gavote persiųstą laišką? {m_a(MR_URL + "#prenumerata", "Užsiprenumeruokite")}.', 12, 18, INK2, " padding-top:6px;"))
+    rows.append(m_tr(f'<div style="border-top:1px solid {LINE}; padding-top:18px;">' + foot
                      + m_p(unsub_line(), 12, 18, INK2, " padding-top:6px;")
-                     + f'<p style="margin:14px 0 0; padding-top:12px; border-top:1px solid #A6A6A6; font-family:{FONT}; font-size:11px; line-height:16px; text-align:center; color:{INK3};">Morning Report · {m_a(SITE_URL, "MB Enerconsult", INK3)} · {m_a(PRIVACY_URL, "Privatumo politika", INK3)}</p></div>',
+                     + f'<p style="margin:14px 0 0; padding-top:12px; border-top:1px solid #A6A6A6; font-family:{FONT}; font-size:11px; line-height:16px; text-align:center; color:{INK3};">Morning Report · {m_a(site_url(), "MB Enerconsult", INK3)} · {m_a(privacy_url(), tr("Privatumo politika", "Privacy policy"), INK3)}</p></div>',
                      "26px 36px 28px"))
     body = "\n".join(rows)
     return f'''<!doctype html>
-<html lang="lt">
+<html lang="{LANG}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1534,21 +1729,31 @@ def main() -> None:
     out_dir = os.path.join(ROOT, "public")
     if "--data" in args:
         data_dir = args[args.index("--data") + 1]
+    global LANG, DATA_DIR
+    DATA_DIR = data_dir
+    if "--kalba" in args:
+        LANG = args[args.index("--kalba") + 1]
+        if LANG not in ("lt", "en"):
+            sys.exit(f"Nežinoma kalba: {LANG}")
+        if LANG == "en":
+            out_dir = os.path.join(out_dir, "en")
     if "--out" in args:
         out_dir = args[args.index("--out") + 1]
-    pos = [a for i, a in enumerate(args) if not a.startswith("--") and (i == 0 or args[i - 1] not in ("--data", "--out"))]
+    pos = [a for i, a in enumerate(args) if not a.startswith("--") and (i == 0 or args[i - 1] not in ("--data", "--out", "--kalba"))]
     day = date.fromisoformat(pos[0]) if pos else datetime.now(VLN).date()
 
     inp = Inputs(data_dir, day)
     alerts = []
     if inp.price is None:
         others = any((inp.news, inp.world, inp.legal, inp.grants))
-        alerts.append("Šiandienos elektros kainų duomenų gauti nepavyko." + (" Kitos ataskaitos dalys – žemiau." if others else ""))
+        alerts.append(tr("Šiandienos elektros kainų duomenų gauti nepavyko.", "Today's electricity price data could not be obtained.")
+                      + (tr(" Kitos ataskaitos dalys – žemiau.", " The other parts of the report are below.") if others else ""))
     elif not inp.sit:
-        alerts.append("Šiandien nepavyko apskaičiuoti, kas lemia elektros kainą, todėl rodomos tik kainos.")
+        alerts.append(tr("Šiandien nepavyko apskaičiuoti, kas lemia elektros kainą, todėl rodomos tik kainos.",
+                         "Today it was not possible to calculate what drives the electricity price, so only prices are shown."))
     status = {"kainos": inp.hours is not None, "modelis": inp.sit is not None, "naujienos": inp.news is not None,
               "pasaulio_rinkos": inp.world is not None, "teisės_aktai": inp.legal is not None, "paramos": inp.grants is not None}
-    print("Ataskaita", day, json.dumps(status, ensure_ascii=False), file=sys.stderr)
+    print("Ataskaita", day, LANG, json.dumps(status, ensure_ascii=False), file=sys.stderr)
 
     frag = fragment(inp, alerts)
     mail = email(inp, alerts)
@@ -1576,11 +1781,12 @@ def main() -> None:
     assert unsub_line() in mail
     write("laiskas-brevo.html", mail.replace(unsub_line(), brevo_footer_lines()))
     write("tema.txt", subject + "\n")
-    arch = os.path.join(data_dir, "archyvas")
-    os.makedirs(arch, exist_ok=True)
-    with open(os.path.join(arch, f"{day.isoformat()}.json"), "w", encoding="utf-8", newline="\n") as f:
-        json.dump(archive_record(inp), f, ensure_ascii=False, indent=1)
-        f.write("\n")
+    if LANG == "lt":                         # dienos duomenų archyvas – vienas abiem kalboms
+        arch = os.path.join(data_dir, "archyvas")
+        os.makedirs(arch, exist_ok=True)
+        with open(os.path.join(arch, f"{day.isoformat()}.json"), "w", encoding="utf-8", newline="\n") as f:
+            json.dump(archive_record(inp), f, ensure_ascii=False, indent=1)
+            f.write("\n")
     write("data.txt", day.isoformat())          # paskutinis: pagal jį Power Automate supranta, kad ataskaita paruošta
     print(f"Įrašyta: {out_dir} (fragmentas {len(frag)} B, laiškas {len(mail)} B)", file=sys.stderr)
 
