@@ -1,8 +1,6 @@
 name: Brevo patikra
 
-# 2026-11-23 (Jono prašymu): šįryt vietoj kasdienio laiško siunčiama savaitės apžvalga.
-# Sustabdo kasdienę kampaniją „Morning Report 2026-11-23“ ir bandomąją savaitės kampaniją (sąrašas #2),
-# savaitės apžvalgą iškart siunčia sąrašui #11 „MR savaitės apžvalga“. Rezultatas – data/patikra/ šioje šakoje.
+# Tik būsenos patikra (nieko nesiunčia): šiandienos kampanijų būsena ir statistika. Rezultatas – data/patikra/ šioje šakoje.
 
 on:
   push:
@@ -12,47 +10,40 @@ permissions:
   contents: write
 
 jobs:
-  siuntimas:
+  busena:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install requests
-      - name: Savaitės apžvalga vietoj kasdienio laiško
+      - name: Kampanijų būsena
         env:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
         run: |
           mkdir -p data/patikra
-          python - <<'PY' > data/patikra/siuntimas-2026-11-23.json
+          python - <<'PY' > data/patikra/busena-2026-11-23.json
           import json, sys
           from datetime import datetime
           sys.path.insert(0, "scripts")
           import brevo
-          DAY = "2026-11-23"
-          out = {"pradžia": datetime.now(brevo.LT).isoformat(timespec="seconds"), "veiksmai": []}
-          st, b = brevo.call("GET", "/emailCampaigns", params={"limit": 50, "sort": "desc"})
-          camps = b.get("campaigns", []) if st == 200 else []
-          out["kampanijos_prieš"] = [{"id": c["id"], "pavadinimas": c["name"], "būsena": c["status"], "sąrašai": (c.get("recipients") or {}).get("lists")} for c in camps if DAY in c["name"]]
-          for c in camps:
-              if c["name"] in (f"Morning Report {DAY}", f"Morning Report savaitės apžvalga {DAY}") and c["status"] in ("queued", "draft"):
-                  s2, r2 = brevo.call("PUT", f"/emailCampaigns/{c['id']}/status", json={"status": "suspended"})
-                  out["veiksmai"].append({"sustabdyta": c["id"], "pavadinimas": c["name"], "http": s2, "atsakymas": r2})
-          res = brevo.kampanija(DAY, 11, "public/savaitė", weekly=True, at_time=datetime.now(brevo.LT).time())
-          out["savaitės_apžvalga_#11"] = res
-          st, b = brevo.call("GET", "/emailCampaigns", params={"limit": 50, "sort": "desc"})
-          out["kampanijos_po"] = [{"id": c["id"], "pavadinimas": c["name"], "būsena": c["status"], "sąrašai": (c.get("recipients") or {}).get("lists")} for c in (b.get("campaigns", []) if st == 200 else []) if DAY in c["name"]]
-          out["pabaiga"] = datetime.now(brevo.LT).isoformat(timespec="seconds")
-          print(json.dumps(out, ensure_ascii=False, indent=1, default=str))
+          out = {"laikas": datetime.now(brevo.LT).isoformat(timespec="seconds"), "kampanijos": []}
+          for cid in (9, 10, 11):
+              st, c = brevo.call("GET", f"/emailCampaigns/{cid}", params={"statistics": "globalStats"})
+              g = ((c.get("statistics") or {}).get("globalStats") or {}) if st == 200 else {}
+              out["kampanijos"].append({"id": cid, "http": st, "pavadinimas": c.get("name"), "būsena": c.get("status"), "išsiųsta": c.get("sentDate"),
+                                        "sąrašai": (c.get("recipients") or {}).get("lists"), "statistika": {k: g.get(k) for k in ("sent", "delivered", "hardBounces", "softBounces", "uniqueViews")}})
+          print(json.dumps(out, ensure_ascii=False, indent=1))
           PY
-          cat data/patikra/siuntimas-2026-11-23.json
+          cat data/patikra/busena-2026-11-23.json
       - name: Išsaugoti rezultatą
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull -q --rebase origin brevo-patikra || true
           git add data/patikra
-          git commit -m "Brevo: savaitės apžvalga vietoj kasdienio laiško 2026-11-23" || true
+          git commit -m "Brevo: kampanijų būsena 2026-11-23" || true
           git push origin HEAD:brevo-patikra || true
