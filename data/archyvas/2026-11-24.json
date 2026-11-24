@@ -1,0 +1,342 @@
+{
+ "data": "2026-11-24",
+ "elektros_rinka": {
+  "data": "2026-11-24",
+  "ref_dienų": 88,
+  "galia": {
+   "vėjas": 2507,
+   "saulė": 3018
+  },
+  "vartojimas": {
+   "mw": 1772,
+   "norma": 1679,
+   "intervalas": [
+    1645,
+    1727
+   ],
+   "būsena": "didesnis nei įprasta",
+   "nuokrypis_proc": 5.6,
+   "procentilis": null
+  },
+  "vėjas": {
+   "mw": 685,
+   "norma": 513,
+   "intervalas": [
+    339,
+    692
+   ],
+   "būsena": "įprasta",
+   "procentilis": 65
+  },
+  "saulė": {
+   "mw": 61,
+   "norma": 21,
+   "intervalas": [
+    16,
+    34
+   ],
+   "būsena": "didesnė nei įprasta",
+   "procentilis": 88
+  },
+  "kita_gamyba": {
+   "mw": 228,
+   "norma": 213,
+   "būsena": "įprasta",
+   "valandos": "00–06",
+   "vėjas_faktas": 720,
+   "saulė_faktas": 0,
+   "vartojimas_faktas": 1412
+  },
+  "dujos": {
+   "ttf": 91.4,
+   "norma_12mėn": 53.1,
+   "santykis": 1.72,
+   "būsena": "gerokai brangesnės nei įprasta",
+   "prieš_metus": 30.2
+  },
+  "kaina": {
+   "lt": 241.4,
+   "norma": 160.9,
+   "intervalas": [
+    142,
+    193
+   ],
+   "norma_su_šiandienos_dujomis": 249.4,
+   "būsena": "gerokai didesnė nei įprasta",
+   "min": 172.9,
+   "max": 338.5,
+   "min_val": 1,
+   "max_val": 18,
+   "modelis": 255.4,
+   "modelis_su_jungtimis": 231.5
+  },
+  "indėliai": {
+   "dujos": 85.7,
+   "vartojimas": 6.2,
+   "vėjas": -11.3,
+   "saulė": -2.2,
+   "pralaidumai": 0.0,
+   "kaimynai": -4.2,
+   "kita": 6.4
+  },
+  "dujų_metodas": "šiandienos sąlygomis",
+  "kaimynų_detalės": {
+   "kainos": 11.2,
+   "jungčių_apkrova": -15.4
+  },
+  "kaimynai": {
+   "LV": 210.1,
+   "SE4": 248.6,
+   "PL": 226.1,
+   "EE": 140.5,
+   "FI": 91.2
+  },
+  "lt_lv_skiriasi_val": 12,
+  "kaimynų_būsena": {
+   "SE4": {
+    "kaina": 248.6,
+    "norma_su_šiandienos_dujomis": 185.7,
+    "būsena": "didesnė nei įprasta",
+    "procentilis": 75
+   },
+   "PL": {
+    "kaina": 226.1,
+    "norma_su_šiandienos_dujomis": 217.2,
+    "būsena": "įprasta",
+    "procentilis": 53
+   },
+   "FI": {
+    "kaina": 91.2,
+    "norma_su_šiandienos_dujomis": 177.4,
+    "būsena": "mažesnė nei įprasta",
+    "procentilis": 23
+   }
+  },
+  "mainai": {
+   "SE4": {
+    "mw": -86,
+    "proc_vartojimo": -5
+   },
+   "PL": {
+    "mw": -212,
+    "proc_vartojimo": -12
+   },
+   "LV": {
+    "mw": 939,
+    "proc_vartojimo": 53
+   },
+   "iš_viso": {
+    "mw": 641,
+    "proc_vartojimo": 36
+   },
+   "maks": {
+    "SE4_imp": 503,
+    "SE4_eksp": 584,
+    "PL_imp": 0,
+    "PL_eksp": 238,
+    "LV_imp": 1174,
+    "LV_eksp": 0
+   }
+  },
+  "nordpool": {},
+  "pralaidumai": {
+   "LT–SE4 (NordBalt)": {
+    "importas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-25"
+    },
+    "eksportas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-25"
+    }
+   },
+   "LT–PL (LitPol)": {
+    "importas": {
+     "mw": 184,
+     "min": 179,
+     "nominalas": 164,
+     "pask_data": "2026-11-25"
+    },
+    "eksportas": {
+     "mw": 222,
+     "min": 206,
+     "nominalas": 193,
+     "pask_data": "2026-11-25"
+    }
+   },
+   "LT–LV": {
+    "importas": {
+     "mw": 1014,
+     "min": 792,
+     "nominalas": 837,
+     "pask_data": "2026-11-25"
+    },
+    "eksportas": {
+     "mw": 950,
+     "min": 860,
+     "nominalas": 943,
+     "pask_data": "2026-11-25"
+    }
+   }
+  },
+  "sąlygos": {
+   "srmc": 199.7,
+   "srmc_norma": 128.8,
+   "cap_def": 0
+  },
+  "jungtys_būsena": {
+   "SE4": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 0
+   },
+   "PL": {
+    "eksportas_pilnas_val": 21,
+    "importas_pilnas_val": 0
+   },
+   "LV": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 13
+   }
+  },
+  "lt_lv": {
+   "brangiau_val": 11,
+   "pigiau_val": 0,
+   "skirtumas": 31.3
+  },
+  "kaimynų_valandos": {
+   "SE4": {
+    "min": 181.5,
+    "max": 351.6,
+    "max_val": 18
+   },
+   "PL": {
+    "min": 102.3,
+    "max": 343.8,
+    "max_val": 18
+   },
+   "LV": {
+    "min": 122.4,
+    "max": 288.6,
+    "max_val": 9
+   },
+   "FI": {
+    "min": 16.0,
+    "max": 145.4,
+    "max_val": 16
+   }
+  }
+ },
+ "valandos": [
+  186.16,
+  172.91,
+  182.15,
+  176.15,
+  174.75,
+  182.71,
+  188.02,
+  249.82,
+  287.95,
+  288.59,
+  263.67,
+  240.69,
+  222.44,
+  219.66,
+  228.4,
+  258.48,
+  290.19,
+  331.34,
+  338.52,
+  311.36,
+  286.38,
+  263.01,
+  230.66,
+  219.04
+ ],
+ "naujienos": {
+  "data": "2026-11-24",
+  "sugeneruota": "2026-11-24T05:34:22+02:00",
+  "svarbiausia": 0,
+  "naujienos": [
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Degalų gamintojų viršpelnio mokestis – Gynybos fondui",
+    "santrauka": "Premjeras teigia, kad pajamos iš planuojamo degalų gamybos įmonių viršpelnio mokesčio galėtų patekti į Gynybos fondą. Pasak jo, įnašas galėtų siekti daugiau nei 100 mln. Eur.",
+    "svarba": "didelė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/vzlt-titulinis/2026/11/23/premjeras-100-mln-eur-is-degalu-gamybos-imoniu-virspelnio-papildytu-gynybos-fonda-593144",
+    "paskelbta": "2026-11-23 18:35",
+    "pavadinimas_en": "Windfall tax on fuel producers to go to the Defence Fund",
+    "santrauka_en": "The Prime Minister says that revenue from the planned windfall tax on fuel production companies could go to the Defence Fund. According to him, the contribution could exceed EUR 100 million."
+   },
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Parama saulės elektrinėms su kaupikliais – kitų metų pradžioje",
+    "santrauka": "Valstybės parama gyventojams, įsirengusiems saulės elektrines kartu su kaupikliais, turėtų būti pasiūlyta kitų metų pradžioje. Naujo modelio paramos schema šiuo metu derinama su Europos Komisija.",
+    "svarba": "didelė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/mano-verslas/2026/11/23/parama-saules-elektrinems-tik-kitamet-ir-tik-su-kaupikliais-593095",
+    "paskelbta": "2026-11-23 12:59",
+    "pavadinimas_en": "Support for solar power plants with energy storage (batteries) to be offered at the start of next year",
+    "santrauka_en": "State support for residents who have installed solar power plants together with energy storage (batteries) should be offered at the start of next year. The support scheme under the new model is currently being coordinated with the European Commission."
+   },
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Lenkija: „Orlen Lietuvos“ pardavimui laikas netinkamas",
+    "santrauka": "Lenkijos valstybės turto ministras sako, kad dabar nėra tinkamas laikas parduoti „Orlen“ naftos perdirbimo gamyklą Mažeikiuose. Jis atkreipė dėmesį į jos strateginę reikšmę, geopolitinę padėtį ir Baltijos šalių saugumą.",
+    "svarba": "didelė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/pramone/2026/11/23/lenku-ministras-dabar-nera-tinkamas-laikas-parduoti-orlen-gamykla-mazeikiuose-593113",
+    "paskelbta": "2026-11-23 17:39",
+    "pavadinimas_en": "Poland: the time is not right to sell Orlen Lietuva",
+    "santrauka_en": "Poland’s State Assets Minister says that now is not the right time to sell the Orlen oil refinery in Mažeikiai. He drew attention to its strategic importance, the geopolitical situation and the security of the Baltic states."
+   },
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Klaipėdos uosto vandenilio projektas pasiekė teismus",
+    "santrauka": "Klaipėdos uosto vandenilio projekto istorijoje prireikė ir teismų. Tai susiję su vandenilio gamykla ir stotele Klaipėdoje.",
+    "svarba": "maža",
+    "šaltinis": "15min verslas",
+    "nuoroda": "https://www.15min.lt/verslas/naujiena/energetika/klaipedos-uosto-vandenilio-istorijoje-prireike-ir-teismu-664-2812584?utm_source=rssfeed_verslas&utm_medium=rss&utm_campaign=rssfeed",
+    "paskelbta": "2026-11-23 18:46",
+    "pavadinimas_en": "Klaipėda port hydrogen project reaches the courts",
+    "santrauka_en": "The courts have also been needed in the history of the Klaipėda port hydrogen project. This relates to the hydrogen plant and filling station in Klaipėda."
+   }
+  ],
+  "kandidatų": 17
+ },
+ "pasaulio_rinkos": {
+  "kotiruotės_laikas": "2026-11-24T05:23+02:00",
+  "rodikliai": [
+   {
+    "pavadinimas": "Nafta (Brent)",
+    "reikšmė": 86.53,
+    "vienetai": "USD/bbl",
+    "per_dieną": -6.52,
+    "per_7d": -6.39,
+    "per_30d": -25.87
+   },
+   {
+    "pavadinimas": "Dujos (TTF)",
+    "reikšmė": 91.39,
+    "vienetai": "€/MWh",
+    "per_dieną": 3.32,
+    "per_7d": 7.84,
+    "per_30d": -2.62
+   },
+   {
+    "pavadinimas": "Taršos leidimai (ATL)",
+    "reikšmė": 83.06,
+    "vienetai": "€/t",
+    "per_dieną": 3.05,
+    "per_7d": -4.97,
+    "per_30d": -3.29
+   }
+  ]
+ },
+ "teisės_aktai": null,
+ "paramos": null
+}
