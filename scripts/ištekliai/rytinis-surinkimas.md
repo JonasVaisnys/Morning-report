@@ -12,7 +12,8 @@ Taisyklės visai užduočiai:
 
 1. D – šiandienos data Vilniaus laiku (`TZ=Europe/Vilnius date +%F`).
 2. Saugykla `JonasVaisnys/Morning-report`, šaka `main`. Jei jos sesijoje nėra – `add_repo` (prieiga „push“), tada klonuoti ir `git pull`.
-3. Chrome: prie paskyros gali būti prijungtos kelios naršyklės. Pirmiausia `list_connected_browsers`. Jei prijungta „JONAS“ (deviceId `c21c3545-7157-490c-afbf-0737078db3f7`) – `select_browser` su šiuo deviceId. Jei jos nėra, bet prijungta lygiai viena kita – naudoti ją. Jei nėra nė vienos – baigti be pakeitimų. Klausimų (AskUserQuestion) neužduoti – užduotis vykdoma be žmogaus.
+3. Chrome: prie paskyros gali būti prijungtos kelios naršyklės. Pirmiausia `list_connected_browsers` (pavadinimus lyginti be didžiųjų raidžių ir tarpų skirtumų). Eilė: „Browser 2“, tada „Browser 1“, tada „JONAS“ (deviceId `c21c3545-7157-490c-afbf-0737078db3f7`), tada lygiai viena kita prijungta naršyklė – `select_browser` su rastosios deviceId. Jei nėra nė vienos – baigti be pakeitimų. Klausimų (AskUserQuestion) neužduoti – užduotis vykdoma be žmogaus.
+   Nuo 2026-11-24 suplanuota užduotis paleidžiama su Jono kompiuteriu („Require this computer“) – tik taip jos sesijoje yra Claude in Chrome įrankiai. Ankstesnė užduotis be kompiuterio nuo 11-20 baigdavosi per ~18 s ir nieko neįkeldavo.
 4. Tada `tabs_context_mcp`, nauja kortelė `tabs_create_mcp`. Pabaigoje kortelę uždaryti.
 
 ## 1. Teisės aktai → `data/šaltiniai/tar.json`
