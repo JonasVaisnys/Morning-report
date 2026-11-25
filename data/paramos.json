@@ -1,5 +1,5 @@
 {
- "data": "2026-11-19",
+ "data": "2026-11-25",
  "šaltiniai_patikrinti": [
   "APVIS",
   "APVA planuojami kvietimai",
@@ -42,13 +42,13 @@
    "nuoroda": "https://esinvesticijos.lt/kvietimai?activity_scopes[]=67&status[]=45"
   },
   {
-   "pavadinimas": "Daugiabučių namų modernizavimo projektų 14 kvietimas",
+   "pavadinimas": "Gatvių apšvietimo infrastruktūros modernizavimas (MF-EM-GA01)",
    "institucija": "APVA",
    "būsena": "nauja",
    "svarba": "vidutinė",
-   "pabaiga": "2028-04-03",
-   "pokytis": "Naujas kvietimas, paraiškos priimamos nuo 2026-11-23",
-   "esmė": "Daugiabučių namų modernizavimas, 286,93 mln. Eur",
+   "pabaiga": "2027-04-07",
+   "pokytis": "Pirmą kartą rastas APVIS sąraše; paraiškos priimamos nuo 2026-10-08",
+   "esmė": "Juridiniams asmenims – gatvių apšvietimo modernizavimas, 10 mln. Eur (likutis 5,78 mln. Eur)",
    "nuoroda": "https://apvis.apva.lt/"
   },
   {
@@ -57,9 +57,19 @@
    "būsena": "baigiasi",
    "svarba": "vidutinė",
    "pabaiga": "2026-11-27",
-   "pokytis": "Iki termino liko 8 d.",
-   "esmė": "Juridiniams asmenims – biometano gamyba ir biodujų išvalymas, 16 mln. Eur (likutis 8,11 mln. Eur)",
+   "pokytis": "Iki termino liko 2 d.; lėšų likutis 6,41 mln. Eur (buvo 8,11 mln. Eur)",
+   "esmė": "Juridiniams asmenims – biometano gamyba ir biodujų išvalymas, 16 mln. Eur (likutis 6,41 mln. Eur)",
    "nuoroda": "https://apva.lrv.lt/lt/veiklos-sritys/projektu-finansavimas/energetika-1852/investicine-parama-biometano-gamybai-ir-ar-bioduju-isvalymui1/"
+  },
+  {
+   "pavadinimas": "Grynųjų elektromobilių įsigijimo fiziniams asmenims skatinimas (MF-SM-EVF02)",
+   "institucija": "APVA",
+   "būsena": "pasibaigė",
+   "svarba": "maža",
+   "pabaiga": "",
+   "pokytis": "Kvietimas sustabdytas – gauta paraiškų visai sumai (3,6 tūkst. paraiškų už 12,3 mln. Eur)",
+   "esmė": "Fiziniams asmenims – grynųjų elektromobilių įsigijimas, 12,32 mln. Eur",
+   "nuoroda": "https://apva.lrv.lt/lt/naujienos-24316/gyventojai-aktyviai-perseda-i-elektromobilius-isnaudota-daugiau-nei-12-mln-euru-parama-kvietimas-sustabdytas-5Y6/"
   }
  ]
 }

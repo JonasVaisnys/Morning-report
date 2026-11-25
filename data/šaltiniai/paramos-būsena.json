@@ -1,5 +1,5 @@
 {
- "atnaujinta": "2026-11-19",
+ "atnaujinta": "2026-11-25",
  "kvietimai": [
   {
    "raktas": "KK-AM-B05",
@@ -8,7 +8,7 @@
    "būklė": "paskelbtas",
    "pradžia": "2026-07-29",
    "pabaiga": "2026-11-27",
-   "suma": "16 000 000 Eur (likutis 8 114 600 Eur)",
+   "suma": "16 000 000 Eur (likutis 6 414 600 Eur)",
    "pareiškėjai": "Juridiniai asmenys",
    "nuoroda": "https://apva.lrv.lt/lt/veiklos-sritys/projektu-finansavimas/energetika-1852/investicine-parama-biometano-gamybai-ir-ar-bioduju-isvalymui1/",
    "pirmą_kartą": "2026-11-19"
@@ -20,20 +20,8 @@
    "būklė": "paskelbtas",
    "pradžia": "2026-07-30",
    "pabaiga": "2028-12-31",
-   "suma": "8 184 000 Eur (likutis 472 500 Eur)",
+   "suma": "8 184 000 Eur (likutis 6 000 Eur)",
    "pareiškėjai": "Juridiniai asmenys ir ūkinę veiklą vykdantys fiziniai asmenys",
-   "nuoroda": "https://apvis.apva.lt/",
-   "pirmą_kartą": "2026-11-19"
-  },
-  {
-   "raktas": "MF-SM-EVF02",
-   "pavadinimas": "Grynųjų elektromobilių įsigijimo fiziniams asmenims skatinimas 2026-07",
-   "institucija": "APVA",
-   "būklė": "paskelbtas",
-   "pradžia": "2026-07-31",
-   "pabaiga": "2028-12-31",
-   "suma": "12 320 000 Eur (likutis 172 500 Eur)",
-   "pareiškėjai": "Fiziniai asmenys",
    "nuoroda": "https://apvis.apva.lt/",
    "pirmą_kartą": "2026-11-19"
   },
@@ -44,7 +32,7 @@
    "būklė": "paskelbtas",
    "pradžia": "2026-09-22",
    "pabaiga": "2027-09-21",
-   "suma": "7 000 000 Eur (likutis 6 531 242 Eur)",
+   "suma": "7 000 000 Eur (likutis 6 569 434 Eur)",
    "pareiškėjai": "",
    "nuoroda": "https://apvis.apva.lt/",
    "pirmą_kartą": "2026-11-19"
@@ -60,6 +48,18 @@
    "pareiškėjai": "",
    "nuoroda": "https://apvis.apva.lt/",
    "pirmą_kartą": "2026-11-19"
+  },
+  {
+   "raktas": "MF-EM-GA01",
+   "pavadinimas": "Gatvių apšvietimo infrastruktūros modernizavimas 2026-10",
+   "institucija": "APVA",
+   "būklė": "paskelbtas",
+   "pradžia": "2026-10-08",
+   "pabaiga": "2027-04-07",
+   "suma": "10 000 000 Eur (likutis 5 779 156 Eur)",
+   "pareiškėjai": "Juridiniai asmenys",
+   "nuoroda": "https://apvis.apva.lt/",
+   "pirmą_kartą": "2026-11-25"
   },
   {
    "raktas": "03-015-T",
