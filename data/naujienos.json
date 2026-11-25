@@ -1,52 +1,30 @@
 {
- "data": "2026-11-24",
- "sugeneruota": "2026-11-24T05:34:22+02:00",
+ "data": "2026-11-25",
+ "sugeneruota": "2026-11-25T05:34:19+02:00",
  "svarbiausia": 0,
  "naujienos": [
   {
    "regionas": "Lietuva",
-   "pavadinimas": "Degalų gamintojų viršpelnio mokestis – Gynybos fondui",
-   "santrauka": "Premjeras teigia, kad pajamos iš planuojamo degalų gamybos įmonių viršpelnio mokesčio galėtų patekti į Gynybos fondą. Pasak jo, įnašas galėtų siekti daugiau nei 100 mln. Eur.",
+   "pavadinimas": "VERT: visuomeninė elektra kitąmet brangs",
+   "santrauka": "Valstybinė energetikos reguliavimo taryba parengė nutarimo projektą, pagal kurį visuomeninė elektra kitąmet brangs.",
    "svarba": "didelė",
-   "šaltinis": "Verslo žinios",
-   "nuoroda": "https://www.vz.lt/vzlt-titulinis/2026/11/23/premjeras-100-mln-eur-is-degalu-gamybos-imoniu-virspelnio-papildytu-gynybos-fonda-593144",
-   "paskelbta": "2026-11-23 18:35",
-   "pavadinimas_en": "Windfall tax on fuel producers to go to the Defence Fund",
-   "santrauka_en": "The Prime Minister says that revenue from the planned windfall tax on fuel production companies could go to the Defence Fund. According to him, the contribution could exceed EUR 100 million."
-  },
-  {
-   "regionas": "Lietuva",
-   "pavadinimas": "Parama saulės elektrinėms su kaupikliais – kitų metų pradžioje",
-   "santrauka": "Valstybės parama gyventojams, įsirengusiems saulės elektrines kartu su kaupikliais, turėtų būti pasiūlyta kitų metų pradžioje. Naujo modelio paramos schema šiuo metu derinama su Europos Komisija.",
-   "svarba": "didelė",
-   "šaltinis": "Verslo žinios",
-   "nuoroda": "https://www.vz.lt/mano-verslas/2026/11/23/parama-saules-elektrinems-tik-kitamet-ir-tik-su-kaupikliais-593095",
-   "paskelbta": "2026-11-23 12:59",
-   "pavadinimas_en": "Support for solar power plants with energy storage (batteries) to be offered at the start of next year",
-   "santrauka_en": "State support for residents who have installed solar power plants together with energy storage (batteries) should be offered at the start of next year. The support scheme under the new model is currently being coordinated with the European Commission."
-  },
-  {
-   "regionas": "Lietuva",
-   "pavadinimas": "Lenkija: „Orlen Lietuvos“ pardavimui laikas netinkamas",
-   "santrauka": "Lenkijos valstybės turto ministras sako, kad dabar nėra tinkamas laikas parduoti „Orlen“ naftos perdirbimo gamyklą Mažeikiuose. Jis atkreipė dėmesį į jos strateginę reikšmę, geopolitinę padėtį ir Baltijos šalių saugumą.",
-   "svarba": "didelė",
-   "šaltinis": "Verslo žinios",
-   "nuoroda": "https://www.vz.lt/pramone/2026/11/23/lenku-ministras-dabar-nera-tinkamas-laikas-parduoti-orlen-gamykla-mazeikiuose-593113",
-   "paskelbta": "2026-11-23 17:39",
-   "pavadinimas_en": "Poland: the time is not right to sell Orlen Lietuva",
-   "santrauka_en": "Poland’s State Assets Minister says that now is not the right time to sell the Orlen oil refinery in Mažeikiai. He drew attention to its strategic importance, the geopolitical situation and the security of the Baltic states."
-  },
-  {
-   "regionas": "Lietuva",
-   "pavadinimas": "Klaipėdos uosto vandenilio projektas pasiekė teismus",
-   "santrauka": "Klaipėdos uosto vandenilio projekto istorijoje prireikė ir teismų. Tai susiję su vandenilio gamykla ir stotele Klaipėdoje.",
-   "svarba": "maža",
    "šaltinis": "15min verslas",
-   "nuoroda": "https://www.15min.lt/verslas/naujiena/energetika/klaipedos-uosto-vandenilio-istorijoje-prireike-ir-teismu-664-2812584?utm_source=rssfeed_verslas&utm_medium=rss&utm_campaign=rssfeed",
-   "paskelbta": "2026-11-23 18:46",
-   "pavadinimas_en": "Klaipėda port hydrogen project reaches the courts",
-   "santrauka_en": "The courts have also been needed in the history of the Klaipėda port hydrogen project. This relates to the hydrogen plant and filling station in Klaipėda."
+   "nuoroda": "https://www.15min.lt/verslas/naujiena/energetika/vert-nutarimo-projektas-visuomenine-elektra-kitamet-brangs-55-cento-664-2813384?utm_source=rssfeed_verslas&utm_medium=rss&utm_campaign=rssfeed",
+   "paskelbta": "2026-11-24 16:30",
+   "pavadinimas_en": "VERT: regulated public electricity price to rise next year",
+   "santrauka_en": "The National Energy Regulatory Council (VERT) has prepared a draft resolution under which the regulated public electricity price will rise next year."
+  },
+  {
+   "regionas": "Pasaulis",
+   "pavadinimas": "Australija svarsto griežtinti naftos sankcijas Rusijai",
+   "santrauka": "Australijos vyriausybė svarsto sugriežtinti sankcijas Rusijai ir uždaryti spragą, leidžiančią importuoti naftos produktus, pagamintus iš rusiškos naftos trečiosiose valstybėse.",
+   "svarba": "maža",
+   "šaltinis": "Verslo žinios",
+   "nuoroda": "https://www.vz.lt/verslo-aplinka/2026/11/24/australija-svarsto-galimybe-uzkirsti-kelia-rusiskos-naftos-sankciju-apejimui-593212",
+   "paskelbta": "2026-11-24 22:28",
+   "pavadinimas_en": "Australia considers tightening oil sanctions on Russia",
+   "santrauka_en": "The Australian Government is considering tightening sanctions on Russia and closing a loophole that allows the import of oil products made from Russian oil in third countries."
   }
  ],
- "kandidatų": 17
+ "kandidatų": 14
 }
