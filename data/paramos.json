@@ -1,9 +1,10 @@
 {
- "data": "2026-11-25",
+ "data": "2026-11-26",
  "šaltiniai_patikrinti": [
   "APVIS",
   "APVA planuojami kvietimai",
   "APVA energetikos priemonės",
+  "APVA naujienos",
   "esinvesticijos.lt",
   "LEA",
   "ILTE",
@@ -42,34 +43,24 @@
    "nuoroda": "https://esinvesticijos.lt/kvietimai?activity_scopes[]=67&status[]=45"
   },
   {
-   "pavadinimas": "Gatvių apšvietimo infrastruktūros modernizavimas (MF-EM-GA01)",
-   "institucija": "APVA",
-   "būsena": "nauja",
-   "svarba": "vidutinė",
-   "pabaiga": "2027-04-07",
-   "pokytis": "Pirmą kartą rastas APVIS sąraše; paraiškos priimamos nuo 2026-10-08",
-   "esmė": "Juridiniams asmenims – gatvių apšvietimo modernizavimas, 10 mln. Eur (likutis 5,78 mln. Eur)",
-   "nuoroda": "https://apvis.apva.lt/"
-  },
-  {
    "pavadinimas": "Investicinė parama biometano gamybai ir (ar) biodujų išvalymui",
    "institucija": "APVA",
    "būsena": "baigiasi",
    "svarba": "vidutinė",
    "pabaiga": "2026-11-27",
-   "pokytis": "Iki termino liko 2 d.; lėšų likutis 6,41 mln. Eur (buvo 8,11 mln. Eur)",
-   "esmė": "Juridiniams asmenims – biometano gamyba ir biodujų išvalymas, 16 mln. Eur (likutis 6,41 mln. Eur)",
+   "pokytis": "Iki termino liko 1 d.; preliminarus lėšų likutis -1,59 mln. Eur (vakar 6,41 mln. Eur)",
+   "esmė": "Juridiniams asmenims – biometano gamyba ir biodujų išvalymas, 16 mln. Eur",
    "nuoroda": "https://apva.lrv.lt/lt/veiklos-sritys/projektu-finansavimas/energetika-1852/investicine-parama-biometano-gamybai-ir-ar-bioduju-isvalymui1/"
   },
   {
-   "pavadinimas": "Grynųjų elektromobilių įsigijimo fiziniams asmenims skatinimas (MF-SM-EVF02)",
+   "pavadinimas": "Grynųjų elektromobilių įsigijimo juridiniams asmenims skatinimas (MF-SM-EVJ02)",
    "institucija": "APVA",
    "būsena": "pasibaigė",
-   "svarba": "maža",
+   "svarba": "vidutinė",
    "pabaiga": "",
-   "pokytis": "Kvietimas sustabdytas – gauta paraiškų visai sumai (3,6 tūkst. paraiškų už 12,3 mln. Eur)",
-   "esmė": "Fiziniams asmenims – grynųjų elektromobilių įsigijimas, 12,32 mln. Eur",
-   "nuoroda": "https://apva.lrv.lt/lt/naujienos-24316/gyventojai-aktyviai-perseda-i-elektromobilius-isnaudota-daugiau-nei-12-mln-euru-parama-kvietimas-sustabdytas-5Y6/"
+   "pokytis": "Kvietimas užbaigtas – gauta paraiškų visai sumai (apie 2,1 tūkst. paraiškų); APVIS sąraše jo nebėra",
+   "esmė": "Įmonėms ir viešajam sektoriui – elektromobilių įsigijimas, 8,2 mln. Eur",
+   "nuoroda": "https://apva.lrv.lt/lt/naujienos-24316/imones-ir-viesasis-sektorius-renkasi-elektromobilius-uzbaigtas-82-mln-eur-kvietimas-zmU/"
   }
  ]
 }
