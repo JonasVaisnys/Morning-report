@@ -1,30 +1,63 @@
 {
- "data": "2026-11-25",
- "sugeneruota": "2026-11-25T05:34:19+02:00",
+ "data": "2026-11-26",
+ "sugeneruota": "2026-11-26T05:35:53+02:00",
  "svarbiausia": 0,
  "naujienos": [
   {
    "regionas": "Lietuva",
-   "pavadinimas": "VERT: visuomeninė elektra kitąmet brangs",
-   "santrauka": "Valstybinė energetikos reguliavimo taryba parengė nutarimo projektą, pagal kurį visuomeninė elektra kitąmet brangs.",
+   "pavadinimas": "Seime stumiama idėja sumažinti elektros kainas pramonei",
+   "santrauka": "Seime pirmyn stumiasi prezidento idėja laikinai sumažinti elektros kainas pramonei.",
    "svarba": "didelė",
    "šaltinis": "15min verslas",
-   "nuoroda": "https://www.15min.lt/verslas/naujiena/energetika/vert-nutarimo-projektas-visuomenine-elektra-kitamet-brangs-55-cento-664-2813384?utm_source=rssfeed_verslas&utm_medium=rss&utm_campaign=rssfeed",
-   "paskelbta": "2026-11-24 16:30",
-   "pavadinimas_en": "VERT: regulated public electricity price to rise next year",
-   "santrauka_en": "The National Energy Regulatory Council (VERT) has prepared a draft resolution under which the regulated public electricity price will rise next year."
+   "nuoroda": "https://www.15min.lt/verslas/naujiena/finansai/seime-pirmyn-stumiasi-prezidento-ideja-laikinai-sumazinti-elektros-kainas-pramonei-662-2814430?utm_source=rssfeed_verslas&utm_medium=rss&utm_campaign=rssfeed",
+   "paskelbta": "2026-11-25 17:59",
+   "pavadinimas_en": "Idea of reducing electricity prices for industry advances in the Seimas",
+   "santrauka_en": "The President’s idea of temporarily reducing electricity prices for industry is moving forward in the Seimas."
+  },
+  {
+   "regionas": "Lietuva",
+   "pavadinimas": "Prie perdavimo tinklo prijungtas didžiausias baterijų parkas",
+   "santrauka": "„Litgrid“ prijungė Šilutės rajone bendrovės „Soli LT“ vystomą baterijų parką, kurio leistina generuoti galia yra 150 MW, įrengtoji galia – 201 MW, o talpa – 402 MWh. Tai pirmasis Lietuvoje prie 330 kV tinklo prijungtas elektros energijos kaupimo įrenginys.",
+   "svarba": "didelė",
+   "šaltinis": "Verslo žinios",
+   "nuoroda": "https://www.vz.lt/energetika/2026/11/25/prie-lietuvos-elektros-perdavimo-tinklo-prijungta-iki-siol-didziausia-bateriju-kaupimo-sistema-593251",
+   "paskelbta": "2026-11-25 14:23",
+   "pavadinimas_en": "Largest battery park connected to the transmission grid",
+   "santrauka_en": "Litgrid has connected a battery park developed by Soli LT in Šilutė district, with a permitted generation capacity of 150 MW, an installed capacity of 201 MW and a storage capacity of 402 MWh. It is the first energy storage facility in Lithuania connected to the 330 kV grid."
+  },
+  {
+   "regionas": "Lietuva",
+   "pavadinimas": "„Kauno energijos“ grupės pajamos augo",
+   "santrauka": "„Kauno energijos“ grupės pajamos šiemet augo 50 % ir pasiekė 97,2 mln. eurų.",
+   "svarba": "vidutinė",
+   "šaltinis": "15min verslas",
+   "nuoroda": "https://www.15min.lt/verslas/naujiena/finansai/kauno-energijos-grupes-pajamos-siemet-augo-50-proc-iki-972-mln-euru-662-2814442?utm_source=rssfeed_verslas&utm_medium=rss&utm_campaign=rssfeed",
+   "paskelbta": "2026-11-25 18:09",
+   "pavadinimas_en": "Kauno energija group’s revenue grew",
+   "santrauka_en": "Kauno energija group’s revenue grew by 50% this year, reaching EUR 97.2 million."
+  },
+  {
+   "regionas": "Lietuva",
+   "pavadinimas": "„KN Energies“ svarsto SkGD projektą Vietname",
+   "santrauka": "Valstybės valdoma naftos ir SkGD terminalų operatorė „KN Energies“ planuoja investuoti į SkGD stoties projektą Vietname.",
+   "svarba": "vidutinė",
+   "šaltinis": "Verslo žinios",
+   "nuoroda": "https://www.vz.lt/energetika/2026/11/25/kn-energies-planuoja-investuoti-i-skgd-projekta-vietname-593262",
+   "paskelbta": "2026-11-25 16:36",
+   "pavadinimas_en": "KN Energies considers LNG project in Vietnam",
+   "santrauka_en": "KN Energies, the state-owned operator of oil and LNG terminals, plans to invest in an LNG station project in Vietnam."
   },
   {
    "regionas": "Pasaulis",
-   "pavadinimas": "Australija svarsto griežtinti naftos sankcijas Rusijai",
-   "santrauka": "Australijos vyriausybė svarsto sugriežtinti sankcijas Rusijai ir uždaryti spragą, leidžiančią importuoti naftos produktus, pagamintus iš rusiškos naftos trečiosiose valstybėse.",
+   "pavadinimas": "T. Boehly susitarė dėl „Lukoil“ tarptautinio turto",
+   "santrauka": "Investuotojas Toddas Boehly pareiškė pasiekęs susitarimą dėl Rusijos naftos bendrovės „Lukoil“ tarptautinio turto įsigijimo.",
    "svarba": "maža",
    "šaltinis": "Verslo žinios",
-   "nuoroda": "https://www.vz.lt/verslo-aplinka/2026/11/24/australija-svarsto-galimybe-uzkirsti-kelia-rusiskos-naftos-sankciju-apejimui-593212",
-   "paskelbta": "2026-11-24 22:28",
-   "pavadinimas_en": "Australia considers tightening oil sanctions on Russia",
-   "santrauka_en": "The Australian Government is considering tightening sanctions on Russia and closing a loophole that allows the import of oil products made from Russian oil in third countries."
+   "nuoroda": "https://www.vz.lt/verslo-aplinka/2026/11/25/milijardierius-t-boehly-susitare-del-lukoil-tarptautinio-turto-isigijimo-593282",
+   "paskelbta": "2026-11-25 23:53",
+   "pavadinimas_en": "T. Boehly agrees deal on Lukoil’s international assets",
+   "santrauka_en": "Investor Todd Boehly has announced that he has reached an agreement on the acquisition of the international assets of the Russian oil company Lukoil."
   }
  ],
- "kandidatų": 14
+ "kandidatų": 19
 }
