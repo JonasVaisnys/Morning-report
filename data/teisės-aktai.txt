@@ -1,8 +1,22 @@
-{
-  "section": "teises_aktai",
-  "data": "2026-11-26",
-  "error": "500 Server Error: Internal Server Error for url: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar%3E=%222026-11-25%22&paskelbta_tar%3C%222026-11-26%22&sort(-paskelbta_tar)&limit(2000)",
-  "total_count": 0,
-  "energy_relevant": [],
-  "all_acts": []
-}
+════════════════════════════════════════════════════════════
+  Teisės aktų brifingas
+  2026-11-27 (laikotarpis: 2026-11-26 — 2026-11-27)
+════════════════════════════════════════════════════════════
+
+⚡ Energetikai aktualūs (2)
+──────────────────────────────────────────────────
+  • Dėl Lietuvos Respublikos Vyriausybės 2022 m. spalio 19 d. nutarimo Nr. 1049 „Dėl Reikalavimų asmenims, siekiantiems įgyti bei įgijusiems teisę plėtoti ir eksploatuoti atsinaujinančius energijos išteklius naudojančias elektrines jūrinėje teritorijoje, ir jūrinės teritorijos tyrimų bei kitų veiksmų atlikimo išlaidų kompensavimo tvarkos aprašo patvirtinimo“ pakeitimo
+    Rūšis: Nutarimas | Priimtas: 2026-11-25 | Paskelbta: 2026-11-25
+    Priėmė: Lietuvos Respublikos Vyriausybė
+    https://e-tar.lt/portal/lt/legalAct/4f857f22e8f011f1ab45d33e859b1b3f
+
+  • Dėl Lietuvos Respublikos elektros energetikos įstatymo Nr. VIII-1881 2, 31 ir 67 straipsnių pakeitimo įstatymo projekto pateikimo Lietuvos Respublikos Seimui
+    Rūšis: Nutarimas | Priimtas: 2026-11-25 | Paskelbta: 2026-11-25
+    Priėmė: Lietuvos Respublikos Vyriausybė
+    https://e-tar.lt/portal/lt/legalAct/33676d40e8ef11f1ab45d33e859b1b3f
+
+
+Visi teisės aktai: 2
+──────────────────────────────────────────────────
+  Nutarimas: 2
+

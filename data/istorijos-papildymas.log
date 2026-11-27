@@ -1,32 +1,32 @@
-Ataskaitos diena 2026-11-26; laikotarpis 2026-11-22 00:00 – 2026-11-27 23:00 UTC
-kaina_LT                       120 val.  PT15M        eilučių  1  [2026-11:ok]
-kaina_LV                       120 val.  PT15M        eilučių  1  [2026-11:ok]
-kaina_EE                       120 val.  PT15M        eilučių  1  [2026-11:ok]
+Ataskaitos diena 2026-11-27; laikotarpis 2026-11-23 00:00 – 2026-11-28 23:00 UTC
 kaina_FI                       120 val.  PT15M        eilučių  1  [2026-11:ok]
+kaina_EE                       120 val.  PT15M        eilučių  1  [2026-11:ok]
+kaina_SE4                      120 val.  PT15M        eilučių  1  [2026-11:ok]
+kaina_PL                       120 val.  PT15M        eilučių  1  [2026-11:ok]
 apkrova_LT                     100 val.  PT15M        eilučių  1  [2026-11:ok]
+apkrova_progn_LT               119 val.  PT15M        eilučių  1  [2026-11:ok]
 gamyba_LT                     1100 val.  PT15M        eilučių 11  [2026-11:ok]
 progn_LT                       238 val.  PT15M        eilučių  2  [2026-11:ok]
-apkrova_progn_LT               119 val.  PT15M        eilučių  1  [2026-11:ok]
-kaina_PL                       120 val.  PT15M        eilučių  1  [2026-11:ok]
-kaina_SE4                      120 val.  PT15M        eilučių  1  [2026-11:ok]
+kaina_LV                       120 val.  PT15M        eilučių  1  [2026-11:ok]
+kaina_LT                       120 val.  PT15M        eilučių  1  [2026-11:ok]
+prekyba_LT_SE4                 119 val.  PT15M        eilučių  1  [2026-11:ok]
+siulomas_LT_SE4                  0 val.  -            eilučių  0  [2026-11:tuščia]
+prekyba_LT_PL                  119 val.  PT15M        eilučių  1  [2026-11:ok]
 prekyba_SE4_LT                 119 val.  PT15M        eilučių  1  [2026-11:ok]
 siulomas_SE4_LT                  0 val.  -            eilučių  0  [2026-11:tuščia]
-prekyba_LT_PL                  119 val.  PT15M        eilučių  1  [2026-11:ok]
-prekyba_LT_SE4                 119 val.  PT15M        eilučių  1  [2026-11:ok]
-siulomas_PL_LT                   0 val.  -            eilučių  0  [2026-11:tuščia]
-siulomas_LT_SE4                  0 val.  -            eilučių  0  [2026-11:tuščia]
 siulomas_LT_PL                   0 val.  -            eilučių  0  [2026-11:tuščia]
-siulomas_LT_LV                   0 val.  -            eilučių  0  [2026-11:tuščia]
-prekyba_LV_LT                  119 val.  PT15M        eilučių  1  [2026-11:ok]
-prekyba_PL_LT                  119 val.  PT15M        eilučių  1  [2026-11:ok]
-siulomas_LV_LT                   0 val.  -            eilučių  0  [2026-11:tuščia]
 prekyba_LT_LV                  119 val.  PT15M        eilučių  1  [2026-11:ok]
+prekyba_PL_LT                  119 val.  PT15M        eilučių  1  [2026-11:ok]
+siulomas_LT_LV                   0 val.  -            eilučių  0  [2026-11:tuščia]
+siulomas_PL_LT                   0 val.  -            eilučių  0  [2026-11:tuščia]
+prekyba_LV_LT                  119 val.  PT15M        eilučių  1  [2026-11:ok]
+siulomas_LV_LT                   0 val.  -            eilučių  0  [2026-11:tuščia]
 elering kainos: elering_EE 119 val., elering_FI 119 val., elering_LT 119 val., elering_LV 119 val.; nepavykusių užklausų 0
-kainos: papildymuose 384 val., 2026-11-10 23:00 – 2026-11-26 22:00 UTC
-apkrova: papildymuose 383 val., 2026-11-11 00:00 – 2026-11-26 22:00 UTC
-gamyba: papildymuose 383 val., 2026-11-11 00:00 – 2026-11-26 22:00 UTC
-jungtys: papildymuose 384 val., 2026-11-10 23:00 – 2026-11-26 22:00 UTC
-TTF 66 d. (paskutinė 2026-11-25), EUA 202 d. (paskutinė 2026-11-25)
-Litgrid 2026-11-25…2026-11-27: eilučių 193
-Litgrid pralaidumai: naujų ar pakeistų eilučių 96, iš viso 4800, paskutinė 2026-11-27 00:00
+kainos: papildymuose 408 val., 2026-11-10 23:00 – 2026-11-27 22:00 UTC
+apkrova: papildymuose 407 val., 2026-11-11 00:00 – 2026-11-27 22:00 UTC
+gamyba: papildymuose 407 val., 2026-11-11 00:00 – 2026-11-27 22:00 UTC
+jungtys: papildymuose 408 val., 2026-11-10 23:00 – 2026-11-27 22:00 UTC
+TTF 66 d. (paskutinė 2026-11-26), EUA 203 d. (paskutinė 2026-11-26)
+Litgrid 2026-11-26…2026-11-28: eilučių 193
+Litgrid pralaidumai: naujų ar pakeistų eilučių 96, iš viso 4896, paskutinė 2026-11-28 00:00
 Ataskaitos dienai: kainų 24 val., vartojimo prognozės 24 val., vėjo prognozės 24 val., saulės prognozės 24 val.

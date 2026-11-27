@@ -1,0 +1,443 @@
+{
+ "data": "2026-11-27",
+ "elektros_rinka": {
+  "data": "2026-11-27",
+  "ref_dienų": 89,
+  "galia": {
+   "vėjas": 2507,
+   "saulė": 3018
+  },
+  "vartojimas": {
+   "mw": 1802,
+   "norma": 1714,
+   "intervalas": [
+    1680,
+    1764
+   ],
+   "būsena": "didesnis nei įprasta",
+   "nuokrypis_proc": 5.1,
+   "procentilis": null
+  },
+  "vėjas": {
+   "mw": 199,
+   "norma": 524,
+   "intervalas": [
+    345,
+    694
+   ],
+   "būsena": "mažesnė nei įprasta",
+   "procentilis": 13
+  },
+  "saulė": {
+   "mw": 111,
+   "norma": 17,
+   "intervalas": [
+    14,
+    28
+   ],
+   "būsena": "gerokai didesnė nei įprasta",
+   "procentilis": 98
+  },
+  "kita_gamyba": {
+   "mw": 355,
+   "norma": 224,
+   "būsena": "gerokai didesnė nei įprasta",
+   "valandos": "00–06",
+   "vėjas_faktas": 217,
+   "saulė_faktas": 0,
+   "vartojimas_faktas": 1463
+  },
+  "dujos": {
+   "ttf": 87.5,
+   "norma_12mėn": 53.6,
+   "santykis": 1.63,
+   "būsena": "gerokai brangesnės nei įprasta",
+   "prieš_metus": 29.4
+  },
+  "kaina": {
+   "lt": 322.9,
+   "norma": 167.6,
+   "intervalas": [
+    151,
+    198
+   ],
+   "norma_su_šiandienos_dujomis": 249.1,
+   "būsena": "gerokai didesnė nei įprasta",
+   "min": 233.2,
+   "max": 429.5,
+   "min_val": 6,
+   "max_val": 9,
+   "modelis": 363.5,
+   "modelis_su_jungtimis": 346.0
+  },
+  "indėliai": {
+   "dujos": 105.6,
+   "vartojimas": 5.5,
+   "vėjas": 26.0,
+   "saulė": -5.3,
+   "pralaidumai": 0.0,
+   "kaimynai": 38.9,
+   "kita": -15.5
+  },
+  "dujų_metodas": "šiandienos sąlygomis",
+  "kaimynų_detalės": {
+   "kainos": 50.7,
+   "jungčių_apkrova": -11.8
+  },
+  "kaimynai": {
+   "LV": 222.2,
+   "SE4": 317.1,
+   "PL": 310.9,
+   "EE": 208.7,
+   "FI": 204.1
+  },
+  "lt_lv_skiriasi_val": 23,
+  "kaimynų_būsena": {
+   "SE4": {
+    "kaina": 317.1,
+    "norma_su_šiandienos_dujomis": 183.8,
+    "būsena": "gerokai didesnė nei įprasta",
+    "procentilis": 96
+   },
+   "PL": {
+    "kaina": 310.9,
+    "norma_su_šiandienos_dujomis": 219.2,
+    "būsena": "didesnė nei įprasta",
+    "procentilis": 88
+   },
+   "FI": {
+    "kaina": 204.1,
+    "norma_su_šiandienos_dujomis": 190.9,
+    "būsena": "įprasta",
+    "procentilis": 62
+   }
+  },
+  "mainai": {
+   "SE4": {
+    "mw": 322,
+    "proc_vartojimo": 18
+   },
+   "PL": {
+    "mw": 111,
+    "proc_vartojimo": 6
+   },
+   "LV": {
+    "mw": 817,
+    "proc_vartojimo": 45
+   },
+   "iš_viso": {
+    "mw": 1249,
+    "proc_vartojimo": 69
+   },
+   "maks": {
+    "SE4_imp": 684,
+    "SE4_eksp": 75,
+    "PL_imp": 190,
+    "PL_eksp": 160,
+    "LV_imp": 968,
+    "LV_eksp": 0
+   }
+  },
+  "nordpool": {},
+  "pralaidumai": {
+   "LT–SE4 (NordBalt)": {
+    "importas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-28"
+    },
+    "eksportas": {
+     "mw": 700,
+     "min": 700,
+     "nominalas": 700,
+     "pask_data": "2026-11-28"
+    }
+   },
+   "LT–PL (LitPol)": {
+    "importas": {
+     "mw": 186,
+     "min": 181,
+     "nominalas": 164,
+     "pask_data": "2026-11-28"
+    },
+    "eksportas": {
+     "mw": 207,
+     "min": 197,
+     "nominalas": 194,
+     "pask_data": "2026-11-28"
+    }
+   },
+   "LT–LV": {
+    "importas": {
+     "mw": 818,
+     "min": 547,
+     "nominalas": 838,
+     "pask_data": "2026-11-28"
+    },
+    "eksportas": {
+     "mw": 834,
+     "min": 734,
+     "nominalas": 943,
+     "pask_data": "2026-11-28"
+    }
+   }
+  },
+  "sąlygos": {
+   "srmc": 192.7,
+   "srmc_norma": 129.7,
+   "cap_def": 0
+  },
+  "jungtys_būsena": {
+   "SE4": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 1
+   },
+   "PL": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 9
+   },
+   "LV": {
+    "eksportas_pilnas_val": 0,
+    "importas_pilnas_val": 24
+   }
+  },
+  "lt_lv": {
+   "brangiau_val": 23,
+   "pigiau_val": 0,
+   "skirtumas": 100.7
+  },
+  "kaimynų_valandos": {
+   "SE4": {
+    "min": 229.4,
+    "max": 424.9,
+    "max_val": 9
+   },
+   "PL": {
+    "min": 196.7,
+    "max": 421.4,
+    "max_val": 9
+   },
+   "LV": {
+    "min": 118.9,
+    "max": 280.6,
+    "max_val": 10
+   },
+   "FI": {
+    "min": 116.6,
+    "max": 280.3,
+    "max_val": 10
+   }
+  },
+  "kitos_aiškinimas": {
+   "nuo": 0,
+   "iki": 24,
+   "valandų": 24,
+   "kryptimi_val": 21,
+   "paros_val": 24,
+   "dalis": 1.0,
+   "kaina": 322.9,
+   "modelis": 346.0,
+   "LV": 222.2,
+   "EE": 208.7,
+   "FI": 204.1,
+   "SE4": 317.1,
+   "PL": 310.9,
+   "lt_lygu_lv_val": 1,
+   "x_se4": 0,
+   "i_se4": 1,
+   "x_pl": 0,
+   "i_pl": 9,
+   "x_lv": 0,
+   "i_lv": 24
+  }
+ },
+ "valandos": [
+  240.62,
+  245.44,
+  240.45,
+  240.26,
+  242.94,
+  265.01,
+  233.22,
+  303.42,
+  359.01,
+  429.51,
+  395.56,
+  381.79,
+  388.38,
+  358.6,
+  394.84,
+  377.33,
+  365.88,
+  403.07,
+  395.28,
+  351.22,
+  335.2,
+  303.26,
+  265.59,
+  234.58
+ ],
+ "naujienos": {
+  "data": "2026-11-27",
+  "sugeneruota": "2026-11-27T05:37:08+02:00",
+  "svarbiausia": 0,
+  "naujienos": [
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Lenkijos ministras apie „viršpelnio“ mokestį ir „Orlen Lietuvą“",
+    "santrauka": "Lenkijos energetikos ministras Miloszas Motyka sako, kad paramos Mažeikių naftos perdirbimo gamyklai trūkumas ir naujas „viršpelnio“ mokestis gali pakenkti valstybių bendradarbiavimui. Jis pasigedo „Orlen Lietuvai“ žadėto 54 mln. Eur paketo.",
+    "svarba": "didelė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/pramone/2026/11/26/lietuvai-ruosiant-virspelnio-mokesti-lenkijos-ministras-pasigedo-orlen-lietuvai-zadeto-54-mln-eur-paketo-593327",
+    "paskelbta": "2026-11-26 19:26",
+    "pavadinimas_en": "Polish minister on the “windfall” tax and Orlen Lietuva",
+    "santrauka_en": "Polish Minister of Energy Miloszas Motyka says that the lack of support for the Mažeikiai oil refinery and the new “windfall” tax could harm cooperation between the countries. He noted the absence of the EUR 54 million package promised to Orlen Lietuva."
+   },
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "VERT svarsto didesnius visuomeninius elektros ir dujų tarifus",
+    "santrauka": "Ant VERT stalo – didesni visuomeninės elektros ir dujų tarifai kitam pusmečiui.",
+    "svarba": "didelė",
+    "šaltinis": "15min verslas",
+    "nuoroda": "https://www.15min.lt/verslas/naujiena/finansai/ant-vert-stalo-didesni-visuomenines-elektros-ir-duju-tarifai-kitam-pusmeciui-662-2815692?utm_source=rssfeed_verslas&utm_medium=rss&utm_campaign=rssfeed",
+    "paskelbta": "2026-11-27 07:00",
+    "pavadinimas_en": "VERT considers higher regulated public electricity and gas prices",
+    "santrauka_en": "VERT is reviewing higher regulated public electricity and gas prices for the next half-year."
+   },
+   {
+    "regionas": "Lietuva",
+    "pavadinimas": "Klaipėdos uoste elektrifikuojamos krantinės",
+    "santrauka": "Klaipėdos uoste elektrifikuojamos krantinės, nes uoste kryptingai investuojama į tvarumą.",
+    "svarba": "vidutinė",
+    "šaltinis": "15min verslas",
+    "nuoroda": "https://www.15min.lt/verslas/naujiena/energetika/klaipedos-uoste-elektrifikuojamos-krantines-664-2815456?utm_source=rssfeed_verslas&utm_medium=rss&utm_campaign=rssfeed",
+    "paskelbta": "2026-11-26 18:05",
+    "pavadinimas_en": "Quays in Klaipėda port being electrified",
+    "santrauka_en": "Quays in Klaipėda port are being electrified as the port is investing consistently in sustainability."
+   },
+   {
+    "regionas": "Europa",
+    "pavadinimas": "Rusijos naftos perdirbimas – mažiausias per 20 metų",
+    "santrauka": "Energetikos rinkos analizės bendrovės teigimu, Rusijos naftos perdirbimo apimtis pasiekė žemiausią lygį per daugiau nei 20 metų. Ukraina atakuoja energetikos objektus siekdama atimti iš Maskvos karo mašinos pajamų šaltinį.",
+    "svarba": "vidutinė",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/verslo-aplinka/2026/11/26/analize-rusijos-naftos-perdirbimo-apimtis-maziausia-per-20-metu-593330",
+    "paskelbta": "2026-11-26 16:15",
+    "pavadinimas_en": "Russian oil refining at its lowest in 20 years",
+    "santrauka_en": "According to an energy market analysis company, Russian oil refining volumes have reached their lowest level in more than 20 years. Ukraine is attacking energy facilities in order to deprive Moscow's war machine of a source of revenue."
+   },
+   {
+    "regionas": "Europa",
+    "pavadinimas": "Brangstančios dujos slegia trąšų rinką",
+    "santrauka": "Dujos, pagrindinė azotinių trąšų žaliava, pabrango tiek, kad ir papildomas trąšų importo apmokestinimas gamintojų nebegelbsti. Stabdomi amoniako įrenginiai.",
+    "svarba": "maža",
+    "šaltinis": "Verslo žinios",
+    "nuoroda": "https://www.vz.lt/agroverslas/2026/11/26/tobula-audra-trasu-rinkoje-salietros-importas-smuko-73-592997",
+    "paskelbta": "2026-11-26 16:48",
+    "pavadinimas_en": "Rising gas prices weigh on the fertiliser market",
+    "santrauka_en": "Gas, the main raw material for nitrogen fertilisers, has become so expensive that even additional taxation of fertiliser imports no longer helps producers. Ammonia plants are being shut down."
+   }
+  ],
+  "kandidatų": 15
+ },
+ "pasaulio_rinkos": {
+  "kotiruotės_laikas": "2026-11-27T05:27+02:00",
+  "rodikliai": [
+   {
+    "pavadinimas": "Nafta (Brent)",
+    "reikšmė": 92.19,
+    "vienetai": "USD/bbl",
+    "per_dieną": -2.56,
+    "per_7d": 0.23,
+    "per_30d": -19.05
+   },
+   {
+    "pavadinimas": "Dujos (TTF)",
+    "reikšmė": 87.55,
+    "vienetai": "€/MWh",
+    "per_dieną": 0.28,
+    "per_7d": 3.66,
+    "per_30d": -8.86
+   },
+   {
+    "pavadinimas": "Taršos leidimai (ATL)",
+    "reikšmė": 83.15,
+    "vienetai": "€/t",
+    "per_dieną": 0.9,
+    "per_7d": 2.26,
+    "per_30d": -5.2
+   }
+  ]
+ },
+ "teisės_aktai": [
+  {
+   "pavadinimas": "Dėl Lietuvos Respublikos Vyriausybės 2022 m. spalio 19 d. nutarimo Nr. 1049 „Dėl Reikalavimų asmenims, siekiantiems įgyti bei įgijusiems teisę plėtoti ir eksploatuoti atsinaujinančius energijos išteklius naudojančias elektrines jūrinėje teritorijoje, ir jūrinės teritorijos tyrimų bei kitų veiksmų atlikimo išlaidų kompensavimo tvarkos aprašo patvirtinimo“ pakeitimo",
+   "sritis": "AEI ir kaupimas",
+   "rusis": "Nutarimas",
+   "priimtas": "2026-11-25",
+   "paskelbta_tar": "2026-11-25",
+   "isigalioja": "2026-11-26",
+   "galioj_busena": null,
+   "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
+   "tar_kodas": "2026-18585",
+   "atv_dok_nr": "906",
+   "url": "https://e-tar.lt/portal/lt/legalAct/4f857f22e8f011f1ab45d33e859b1b3f"
+  },
+  {
+   "pavadinimas": "Dėl Lietuvos Respublikos elektros energetikos įstatymo Nr. VIII-1881 2, 31 ir 67 straipsnių pakeitimo įstatymo projekto pateikimo Lietuvos Respublikos Seimui",
+   "sritis": "Elektra",
+   "rusis": "Nutarimas",
+   "priimtas": "2026-11-25",
+   "paskelbta_tar": "2026-11-25",
+   "isigalioja": "2026-11-25",
+   "galioj_busena": null,
+   "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
+   "tar_kodas": "2026-18584",
+   "atv_dok_nr": "905",
+   "url": "https://e-tar.lt/portal/lt/legalAct/33676d40e8ef11f1ab45d33e859b1b3f"
+  }
+ ],
+ "paramos": [
+  {
+   "pavadinimas": "Pramonės dekarbonizacija",
+   "institucija": "APVA",
+   "būsena": "laukiama",
+   "svarba": "didelė",
+   "pabaiga": "",
+   "pokytis": "",
+   "esmė": "Juridiniams asmenims – pramonės dekarbonizacija, 10 mln. Eur; skelbti planuojama 2026 m. IV ketv. – 2027 m. I ketv.",
+   "nuoroda": "https://apva.lrv.lt/lt/aktualus-kvietimai/"
+  },
+  {
+   "pavadinimas": "Skirstomųjų tinklų skaitmeninio valdymo sistemos AEI plėtrai Vidurio ir Vakarų Lietuvoje (Nr. 03-015-T)",
+   "institucija": "ES investicijos",
+   "būsena": "be pokyčių",
+   "svarba": "didelė",
+   "pabaiga": "2026-12-31",
+   "pokytis": "",
+   "esmė": "Pažangiųjų energetikos sistemų skaitmeninio valdymo diegimas skirstomuosiuose tinkluose, 58,5 mln. Eur",
+   "nuoroda": "https://esinvesticijos.lt/kvietimai?activity_scopes[]=67&status[]=45"
+  },
+  {
+   "pavadinimas": "Skirstomųjų tinklų skaitmeninio valdymo sistemos AEI plėtrai visoje Lietuvoje (Nr. 03-024-T)",
+   "institucija": "ES investicijos",
+   "būsena": "be pokyčių",
+   "svarba": "didelė",
+   "pabaiga": "2026-12-31",
+   "pokytis": "",
+   "esmė": "Pažangiųjų energetikos sistemų skaitmeninio valdymo diegimas skirstomuosiuose tinkluose, 24 mln. Eur",
+   "nuoroda": "https://esinvesticijos.lt/kvietimai?activity_scopes[]=67&status[]=45"
+  },
+  {
+   "pavadinimas": "Investicinė parama biometano gamybai ir (ar) biodujų išvalymui",
+   "institucija": "APVA",
+   "būsena": "baigiasi",
+   "svarba": "vidutinė",
+   "pabaiga": "2026-11-27",
+   "pokytis": "Paraiškos priimamos tik iki šiandien; preliminarus lėšų likutis -9,29 mln. Eur (vakar -1,59 mln. Eur)",
+   "esmė": "Juridiniams asmenims – biometano gamyba ir biodujų išvalymas, 16 mln. Eur",
+   "nuoroda": "https://apva.lrv.lt/lt/veiklos-sritys/projektu-finansavimas/energetika-1852/investicine-parama-biometano-gamybai-ir-ar-bioduju-isvalymui1/"
+  }
+ ]
+}

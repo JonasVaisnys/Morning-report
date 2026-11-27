@@ -1,6 +1,2 @@
-[teisės aktai] Surinktas failas ne šiai dienai (iki=2026-11-25, reikia 2026-11-26)
-[teisės aktai] Užklausa: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar>="2026-11-25"&paskelbta_tar<"2026-11-26"&sort(-paskelbta_tar)&limit(2000)
-[teisės aktai] API klaida: 500 Server Error: Internal Server Error for url: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar%3E=%222026-11-25%22&paskelbta_tar%3C%222026-11-26%22&sort(-paskelbta_tar)&limit(2000)
-[teisės aktai] Surinktas failas ne šiai dienai (iki=2026-11-25, reikia 2026-11-26)
-[teisės aktai] Užklausa: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar>="2026-11-25"&paskelbta_tar<"2026-11-26"&sort(-paskelbta_tar)&limit(2000)
-[teisės aktai] API klaida: 500 Server Error: Internal Server Error for url: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar%3E=%222026-11-25%22&paskelbta_tar%3C%222026-11-26%22&sort(-paskelbta_tar)&limit(2000)
+[teisės aktai] Iš surinkto failo: 63 aktų, energetikos 2 (2026-11-25 – 2026-11-27, surinkta 2026-11-27T02:24:16.358Z)
+[teisės aktai] Iš surinkto failo: 63 aktų, energetikos 2 (2026-11-25 – 2026-11-27, surinkta 2026-11-27T02:24:16.358Z)

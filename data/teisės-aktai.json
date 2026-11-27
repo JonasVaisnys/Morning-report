@@ -1,8 +1,66 @@
 {
   "section": "teises_aktai",
-  "data": "2026-11-26",
-  "error": "500 Server Error: Internal Server Error for url: https://get.data.gov.lt/datasets/gov/lrsk/teises_aktai/Dokumentas?paskelbta_tar%3E=%222026-11-25%22&paskelbta_tar%3C%222026-11-26%22&sort(-paskelbta_tar)&limit(2000)",
-  "total_count": 0,
-  "energy_relevant": [],
-  "all_acts": []
+  "generated": "2026-11-27T03:37:24.205152",
+  "period": {
+    "from": "2026-11-25",
+    "to": "2026-11-27"
+  },
+  "type_filter": null,
+  "total_count": 63,
+  "energy_relevant_count": 2,
+  "energy_relevant": [
+    {
+      "pavadinimas": "Dėl Lietuvos Respublikos Vyriausybės 2022 m. spalio 19 d. nutarimo Nr. 1049 „Dėl Reikalavimų asmenims, siekiantiems įgyti bei įgijusiems teisę plėtoti ir eksploatuoti atsinaujinančius energijos išteklius naudojančias elektrines jūrinėje teritorijoje, ir jūrinės teritorijos tyrimų bei kitų veiksmų atlikimo išlaidų kompensavimo tvarkos aprašo patvirtinimo“ pakeitimo",
+      "sritis": "AEI ir kaupimas",
+      "rusis": "Nutarimas",
+      "priimtas": "2026-11-25",
+      "paskelbta_tar": "2026-11-25",
+      "isigalioja": "2026-11-26",
+      "galioj_busena": null,
+      "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
+      "tar_kodas": "2026-18585",
+      "atv_dok_nr": "906",
+      "url": "https://e-tar.lt/portal/lt/legalAct/4f857f22e8f011f1ab45d33e859b1b3f"
+    },
+    {
+      "pavadinimas": "Dėl Lietuvos Respublikos elektros energetikos įstatymo Nr. VIII-1881 2, 31 ir 67 straipsnių pakeitimo įstatymo projekto pateikimo Lietuvos Respublikos Seimui",
+      "sritis": "Elektra",
+      "rusis": "Nutarimas",
+      "priimtas": "2026-11-25",
+      "paskelbta_tar": "2026-11-25",
+      "isigalioja": "2026-11-25",
+      "galioj_busena": null,
+      "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
+      "tar_kodas": "2026-18584",
+      "atv_dok_nr": "905",
+      "url": "https://e-tar.lt/portal/lt/legalAct/33676d40e8ef11f1ab45d33e859b1b3f"
+    }
+  ],
+  "by_type": {
+    "Nutarimas": 2
+  },
+  "all_acts": [
+    {
+      "pavadinimas": "Dėl Lietuvos Respublikos Vyriausybės 2022 m. spalio 19 d. nutarimo Nr. 1049 „Dėl Reikalavimų asmenims, siekiantiems įgyti bei įgijusiems teisę plėtoti ir eksploatuoti atsinaujinančius energijos išteklius naudojančias elektrines jūrinėje teritorijoje, ir jūrinės teritorijos tyrimų bei kitų veiksmų atlikimo išlaidų kompensavimo tvarkos aprašo patvirtinimo“ pakeitimo",
+      "rusis": "Nutarimas",
+      "priimtas": "2026-11-25",
+      "paskelbta_tar": "2026-11-25",
+      "isigalioja": "2026-11-26",
+      "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
+      "tar_kodas": "2026-18585",
+      "url": "https://e-tar.lt/portal/lt/legalAct/4f857f22e8f011f1ab45d33e859b1b3f"
+    },
+    {
+      "pavadinimas": "Dėl Lietuvos Respublikos elektros energetikos įstatymo Nr. VIII-1881 2, 31 ir 67 straipsnių pakeitimo įstatymo projekto pateikimo Lietuvos Respublikos Seimui",
+      "rusis": "Nutarimas",
+      "priimtas": "2026-11-25",
+      "paskelbta_tar": "2026-11-25",
+      "isigalioja": "2026-11-25",
+      "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
+      "tar_kodas": "2026-18584",
+      "url": "https://e-tar.lt/portal/lt/legalAct/33676d40e8ef11f1ab45d33e859b1b3f"
+    }
+  ],
+  "data": "2026-11-27",
+  "šaltinis": "data.gov.lt TAR (surinkta per Chrome)"
 }
