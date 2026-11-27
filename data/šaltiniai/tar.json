@@ -1,74 +1,36 @@
 {
  "šaltinis": "data.gov.lt TAR",
- "nuo": "2026-11-19",
- "iki": "2026-11-25",
- "surinkta": "2026-11-25T02:24:03.985Z",
- "viso": 233,
+ "nuo": "2026-11-25",
+ "iki": "2026-11-27",
+ "surinkta": "2026-11-27T02:24:16.358Z",
+ "viso": 63,
  "pagal_dieną": {
-  "2026-11-23": 46,
-  "2026-11-20": 53,
-  "2026-11-19": 134
+  "2026-11-25": 63
  },
  "aktai": [
   {
-   "pavadinimas": "Dėl Raseinių r. sav., Ariogalos sen., Molupių k. ir Šlapučių k., inžinerinės infrastruktūros vystymo plano, numatant vėjo elektrinių statybą, specialiojo plano patvirtinimo",
+   "pavadinimas": "Dėl Lietuvos Respublikos Vyriausybės 2022 m. spalio 19 d. nutarimo Nr. 1049 „Dėl Reikalavimų asmenims, siekiantiems įgyti bei įgijusiems teisę plėtoti ir eksploatuoti atsinaujinančius energijos išteklius naudojančias elektrines jūrinėje teritorijoje, ir jūrinės teritorijos tyrimų bei kitų veiksmų atlikimo išlaidų kompensavimo tvarkos aprašo patvirtinimo“ pakeitimo",
    "sritis": "AEI ir kaupimas",
-   "rusis": "Sprendimas",
-   "priemusi_inst": "Raseinių rajono savivaldybės taryba",
-   "priimtas": "2026-11-19",
-   "paskelbta_tar": "2026-11-19",
-   "isigalioja": "2026-11-20",
-   "tar_kodas": "2026-18365",
-   "atv_dok_nr": "TS-222",
-   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/8b758bb1e42711f1ab45d33e859b1b3f"
-  },
-  {
-   "pavadinimas": "Dėl AB „Energijos skirstymo operatorius“ gamtinių dujų skirstymo kainų 2027 metams tvirtinimo",
-   "sritis": "Dujos",
-   "rusis": "Nutarimas",
-   "priemusi_inst": "Valstybinė energetikos reguliavimo taryba",
-   "priimtas": "2026-11-20",
-   "paskelbta_tar": "2026-11-20",
-   "isigalioja": "2026-11-21",
-   "tar_kodas": "2026-18387",
-   "atv_dok_nr": "O3-1531",
-   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/2dd7dd00e4ae11f1ab45d33e859b1b3f"
-  },
-  {
-   "pavadinimas": "Dėl gamtinių dujų tiekimo saugumo papildomos dedamosios prie gamtinių dujų perdavimo kainos nustatymo 2027 metams",
-   "sritis": "Dujos",
-   "rusis": "Nutarimas",
-   "priemusi_inst": "Valstybinė energetikos reguliavimo taryba",
-   "priimtas": "2026-11-20",
-   "paskelbta_tar": "2026-11-20",
-   "isigalioja": "2027-01-01",
-   "tar_kodas": "2026-18385",
-   "atv_dok_nr": "O3-1515",
-   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/5d316441e4a911f1ab45d33e859b1b3f"
-  },
-  {
-   "pavadinimas": "Dėl UAB Gren Akmenė karšto vandens kainų dedamųjų nustatymo",
-   "sritis": "Šiluma",
-   "rusis": "Nutarimas",
-   "priemusi_inst": "Valstybinė energetikos reguliavimo taryba",
-   "priimtas": "2026-11-20",
-   "paskelbta_tar": "2026-11-20",
-   "isigalioja": "2026-11-21",
-   "tar_kodas": "2026-18386",
-   "atv_dok_nr": "O3-1530",
-   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/05616f30e4ae11f1ab45d33e859b1b3f"
-  },
-  {
-   "pavadinimas": "Dėl Lietuvos Respublikos viešųjų pirkimų įstatymo Nr. I-1491 pakeitimo įstatymo, Lietuvos Respublikos pirkimų, atliekamų vandentvarkos, energetikos, transporto ar pašto paslaugų srities perkančiųjų subjektų, įstatymo Nr. XIII-328 pakeitimo įstatymo, Lietuvos Respublikos viešųjų pirkimų, atliekamų gynybos ir saugumo srityje, įstatymo Nr. XI-1491 pakeitimo įstatymo, Lietuvos Respublikos finansinės apskaitos įstatymo Nr. IX-574 2, 6 ir 10 straipsnių pakeitimo įstatymo, Lietuvos Respublikos administracinių nusižengimų kodekso 12 straipsnio pakeitimo įstatymo projektų pateikimo Lietuvos Respublikos Seimui",
-   "sritis": "Kita energetika",
    "rusis": "Nutarimas",
    "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
-   "priimtas": "2026-11-18",
-   "paskelbta_tar": "2026-11-23",
-   "isigalioja": "2026-11-23",
-   "tar_kodas": "2026-18431",
-   "atv_dok_nr": "888",
-   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/72147ee2e70311f1ab45d33e859b1b3f"
+   "priimtas": "2026-11-25",
+   "paskelbta_tar": "2026-11-25",
+   "isigalioja": "2026-11-26",
+   "tar_kodas": "2026-18585",
+   "atv_dok_nr": "906",
+   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/4f857f22e8f011f1ab45d33e859b1b3f"
+  },
+  {
+   "pavadinimas": "Dėl Lietuvos Respublikos elektros energetikos įstatymo Nr. VIII-1881 2, 31 ir 67 straipsnių pakeitimo įstatymo projekto pateikimo Lietuvos Respublikos Seimui",
+   "sritis": "Elektra",
+   "rusis": "Nutarimas",
+   "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
+   "priimtas": "2026-11-25",
+   "paskelbta_tar": "2026-11-25",
+   "isigalioja": "2026-11-25",
+   "tar_kodas": "2026-18584",
+   "atv_dok_nr": "905",
+   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/33676d40e8ef11f1ab45d33e859b1b3f"
   }
  ]
 }
