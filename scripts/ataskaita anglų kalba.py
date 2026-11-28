@@ -290,6 +290,77 @@ def kita_sentences(inp) -> list[str]:
     return [head, f"{lead}: {expl or default}."]
 
 
+def spike_sentences(inp) -> list[str]:
+    """Kainos šuolis – ta pati logika kaip ataskaita.py spike_sentences(), angliškai (esamasis laikas, kaip kituose sakiniuose)."""
+    num = A.num
+    out = []
+    for e in (inp.sit or {}).get("šuoliai") or []:
+        p = float(e["kaina"])
+        k = e.get("kartai")
+        rel = (f"{num(k)} times the surrounding hours" if k else "far above the surrounding hours") + f" (about {num(e['aplink'], 0)}{NB}€/MWh)"
+        if int(e["iki"]) - int(e["nuo"]) > 1:
+            out.append(f"From {int(e['nuo']):02d}:00 to {int(e['iki']):02d}:00 the price jumps: the most expensive hour is "
+                       f"{A.hours_label(int(e['val']))} at {num(p)}{NB}€/MWh, {rel}.")
+        else:
+            out.append(f"At {A.hours_label(int(e['val']))} the price jumps to {num(p)}{NB}€/MWh – {rel}.")
+        ld, wd = e.get("vartojimas") or {}, e.get("vėjas") or {}
+        cond = []
+        if ld.get("mw") and ld.get("aplink") and ld["mw"] >= 1.08 * ld["aplink"]:
+            cond.append(f"consumption rises ({num(ld['mw'], 0)}{NB}MW, about {num(ld['aplink'], 0)}{NB}MW in the surrounding hours)")
+        if wd.get("mw") is not None and wd.get("aplink") and wd["aplink"] - wd["mw"] >= 100 and wd["mw"] <= 0.6 * wd["aplink"]:
+            cond.append(f"wind output drops ({num(wd['mw'], 0)}{NB}MW, about {num(wd['aplink'], 0)}{NB}MW in the surrounding hours)")
+        if cond:
+            out.append(f"In that hour {join(cond)}.")
+        lead = "Meanwhile" if cond else "In that hour"
+        kn = e.get("kaimynai") or {}
+        nb = [z for z in ("LV", "SE4", "PL") if z in kn]
+        prices = join([f"{num(kn[z])}" + (f"{NB}€/MWh" if i == 0 else "") + f" in {ZONE[z]}" for i, z in enumerate(nb)])
+        imp = e.get("importas") or {}
+        live = [z for z in ("SE4", "PL", "LV") if z in imp and imp[z]["pralaidumas"] > 20]
+        full = [z for z in live if imp[z]["pilna"]]
+        regional = [z for z in (e.get("kaimynų_šuoliai") or []) if z in kn]
+        same = next((z for z in ("LV", "SE4", "PL", "EE", "FI") if z in kn and abs(float(kn[z]) - p) <= 1), None)
+        if regional:
+            eq = [z for z in regional if abs(float(kn[z]) - p) <= 1]
+            grp = {}
+            for z in regional:
+                if z not in eq:
+                    grp.setdefault(round(float(kn[z]), 1), []).append(z)
+            items = [f"the same {num(p)}{NB}€/MWh in {join([ZONE[z] for z in eq])}"] if eq else []
+            items += [f"{num(v)}{NB}€/MWh in {join([ZONE[z] for z in zs])}" for v, zs in grp.items()]
+            out.append("The jump is regional: " + join(items) + ".")
+        elif live and full == live and nb and p > max(float(kn[z]) for z in nb) + 20:
+            items = [f"{num(imp[z]['srautas'], 0)}{NB}MW from {ZONE[z]}" for z in full if not A.spike_reduced(imp[z])]
+            for z in [z for z in full if A.spike_reduced(imp[z])]:
+                x = imp[z]
+                t = f"only {num(x['srautas'], 0)}{NB}MW from {ZONE[z]}" + (", the lowest of the day" if x.get("paros_min") else "")
+                extra = [f"about {num(x['aplink'], 0)}{NB}MW in the surrounding hours"]
+                nom = x.get("nominalas")
+                if nom and float(nom) - x["pralaidumas"] >= 0.15 * float(nom):
+                    extra.append(f"{num(nom, 0)}{NB}MW normally")
+                items.append(t + f" ({', '.join(extra)})")
+            out.append(f"{lead} all import interconnectors are full: {join(items)}.")
+            much = "much " if max(float(kn[z]) for z in nb) <= 0.7 * p else ""
+            out.append(f"So the price is set by local power plants, while electricity in the neighbouring markets costs {much}less: {prices}.")
+        else:
+            if full and full != live:
+                t = (f"{lead} only the interconnector from {ZONE[full[0]]} is full" if len(full) == 1
+                     else f"{lead} only the interconnectors from {join([ZONE[z] for z in full])} are full")
+            elif full:
+                t = f"{lead} all import interconnectors are full"
+            elif live:
+                t = f"{lead} the import interconnectors are not full"
+            else:
+                t = ""
+            if nb:
+                t = (t + ", while electricity costs " if t else f"{lead} electricity costs ") + prices
+            if t:
+                out.append(t + ".")
+            out.append(f"The Lithuanian price matches the {ADJ[same]} price in that hour." if same
+                       else "No clear cause of the jump is visible in the data.")
+    return out
+
+
 def _balanced(st, up, dn) -> bool:
     return (st not in PRICE_PHRASE and up and dn and up[1] >= 15 and dn[1] <= -15
             and min(up[1], -dn[1]) >= 0.6 * max(up[1], -dn[1]))
@@ -342,6 +413,9 @@ def energy_paragraphs(inp) -> list[str]:
     t = trade_sentences(inp, with_number="kaimynai" not in mentioned)
     if t:
         out.append(" ".join(t))
+    sx = spike_sentences(inp)
+    if sx:
+        out.append(" ".join(sx))
     kx = kita_sentences(inp)
     if kx:
         out.append(" ".join(kx))

@@ -576,8 +576,93 @@ def kita_sentences(inp: Inputs) -> list[str]:
     return [head, f"{lead}: {expl or 'jungtys nebuvo pilnai apkrautos, kaimynų kainos neišsiskyrė, todėl aiškios priežasties duomenyse nematyti'}."]
 
 
+def spike_reduced(x: dict) -> bool:
+    """Jungties pralaidumas šuolio valandą gerokai mažesnis nei gretimomis valandomis."""
+    a = x.get("aplink")
+    return a is not None and a - x["pralaidumas"] >= max(50, 0.1 * a)
+
+
+def spike_sentences(inp: Inputs) -> list[str]:
+    """Kainos šuolis (Jono pastaba 2026-11-28): valanda, gerokai brangesnė už aplinkines, ir ką tą valandą rodė rinka.
+    Rašoma tik tai, ką rodo duomenys: kaimynų kainos, importo jungčių srautai ir pralaidumai, vartojimas ir vėjas."""
+    if LANG == "en":
+        return en().spike_sentences(inp)
+    out = []
+    for e in (inp.sit or {}).get("šuoliai") or []:
+        p = float(e["kaina"])
+        k = e.get("kartai")
+        rel = (f"{num(k)}{NB}karto daugiau nei gretimomis valandomis" if k else "gerokai daugiau nei gretimomis valandomis") \
+            + f" (apie {num(e['aplink'], 0)}{NB}€/MWh)"
+        if int(e["iki"]) - int(e["nuo"]) > 1:
+            out.append(f"{e['nuo']}–{e['iki']}{NB}val. kaina šoktelėjo: brangiausia {hours_label(int(e['val']))} – {num(p)}{NB}€/MWh, {rel}.")
+        else:
+            out.append(f"{hours_label(int(e['val']))} kaina šoktelėjo iki {num(p)}{NB}€/MWh – {rel}.")
+        # vartojimas ir vėjas – tik kai tą valandą aiškiai kitokie nei gretimomis valandomis
+        ld, wd = e.get("vartojimas") or {}, e.get("vėjas") or {}
+        cond = []
+        if ld.get("mw") and ld.get("aplink") and ld["mw"] >= 1.08 * ld["aplink"]:
+            cond.append(f"išaugo vartojimas ({num(ld['mw'], 0)}{NB}MW, gretimomis valandomis apie {num(ld['aplink'], 0)}{NB}MW)")
+        if wd.get("mw") is not None and wd.get("aplink") and wd["aplink"] - wd["mw"] >= 100 and wd["mw"] <= 0.6 * wd["aplink"]:
+            cond.append(f"susilpnėjo vėjas ({num(wd['mw'], 0)}{NB}MW, gretimomis valandomis apie {num(wd['aplink'], 0)}{NB}MW)")
+        if cond:
+            out.append(f"Tą valandą {join_lt(cond)}.")
+        lead = "Tuo metu" if cond else "Tą valandą"
+        kn = e.get("kaimynai") or {}
+        nb = [z for z in ("LV", "SE4", "PL") if z in kn]
+        prices = ", ".join(f"{ZN[z][3]} {num(kn[z])}" for z in nb) + f"{NB}€/MWh"
+        imp = e.get("importas") or {}
+        live = [z for z in ("SE4", "PL", "LV") if z in imp and imp[z]["pralaidumas"] > 20]
+        full = [z for z in live if imp[z]["pilna"]]
+        regional = [z for z in (e.get("kaimynų_šuoliai") or []) if z in kn]
+        same = next((z for z in ("LV", "SE4", "PL", "EE", "FI") if z in kn and abs(float(kn[z]) - p) <= 1), None)
+        if regional:
+            # šuolis ir kaimynėse: tos pačios kainos šalys – kartu
+            eq = [z for z in regional if abs(float(kn[z]) - p) <= 1]
+            grp = {}
+            for z in regional:
+                if z not in eq:
+                    grp.setdefault(round(float(kn[z]), 1), []).append(z)
+            parts = [f"{join_lt([ZN[z][3] for z in eq])} – taip pat {num(p)}{NB}€/MWh"] if eq else []
+            oth = [f"{join_lt([ZN[z][3] for z in zs])} – {num(v)}" for v, zs in grp.items()]
+            if oth:
+                oth[-1] += f"{NB}€/MWh"
+            out.append("Šuolis buvo ir kaimynėse: " + ", ".join(parts + oth) + ".")
+        elif live and full == live and nb and p > max(float(kn[z]) for z in nb) + 20:
+            # visos importo jungtys pilnos – Lietuvos kaina atsiskyrė nuo kaimynų
+            plain = [f"iš {ZN[z][1]} {num(imp[z]['srautas'], 0)}{NB}MW" for z in full if not spike_reduced(imp[z])]
+            bits = []
+            for z in [z for z in full if spike_reduced(imp[z])]:
+                x = imp[z]
+                t = f"iš {ZN[z][1]} – tik {num(x['srautas'], 0)}{NB}MW" + (", mažiausiai per parą" if x.get("paros_min") else "")
+                extra = [f"gretimomis valandomis apie {num(x['aplink'], 0)}{NB}MW"]
+                nom = x.get("nominalas")
+                if nom and float(nom) - x["pralaidumas"] >= 0.15 * float(nom):
+                    extra.append(f"įprastai {num(nom, 0)}{NB}MW")
+                bits.append(t + f" ({', '.join(extra)})")
+            lines = (", ".join(plain) + ", o " + ", o ".join(bits)) if plain and bits else ", o ".join(bits) if bits else join_lt(plain)
+            out.append(f"{lead} visos importo jungtys buvo pilnos: {lines}.")
+            much = "gerokai " if max(float(kn[z]) for z in nb) <= 0.7 * p else ""
+            out.append(f"Todėl kainą lėmė vietinės elektrinės, o kaimynėse elektra kainavo {much}mažiau: {prices}.")
+        else:
+            if full and full != live:
+                t = f"{lead} pilna buvo tik jungtis {join_lt([f'iš {ZN[z][1]}' for z in full])}" if len(full) == 1 \
+                    else f"{lead} pilnos buvo tik jungtys {join_lt([f'iš {ZN[z][1]}' for z in full])}"
+            elif full:
+                t = f"{lead} visos importo jungtys buvo pilnos"
+            elif live:
+                t = f"{lead} importo jungtys nebuvo pilnos"
+            else:
+                t = ""
+            if nb:
+                t = (t + ", o kaimynėse" if t else f"{lead} kaimynėse") + f" elektra kainavo: {prices}"
+            if t:
+                out.append(t + ".")
+            out.append(f"Lietuvos kaina tą valandą sutapo su {ZN[same][1]}." if same else "Aiškios šuolio priežasties duomenyse nematyti.")
+    return out
+
+
 def energy_paragraphs(inp: Inputs) -> list[str]:
-    """Kas kainą lemia: pagrindinis veiksnys (nuokrypio kryptimi) su skaičiais, priešingi veiksniai, jungtys, „kita“."""
+    """Kas kainą lemia: pagrindinis veiksnys (nuokrypio kryptimi) su skaičiais, priešingi veiksniai, jungtys, šuoliai, „kita“."""
     if LANG == "en":
         return en().energy_paragraphs(inp)
     if not inp.sit:
@@ -625,6 +710,9 @@ def energy_paragraphs(inp: Inputs) -> list[str]:
     t = trade_sentences(inp, with_number="kaimynai" not in mentioned)
     if t:
         out.append(" ".join(t))
+    sx = spike_sentences(inp)
+    if sx:
+        out.append(" ".join(sx))
     kx = kita_sentences(inp)
     if kx:
         out.append(" ".join(kx))

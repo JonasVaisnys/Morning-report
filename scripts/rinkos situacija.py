@@ -38,6 +38,10 @@ Modelis
     „Kita" – faktinės kainos ir antrojo
     modelio skirtumas; kai ji ≥ 10 €/MWh, nurodomos valandos, kuriomis kaina
     labiausiai skyrėsi nuo modelio, ir tų valandų rinkos duomenys.
+    Šuoliai (nuo 2026-11-28): valanda (ar kelios iš eilės), kurios kaina bent
+    100 €/MWh ir 1,5 karto didesnė už aplinkinių valandų lygį (didesnė iš 3
+    ankstesnių ir 3 vėlesnių valandų medianų); tai valandai – kaimynų kainos,
+    importo jungčių srautai ir pralaidumai, vartojimas ir AEI.
 
 Naudojimas
     python "scripts/rinkos situacija.py" 2026-11-12 [--json]
@@ -129,6 +133,68 @@ def add_congestion(df, j):
         cap = j[cc].reindex(df.index).fillna(float(j[cc].median()))
         df[k_] = np.where(flow.isna(), np.nan, ((flow >= FULL * cap) & (cap > 20)).astype(float))
     return df
+
+SUOLIS_ABS, SUOLIS_REL = 100.0, 1.5         # €/MWh ir kartai: valanda tiek brangesnė už aplinkines (Jono pastaba 2026-11-28)
+IMP_COLS = {"SE4": ("prekyba_SE4_LT", "siulomas_SE4_LT", "LT–SE4 (NordBalt)"), "PL": ("prekyba_PL_LT", "siulomas_PL_LT", "LT–PL (LitPol)"),
+            "LV": ("prekyba_LV_LT", "siulomas_LV_LT", "LT–LV")}
+
+def around(v, i, n=3):
+    """Aplinkinės valandos: iki n ankstesnių ir n vėlesnių (be pačios i), be tuščių."""
+    a = np.r_[v[max(0, i - n):i], v[i + 1:i + 1 + n]]
+    return a[~np.isnan(a)]
+
+def spike_base(p, i):
+    """Aplinkinių valandų kainos lygis: didesnė iš 3 ankstesnių ir 3 vėlesnių valandų medianų; kraštinėms valandoms – None."""
+    L, R = p[max(0, i - 3):i], p[i + 1:i + 4]
+    L, R = L[~np.isnan(L)], R[~np.isnan(R)]
+    if not len(L) or not len(R):
+        return None
+    return max(float(np.median(L)), float(np.median(R)))
+
+def is_spike(p, i):
+    b = spike_base(p, i)
+    ok = b is not None and not np.isnan(p[i]) and p[i] - b >= SUOLIS_ABS and (b <= 0 or p[i] >= SUOLIS_REL * b)
+    return ok, b
+
+def spikes(H24, T, jj, caps):
+    """Kainos šuoliai: valandos (ar kelios iš eilės), kurių kaina ≥ SUOLIS_ABS €/MWh ir ≥ SUOLIS_REL karto didesnė už aplinkinių
+    valandų lygį. Kiekvienam (pagal brangiausią valandą) – kaimynų kainos ir jų šuoliai, importo jungčių srautai ir pralaidumai,
+    vartojimas, vėjas ir saulė tą valandą bei gretimomis valandomis."""
+    P = H24.LT.to_numpy(float)
+    flags = [is_spike(P, i) for i in range(len(P))]
+    groups = []
+    for i, (ok, _) in enumerate(flags):
+        if ok:
+            if groups and groups[-1][-1] == i - 1:
+                groups[-1].append(i)
+            else:
+                groups.append([i])
+    J, TT = jj.reindex(H24.index), T.reindex(H24.index)
+    out = []
+    for g in groups:
+        pk = max(g, key=lambda i: P[i]); base = flags[pk][1]
+        e = {"nuo": int(H24.hour.iloc[g[0]]), "iki": int(H24.hour.iloc[g[-1]]) + 1, "val": int(H24.hour.iloc[pk]),
+             "kaina": round(float(P[pk]), 1), "aplink": round(base, 1), "kartai": round(float(P[pk]) / base, 2) if base > 0 else None}
+        e["kaimynai"] = {z: round(float(H24[z].iloc[pk]), 1) for z in ("LV", "EE", "FI", "SE4", "PL") if pd.notna(H24[z].iloc[pk])}
+        e["kaimynų_šuoliai"] = [z for z in ("LV", "EE", "FI", "SE4", "PL") if is_spike(H24[z].to_numpy(float), pk)[0]]
+        imp = {}
+        for z, (fc, cc, name) in IMP_COLS.items():
+            if fc not in J.columns or cc not in J.columns:
+                continue
+            cp = J[cc].to_numpy(float)
+            if np.isnan(cp[pk]):
+                continue
+            fl = float(np.nan_to_num(J[fc].to_numpy(float)[pk]))
+            a = around(cp, pk)
+            imp[z] = {"srautas": round(fl), "pralaidumas": round(float(cp[pk])), "pilna": bool(cp[pk] > 20 and fl >= FULL * cp[pk]),
+                      "aplink": round(float(np.median(a))) if len(a) else None, "paros_min": bool(cp[pk] <= np.nanmin(cp) + 1),
+                      "nominalas": ((caps.get(name) or {}).get("importas") or {}).get("nominalas")}
+        e["importas"] = imp
+        for key, col in (("vartojimas", "load_f"), ("vėjas", "wind_f"), ("saulė", "sol_f")):
+            v = TT[col].to_numpy(float); a = around(v, pk)
+            e[key] = {"mw": None if np.isnan(v[pk]) else round(float(v[pk])), "aplink": round(float(np.median(a))) if len(a) else None}
+        out.append(e)
+    return sorted(out, key=lambda e: -(e["kaina"] - e["aplink"]))[:2]
 
 def max_window(res, sign):
     """Ištisinis valandų intervalas, kuriame faktinės kainos ir modelio skirtumas (nurodyta kryptimi) didžiausias."""
@@ -410,6 +476,10 @@ class Situation:
                 for c_ in CONG:
                     ex[c_] = int(np.nansum(W[c_]))
                 out["kitos_aiškinimas"] = ex
+        # kainos šuoliai (Jono pastaba 2026-11-28): valanda, gerokai brangesnė už aplinkines, ir ką tada rodė rinka
+        sp = spikes(H24.sort_index(), T, jj, caps)
+        if sp:
+            out["šuoliai"] = sp
         return out
 
 
@@ -459,6 +529,11 @@ def render(S, r):
     if dn: s += f" Kainą mažina: {ph(dn)}."
     L.append(s)
     L.append("   indėliai: " + ", ".join(f"{f} {v:+.1f}" for f, v in c.items()) + f" | modelis {k['modelis']}, ref. dienų {r['ref_dienų']}")
+    for e in r.get("šuoliai") or []:
+        imp = "; ".join(f"{z} {x['srautas']}/{x['pralaidumas']} MW{' pilna' if x['pilna'] else ''} (aplink {x['aplink']}, nom. {x['nominalas']})" for z, x in e["importas"].items())
+        L.append(f"ŠUOLIS {e['nuo']}–{e['iki']} val.: {lt(e['kaina'],1)} €/MWh {e['val']} val. (aplink {lt(e['aplink'],1)}, ×{e['kartai']}); "
+                 f"kaimynai {e['kaimynai']}, jų šuoliai {e['kaimynų_šuoliai'] or '–'}; importas: {imp}; "
+                 f"vartojimas {e['vartojimas']}, vėjas {e['vėjas']}, saulė {e['saulė']}")
     return "\n".join(L)
 
 
