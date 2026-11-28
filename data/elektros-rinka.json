@@ -1,138 +1,138 @@
 {
- "data": "2026-11-27",
- "ref_dienų": 89,
+ "data": "2026-11-28",
+ "ref_dienų": 34,
  "galia": {
   "vėjas": 2507,
   "saulė": 3018
  },
  "vartojimas": {
-  "mw": 1802,
-  "norma": 1714,
+  "mw": 1700,
+  "norma": 1526,
   "intervalas": [
-   1680,
-   1764
+   1495,
+   1570
   ],
-  "būsena": "didesnis nei įprasta",
-  "nuokrypis_proc": 5.1,
+  "būsena": "gerokai didesnis nei įprasta",
+  "nuokrypis_proc": 11.4,
   "procentilis": null
  },
  "vėjas": {
-  "mw": 199,
-  "norma": 524,
+  "mw": 109,
+  "norma": 509,
   "intervalas": [
-   345,
-   694
+   348,
+   609
   ],
   "būsena": "mažesnė nei įprasta",
-  "procentilis": 13
+  "procentilis": 12
  },
  "saulė": {
-  "mw": 111,
-  "norma": 17,
+  "mw": 77,
+  "norma": 18,
   "intervalas": [
-   14,
-   28
+   15,
+   47
   ],
   "būsena": "gerokai didesnė nei įprasta",
-  "procentilis": 98
+  "procentilis": 91
  },
  "kita_gamyba": {
-  "mw": 355,
-  "norma": 224,
+  "mw": 287,
+  "norma": 178,
   "būsena": "gerokai didesnė nei įprasta",
   "valandos": "00–06",
-  "vėjas_faktas": 217,
+  "vėjas_faktas": 106,
   "saulė_faktas": 0,
-  "vartojimas_faktas": 1463
+  "vartojimas_faktas": 1466
  },
  "dujos": {
-  "ttf": 87.5,
-  "norma_12mėn": 53.6,
-  "santykis": 1.63,
+  "ttf": 84.8,
+  "norma_12mėn": 53.7,
+  "santykis": 1.58,
   "būsena": "gerokai brangesnės nei įprasta",
   "prieš_metus": 29.4
  },
  "kaina": {
-  "lt": 322.9,
-  "norma": 167.6,
+  "lt": 221.3,
+  "norma": 121.0,
   "intervalas": [
-   151,
-   198
+   111,
+   151
   ],
-  "norma_su_šiandienos_dujomis": 249.1,
+  "norma_su_šiandienos_dujomis": 175.3,
   "būsena": "gerokai didesnė nei įprasta",
-  "min": 233.2,
-  "max": 429.5,
-  "min_val": 6,
+  "min": 125.9,
+  "max": 430.9,
+  "min_val": 23,
   "max_val": 9,
-  "modelis": 363.5,
-  "modelis_su_jungtimis": 346.0
+  "modelis": 282.7,
+  "modelis_su_jungtimis": 283.4
  },
  "indėliai": {
-  "dujos": 105.6,
-  "vartojimas": 5.5,
-  "vėjas": 26.0,
-  "saulė": -5.3,
+  "dujos": 68.5,
+  "vartojimas": 13.4,
+  "vėjas": 31.6,
+  "saulė": -2.8,
   "pralaidumai": 0.0,
-  "kaimynai": 38.9,
-  "kita": -15.5
+  "kaimynai": 32.5,
+  "kita": -42.8
  },
  "dujų_metodas": "šiandienos sąlygomis",
  "kaimynų_detalės": {
-  "kainos": 50.7,
-  "jungčių_apkrova": -11.8
+  "kainos": 32.0,
+  "jungčių_apkrova": 0.5
  },
  "kaimynai": {
-  "LV": 222.2,
-  "SE4": 317.1,
-  "PL": 310.9,
-  "EE": 208.7,
-  "FI": 204.1
+  "LV": 154.9,
+  "SE4": 190.1,
+  "PL": 233.2,
+  "EE": 139.5,
+  "FI": 101.0
  },
  "lt_lv_skiriasi_val": 23,
  "kaimynų_būsena": {
   "SE4": {
-   "kaina": 317.1,
-   "norma_su_šiandienos_dujomis": 183.8,
+   "kaina": 190.1,
+   "norma_su_šiandienos_dujomis": 118.6,
    "būsena": "gerokai didesnė nei įprasta",
-   "procentilis": 96
+   "procentilis": 91
   },
   "PL": {
-   "kaina": 310.9,
-   "norma_su_šiandienos_dujomis": 219.2,
+   "kaina": 233.2,
+   "norma_su_šiandienos_dujomis": 172.9,
    "būsena": "didesnė nei įprasta",
-   "procentilis": 88
+   "procentilis": 76
   },
   "FI": {
-   "kaina": 204.1,
-   "norma_su_šiandienos_dujomis": 190.9,
+   "kaina": 101.0,
+   "norma_su_šiandienos_dujomis": 102.4,
    "būsena": "įprasta",
-   "procentilis": 62
+   "procentilis": 50
   }
  },
  "mainai": {
   "SE4": {
-   "mw": 322,
-   "proc_vartojimo": 18
+   "mw": 689,
+   "proc_vartojimo": 41
   },
   "PL": {
-   "mw": 111,
-   "proc_vartojimo": 6
+   "mw": 40,
+   "proc_vartojimo": 2
   },
   "LV": {
-   "mw": 817,
-   "proc_vartojimo": 45
+   "mw": 647,
+   "proc_vartojimo": 38
   },
   "iš_viso": {
-   "mw": 1249,
-   "proc_vartojimo": 69
+   "mw": 1376,
+   "proc_vartojimo": 81
   },
   "maks": {
-   "SE4_imp": 684,
-   "SE4_eksp": 75,
-   "PL_imp": 190,
-   "PL_eksp": 160,
-   "LV_imp": 968,
+   "SE4_imp": 700,
+   "SE4_eksp": 0,
+   "PL_imp": 185,
+   "PL_eksp": 199,
+   "LV_imp": 890,
    "LV_eksp": 0
   }
  },
@@ -143,111 +143,111 @@
     "mw": 700,
     "min": 700,
     "nominalas": 700,
-    "pask_data": "2026-11-28"
+    "pask_data": "2026-11-29"
    },
    "eksportas": {
     "mw": 700,
     "min": 700,
     "nominalas": 700,
-    "pask_data": "2026-11-28"
+    "pask_data": "2026-11-29"
    }
   },
   "LT–PL (LitPol)": {
    "importas": {
-    "mw": 186,
-    "min": 181,
+    "mw": 183,
+    "min": 178,
     "nominalas": 164,
-    "pask_data": "2026-11-28"
+    "pask_data": "2026-11-29"
    },
    "eksportas": {
-    "mw": 207,
-    "min": 197,
+    "mw": 199,
+    "min": 192,
     "nominalas": 194,
-    "pask_data": "2026-11-28"
+    "pask_data": "2026-11-29"
    }
   },
   "LT–LV": {
    "importas": {
-    "mw": 818,
-    "min": 547,
+    "mw": 650,
+    "min": 462,
     "nominalas": 838,
-    "pask_data": "2026-11-28"
+    "pask_data": "2026-11-29"
    },
    "eksportas": {
-    "mw": 834,
-    "min": 734,
+    "mw": 869,
+    "min": 810,
     "nominalas": 943,
-    "pask_data": "2026-11-28"
+    "pask_data": "2026-11-29"
    }
   }
  },
  "sąlygos": {
-  "srmc": 192.7,
-  "srmc_norma": 129.7,
+  "srmc": 188.2,
+  "srmc_norma": 130.0,
   "cap_def": 0
  },
  "jungtys_būsena": {
   "SE4": {
    "eksportas_pilnas_val": 0,
-   "importas_pilnas_val": 1
+   "importas_pilnas_val": 22
   },
   "PL": {
-   "eksportas_pilnas_val": 0,
-   "importas_pilnas_val": 9
+   "eksportas_pilnas_val": 2,
+   "importas_pilnas_val": 3
   },
   "LV": {
    "eksportas_pilnas_val": 0,
-   "importas_pilnas_val": 24
+   "importas_pilnas_val": 23
   }
  },
  "lt_lv": {
   "brangiau_val": 23,
   "pigiau_val": 0,
-  "skirtumas": 100.7
+  "skirtumas": 66.4
  },
  "kaimynų_valandos": {
   "SE4": {
-   "min": 229.4,
-   "max": 424.9,
-   "max_val": 9
+   "min": 137.6,
+   "max": 224.1,
+   "max_val": 18
   },
   "PL": {
-   "min": 196.7,
-   "max": 421.4,
-   "max_val": 9
+   "min": 194.4,
+   "max": 335.7,
+   "max_val": 14
   },
   "LV": {
-   "min": 118.9,
-   "max": 280.6,
-   "max_val": 10
+   "min": 105.2,
+   "max": 198.9,
+   "max_val": 8
   },
   "FI": {
-   "min": 116.6,
-   "max": 280.3,
-   "max_val": 10
+   "min": 75.3,
+   "max": 124.1,
+   "max_val": 1
   }
  },
  "kitos_aiškinimas": {
   "nuo": 0,
   "iki": 24,
   "valandų": 24,
-  "kryptimi_val": 21,
+  "kryptimi_val": 23,
   "paros_val": 24,
   "dalis": 1.0,
-  "kaina": 322.9,
-  "modelis": 346.0,
-  "LV": 222.2,
-  "EE": 208.7,
-  "FI": 204.1,
-  "SE4": 317.1,
-  "PL": 310.9,
+  "kaina": 221.3,
+  "modelis": 283.4,
+  "LV": 154.9,
+  "EE": 139.5,
+  "FI": 101.0,
+  "SE4": 190.1,
+  "PL": 233.2,
   "lt_lygu_lv_val": 1,
   "x_se4": 0,
-  "i_se4": 1,
-  "x_pl": 0,
-  "i_pl": 9,
+  "i_se4": 22,
+  "x_pl": 2,
+  "i_pl": 3,
   "x_lv": 0,
-  "i_lv": 24
+  "i_lv": 23
  }
 }
 

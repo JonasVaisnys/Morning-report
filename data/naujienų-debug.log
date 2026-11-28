@@ -1,4 +1,4 @@
-📡 Naujienų brifingas 2026-11-27
+📡 Naujienų brifingas 2026-11-28
   ✓ Delfi ekonomika: 47
   ✓ Delfi verslas: 47
   ✓ 15min: 20
@@ -9,7 +9,7 @@
   ⚠  Energetika.lt: HTTP Error 404: Not Found
   Šviežių (≤ 36 val.): 137 iš 137
 
-  Iš viso straipsnių: 184 (dublikatai: 47, unikalūs: 137), energetikos: 15
+  Iš viso straipsnių: 184 (dublikatai: 47, unikalūs: 137), energetikos: 20
   ✓ Montel (Lithuania): 10 rezultatų, naujų per 3 d.: 0
   ✓ Montel (Lithuanian): 10 rezultatų, naujų per 3 d.: 0
   ✓ Montel (Litgrid): 10 rezultatų, naujų per 3 d.: 0
@@ -18,6 +18,6 @@
   ✓ Montel (Baltic): 10 rezultatų, naujų per 3 d.: 0
   ✓ Montel iš viso: 0
   ✓ Claude modelis: claude-sonnet-5-5 (įrankis)
-  Atrinkta naujienų: 5
+  Atrinkta naujienų: 8
 
 ✅ Išsaugota → data/naujienos.json, data/naujienų-brifingas.md

@@ -1,66 +1,67 @@
 {
   "section": "teises_aktai",
-  "generated": "2026-11-27T03:37:24.205152",
+  "generated": "2026-11-28T03:34:26.201787",
   "period": {
-    "from": "2026-11-25",
-    "to": "2026-11-27"
+    "from": "2026-11-26",
+    "to": "2026-11-28"
   },
   "type_filter": null,
-  "total_count": 63,
+  "total_count": 149,
   "energy_relevant_count": 2,
   "energy_relevant": [
     {
-      "pavadinimas": "Dėl Lietuvos Respublikos Vyriausybės 2022 m. spalio 19 d. nutarimo Nr. 1049 „Dėl Reikalavimų asmenims, siekiantiems įgyti bei įgijusiems teisę plėtoti ir eksploatuoti atsinaujinančius energijos išteklius naudojančias elektrines jūrinėje teritorijoje, ir jūrinės teritorijos tyrimų bei kitų veiksmų atlikimo išlaidų kompensavimo tvarkos aprašo patvirtinimo“ pakeitimo",
-      "sritis": "AEI ir kaupimas",
-      "rusis": "Nutarimas",
+      "pavadinimas": "Dėl energetikos ministro 2013 m. gruodžio 18 d. įsakymo Nr. 1-239 „Dėl Informacijos, reikalingos Lietuvos Respublikos naftos produktų ir naftos valstybės atsargų įstatymo nuostatoms įgyvendinti, teikimo tvarkos aprašo patvirtinimo“ pakeitimo",
+      "sritis": "Kita energetika",
+      "rusis": "Įsakymas",
+      "priimtas": "2026-11-26",
+      "paskelbta_tar": "2026-11-26",
+      "isigalioja": "2026-11-27",
+      "galioj_busena": null,
+      "priemusi_inst": "Lietuvos Respublikos energetikos ministerija",
+      "tar_kodas": "2026-18626",
+      "atv_dok_nr": "1-266",
+      "url": "https://e-tar.lt/portal/lt/legalAct/aa752e80e95e11f1ab45d33e859b1b3f"
+    },
+    {
+      "pavadinimas": "Dėl Lietuvos Respublikos pozicijų dėl klausimų, svarstomų 2026 m. lapkričio 30 ir gruodžio 1 d. Europos Sąjungos transporto, telekomunikacijų ir energetikos tarybos posėdyje",
+      "sritis": "Kita energetika",
+      "rusis": "Sprendimas",
       "priimtas": "2026-11-25",
-      "paskelbta_tar": "2026-11-25",
+      "paskelbta_tar": "2026-11-26",
       "isigalioja": "2026-11-26",
       "galioj_busena": null,
       "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
-      "tar_kodas": "2026-18585",
-      "atv_dok_nr": "906",
-      "url": "https://e-tar.lt/portal/lt/legalAct/4f857f22e8f011f1ab45d33e859b1b3f"
-    },
-    {
-      "pavadinimas": "Dėl Lietuvos Respublikos elektros energetikos įstatymo Nr. VIII-1881 2, 31 ir 67 straipsnių pakeitimo įstatymo projekto pateikimo Lietuvos Respublikos Seimui",
-      "sritis": "Elektra",
-      "rusis": "Nutarimas",
-      "priimtas": "2026-11-25",
-      "paskelbta_tar": "2026-11-25",
-      "isigalioja": "2026-11-25",
-      "galioj_busena": null,
-      "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
-      "tar_kodas": "2026-18584",
-      "atv_dok_nr": "905",
-      "url": "https://e-tar.lt/portal/lt/legalAct/33676d40e8ef11f1ab45d33e859b1b3f"
+      "tar_kodas": "2026-18632",
+      "atv_dok_nr": "32",
+      "url": "https://e-tar.lt/portal/lt/legalAct/1125f6c1e96711f1ab45d33e859b1b3f"
     }
   ],
   "by_type": {
-    "Nutarimas": 2
+    "Sprendimas": 1,
+    "Įsakymas": 1
   },
   "all_acts": [
     {
-      "pavadinimas": "Dėl Lietuvos Respublikos Vyriausybės 2022 m. spalio 19 d. nutarimo Nr. 1049 „Dėl Reikalavimų asmenims, siekiantiems įgyti bei įgijusiems teisę plėtoti ir eksploatuoti atsinaujinančius energijos išteklius naudojančias elektrines jūrinėje teritorijoje, ir jūrinės teritorijos tyrimų bei kitų veiksmų atlikimo išlaidų kompensavimo tvarkos aprašo patvirtinimo“ pakeitimo",
-      "rusis": "Nutarimas",
-      "priimtas": "2026-11-25",
-      "paskelbta_tar": "2026-11-25",
-      "isigalioja": "2026-11-26",
-      "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
-      "tar_kodas": "2026-18585",
-      "url": "https://e-tar.lt/portal/lt/legalAct/4f857f22e8f011f1ab45d33e859b1b3f"
+      "pavadinimas": "Dėl energetikos ministro 2013 m. gruodžio 18 d. įsakymo Nr. 1-239 „Dėl Informacijos, reikalingos Lietuvos Respublikos naftos produktų ir naftos valstybės atsargų įstatymo nuostatoms įgyvendinti, teikimo tvarkos aprašo patvirtinimo“ pakeitimo",
+      "rusis": "Įsakymas",
+      "priimtas": "2026-11-26",
+      "paskelbta_tar": "2026-11-26",
+      "isigalioja": "2026-11-27",
+      "priemusi_inst": "Lietuvos Respublikos energetikos ministerija",
+      "tar_kodas": "2026-18626",
+      "url": "https://e-tar.lt/portal/lt/legalAct/aa752e80e95e11f1ab45d33e859b1b3f"
     },
     {
-      "pavadinimas": "Dėl Lietuvos Respublikos elektros energetikos įstatymo Nr. VIII-1881 2, 31 ir 67 straipsnių pakeitimo įstatymo projekto pateikimo Lietuvos Respublikos Seimui",
-      "rusis": "Nutarimas",
+      "pavadinimas": "Dėl Lietuvos Respublikos pozicijų dėl klausimų, svarstomų 2026 m. lapkričio 30 ir gruodžio 1 d. Europos Sąjungos transporto, telekomunikacijų ir energetikos tarybos posėdyje",
+      "rusis": "Sprendimas",
       "priimtas": "2026-11-25",
-      "paskelbta_tar": "2026-11-25",
-      "isigalioja": "2026-11-25",
+      "paskelbta_tar": "2026-11-26",
+      "isigalioja": "2026-11-26",
       "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
-      "tar_kodas": "2026-18584",
-      "url": "https://e-tar.lt/portal/lt/legalAct/33676d40e8ef11f1ab45d33e859b1b3f"
+      "tar_kodas": "2026-18632",
+      "url": "https://e-tar.lt/portal/lt/legalAct/1125f6c1e96711f1ab45d33e859b1b3f"
     }
   ],
-  "data": "2026-11-27",
+  "data": "2026-11-28",
   "šaltinis": "data.gov.lt TAR (surinkta per Chrome)"
 }
