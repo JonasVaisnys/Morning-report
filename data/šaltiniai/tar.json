@@ -1,36 +1,36 @@
 {
  "šaltinis": "data.gov.lt TAR",
- "nuo": "2026-11-25",
- "iki": "2026-11-27",
- "surinkta": "2026-11-27T02:24:16.358Z",
- "viso": 63,
+ "nuo": "2026-11-26",
+ "iki": "2026-11-28",
+ "surinkta": "2026-11-28T02:25:01.025Z",
+ "viso": 149,
  "pagal_dieną": {
-  "2026-11-25": 63
+  "2026-11-26": 149
  },
  "aktai": [
   {
-   "pavadinimas": "Dėl Lietuvos Respublikos Vyriausybės 2022 m. spalio 19 d. nutarimo Nr. 1049 „Dėl Reikalavimų asmenims, siekiantiems įgyti bei įgijusiems teisę plėtoti ir eksploatuoti atsinaujinančius energijos išteklius naudojančias elektrines jūrinėje teritorijoje, ir jūrinės teritorijos tyrimų bei kitų veiksmų atlikimo išlaidų kompensavimo tvarkos aprašo patvirtinimo“ pakeitimo",
-   "sritis": "AEI ir kaupimas",
-   "rusis": "Nutarimas",
-   "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
-   "priimtas": "2026-11-25",
-   "paskelbta_tar": "2026-11-25",
-   "isigalioja": "2026-11-26",
-   "tar_kodas": "2026-18585",
-   "atv_dok_nr": "906",
-   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/4f857f22e8f011f1ab45d33e859b1b3f"
+   "pavadinimas": "Dėl energetikos ministro 2013 m. gruodžio 18 d. įsakymo Nr. 1-239 „Dėl Informacijos, reikalingos Lietuvos Respublikos naftos produktų ir naftos valstybės atsargų įstatymo nuostatoms įgyvendinti, teikimo tvarkos aprašo patvirtinimo“ pakeitimo",
+   "sritis": "Kita energetika",
+   "rusis": "Įsakymas",
+   "priemusi_inst": "Lietuvos Respublikos energetikos ministerija",
+   "priimtas": "2026-11-26",
+   "paskelbta_tar": "2026-11-26",
+   "isigalioja": "2026-11-27",
+   "tar_kodas": "2026-18626",
+   "atv_dok_nr": "1-266",
+   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/aa752e80e95e11f1ab45d33e859b1b3f"
   },
   {
-   "pavadinimas": "Dėl Lietuvos Respublikos elektros energetikos įstatymo Nr. VIII-1881 2, 31 ir 67 straipsnių pakeitimo įstatymo projekto pateikimo Lietuvos Respublikos Seimui",
-   "sritis": "Elektra",
-   "rusis": "Nutarimas",
+   "pavadinimas": "Dėl Lietuvos Respublikos pozicijų dėl klausimų, svarstomų 2026 m. lapkričio 30 ir gruodžio 1 d. Europos Sąjungos transporto, telekomunikacijų ir energetikos tarybos posėdyje",
+   "sritis": "Kita energetika",
+   "rusis": "Sprendimas",
    "priemusi_inst": "Lietuvos Respublikos Vyriausybė",
    "priimtas": "2026-11-25",
-   "paskelbta_tar": "2026-11-25",
-   "isigalioja": "2026-11-25",
-   "tar_kodas": "2026-18584",
-   "atv_dok_nr": "905",
-   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/33676d40e8ef11f1ab45d33e859b1b3f"
+   "paskelbta_tar": "2026-11-26",
+   "isigalioja": "2026-11-26",
+   "tar_kodas": "2026-18632",
+   "atv_dok_nr": "32",
+   "nuoroda": "https://e-tar.lt/portal/lt/legalAct/1125f6c1e96711f1ab45d33e859b1b3f"
   }
  ]
 }
